@@ -20,19 +20,19 @@ Verifies that a user exists and that the provided password matches the stored on
 
 * **Success Response:**
 
-    * **Code:** 200
+    * **Code:** 200 </br>
     **Content:** `"Login Successful"`
 
 * **Error Response:**
 
     Missing one or more body parameters
 
-    * **Code:** 400
+    * **Code:** 400 </br>
     **Content:** `"Missing username or password"`
 
     Username either doesn't exist or password doesn't match stored password for the given username
 
-    * **Code:** 401
+    * **Code:** 401 </br>
     **Content:** `"Invalid login credentials"`
 
     </br>
@@ -62,7 +62,7 @@ Returns a list of books that match given search parameters and the number of boo
 
 * **Success Response:**
 
-    * **Code:** 200
+    * **Code:** 200 </br>
     **Content:**
 
     ```JSON
@@ -105,7 +105,7 @@ Returns a list of books that belong in a given users bookshelf. If no bookshelf 
 
 * **Success Response:**
 
-    * **Code:** 200
+    * **Code:** 200 </br>
     **Content:** 
 
     ```JSON
@@ -128,7 +128,7 @@ Returns a list of books that belong in a given users bookshelf. If no bookshelf 
 
     Missing username URL parameter
 
-    * **Code:** 400
+    * **Code:** 400 </br>
     **Content:** 
 
     ```JSON 
@@ -137,7 +137,7 @@ Returns a list of books that belong in a given users bookshelf. If no bookshelf 
 
     Username doesn't match any existing user
 
-    * **Code:** 401
+    * **Code:** 401 </br>
     **Content:** 
 
     ```JSON 
@@ -146,7 +146,7 @@ Returns a list of books that belong in a given users bookshelf. If no bookshelf 
 
     Given bookshelf name doesn't exist for the given user
 
-    * **Code:** 400
+    * **Code:** 400 </br>
     **Content:** 
 
     ```JSON 
