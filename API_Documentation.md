@@ -20,26 +20,26 @@ Verifies that a user exists and that the provided password matches the stored on
 
 * **Success Response:**
 
-    * **Code:** 200 </br>
+    * **Code:** 200
     **Content:** `"Login Successful"`
 
 * **Error Response:**
 
     Missing one or more body parameters
 
-    * **Code:** 400 </br>
+    * **Code:** 400
     **Content:** `"Missing username or password"`
 
     Username either doesn't exist or password doesn't match stored password for the given username
 
-    * **Code:** 401 </br>
+    * **Code:** 401
     **Content:** `"Invalid login credentials"`
 
     </br>
 
 ## Get Book Data Based on Search Parameters
 ---
-Returns a list of books that match given search parameters. The default list length is at max 10 books but can be increased up to 40 books with the `resultLength` url parameter.
+Returns a list of books that match given search parameters and the number of books that have not yet been served to the user. The default list length is at max 10 books but can be increased up to 40 books with the `resultLength` url parameter. The `offset` parameter can be used to access books later in the search results if making multiple requests with the same search parameters.
 * **Endpoint:** /books
 
 * **Request Method:** POST
@@ -48,27 +48,109 @@ Returns a list of books that match given search parameters. The default list len
 
     **Optional:**
     
-    `username=[String]`
+    `title=[String]`
 
-    `password=[String]`
+    `author=[String]`
 
-* **Returned Data Format:** Plain Text
+    `genre=[String]`
+
+    `resultLength=[integer]` : Defaults to 10
+
+    `offset=[integer]` : Defaults to 0
+
+* **Returned Data Format:** JSON
 
 * **Success Response:**
 
-    * **Code:** 200 </br>
-    **Content:** `"Login Successful"`
+    * **Code:** 200
+    **Content:**
+
+    ```JSON
+    {
+        "remainingBooksInSearch": 24,
+        "books": [
+            {   
+                "title": "Hunger Games",
+                "author": "Suzanne Collins",
+                "genre": "Young Adult"
+            }
+        ]
+    }
+    ```
 
 * **Error Response:**
 
-    Missing one or more body parameters
+    N/A
 
-    * **Code:** 400 </br>
-    **Content:** `"Missing username or password"`
+    </br>
 
-    Username either doesn't exist or password doesn't match stored password for the given username
+## Get Books in Bookshelves
+---
+Returns a list of books that belong in a given users bookshelf. If no bookshelf is specified, then books from all of the users bookshelves are returned.
+* **Endpoint:** /bookshelves/get/:username/:bookshelf
 
-    * **Code:** 401 </br>
-    **Content:** `"Invalid login credentials"`
+* **Request Method:** GET
+
+* **URL Params:**
+
+    **Required:**
+    
+    `username=[String]`
+
+    **Optional:**
+
+    `bookshelf=[String]`
+
+* **Returned Data Format:** JSON
+
+* **Success Response:**
+
+    * **Code:** 200
+    **Content:** 
+
+    ```JSON
+    [
+        {
+            "name": "Want to read",
+            "books": [
+                {   
+                    "title": "Hunger Games",
+                    "author": "Suzanne Collins",
+                    "genre": "Young Adult",
+                    "result": 20,
+                }
+            ]
+        }
+    ]
+    ```
+
+* **Error Response:**
+
+    Missing username URL parameter
+
+    * **Code:** 400
+    **Content:** 
+
+    ```JSON 
+    {"error": "Missing username parameter"}
+    ```
+
+    Username doesn't match any existing user
+
+    * **Code:** 401
+    **Content:** 
+
+    ```JSON 
+    {"error": "Invalid username parameter"}
+    ```
+
+    Given bookshelf name doesn't exist for the given user
+
+    * **Code:** 400
+    **Content:** 
+
+    ```JSON 
+    {"error": "Invalid bookshelf name"}
+    ```
 
     </br>
