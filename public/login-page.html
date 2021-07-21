@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8"> <!-- The best character encoding -->
+
+    <!--
+      Some fonts that Juda likes
+    -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="login-page.js"></script>
+    <title>Husky Reads Login Page</title>
+  </head>
+
+  <body>
+    <main>
+
+      <header><h1>Welcome to Husky Reads! Please log in</h1></header>
+
+      <section id="login-section">
+        <form>
+          <label for="username">Username:</label>
+          <input type="text" id="username" name="username"><br><br>
+          <label for="password">Password:</label>
+          <input type="text" id="password" name="password"><br><br>
+          <input type="button" id="login-button" value="Login">
+        </form>
+      </section>
+
+      <div id="error-missing" class="hidden">
+        You are missing a username or password,
+        please re-enter your credentials.
+      </div>
+
+      <div id="error-invalid-login" class="hidden">
+        We could not find a user with this username and password combo.
+        Please re-enter your credentials.
+      </div>
+
+    </main>
+  </body>
+</html>
