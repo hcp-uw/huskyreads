@@ -30,10 +30,46 @@ Verifies that a user exists and that the provided password matches the stored on
     * **Code:** 400 </br>
     **Content:** `"Missing username or password"`
 
-    Username either doesn't exist or password doesn't match stored password for the given username
+    Username either doesn't exist or the password doesn't match the stored password for the given username
 
     * **Code:** 401 </br>
-    **Content:** `"Invalid login credentials"`
+    **Content:** `"Invalid user credentials"`
+
+    </br>
+
+## Adding a new user
+---
+Adds a new user with the given username and password. If the provided username already exists, an error will be thrown.
+* **Endpoint:** /signup
+
+* **Request Method:** POST
+
+* **Body Params:**
+
+    **Required:**
+    
+    `username=[String]`
+
+    `password=[String]`
+
+* **Returned Data Format:** Plain Text
+
+* **Success Response:**
+
+    * **Code:** 200 </br>
+    **Content:** `"Signup Successful"`
+
+* **Error Response:**
+
+    Missing one or more body parameters
+
+    * **Code:** 400 </br>
+    **Content:** `"Missing username or password"`
+
+    Username is taken by another user already
+
+    * **Code:** 401 </br>
+    **Content:** `"Username already taken"`
 
     </br>
 
@@ -153,4 +189,103 @@ Returns a list of books that belong in a given users bookshelf. If no bookshelf 
     {"error": "Invalid bookshelf name"}
     ```
 
+    </br>
+
+## Add a Book To a Bookshelf
+---
+Adds a book to the specified bookshelf for a user. 
+* **Endpoint:** /bookshelves/add
+
+* **Request Method:** POST
+
+* **BODY Params:**
+
+    **Required:**
+    
+    `username=[String]`
+
+    `password=[String]`
+
+    `bookshelf=[String]` : The name of the bookshelf to add the book to
+
+    `title=[String]` : The title of the book to add
+
+* **Returned Data Format:** Plain Text
+
+* **Success Response:**
+
+    * **Code:** 200 </br>
+    **Content:** `"Book successfully added to the bookshelf"`
+
+* **Error Response:**
+
+    Missing any of the required body parameters
+
+    * **Code:** 400 </br>
+    **Content:** `"Missing one or more required body parameters"`
+
+    Username either doesn't exist or the password doesn't match the stored password for the given username
+
+    * **Code:** 401 </br>
+    **Content:** `"Invalid user credentials"`
+
+    An invalid bookshelf name is provided
+
+    * **Code:** 400 </br>
+    **Content:** `"Invalid bookshelf name"`
+
+    No book exists with the provided title
+
+    * **Code:** 400 </br>
+    **Content:** `"Book does not exist"`
+
+    </br>
+
+## Remove a Book From a Bookshelf
+---
+Removes a book from a specified bookshelf for a user. 
+* **Endpoint:** /bookshelves/remove
+
+* **Request Method:** POST
+
+* **BODY Params:**
+
+    **Required:**
+    
+    `username=[String]`
+
+    `password=[String]`
+
+    `bookshelf=[String]` : The name of the bookshelf to remove the book from
+
+    `title=[String]` : The title of the book to remove
+
+* **Returned Data Format:** Plain Text
+
+* **Success Response:**
+
+    * **Code:** 200 </br>
+    **Content:** `"Book successfully removed from the bookshelf"`
+
+* **Error Response:**
+
+    Missing any of the required body parameters
+
+    * **Code:** 400 </br>
+    **Content:** `"Missing one or more required body parameters"`
+
+    Username either doesn't exist or the password doesn't match the stored password for the given username
+
+    * **Code:** 401 </br>
+    **Content:** `"Invalid user credentials"`
+
+    An invalid bookshelf name is provided
+
+    * **Code:** 400 </br>
+    **Content:** `"Invalid bookshelf name"`
+
+    No book with the provided title exists in the specified bookshelf
+
+    * **Code:** 400 </br>
+    **Content:** `"Book does not exist"`
     </br>
