@@ -16,9 +16,13 @@
   <body>
     <main>
 
-      <header><h1>Welcome to Husky Reads! Please log in</h1></header>
+      <header><h1>
+        Welcome to Husky Reads! Please log in. Don't have
+        an account yet? Sign the hell up!
+      </h1></header>
 
       <section id="login-section">
+        <header><h2>Log in:</h2></header>
         <form>
           <label for="username">Username:</label>
           <input type="text" id="username" name="username"><br><br>
@@ -26,17 +30,33 @@
           <input type="text" id="password" name="password"><br><br>
           <input type="button" id="login-button" value="Login">
         </form>
+
+        <div id="error-missing" class="hidden">
+          You are missing a username or password,
+          please re-enter your credentials.
+        </div>
+        <div id="error-invalid-login" class="hidden">
+          We could not find a user with this username and password combo.
+          Please re-enter your credentials.
+        </div>
       </section>
 
-      <div id="error-missing" class="hidden">
-        You are missing a username or password,
-        please re-enter your credentials.
-      </div>
+      <section id="signup-section">
+        <header><h2>Don't have an account yet? Sign up here!</h2></header>
+        <form>
+          <label for="username">Username:</label>
+          <input type="text" id="username-signup" name="username"><br><br>
+          <label for="password">Password:</label>
+          <input type="text" id="password-signup" name="password"><br><br>
+          <input type="button" id="signup-button" value="Sign Up!">
+        </form>
 
-      <div id="error-invalid-login" class="hidden">
-        We could not find a user with this username and password combo.
-        Please re-enter your credentials.
-      </div>
+        <div id="error-username-taken" class="hidden">
+          Sorry, but that username is already taken. Please
+          enter a new username.
+        </div>
+
+      </section>
 
     </main>
   </body>

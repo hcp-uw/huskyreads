@@ -18,11 +18,44 @@
    */
   function init() {
 
-    console.log("hi");
-    // add a button listener to login sumbit
+    // listen for login button clicks
     id("login-button").addEventListener("click", loginUser);
 
+    // listen for sign up button clicks
+    id("signup-button").addEventListener("click", signupUser);
+
   }
+
+  async function signupUser() {
+    let username = id("username-signup").value;
+    let password = id("password-signup").value;
+
+    const LOGIN_CREDENTIALS = {username, password}; // JS object
+    const OPTIONS = {
+      method: "POST",
+      headers: { // meta deta—tells the api that the data is in JSON format
+        "Content-type": "application/json"
+      },
+
+      // take the login credentials JSON and make it into a string
+      body: JSON.stringify(LOGIN_CREDENTIALS)
+    }
+
+    let response = await fetch(URL + "/signup", OPTIONS);
+    let loginCredentialsValid = verifyUsernameAndPassword(response);
+
+    // if the user's login credentials were valid, sign them the fuck up!
+    // and log them in
+    if (loginCredentialsValid) {
+
+    }
+
+
+  }
+
+
+
+
 
   /**
    * This function gets called when the user clicks the submit
@@ -48,10 +81,10 @@
     let loginCredentialsValid = verifyUsernameAndPassword(response);
 
     // TODO: if login credentials are valid, login the user and bring them to their homepage
-    if (loginCredentialsValid) {
+    // if (loginCredentialsValid) {
 
 
-    }
+    // }
 
   }
 
@@ -65,11 +98,12 @@
   function verifyUsernameAndPassword(APIresponse) {
 
     let responseText = APIresponse.text();
-    if (responseText === "Login Successful") {
+    if (responseText === "Login Successful" || responseText === "Signup successful") {
 
       // login was successful, hide any previous error messages
       hideErrorMessage("error-missing");
       hideErrorMessage("error-invalid-login");
+      hideErrorMessage("error-username-taken");
       return true;
     } else if (responseText === " Missing username or password") {
       displayErrorMessage("error-missing");
@@ -77,13 +111,16 @@
     } else if (responseText === "Invalid login credentials") {
       displayErrorMessage("error-invalid-login");
       return false;
+    } else if (responseText === "Username already taken") {
+      displayErrorMessage("error-username-taken");
+      return false;
     }
 
     return false;
   }
 
-  function displayErrorMessage(errorMessage) {
-    let errorElement = id(errorMessage);
+  function displayErrorMessage(errorMessageID) {
+    let errorElement = id(errorMessageID);
     errorElement.classList.remove("hidden");
   }
 
