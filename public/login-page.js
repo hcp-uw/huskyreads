@@ -47,15 +47,10 @@
     // if the user's login credentials were valid, sign them the fuck up!
     // and log them in
     if (loginCredentialsValid) {
-
+      bringToHomepage();
     }
 
-
   }
-
-
-
-
 
   /**
    * This function gets called when the user clicks the submit
@@ -81,10 +76,14 @@
     let loginCredentialsValid = verifyUsernameAndPassword(response);
 
     // TODO: if login credentials are valid, login the user and bring them to their homepage
-    // if (loginCredentialsValid) {
+    if (loginCredentialsValid) {
+      bringToHomepage();
+    }
 
+  }
 
-    // }
+  // TODO: bring user to their homepage. I'm not entirely sure how this'll work yet
+  function bringToHomepage() {
 
   }
 
