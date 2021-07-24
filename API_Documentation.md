@@ -1,8 +1,11 @@
 # Husky Reads Server API Documentation
 The Husky Reads API provides information on cataloged books. It also maintains relationships that users have with books in the form of bookshelves. Users can add and remove books from their bookshelves.
 
-## Authenticating User's Login Credentials
+## <span style="color:deepskyblue">User Authentication</span>
 ---
+
+### Authenticating User's Login Credentials
+
 Verifies that a user exists and that the provided password matches the stored one.
 * **Endpoint:** /login
 
@@ -38,8 +41,8 @@ Verifies that a user exists and that the provided password matches the stored on
 
     </br>
 
-## Creating a new user
----
+### Creating a new user
+
 Adds a new user with the given username and password. If the provided username already exists, an error will be thrown.
 * **Endpoint:** /signup
 
@@ -75,8 +78,11 @@ Adds a new user with the given username and password. If the provided username a
 
     </br>
 
-## Get Book Data Based on Search Parameters
+## <span style="color:deepskyblue">Retrieving Book Data</span>
 ---
+
+### Get Book Data Based on Search Parameters
+
 Returns a list of books that match given search parameters and the number of books that have not yet been served to the user. The more parameters given, the narrower the search will be.
 * **Endpoint:** /books
 
@@ -120,8 +126,19 @@ Returns a list of books that match given search parameters and the number of boo
 
     </br>
 
-## Get Books in Bookshelves
+## <span style="color:deepskyblue">Accessing User Bookshelves</span>
 ---
+
+### Valid Bookshelf Names:
+
+* `"reading"`
+* `"read"`
+* `"want_to_read"`
+
+</br>
+
+### Get Books in Bookshelves
+
 Returns a list of books that belong in a given user's bookshelf. If no bookshelf is specified, then books from all of the user's bookshelves are returned.
 * **Endpoint:** /bookshelves/get/:username/:bookshelf
 
@@ -195,8 +212,8 @@ Returns a list of books that belong in a given user's bookshelf. If no bookshelf
 
     </br>
 
-## Add a Book To a Bookshelf
----
+### Add a Book To a Bookshelf
+
 Adds a book to the specified bookshelf for a user. 
 * **Endpoint:** /bookshelves/add
 
@@ -244,8 +261,8 @@ Adds a book to the specified bookshelf for a user.
 
     </br>
 
-## Remove a Book From a Bookshelf
----
+### Remove a Book From a Bookshelf
+
 Removes a book from a specified bookshelf for a user. 
 * **Endpoint:** /bookshelves/remove
 
@@ -293,7 +310,7 @@ Removes a book from a specified bookshelf for a user.
 
     </br>
 
-## Server Errors
+## <span style="color:deepskyblue">Server Errors</span>
 ---
 All server errors will return the following content:
 
