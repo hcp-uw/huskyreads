@@ -38,7 +38,7 @@ Verifies that a user exists and that the provided password matches the stored on
 
     </br>
 
-## Adding a new user
+## Creating a new user
 ---
 Adds a new user with the given username and password. If the provided username already exists, an error will be thrown.
 * **Endpoint:** /signup
@@ -77,7 +77,7 @@ Adds a new user with the given username and password. If the provided username a
 
 ## Get Book Data Based on Search Parameters
 ---
-Returns a list of books that match given search parameters and the number of books that have not yet been served to the user. The default list length is at max 10 books but can be increased up to 40 books with the `resultLength` url parameter. The `offset` parameter can be used to access books later in the search results if making multiple requests with the same search parameters.
+Returns a list of books that match given search parameters and the number of books that have not yet been served to the user. The more parameters given, the narrower the search will be.
 * **Endpoint:** /books
 
 * **Request Method:** POST
@@ -122,7 +122,7 @@ Returns a list of books that match given search parameters and the number of boo
 
 ## Get Books in Bookshelves
 ---
-Returns a list of books that belong in a given users bookshelf. If no bookshelf is specified, then books from all of the users bookshelves are returned.
+Returns a list of books that belong in a given user's bookshelf. If no bookshelf is specified, then books from all of the user's bookshelves are returned.
 * **Endpoint:** /bookshelves/get/:username/:bookshelf
 
 * **Request Method:** GET
