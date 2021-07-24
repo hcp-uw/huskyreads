@@ -12,9 +12,10 @@ Verifies that a user exists and that the provided password matches the stored on
 
     **Required:**
     
-    `username=[String]`
-
-    `password=[String]`
+    | Name       | Type   | Description                               |
+    | ---------- | ------ | ----------------------------------------- |
+    | `username` | String | The username of the user to authenticate. |
+    | `password` | String | The password of the user to authenticate. | 
 
 * **Returned Data Format:** Plain Text
 
@@ -48,9 +49,10 @@ Adds a new user with the given username and password. If the provided username a
 
     **Required:**
     
-    `username=[String]`
-
-    `password=[String]`
+    | Name       | Type   | Description                         |
+    | ---------- | ------ | ----------------------------------- |
+    | `username` | String | The username of the user to create. |
+    | `password` | String | The password of the user to create. |
 
 * **Returned Data Format:** Plain Text
 
@@ -84,15 +86,13 @@ Returns a list of books that match given search parameters and the number of boo
 
     **Optional:**
     
-    `title=[String]`
-
-    `author=[String]`
-
-    `genre=[String]`
-
-    `resultLength=[integer]` : Defaults to 10
-
-    `offset=[integer]` : Defaults to 0
+    | Name           | Type     | Description                                           | Default Value |
+    | -------------- | -------- | ----------------------------------------------------- | ------------- |
+    | `title`        | String   | The title of the book to search for.                  | N/A           |
+    | `author`       | String   | The author of the book to search for.                 | N/A           |
+    | `genre`        | String[] | One or more of the genres of the book to search for.  | N/A           |
+    | `resultLength` | integer  | The number of search results that should be returned. The maximum value allowed is 40. | 10 |
+    | `offset`       | integer  | The number of search results to skip before populating the list. This allows for accessing books later in the search results when making multiple requests with the same search parameters. | 0 |
 
 * **Returned Data Format:** JSON
 
@@ -130,12 +130,16 @@ Returns a list of books that belong in a given users bookshelf. If no bookshelf 
 * **URL Params:**
 
     **Required:**
-    
-    `username=[String]`
+
+    | Name       | Type   | Description                                      |
+    | ---------- | ------ | ------------------------------------------------ |
+    | `username` | String | The username of the user who owns the bookshelf. |
 
     **Optional:**
 
-    `bookshelf=[String]`
+    | Name        | Type   | Description                                      | Default Value |
+    | ----------- | ------ | ------------------------------------------------ | ------------- |
+    | `bookshelf` | String | The name of the bookshelf to get the books from. | "all"         |
 
 * **Returned Data Format:** JSON
 
@@ -202,13 +206,12 @@ Adds a book to the specified bookshelf for a user.
 
     **Required:**
     
-    `username=[String]`
-
-    `password=[String]`
-
-    `bookshelf=[String]` : The name of the bookshelf to add the book to
-
-    `title=[String]` : The title of the book to add
+    | Name        | Type   | Description                                      |
+    | ----------- | ------ | ------------------------------------------------ |
+    | `username`  | String | The username of the user who owns the bookshelf. |
+    | `password`  | String | The password of the user who owns the bookshelf. |
+    | `bookshelf` | String | The name of the bookshelf to add a book to.      |
+    | `title`     | String | The title of the book to add to the bookshelf.   |
 
 * **Returned Data Format:** Plain Text
 
@@ -252,13 +255,12 @@ Removes a book from a specified bookshelf for a user.
 
     **Required:**
     
-    `username=[String]`
-
-    `password=[String]`
-
-    `bookshelf=[String]` : The name of the bookshelf to remove the book from
-
-    `title=[String]` : The title of the book to remove
+    | Name        | Type   | Description                                         |
+    | ----------- | ------ | --------------------------------------------------- |
+    | `username`  | String | The username of the user who owns the bookshelf.    |
+    | `password`  | String | The password of the user who owns the bookshelf.    |
+    | `bookshelf` | String | The name of the bookshelf to remove a book from.    |
+    | `title`     | String | The title of the book to remove from the bookshelf. |
 
 * **Returned Data Format:** Plain Text
 
