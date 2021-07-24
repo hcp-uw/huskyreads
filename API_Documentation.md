@@ -290,4 +290,12 @@ Removes a book from a specified bookshelf for a user.
 
     * **Code:** 400 </br>
     **Content:** `"Book does not exist"`
+
     </br>
+
+## Server Errors
+---
+All server errors will return the following content:
+
+  * **Code:** 500 </br>
+    **Content:** `"An error has occured on the server"`
