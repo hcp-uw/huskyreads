@@ -263,14 +263,14 @@ Removes a book from a specified bookshelf for a user.
 ## <span style="color:deepskyblue">Retrieving Book Data</span>
 ---
 
-### Get Book Data Based on Search Parameters
+### Get List of Basic Book Data Based on Search Parameters
 
-Returns a list of books that match given search parameters and the number of books that have not yet been served to the user. The more parameters given, the narrower the search will be.
-* **Endpoint:** /books
+Returns a list of books that match given search parameters and the number of books that have not yet been served to the user. The more parameters given, the narrower the search will be. If no books match the search criteria, an empty array is returned.
+* **Endpoint:** /books/search/:title/:author/:genre/:offset/:resultLength
 
-* **Request Method:** POST
+* **Request Method:** GET
 
-* **Body Params:**
+* **URL Params:**
 
     **Optional:**
     
@@ -279,8 +279,8 @@ Returns a list of books that match given search parameters and the number of boo
     | `title`        | String   | The title of the book to search for.                  | N/A           |
     | `author`       | String   | The author of the book to search for.                 | N/A           |
     | `genre`        | String[] | One or more of the genres of the book to search for.  | N/A           |
-    | `resultLength` | integer  | The number of search results that should be returned. The maximum value allowed is 40. | 10 |
     | `offset`       | integer  | The number of search results to skip before populating the list. This allows for accessing books later in the search results when making multiple requests with the same search parameters. | 0 |
+    | `resultLength` | integer  | The number of search results that should be returned. The maximum value allowed is 40. | 10 |
 
 * **Returned Data Format:** JSON
 
@@ -295,8 +295,7 @@ Returns a list of books that match given search parameters and the number of boo
         "books": [
             {   
                 "title": "Hunger Games",
-                "author": "Suzanne Collins",
-                "genre": "Young Adult"
+                "authors": ["Suzanne Collins"]
             }
         ]
     }
