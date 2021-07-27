@@ -306,6 +306,59 @@ Returns a list of books that match given search parameters and the number of boo
 
     N/A
 
+* **Notes:**
+
+    * 7/26/21: Cover data will be added to the returned data for each book before the end of the MVP
+
+    </br>
+
+### Get Detailed Information for a Single Book
+
+Returns a detailed description for a single book. The information returned consists of title, authors, genres, and cover image.
+* **Endpoint:** /books/detail/:isbn
+
+* **Request Method:** GET
+
+* **URL Params:**
+
+    **Required:**
+    
+    | Name   | Type   | Description                                     |
+    | -------| ------ | ----------------------------------------------- |
+    | `isbn` | String | The isbn number of the book to get details for. |
+
+* **Returned Data Format:** JSON
+
+* **Success Response:**
+
+    * **Code:** 200 </br>
+    **Content:**
+
+    ```JSON
+    {
+        "title": "Hunger Games",
+        "authors": ["Suzanne Collins"],
+        "genres": ["Young Adult", "Dystopian"]
+    }
+    ```
+
+* **Error Response:**
+
+    Missing isbn URL parameter
+
+    * **Code:** 400 </br>
+    **Content:** `"Missing isbn parameter"`
+
+    ISBN doesn't match any existing book
+
+    * **Code:** 400 </br>
+    **Content:** `"Invalid isbn"`
+
+* **Notes:**
+
+    * 7/26/21: Cover data will be added to the returned data before the MVP is finished
+    * 7/26/21: This is the endpoint that will return ratings and reviews in the future
+
     </br>
 
 ## <span style="color:deepskyblue">Server Errors</span>
