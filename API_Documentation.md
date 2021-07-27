@@ -178,7 +178,6 @@ Adds a book to the specified bookshelf for a user.
     | Name        | Type   | Description                                      |
     | ----------- | ------ | ------------------------------------------------ |
     | `username`  | String | The username of the user who owns the bookshelf. |
-    | `password`  | String | The password of the user who owns the bookshelf. |
     | `bookshelf` | String | The name of the bookshelf to add a book to.      |
     | `title`     | String | The title of the book to add to the bookshelf.   |
 
@@ -196,10 +195,10 @@ Adds a book to the specified bookshelf for a user.
     * **Code:** 400 </br>
     **Content:** `"Missing one or more required body parameters"`
 
-    Username either doesn't exist or the password doesn't match the stored password for the given username
+    Username doesn't match any existing user
 
     * **Code:** 401 </br>
-    **Content:** `"Invalid user credentials"`
+    **Content:** `"Invalid username"`
 
     An invalid bookshelf name is provided
 
@@ -227,7 +226,6 @@ Removes a book from a specified bookshelf for a user.
     | Name        | Type   | Description                                         |
     | ----------- | ------ | --------------------------------------------------- |
     | `username`  | String | The username of the user who owns the bookshelf.    |
-    | `password`  | String | The password of the user who owns the bookshelf.    |
     | `bookshelf` | String | The name of the bookshelf to remove a book from.    |
     | `title`     | String | The title of the book to remove from the bookshelf. |
 
@@ -245,10 +243,10 @@ Removes a book from a specified bookshelf for a user.
     * **Code:** 400 </br>
     **Content:** `"Missing one or more required body parameters"`
 
-    Username either doesn't exist or the password doesn't match the stored password for the given username
+    Username doesn't match any existing user
 
     * **Code:** 401 </br>
-    **Content:** `"Invalid user credentials"`
+    **Content:** `"Invalid username"`
 
     An invalid bookshelf name is provided
 
