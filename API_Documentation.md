@@ -78,54 +78,6 @@ Adds a new user with the given username and password. If the provided username a
 
     </br>
 
-## <span style="color:deepskyblue">Retrieving Book Data</span>
----
-
-### Get Book Data Based on Search Parameters
-
-Returns a list of books that match given search parameters and the number of books that have not yet been served to the user. The more parameters given, the narrower the search will be.
-* **Endpoint:** /books
-
-* **Request Method:** POST
-
-* **Body Params:**
-
-    **Optional:**
-    
-    | Name           | Type     | Description                                           | Default Value |
-    | -------------- | -------- | ----------------------------------------------------- | ------------- |
-    | `title`        | String   | The title of the book to search for.                  | N/A           |
-    | `author`       | String   | The author of the book to search for.                 | N/A           |
-    | `genre`        | String[] | One or more of the genres of the book to search for.  | N/A           |
-    | `resultLength` | integer  | The number of search results that should be returned. The maximum value allowed is 40. | 10 |
-    | `offset`       | integer  | The number of search results to skip before populating the list. This allows for accessing books later in the search results when making multiple requests with the same search parameters. | 0 |
-
-* **Returned Data Format:** JSON
-
-* **Success Response:**
-
-    * **Code:** 200 </br>
-    **Content:**
-
-    ```JSON
-    {
-        "remainingBooksInSearch": 24,
-        "books": [
-            {   
-                "title": "Hunger Games",
-                "author": "Suzanne Collins",
-                "genre": "Young Adult"
-            }
-        ]
-    }
-    ```
-
-* **Error Response:**
-
-    N/A
-
-    </br>
-
 ## <span style="color:deepskyblue">Accessing User Bookshelves</span>
 ---
 
@@ -307,6 +259,54 @@ Removes a book from a specified bookshelf for a user.
 
     * **Code:** 400 </br>
     **Content:** `"Book does not exist"`
+
+    </br>
+
+## <span style="color:deepskyblue">Retrieving Book Data</span>
+---
+
+### Get Book Data Based on Search Parameters
+
+Returns a list of books that match given search parameters and the number of books that have not yet been served to the user. The more parameters given, the narrower the search will be.
+* **Endpoint:** /books
+
+* **Request Method:** POST
+
+* **Body Params:**
+
+    **Optional:**
+    
+    | Name           | Type     | Description                                           | Default Value |
+    | -------------- | -------- | ----------------------------------------------------- | ------------- |
+    | `title`        | String   | The title of the book to search for.                  | N/A           |
+    | `author`       | String   | The author of the book to search for.                 | N/A           |
+    | `genre`        | String[] | One or more of the genres of the book to search for.  | N/A           |
+    | `resultLength` | integer  | The number of search results that should be returned. The maximum value allowed is 40. | 10 |
+    | `offset`       | integer  | The number of search results to skip before populating the list. This allows for accessing books later in the search results when making multiple requests with the same search parameters. | 0 |
+
+* **Returned Data Format:** JSON
+
+* **Success Response:**
+
+    * **Code:** 200 </br>
+    **Content:**
+
+    ```JSON
+    {
+        "remainingBooksInSearch": 24,
+        "books": [
+            {   
+                "title": "Hunger Games",
+                "author": "Suzanne Collins",
+                "genre": "Young Adult"
+            }
+        ]
+    }
+    ```
+
+* **Error Response:**
+
+    N/A
 
     </br>
 
