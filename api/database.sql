@@ -14,24 +14,24 @@ CREATE TABLE User (
 
 CREATE TABLE Bookshelf (
     id_user int REFERENCES User,
-    ISBN int REFERENCES Books,
+    ISBN bigint REFERENCES Books,
     shelf_name varchar(255)
 );
 
 CREATE TABLE Books (
-  ISBN int PRIMARY KEY,
+  ISBN bigint unique PRIMARY KEY,
   title varchar(255),
   description TEXT,
   date_published date
 );
 
 CREATE TABLE Book_Authors (
-  ISBN_book int REFERENCES Books,
+  ISBN bigint REFERENCES Books,
   id_author int REFERENCES Authors
 );
 
 CREATE TABLE Book_Genre (
-  ISBN_book int REFERENCES Books,
+  ISBN bigint REFERENCES Books,
   id_genre int REFERENCES Genre
 );
 
@@ -47,7 +47,7 @@ CREATE TABLE Genre (
 
 CREATE TABLE Reviews (
   id_review int PRIMARY KEY AUTO_INCREMENT,
-  id_book int REFERENCES Books,
+  ISBN bigint REFERENCES Books,
   author varchar(255),
   content varchar(255),
   published date
