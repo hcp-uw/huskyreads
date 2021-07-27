@@ -125,8 +125,7 @@ Returns a list of books that belong in a given user's bookshelf. If no bookshelf
                 {   
                     "title": "Hunger Games",
                     "authors": ["Suzanne Collins"],
-                    "genres": ["Young Adult", "Dystopian"],
-                    "result": 20,
+                    "genres": ["Young Adult", "Dystopian"]
                 }
             ]
         }
@@ -179,7 +178,7 @@ Adds a book to the specified bookshelf for a user.
     | ----------- | ------ | ------------------------------------------------ |
     | `username`  | String | The username of the user who owns the bookshelf. |
     | `bookshelf` | String | The name of the bookshelf to add a book to.      |
-    | `title`     | String | The title of the book to add to the bookshelf.   |
+    | `isbn`      | String | The isbn of the book to add to the bookshelf.    |
 
 * **Returned Data Format:** Plain Text
 
@@ -205,7 +204,7 @@ Adds a book to the specified bookshelf for a user.
     * **Code:** 400 </br>
     **Content:** `"Invalid bookshelf name"`
 
-    No book exists with the provided title
+    No book exists with the provided isbn
 
     * **Code:** 400 </br>
     **Content:** `"Book does not exist"`
@@ -227,7 +226,7 @@ Removes a book from a specified bookshelf for a user.
     | ----------- | ------ | --------------------------------------------------- |
     | `username`  | String | The username of the user who owns the bookshelf.    |
     | `bookshelf` | String | The name of the bookshelf to remove a book from.    |
-    | `title`     | String | The title of the book to remove from the bookshelf. |
+    | `isbn`      | String | The isbn of the book to remove from the bookshelf.  |
 
 * **Returned Data Format:** Plain Text
 
@@ -253,7 +252,7 @@ Removes a book from a specified bookshelf for a user.
     * **Code:** 400 </br>
     **Content:** `"Invalid bookshelf name"`
 
-    No book with the provided title exists in the specified bookshelf
+    No book with the provided isbn exists in the specified bookshelf
 
     * **Code:** 400 </br>
     **Content:** `"Book does not exist"`
