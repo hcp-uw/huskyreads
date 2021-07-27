@@ -73,7 +73,7 @@ Adds a new user with the given username and password. If the provided username a
 
     Username is taken by another user already
 
-    * **Code:** 401 </br>
+    * **Code:** 400 </br>
     **Content:** `"Username already taken"`
 
     </br>
@@ -124,8 +124,8 @@ Returns a list of books that belong in a given user's bookshelf. If no bookshelf
             "books": [
                 {   
                     "title": "Hunger Games",
-                    "author": "Suzanne Collins",
-                    "genre": "Young Adult",
+                    "authors": ["Suzanne Collins"],
+                    "genres": ["Young Adult", "Dystopian"],
                     "result": 20,
                 }
             ]
