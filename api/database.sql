@@ -3,7 +3,7 @@
  * RECREATES THE DATABASE!!!!! (Deletes all old data)
 **/
 
-DROP IF EXISTS User, Bookshelf, Books, Book_Authors, Book_Genre, Authors, Genre, Reviews;
+DROP TABLE IF EXISTS User, Bookshelf, Books, Book_Authors, Book_Genre, Authors, Genre, Reviews;
 
 CREATE TABLE User (
     id int PRIMARY KEY AUTO_INCREMENT,
@@ -23,18 +23,18 @@ CREATE TABLE Books (
   ISBN int unique,
   name varchar(255),
   description varchar(255),
-  date_published date,
+  date_published date
 );
 
 CREATE TABLE Book_Authors (
   ISBN_book int,
   id_author int
-)
+);
 
 CREATE TABLE Book_Genre (
   ISBN_book int,
   id_genre int
-)
+);
 
 CREATE TABLE Authors (
   id int PRIMARY KEY AUTO_INCREMENT,

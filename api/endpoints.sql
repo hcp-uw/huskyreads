@@ -20,5 +20,3 @@ INSERT INTO User (username, password) VALUES (username parameter, password param
 
 /* Accessing User Bookshelves */
 /* Valid Bookshelf Names: "reading", "read", "want_to_read" */
-SELECT 
-FROM User, Bookshelf, Books
