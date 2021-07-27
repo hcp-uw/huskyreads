@@ -20,7 +20,7 @@ CREATE TABLE Bookshelf (
 
 CREATE TABLE Books (
   ISBN int PRIMARY KEY,
-  name varchar(255),
+  title varchar(255),
   description TEXT,
   date_published date
 );
