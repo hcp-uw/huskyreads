@@ -312,7 +312,7 @@ Returns a list of books that match given search parameters and the number of boo
 
 ### Get Detailed Information for a Single Book
 
-Returns a detailed description for a single book. The information returned consists of title, authors, genres, and cover image.
+Returns a detailed description for a single book. The information returned consists of title, authors, genres, date published, description and cover image.
 * **Endpoint:** /books/detail/:isbn
 
 * **Request Method:** GET
@@ -336,7 +336,9 @@ Returns a detailed description for a single book. The information returned consi
     {
         "title": "Hunger Games",
         "authors": ["Suzanne Collins"],
-        "genres": ["Young Adult", "Dystopian"]
+        "genres": ["Young Adult", "Dystopian"],
+        "datePublished": "2012-12-20",
+        "description": "Katniss Everdeen fights the distopian government"
     }
     ```
 
