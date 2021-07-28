@@ -53,3 +53,24 @@ CREATE TABLE Reviews (
   published date
 );
 
+INSERT INTO Genre (name) VALUES ("Horror");		
+INSERT INTO Genre (name) VALUES ("Romance");
+INSERT INTO Genre (name) VALUES ("Action");
+
+INSERT INTO Authors (name) VALUES ("Terrence Tao");
+INSERT INTO Authors (name) VALUES ("Brett Wortmanz");
+INSERT INTO Authors (name) VALUES ("Foo Bar the Third");
+
+INSERT INTO Book_Authors (ISBN_book, id_author) VALUES (11111111111, 1);
+INSERT INTO Book_Authors (ISBN_book, id_author) VALUES (22222222222, 2);
+INSERT INTO Book_Authors (ISBN_book, id_author) VALUES (33333333333, 3);
+INSERT INTO Book_Authors (ISBN_book, id_author) VALUES (44444444444, 3); // Edge Case
+INSERT INTO Book_Authors (ISBN_book, id_author) VALUES (55555555555, 4); // Edge Case
+INSERT INTO Book_Authors (ISBN_book, id_author) VALUES (55555555555, 4); // Edge Case
+
+INSERT INTO Book_Genre (ISBN_book, id_genre) VALUES (1111111111, 1);
+INSERT INTO Book_Genre (ISBN_book, id_genre) VALUES (2222222222, 2);
+INSERT INTO Book_Genre (ISBN_book, id_genre) VALUES (3333333333, 3);
+INSERT INTO Book_Genre (ISBN_book, id_genre) VALUES (4444444444, 3); //Edge Case
+INSERT INTO Book_Genre (ISBN_book, id_genre) VALUES (5555555555, 5); // Edge Case
+INSERT INTO Book_Genre (ISBN_book, id_genre) VALUES (5555555555, 5); // Edge Case
