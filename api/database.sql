@@ -3,8 +3,11 @@
  * RECREATES THE DATABASE!!!!! (Deletes all old data)
 **/
 
+/* Clears old tables */
 DROP TABLE IF EXISTS User, Bookshelf, Books, Book_Authors, Book_Genre, Authors, Genre, Reviews;
 
+
+/* Creates our SQL Database */
 CREATE TABLE User (
     id int PRIMARY KEY AUTO_INCREMENT,
     username varchar(255) unique,
@@ -52,6 +55,8 @@ CREATE TABLE Reviews (
   content varchar(255),
   published date
 );
+
+/* SAMPLE DATA */
 INSERT INTO User (username, password, color_scheme) VALUES ("elliot", "pass1", "dark");
 INSERT INTO User (username, password) VALUES ("frank", "pass2");
 INSERT INTO User (username, password) VALUES ("nicholas", "pass3");
@@ -85,6 +90,6 @@ INSERT INTO Authors (name) VALUES ("Terrence Tao");
 INSERT INTO Authors (name) VALUES ("Brett Wortmanz");
 INSERT INTO Authors (name) VALUES ("Foo Bar the Third");
 
-INSERT INTO Genre (name) VALUES ("Horror");		
+INSERT INTO Genre (name) VALUES ("Horror");
 INSERT INTO Genre (name) VALUES ("Romance");
 INSERT INTO Genre (name) VALUES ("Action");
