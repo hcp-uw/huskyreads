@@ -338,8 +338,7 @@ Returns a detailed description for a single book. The information returned consi
         "authors": ["Suzanne Collins"],
         "genres": ["Young Adult", "Dystopian"],
         "datePublished": "2012-12-20",
-        "description": "Catniss Everdeen fights the distopian government"
-
+        "description": "Katniss Everdeen fights the distopian government"
     }
     ```
 
