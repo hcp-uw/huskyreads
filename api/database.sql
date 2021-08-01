@@ -61,6 +61,8 @@ INSERT INTO User (username, password, color_scheme) VALUES ("elliot", "pass1", "
 INSERT INTO User (username, password) VALUES ("frank", "pass2");
 INSERT INTO User (username, password) VALUES ("nicholas", "pass3");
 INSERT INTO User (username, password) VALUES ("vikram", "pass4");
+INSERT INTO User (username, password) VALUES ("john", "pass5");
+INSERT INTO User (username, password) VALUES ("jane", "pass6");
 
 INSERT INTO Bookshelf (id_user, ISBN, shelf_name) VALUES (1, 1111111111, "reading");
 INSERT INTO Bookshelf (id_user, ISBN, shelf_name) VALUES (2, 1111111111, "reading");
