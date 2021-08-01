@@ -27,3 +27,20 @@ app.use(express.static("public"));
 
 const PORT = process.env.PORT || 8000;
 app.listen(PORT);
+
+/**
+ * Logging module for any error that occurs in an endpoint - Writes error to a new file
+ * File name sample format: "2021-08-01T20:36:31.346Z_login"
+ * @param {*} errMsg Error message outputted by the issue caused in endpoint
+ * @param {*} endpoint Name of the endpoint
+ * NOTE: NOT YET TESTED (just write an endpoint and call this function)
+ * NOTE: MAY NEED TO SPECIFY FILE PATH
+ * NOTE: IF PROBLEM OCCURS WHILE LOGGING, ERROR MESSAGE WILL BE PRINTED TO CONSOLE
+ */
+function loggingModule (errMsg, endpoint) {
+  const datetime = new Date();
+  const fileName = datetime.toISOString() + "_" + endpoint;
+  fs.writeFile(fileName, errMsg, {flag: "w+"}, function (err) {
+    if (err) return console.log(err);
+  });
+}
