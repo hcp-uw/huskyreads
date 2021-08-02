@@ -42,6 +42,12 @@ const DB_NAME = "huskyReads"; // Database name
  */
 app.post("/login", async (req, res) => {
   try {
+    res.type("text");
+    let username = req.body.username;
+    let password = req.body.password;
+    if (!username || !password) {
+      res.status(CLIENT_ERROR_CODE_400).send("Missing username or password");
+    }
     const db = await getDBConnection();
     await db.close();
   } catch (err) {
