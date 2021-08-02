@@ -42,55 +42,76 @@ const DB_NAME = "huskyReads"; // Database name
  * Login endpoint
  */
 app.post("/login", async (req, res) => {
-  try {
-    res.type("text");
-    let username = req.body.username;
-    let password = req.body.password;
-    if (!username || !password) {
-      res.status(CLIENT_ERROR_CODE_400).send("Missing username or password");
-    } else {
-      const db = await getDBConnection();
-      await db.close();
-    }
-  } catch (err) {
-    loggingModule(err, "login");
-  }
+	try {
+		res.type("text");
+		let username = req.body.username;
+		let password = req.body.password;
+		if (!username || !password) {
+			res.status(CLIENT_ERROR_CODE_400).send("Missing username or password");
+		} else {
+			const db = await getDBConnection();
+			await db.close();
+		}
+	} catch (err) {
+		loggingModule(err, "login");
+	}
 });
 
 /**
  * Sign up endpoint (Create new User)
  */
 app.post("/signup", async (req, res) => {
-  try {
-    const db = await getDBConnection();
-    await db.close();
-  } catch (err) {
-    loggingModule(err, "signup");
-  }
+	try {
+		res.type("text");
+		let username = req.body.username;
+		let password = req.body.password;
+		if (!username || !password) {
+			res.status(CLIENT_ERROR_CODE_400).send("Missing username or password");
+		} else { 		
+			const db = await getDBConnection();
+			await db.close();
+		}
+	} catch (err) {
+		loggingModule(err, "signup");
+	}
 });
 
 /**
  * Update user color scheme
  */
- app.post("/color_scheme", async (req, res) => {
-  try {
-    const db = await getDBConnection();
-    await db.close();
-  } catch (err) {
-    loggingModule(err, "color_scheme");
-  }
+app.post("/color_scheme", async (req, res) => {
+	try {
+		res.type("text");
+		let username = req.body.username;
+		let color_scheme = req.body.color_scheme;
+		if (!username || !password) {
+			res.status(CLIENT_ERROR_CODE_400).send("Missing username or color_scheme");
+		} else { 		
+			const db = await getDBConnection();
+			await db.close();
+		}
+	} catch (err) {
+		loggingModule(err, "color_scheme");
+	}
 });
 
 /**
  * Get user's book in bookshelf, with default value "all" for bookshelf name
  */
 app.get("/bookshelves/get/:username/:bookshelf", async function(req, res) {
-  try {
-    const db = await getDBConnection();
-    await db.close();
-  } catch (err) {
-    loggingModule(err, "bookshelfGet");
-  }
+	try {
+		res.type("JSON");
+		let username = req.body.username;
+		let bookshelf = req.body.bookshelf
+		if (!username) {
+			res.status(CLIENT_ERROR_CODE_400).send("Missing username paramter");
+		} else {
+			const db = await getDBConnection();
+			await db.close();
+		}
+	} catch (err) {
+		loggingModule(err, "bookshelfGet");
+	}
 });
 
 /**
@@ -99,24 +120,24 @@ app.get("/bookshelves/get/:username/:bookshelf", async function(req, res) {
  * (Do not need to check for overall duplicates? I assume?)
  */
 app.post("/bookshelves/add", async (req, res) => {
-  try {
-    const db = await getDBConnection();
-    await db.close();
-  } catch (err) {
-    loggingModule(err, "bookshelfAdd");
-  }
+	try {
+		const db = await getDBConnection();
+		await db.close();
+	} catch (err) {
+		loggingModule(err, "bookshelfAdd");
+	}
 });
 
 /**
  * Remove book from bookshelf
  */
 app.post("/bookshelves/remove", async (req, res) => {
-  try {
-    const db = await getDBConnection();
-    await db.close();
-  } catch (err) {
-    loggingModule(err, "bookshelfRemove");
-  }
+	try {
+		const db = await getDBConnection();
+		await db.close();
+	} catch (err) {
+		loggingModule(err, "bookshelfRemove");
+	}
 });
 
 /**
@@ -125,36 +146,37 @@ app.post("/bookshelves/remove", async (req, res) => {
  * If no books match search criteria... return an empty JSON Object
  */
 app.get("/books/search/:title/:author/:genre/:offset/:resultLength", async function(req, res) {
-  try {
-    const db = await getDBConnection();
-    await db.close();
-  } catch (err) {
-    loggingModule(err, "bookSearch");
-  }
+	try {
+		const db = await getDBConnection();
+		await db.close();
+	} catch (err) {
+		loggingModule(err, "bookSearch");
+	}
 });
 
 /**
  * Gets detailed information for book based on ISBN
  */
 app.get("/books/detail/:isbn", async function(req, res) {
-  try {
-    const db = await getDBConnection();
-    await db.close();
-  } catch (err) {
-    loggingModule(err, "bookDetail");
-  }
+	try {
+		const db = await getDBConnection();
+		await db.close();
+	} catch (err) {
+		loggingModule(err, "bookDetail");
+	}
 });
 
 /* -----------------  HELPER FUNCTIONS  ---------------- */
 async function getDBConnection() {
-  const db = mysql.createPool({
-    host: process.env.DB_URL || 'localhost',
-    port: process.env.DB_PORT || '8889',
-    user: process.env.DB_USERNAME || 'root',
-    password: process.env.DB_PASSWORD || 'root',
-    database: process.env.DB_NAME || DB_NAME
-  });
-  return db;
+	const db = mysql.createPool({
+		host: process.env.DB_URL || 'localhost',
+		port: process.env.DB_PORT || '8889',
+		user: process.env.DB_USERNAME || 'root',
+		password: process.env.DB_PASSWORD || 'root',
+		database: process.env.DB_NAME || DB_NAME
+	});
+
+	return db;
 }
 
 
@@ -168,11 +190,12 @@ async function getDBConnection() {
  * NOTE: IF PROBLEM OCCURS WHILE LOGGING, ERROR MESSAGE WILL BE PRINTED TO CONSOLE
  */
 function loggingModule (errMsg, endpoint) {
-  let datetime = new Date();
-  let fileName = "/logs/" + datetime.toISOString() + "_" + endpoint + ".txt";
-  fs.writeFile(fileName, errMsg, {flag: "w+"}, function (err) {
-    if (err) return console.log(err);
-  });
+	let datetime = new Date();
+	let fileName = "/logs/" + datetime.toISOString() + "_" + endpoint + ".txt";
+
+	fs.writeFile(fileName, errMsg, {flag: "w+"}, function (err) {
+		if (err) return console.log(err);
+	});
 }
 
 
