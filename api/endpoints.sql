@@ -18,6 +18,13 @@ AND User.password = password
 INSERT INTO User (username, password) VALUES (username parameter, password parameter);
 
 
+/* Updates User Color Schema */
+/* Parameters: Username, ColorScheme */
+UPDATE User
+SET color_scheme = ColorScheme
+WHERE username = Username
+;
+
 /* Accessing User Bookshelves */
 /* Valid Bookshelf Names: "reading", "read", "want_to_read" */
 /* Parameters: username, bookshelfName */
