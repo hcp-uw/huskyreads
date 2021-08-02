@@ -47,9 +47,10 @@ app.post("/login", async (req, res) => {
     let password = req.body.password;
     if (!username || !password) {
       res.status(CLIENT_ERROR_CODE_400).send("Missing username or password");
+    } else {
+      const db = await getDBConnection();
+      await db.close();
     }
-    const db = await getDBConnection();
-    await db.close();
   } catch (err) {
     loggingModule(err, "login");
   }
