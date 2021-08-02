@@ -52,8 +52,7 @@ FROM User
 WHERE User.username = username
 ;
 /* Gives the USER ID */
-INSER INTO Bookshelf (id, isbn, bookshelf);
-
+INSERT INTO Bookshelf VALUES (id, isbn, bookshelf);
 
 /* Remove Book from Bookshelf */
 /* Parameters: username, bookshelf, isbn */
@@ -65,7 +64,8 @@ WHERE User.username = username
 DELETE FROM Bookshelf
 WHERE id_user = id
 AND isbn = isbn
-AND bookshelf = bookshelf
+AND shelf_name = bookshelf
+;
 
 
 /* Retrieving Book Data */
