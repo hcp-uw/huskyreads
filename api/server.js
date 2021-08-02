@@ -18,11 +18,11 @@ app.use(express.json());
 app.use(multer().none());
 
 // Note: Use the logging module for all error codes
-const CLIENT_ERROR_CODE_400 = 400;
-const CLIENT_ERROR_CODE_401 = 401;
+const CLIENT_ERROR_CODE_400 = 400;  // Bad Request
+const CLIENT_ERROR_CODE_401 = 401;  // Unauthorized Access
 const SERVER_ERROR_CODE = 500;      // Server Error format: "An error has occured on the server!"
 const LOCAL_HOST = 8000;
-const DB_NAME = ""; // Database name
+const DB_NAME = "huskyReads"; // Database name
 
 /* --------------------  ENDPOINTS  -------------------- */
 
