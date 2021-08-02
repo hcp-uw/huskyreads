@@ -23,15 +23,6 @@ const SERVER_ERROR_CODE = 500;      // Server Error format: "An error has occure
 const LOCAL_HOST = 8000;
 const DB_NAME = ""; // Database name
 
-// Should we put this in a function in case this doesn't work?
-const db = mysql.createPool({
-  host: process.env.DB_URL || 'localhost',
-  port: process.env.DB_PORT || '8889',
-  user: process.env.DB_USERNAME || 'root',
-  password: process.env.DB_PASSWORD || 'root',
-  database: process.env.DB_NAME || DB_NAME
-});
-
 /* --------------------  ENDPOINTS  -------------------- */
 
 /*
@@ -49,21 +40,33 @@ const db = mysql.createPool({
  * Login endpoint
  */
 app.post("/login", async (req, res) => {
-
+  try {
+    const db = await getDBConnection();
+  } catch (err) {
+    loggingModule(err, "login");
+  }
 });
 
 /**
  * Sign up endpoint (Create new User)
  */
 app.post("/signup", async (req, res) => {
-
+  try {
+    const db = await getDBConnection();
+  } catch (err) {
+    loggingModule(err, "signup");
+  }
 });
 
 /**
  * Get user's book in bookshelf, with default value "all" for bookshelf name
  */
 app.get("/bookshelves/get/:username/:bookshelf", async function(req, res) {
-
+  try {
+    const db = await getDBConnection();
+  } catch (err) {
+    loggingModule(err, "bookshelfGet");
+  }
 });
 
 /**
@@ -72,14 +75,22 @@ app.get("/bookshelves/get/:username/:bookshelf", async function(req, res) {
  * (Do not need to check for overall duplicates? I assume?)
  */
 app.post("/bookshelves/add", async (req, res) => {
-
+  try {
+    const db = await getDBConnection();
+  } catch (err) {
+    loggingModule(err, "bookshelfAdd");
+  }
 });
 
 /**
  * Remove book from bookshelf
  */
 app.post("/bookshelves/remove", async (req, res) => {
-
+  try {
+    const db = await getDBConnection();
+  } catch (err) {
+    loggingModule(err, "bookshelfRemove");
+  }
 });
 
 /**
@@ -88,32 +99,49 @@ app.post("/bookshelves/remove", async (req, res) => {
  * If no books match search criteria... return an empty JSON Object
  */
 app.get("/books/search/:title/:author/:genre/:offset/:resultLength", async function(req, res) {
-
+  try {
+    const db = await getDBConnection();
+  } catch (err) {
+    loggingModule(err, "bookSearch");
+  }
 });
 
 /**
  * Gets detailed information for book based on ISBN
  */
 app.get("/books/detail/:isbn", async function(req, res) {
-
+  try {
+    const db = await getDBConnection();
+  } catch (err) {
+    loggingModule(err, "bookDetail");
+  }
 });
 
 /* -----------------  HELPER FUNCTIONS  ---------------- */
-// In case we need some, added a section here
+async function getDBConnection() {
+  const db = mysql.createPool({
+    host: process.env.DB_URL || 'localhost',
+    port: process.env.DB_PORT || '8889',
+    user: process.env.DB_USERNAME || 'root',
+    password: process.env.DB_PASSWORD || 'root',
+    database: process.env.DB_NAME || DB_NAME
+  });
+  return db;
+}
 
 
 /* ------------------  LOGGING MODULE  ----------------- */
 /**
  * Logging module for any error that occurs in an endpoint - Writes error to a new file
  * File name sample format: "2021-08-01T20:36:31.346Z_login"
- * @param {*} errMsg Error message outputted by the issue caused in endpoint
- * @param {*} endpoint Name of the endpoint
+ * @param {Error} errMsg Error message outputted by the issue caused in endpoint
+ * @param {String} endpoint Name of the endpoint
  * NOTE: NOT YET TESTED (just write an endpoint and call this function)
  * NOTE: IF PROBLEM OCCURS WHILE LOGGING, ERROR MESSAGE WILL BE PRINTED TO CONSOLE
  */
 function loggingModule (errMsg, endpoint) {
   let datetime = new Date();
-  let fileName = datetime.toISOString() + "_" + endpoint + ".txt";
+  let fileName = "/logs/" + datetime.toISOString() + "_" + endpoint + ".txt";
   fs.writeFile(fileName, errMsg, {flag: "w+"}, function (err) {
     if (err) return console.log(err);
   });
