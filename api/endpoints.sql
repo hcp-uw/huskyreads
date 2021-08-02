@@ -12,11 +12,13 @@ WHERE User.username = username
 AND User.password = password
 ;
 
+
 -- TESTED SUCCESSFULLY
 /* Create new user */
 /* username, password are given parameters */
 /* Try-Catch this since username needs to be unique! (User.username is a unique field) */
 INSERT INTO User (username, password) VALUES (username parameter, password parameter);
+
 
 -- TESTED SUCCESSFULLY
 /* Updates User Color Schema */
@@ -25,6 +27,7 @@ UPDATE User
 SET color_scheme = ColorScheme
 WHERE username = Username
 ;
+
 
 /* Accessing User Bookshelves */
 /* Valid Bookshelf Names: "reading", "read", "want_to_read" */
@@ -53,6 +56,7 @@ INNER JOIN Genre
 ON Book_Genre.id_genre = Genre.id
 ;
 
+
 -- TESTED SUCCESSFULLY
 /* Add Book to Bookshelf */
 /* Parameters: username, bookshelf, isbn */
@@ -60,8 +64,8 @@ SELECT id
 FROM User
 WHERE User.username = username
 ;
-/* Gives the USER ID */
 INSERT INTO Bookshelf VALUES (id, isbn, bookshelf);
+
 
 -- TESTED SUCCESSFULLY
 /* Remove Book from Bookshelf */
@@ -70,7 +74,6 @@ SELECT id
 FROM User
 WHERE User.username = username
 ;
-/* Gives the USER ID */
 DELETE FROM Bookshelf
 WHERE id_user = id
 AND isbn = isbn
@@ -111,3 +114,4 @@ INNER JOIN Book_Genre
 ON Books.ISBN = Book_Genre.ISBN_book
 INNER JOIN Genre
 ON Book_Genre.ISBN_book = Genre.id
+;
