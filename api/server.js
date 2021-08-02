@@ -1,4 +1,5 @@
 /**
+ * Server-side API code for HuskyReads Project
  */
 "use strict";
 
@@ -23,11 +24,80 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(multer().none());
 
-app.use(express.static("public"));
+// Note: Use the logging module for all error codes
+const CLIENT_ERROR_CODE = 400;
+const SERVER_ERROR_CODE = 500;      // Server Error format: "An error has occured on the server!"
+const LOCAL_HOST = 8000;
+const DB_NAME = ""; // Database name
 
-const PORT = process.env.PORT || 8000;
-app.listen(PORT);
+/* --------------------  ENDPOINTS  -------------------- */
 
+/*
+ * Endpoint List:
+ * Login                                  POST; PARAMS: Username, Password        /login
+ * Create New User                        POST; PARAMS: Username, Password        /signup
+ * Accessing User Bookshelf               GET;  PARAMS: Username, Bookshelf       /bookshelves/get/:username/:bookshelf
+ * Add book to bookshelf                  POST; PARAMS: Username, Bookshelf, ISBN /bookshelves/add
+ * Remove book from bookshelf             POST; PARAMS: Username, Bookshelf, ISBN /bookshelves/remove
+ * List of basic book data                GET;  PARAMS: Title, Author, Genre, Offset, ResultLength
+ * Detailed information for single book   GET;  PARAMS: ISBN
+ */
+
+/**
+ * Login endpoint
+ */
+app.post("/login", async (req, res) => {
+
+});
+
+/**
+ * Sign up endpoint (Create new User)
+ */
+app.post("/signup", async (req, res) => {
+
+});
+
+/**
+ * Get user's book in bookshelf, with default value "all" for bookshelf name
+ */
+app.get("/bookshelves/get/:username/:bookshelf", async function(req, res) {
+
+});
+
+/**
+ * Add book to bookshelf
+ * (Check for duplicates within specific bookshelf)
+ * (Do not need to check for overall duplicates? I assume?)
+ */
+ app.post("/bookshelves/add", async (req, res) => {
+
+});
+
+/**
+ * Remove book from bookshelf
+ */
+app.post("/bookshelves/remove", async (req, res) => {
+
+});
+
+/**
+ * Get books with given search parameters
+ * Note: All parameters are optional (Should we require at least 1 parameter?)
+ * If no books match search criteria... return an empty JSON Object
+ */
+app.get("/books/search/:title/:author/:genre/:offset/:resultLength", async function(req, res) {
+
+});
+
+/**
+ * Gets detailed information for book based on ISBN
+ */
+ app.get("/books/detail/:isbn", async function(req, res) {
+
+});
+
+
+/* ------------------  LOGGING MODULE  ----------------- */
 /**
  * Logging module for any error that occurs in an endpoint - Writes error to a new file
  * File name sample format: "2021-08-01T20:36:31.346Z_login"
@@ -38,9 +108,15 @@ app.listen(PORT);
  * NOTE: IF PROBLEM OCCURS WHILE LOGGING, ERROR MESSAGE WILL BE PRINTED TO CONSOLE
  */
 function loggingModule (errMsg, endpoint) {
-  const datetime = new Date();
-  const fileName = datetime.toISOString() + "_" + endpoint;
+  let datetime = new Date();
+  let fileName = datetime.toISOString() + "_" + endpoint;
   fs.writeFile(fileName, errMsg, {flag: "w+"}, function (err) {
     if (err) return console.log(err);
   });
 }
+
+
+/* -------------------  Public Port  ------------------- */
+app.use(express.static("public"));
+const PORT = process.env.PORT || LOCAL_HOST;
+app.listen(PORT);
