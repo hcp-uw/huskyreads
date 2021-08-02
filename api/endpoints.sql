@@ -2,6 +2,7 @@
  * DO NOT RUN THIS CODE IN SQL, SINCE IT REQUIRES PARAMETERS WE WILL RUN IT IN THE NODE.JS FILE
 **/
 
+-- TESTED SUCCESSFULLY
 /* Login Endpoint */
 /* username, password are given parameters */
 /* If empty, then login failed, otherwise login success + output color scheme*/
@@ -11,13 +12,13 @@ WHERE User.username = username
 AND User.password = password
 ;
 
-
+-- TESTED SUCCESSFULLY
 /* Create new user */
 /* username, password are given parameters */
 /* Try-Catch this since username needs to be unique! (User.username is a unique field) */
 INSERT INTO User (username, password) VALUES (username parameter, password parameter);
 
-
+-- TESTED SUCCESSFULLY
 /* Updates User Color Schema */
 /* Parameters: Username, ColorScheme */
 UPDATE User
@@ -52,6 +53,7 @@ INNER JOIN Genre
 ON Book_Genre.id_genre = Genre.id
 ;
 
+-- TESTED SUCCESSFULLY
 /* Add Book to Bookshelf */
 /* Parameters: username, bookshelf, isbn */
 SELECT id
@@ -61,6 +63,7 @@ WHERE User.username = username
 /* Gives the USER ID */
 INSERT INTO Bookshelf VALUES (id, isbn, bookshelf);
 
+-- TESTED SUCCESSFULLY
 /* Remove Book from Bookshelf */
 /* Parameters: username, bookshelf, isbn */
 SELECT id
