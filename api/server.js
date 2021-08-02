@@ -43,6 +43,7 @@ const DB_NAME = "huskyReads"; // Database name
 app.post("/login", async (req, res) => {
   try {
     const db = await getDBConnection();
+    await db.close();
   } catch (err) {
     loggingModule(err, "login");
   }
@@ -54,6 +55,7 @@ app.post("/login", async (req, res) => {
 app.post("/signup", async (req, res) => {
   try {
     const db = await getDBConnection();
+    await db.close();
   } catch (err) {
     loggingModule(err, "signup");
   }
@@ -65,6 +67,7 @@ app.post("/signup", async (req, res) => {
 app.get("/bookshelves/get/:username/:bookshelf", async function(req, res) {
   try {
     const db = await getDBConnection();
+    await db.close();
   } catch (err) {
     loggingModule(err, "bookshelfGet");
   }
@@ -78,6 +81,7 @@ app.get("/bookshelves/get/:username/:bookshelf", async function(req, res) {
 app.post("/bookshelves/add", async (req, res) => {
   try {
     const db = await getDBConnection();
+    await db.close();
   } catch (err) {
     loggingModule(err, "bookshelfAdd");
   }
@@ -89,6 +93,7 @@ app.post("/bookshelves/add", async (req, res) => {
 app.post("/bookshelves/remove", async (req, res) => {
   try {
     const db = await getDBConnection();
+    await db.close();
   } catch (err) {
     loggingModule(err, "bookshelfRemove");
   }
@@ -102,6 +107,7 @@ app.post("/bookshelves/remove", async (req, res) => {
 app.get("/books/search/:title/:author/:genre/:offset/:resultLength", async function(req, res) {
   try {
     const db = await getDBConnection();
+    await db.close();
   } catch (err) {
     loggingModule(err, "bookSearch");
   }
@@ -113,6 +119,7 @@ app.get("/books/search/:title/:author/:genre/:offset/:resultLength", async funct
 app.get("/books/detail/:isbn", async function(req, res) {
   try {
     const db = await getDBConnection();
+    await db.close();
   } catch (err) {
     loggingModule(err, "bookDetail");
   }
