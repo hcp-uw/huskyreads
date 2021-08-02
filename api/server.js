@@ -30,6 +30,7 @@ const DB_NAME = "huskyReads"; // Database name
  * Endpoint List:
  * Login                                  POST; PARAMS: Username, Password        /login
  * Create New User                        POST; PARAMS: Username, Password        /signup
+ * Update User Color Scheme               POST; PARAMS: Username, Color_Scheme    /color_scheme
  * Accessing User Bookshelf               GET;  PARAMS: Username, Bookshelf       /bookshelves/get/:username/:bookshelf
  * Add book to bookshelf                  POST; PARAMS: Username, Bookshelf, ISBN /bookshelves/add
  * Remove book from bookshelf             POST; PARAMS: Username, Bookshelf, ISBN /bookshelves/remove
@@ -65,6 +66,18 @@ app.post("/signup", async (req, res) => {
     await db.close();
   } catch (err) {
     loggingModule(err, "signup");
+  }
+});
+
+/**
+ * Update user color scheme
+ */
+ app.post("/color_scheme", async (req, res) => {
+  try {
+    const db = await getDBConnection();
+    await db.close();
+  } catch (err) {
+    loggingModule(err, "color_scheme");
   }
 });
 
