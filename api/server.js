@@ -13,13 +13,6 @@ const globPromise = util.promisify(glob);
 const bcrypt = require("bcrypt"); //npm install bcrypt
 
 const app = express();
-const db = mysql.createPool({
-  host: process.env.DB_URL || 'localhost',
-  port: process.env.DB_PORT || '8889',
-  user: process.env.DB_USERNAME || 'root',
-  password: process.env.DB_PASSWORD || 'root',
-  database: process.env.DB_NAME || 'databaseName'
-});
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(multer().none());
@@ -29,6 +22,15 @@ const CLIENT_ERROR_CODE = 400;
 const SERVER_ERROR_CODE = 500;      // Server Error format: "An error has occured on the server!"
 const LOCAL_HOST = 8000;
 const DB_NAME = ""; // Database name
+
+// Should we put this in a function in case this doesn't work?
+const db = mysql.createPool({
+  host: process.env.DB_URL || 'localhost',
+  port: process.env.DB_PORT || '8889',
+  user: process.env.DB_USERNAME || 'root',
+  password: process.env.DB_PASSWORD || 'root',
+  database: process.env.DB_NAME || DB_NAME
+});
 
 /* --------------------  ENDPOINTS  -------------------- */
 
@@ -69,7 +71,7 @@ app.get("/bookshelves/get/:username/:bookshelf", async function(req, res) {
  * (Check for duplicates within specific bookshelf)
  * (Do not need to check for overall duplicates? I assume?)
  */
- app.post("/bookshelves/add", async (req, res) => {
+app.post("/bookshelves/add", async (req, res) => {
 
 });
 
@@ -92,9 +94,12 @@ app.get("/books/search/:title/:author/:genre/:offset/:resultLength", async funct
 /**
  * Gets detailed information for book based on ISBN
  */
- app.get("/books/detail/:isbn", async function(req, res) {
+app.get("/books/detail/:isbn", async function(req, res) {
 
 });
+
+/* -----------------  HELPER FUNCTIONS  ---------------- */
+// In case we need some, added a section here
 
 
 /* ------------------  LOGGING MODULE  ----------------- */
@@ -104,12 +109,11 @@ app.get("/books/search/:title/:author/:genre/:offset/:resultLength", async funct
  * @param {*} errMsg Error message outputted by the issue caused in endpoint
  * @param {*} endpoint Name of the endpoint
  * NOTE: NOT YET TESTED (just write an endpoint and call this function)
- * NOTE: MAY NEED TO SPECIFY FILE PATH
  * NOTE: IF PROBLEM OCCURS WHILE LOGGING, ERROR MESSAGE WILL BE PRINTED TO CONSOLE
  */
 function loggingModule (errMsg, endpoint) {
   let datetime = new Date();
-  let fileName = datetime.toISOString() + "_" + endpoint;
+  let fileName = datetime.toISOString() + "_" + endpoint + ".txt";
   fs.writeFile(fileName, errMsg, {flag: "w+"}, function (err) {
     if (err) return console.log(err);
   });
