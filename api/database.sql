@@ -80,12 +80,12 @@ INSERT INTO Books (ISBN, title, description, date_published) VALUES (4444444444,
 INSERT INTO Books (ISBN, title, description, date_published) VALUES (5555555555, "title5", "Long Description5", '2020--12-5');
 INSERT INTO Books (ISBN, title, description, date_published) VALUES (6666666666, "title6", "Long Description6", '2020--12-6');
 
-INSERT INTO Book_Authors (ISBN, id_author) VALUES (11111111111, 1);
-INSERT INTO Book_Authors (ISBN, id_author) VALUES (22222222222, 2);
-INSERT INTO Book_Authors (ISBN, id_author) VALUES (33333333333, 3);
-INSERT INTO Book_Authors (ISBN, id_author) VALUES (44444444444, 3); /* Edge Case */
-INSERT INTO Book_Authors (ISBN, id_author) VALUES (55555555555, 4); /* Edge Case */
-INSERT INTO Book_Authors (ISBN, id_author) VALUES (55555555555, 3); /* Edge Case */
+INSERT INTO Book_Authors (ISBN, id_author) VALUES (1111111111, 1);
+INSERT INTO Book_Authors (ISBN, id_author) VALUES (2222222222, 2);
+INSERT INTO Book_Authors (ISBN, id_author) VALUES (3333333333, 3);
+INSERT INTO Book_Authors (ISBN, id_author) VALUES (4444444444, 3); /* Edge Case */
+INSERT INTO Book_Authors (ISBN, id_author) VALUES (5555555555, 4); /* Edge Case */
+INSERT INTO Book_Authors (ISBN, id_author) VALUES (5555555555, 3); /* Edge Case */
 
 INSERT INTO Book_Genre (ISBN, id_genre) VALUES (1111111111, 1);
 INSERT INTO Book_Genre (ISBN, id_genre) VALUES (2222222222, 2);
