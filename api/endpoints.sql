@@ -52,7 +52,7 @@ CREATE TEMPORARY TABLE Book_Data
   	RIGHT JOIN Shelves
       	ON Shelves.ISBN = Books.ISBN
 ;
-SELECT Book_Data.shelfname, Book_Data.title, Book_Data.ISBN, GROUP_CONCAT(DISTINCT Authors.name SEPARATOR ', ') AS authors, GROUP_CONCAT(DISTINCT Genre.name SEPARATOR ', ') AS genres
+SELECT Book_Data.shelfname, Book_Data.title, Book_Data.ISBN, GROUP_CONCAT(DISTINCT Authors.name SEPARATOR ',') AS authors, GROUP_CONCAT(DISTINCT Genre.name SEPARATOR ',') AS genres
 FROM Book_Data
 INNER JOIN Book_Authors
     ON Book_Data.ISBN = Book_Authors.ISBN
@@ -133,7 +133,7 @@ CREATE TEMPORARY TABLE Results
         ON Book_Genre.id_genre = Genre.id
     WHERE Books.ISBN = [ISBN]
     ;
-SELECT Results.title, Results.date_published, GROUP_CONCAT(DISTINCT Results.author_name SEPARATOR ', ') AS authors, GROUP_CONCAT(DISTINCT Results.genre_name SEPARATOR ', ') AS genres
+SELECT Results.title, Results.date_published, GROUP_CONCAT(DISTINCT Results.author_name SEPARATOR ',') AS authors, GROUP_CONCAT(DISTINCT Results.genre_name SEPARATOR ',') AS genres
 FROM Results
 GROUP BY Results.title, Results.date_published
 ;
