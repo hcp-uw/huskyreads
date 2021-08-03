@@ -29,48 +29,38 @@ WHERE username = Username
 ;
 
 
+-- TESTED SUCCESSFULLY
 /* Accessing User Bookshelves */
 /* Valid Bookshelf Names: "reading", "read", "want_to_read" */
 /* Parameters: username, bookshelfName */
-/* AHHHHHHHHHHH I DONT KNOW IF THIS WORKSSSS AHHHHHHHHHHHHHHH */
 SELECT id
 FROM User
 WHERE User.username = username
-
+;
 CREATE TEMPORARY TABLE Shelves
-	  SELECT User.id, Bookshelf.ISBN AS ISBN, Bookshelf.shelf_name AS name
+	  SELECT Bookshelf.ISBN AS ISBN, Bookshelf.shelf_name AS name
     FROM Bookshelf
     INNER JOIN User 
         ON User.id = Bookshelf.id_user
-    WHERE Bookshelf.shelf_name = 'reading' AND User.id = 1
- 	;
-SELECT Shelves.id AS user_id, Shelves.name AS shelfname, Books.title AS title, Books.ISBN AS ISBN
-FROM Books
-RIGHT JOIN Shelves
-ON Shelves.ISBN = Books.ISBN
--- BELOW IS OLDER CODE
-WITH Book AS (
-    WITH Shelves AS (
-    SELECT Bookshelf.ISBN AS ISBN, Bookshelf.shelf_name AS name
-    FROM Bookshelf
-    WHERE Bookshelf.shelf_name = bookshelfName
-    INNER JOIN User 
-        ON User.id = Bookshelf.id_user
-  )
-  SELECT Shelves.name AS shelfname, Books.title AS title, Books.ISBN AS ISBN
-  FROM Books, Shelves
-  RIGHT JOIN Shelves
-      ON Shelves.ISBN = Books.ISBN
-)
-SELECT Book.shelfname, Book.titile, Book.ISNB, Authors.author, Genre.name
-INNER JOIN Books_Authors
-    ON Book.ISBN = Books_Authors.ISBN_book
+    WHERE Bookshelf.shelf_name = 'want_to_read' AND User.id = 2
+;
+CREATE TEMPORARY TABLE Book_Data
+	  SELECT Shelves.name AS shelfname, Books.title AS title, Books.ISBN AS ISBN
+  	FROM Books
+  	RIGHT JOIN Shelves
+      	ON Shelves.ISBN = Books.ISBN
+;
+SELECT Book_Data.shelfname, Book_Data.title, Book_Data.ISBN, GROUP_CONCAT(DISTINCT Authors.name SEPARATOR ', ') AS authors, GROUP_CONCAT(DISTINCT Genre.name SEPARATOR ', ') AS genres
+FROM Book_Data
+INNER JOIN Book_Authors
+    ON Book_Data.ISBN = Book_Authors.ISBN
 INNER JOIN Book_Genre
-    ON Book.ISBN = Book_Genre.ISBN_book
+    ON Book_Data.ISBN = Book_Genre.ISBN
 INNER JOIN Authors
-    ON Books_Authors.id_author = Authors.id
+    ON Book_Authors.id_author = Authors.id
 INNER JOIN Genre
     ON Book_Genre.id_genre = Genre.id
+GROUP BY Book_Data.shelfname, Book_Data.title, Book_Data.ISBN
 ;
 
 
@@ -101,7 +91,6 @@ AND shelf_name = bookshelf
 -- TESTED SUCCESSFULLY
 /* Retrieving Book Data */
 /* Parameters: title, author, genre ARR, offset, resultLength */
-/* I want to cry LMAO IDK IF THESE INNER JOINS ACTUALLY WORK PRAYGE */
 CREATE TEMPORARY TABLE Results
     SELECT Books.title AS title, Authors.name AS author_name
     FROM Books
