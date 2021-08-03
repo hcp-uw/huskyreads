@@ -1,31 +1,33 @@
 /**
- * DO NOT RUN THIS CODE IN SQL, SINCE IT REQUIRES PARAMETERS WE WILL RUN IT IN THE NODE.JS FILE
+ * DO NOT RUN THIS CODE IN SQL WITHOUT REPLACING THE PARAMETERS
 **/
+
+/* Code marked in [] indicates use of parameters */
 
 -- TESTED SUCCESSFULLY
 /* Login Endpoint */
-/* username, password are given parameters */
+/* Parameters: Username, Password */
 /* If empty, then login failed, otherwise login success + output color scheme*/
 SELECT User.color_scheme AS color_scheme
 FROM User
-WHERE User.username = username
-AND User.password = password
+WHERE User.username = [username]
+AND User.password = [password]
 ;
 
 
 -- TESTED SUCCESSFULLY
 /* Create new user */
-/* username, password are given parameters */
+/* Parameters: Username, Password */
 /* Try-Catch this since username needs to be unique! (User.username is a unique field) */
-INSERT INTO User (username, password) VALUES (username parameter, password parameter);
+INSERT INTO User (username, password) VALUES (username [username], password [password]);
 
 
 -- TESTED SUCCESSFULLY
 /* Updates User Color Schema */
 /* Parameters: Username, ColorScheme */
 UPDATE User
-SET color_scheme = ColorScheme
-WHERE username = Username
+SET color_scheme = [ColorScheme]
+WHERE username = [Username]
 ;
 
 
@@ -33,16 +35,16 @@ WHERE username = Username
 /* Accessing User Bookshelves */
 /* Valid Bookshelf Names: "reading", "read", "want_to_read" */
 /* Parameters: username, bookshelfName */
-SELECT id
+SELECT id   /* We want use this in the Shelves query */
 FROM User
-WHERE User.username = username
+WHERE User.username = [username]
 ;
 CREATE TEMPORARY TABLE Shelves
-	  SELECT Bookshelf.ISBN AS ISBN, Bookshelf.shelf_name AS name
+	SELECT Bookshelf.ISBN AS ISBN, Bookshelf.shelf_name AS name
     FROM Bookshelf
-    INNER JOIN User 
+    INNER JOIN User
         ON User.id = Bookshelf.id_user
-    WHERE Bookshelf.shelf_name = 'want_to_read' AND User.id = 2
+    WHERE Bookshelf.shelf_name = [bookshelfName] AND User.id = [id]
 ;
 CREATE TEMPORARY TABLE Book_Data
 	  SELECT Shelves.name AS shelfname, Books.title AS title, Books.ISBN AS ISBN
@@ -69,9 +71,9 @@ GROUP BY Book_Data.shelfname, Book_Data.title, Book_Data.ISBN
 /* Parameters: username, bookshelf, isbn */
 SELECT id
 FROM User
-WHERE User.username = username
+WHERE User.username = [username]
 ;
-INSERT INTO Bookshelf VALUES (id, isbn, bookshelf);
+INSERT INTO Bookshelf VALUES ([id], isbn, [bookshelf]);
 
 
 -- TESTED SUCCESSFULLY
@@ -79,12 +81,12 @@ INSERT INTO Bookshelf VALUES (id, isbn, bookshelf);
 /* Parameters: username, bookshelf, isbn */
 SELECT id
 FROM User
-WHERE User.username = username
+WHERE User.username = [username]
 ;
 DELETE FROM Bookshelf
-WHERE id_user = id
-AND isbn = isbn
-AND shelf_name = bookshelf
+WHERE id_user = [id]
+AND isbn = [isbn]
+AND shelf_name = [bookshelf]
 ;
 
 
@@ -102,15 +104,15 @@ CREATE TEMPORARY TABLE Results
         ON Books.ISBN = Book_Genre.ISBN
     INNER JOIN Genre
         ON Book_Genre.id_genre = Genre.id
-    WHERE Books.title = "title5"
-    AND Authors.name = "Suzzy Collins"
-    AND Genre.name = "Thriller"
+    WHERE Books.title = [title]
+    AND Authors.name = [author]
+    AND Genre.name = [genre] /* If multiple genres in array: use OR statements */
     ;
 SELECT Results.title, GROUP_CONCAT(DISTINCT Results.author_name SEPARATOR ', ') AS authors
 FROM Results
 GROUP BY Results.title
-LIMIT 10
-OFFSET 0
+LIMIT [resultLength] /* Default value 10 */
+OFFSET [offset]
 ;
 
 
@@ -128,7 +130,7 @@ CREATE TEMPORARY TABLE Results
         ON Books.ISBN = Book_Genre.ISBN
     INNER JOIN Genre
         ON Book_Genre.id_genre = Genre.id
-    WHERE Books.ISBN = 5555555555
+    WHERE Books.ISBN = [ISBN]
     ;
 SELECT Results.title, Results.date_published, GROUP_CONCAT(DISTINCT Results.author_name SEPARATOR ', ') AS authors, GROUP_CONCAT(DISTINCT Results.genre_name SEPARATOR ', ') AS genres
 FROM Results
