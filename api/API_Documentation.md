@@ -78,7 +78,7 @@ Adds a new user with the given username and password. If the provided username a
 
     </br>
 
-### Setting a Users Preffered Color Scheme
+### Setting a Users Preferred Color Scheme
 
 Sets a user's preferred color scheme. Valid color schemes are either `"light"` or `"dark"` mode.
 * **Endpoint:** /color_scheme
