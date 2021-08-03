@@ -93,6 +93,7 @@ AND shelf_name = [bookshelf]
 -- TESTED SUCCESSFULLY
 /* Retrieving Book Data */
 /* Parameters: title, author, genre ARR, offset, resultLength */
+
 CREATE TEMPORARY TABLE Results
     SELECT Books.title AS title, Authors.name AS author_name
     FROM Books
@@ -105,12 +106,12 @@ CREATE TEMPORARY TABLE Results
     INNER JOIN Genre
         ON Book_Genre.id_genre = Genre.id
     WHERE Books.title = [title]
-    AND Authors.name = [author]
     AND Genre.name = [genre] /* If multiple genres in array: use OR statements */
     ;
-SELECT Results.title, GROUP_CONCAT(DISTINCT Results.author_name SEPARATOR ', ') AS authors
+SELECT Results.title, GROUP_CONCAT(DISTINCT Results.author_name SEPARATOR ',') AS authors
 FROM Results
 GROUP BY Results.title
+HAVING FIND_IN_SET([author], authors)
 LIMIT [resultLength] /* Default value 10 */
 OFFSET [offset]
 ;
