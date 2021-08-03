@@ -73,7 +73,7 @@ SELECT id
 FROM User
 WHERE User.username = [username]
 ;
-INSERT INTO Bookshelf VALUES ([id], isbn, [bookshelf]);
+INSERT INTO Bookshelf VALUES ([id], [isbn], [bookshelf]);
 
 
 -- TESTED SUCCESSFULLY
@@ -93,7 +93,6 @@ AND shelf_name = [bookshelf]
 -- TESTED SUCCESSFULLY
 /* Retrieving Book Data */
 /* Parameters: title, author, genre ARR, offset, resultLength */
-
 CREATE TEMPORARY TABLE Results
     SELECT Books.title AS title, Authors.name AS author_name
     FROM Books
