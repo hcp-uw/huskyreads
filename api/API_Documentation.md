@@ -1,7 +1,7 @@
 # Husky Reads Server API Documentation
 The Husky Reads API provides information on cataloged books. It also maintains relationships that users have with books in the form of bookshelves. Users can add and remove books from their bookshelves.
 
-## <span style="color:deepskyblue">User Authentication</span>
+## <span style="color:deepskyblue">User Data Interaction</span>
 ---
 
 ### Authenticating User's Login Credentials
@@ -41,7 +41,7 @@ Verifies that a user exists and that the provided password matches the stored on
 
     </br>
 
-### Creating a new user
+### Creating a New User
 
 Adds a new user with the given username and password. If the provided username already exists, an error will be thrown.
 * **Endpoint:** /signup
@@ -75,6 +75,48 @@ Adds a new user with the given username and password. If the provided username a
 
     * **Code:** 400 </br>
     **Content:** `"Username already taken"`
+
+    </br>
+
+### Setting a Users Preferred Color Scheme
+
+Sets a user's preferred color scheme. Valid color schemes are either `"light"` or `"dark"` mode.
+* **Endpoint:** /color_scheme
+
+* **Request Method:** POST
+
+* **Body Params:**
+
+    **Required:**
+    
+    | Name           | Type   | Description                                       |
+    | -------------- | ------ | ------------------------------------------------- |
+    | `username`     | String | The username of the user to create.               |
+    | `color_scheme` | String | The preferred color scheme for the given user.    |
+
+* **Returned Data Format:** Plain Text
+
+* **Success Response:**
+
+    * **Code:** 200 </br>
+    **Content:** `"Color Scheme Updated Successfuly"`
+
+* **Error Response:**
+
+    Missing one or more body parameters
+
+    * **Code:** 400 </br>
+    **Content:** `"Missing username or color_scheme"`
+
+    Username doesn't match any existing user
+
+    * **Code:** 401 </br>
+    **Content:** `"Invalid username"`
+
+    An invalid color scheme is provided
+
+    * **Code:** 400 </br>
+    **Content:** `"Invalid color scheme"`
 
     </br>
 
@@ -174,11 +216,11 @@ Adds a book to the specified bookshelf for a user.
 
     **Required:**
     
-    | Name        | Type   | Description                                      |
-    | ----------- | ------ | ------------------------------------------------ |
-    | `username`  | String | The username of the user who owns the bookshelf. |
-    | `bookshelf` | String | The name of the bookshelf to add a book to.      |
-    | `isbn`      | String | The isbn of the book to add to the bookshelf.    |
+    | Name        | Type    | Description                                      |
+    | ----------- | ------- | ------------------------------------------------ |
+    | `username`  | String  | The username of the user who owns the bookshelf. |
+    | `bookshelf` | String  | The name of the bookshelf to add a book to.      |
+    | `isbn`      | Integer | The isbn of the book to add to the bookshelf.    |
 
 * **Returned Data Format:** Plain Text
 
@@ -222,11 +264,11 @@ Removes a book from a specified bookshelf for a user.
 
     **Required:**
     
-    | Name        | Type   | Description                                         |
-    | ----------- | ------ | --------------------------------------------------- |
-    | `username`  | String | The username of the user who owns the bookshelf.    |
-    | `bookshelf` | String | The name of the bookshelf to remove a book from.    |
-    | `isbn`      | String | The isbn of the book to remove from the bookshelf.  |
+    | Name        | Type    | Description                                         |
+    | ----------- | ------- | --------------------------------------------------- |
+    | `username`  | String  | The username of the user who owns the bookshelf.    |
+    | `bookshelf` | String  | The name of the bookshelf to remove a book from.    |
+    | `isbn`      | Integer | The isbn of the book to remove from the bookshelf.  |
 
 * **Returned Data Format:** Plain Text
 
@@ -294,7 +336,8 @@ Returns a list of books that match given search parameters and the number of boo
         "books": [
             {   
                 "title": "Hunger Games",
-                "authors": ["Suzanne Collins"]
+                "authors": ["Suzanne Collins"],
+                "isbn": 2222222222
             }
         ]
     }
@@ -321,9 +364,9 @@ Returns a detailed description for a single book. The information returned consi
 
     **Required:**
     
-    | Name   | Type   | Description                                     |
-    | -------| ------ | ----------------------------------------------- |
-    | `isbn` | String | The isbn number of the book to get details for. |
+    | Name   | Type    | Description                                     |
+    | -------| ------- | ----------------------------------------------- |
+    | `isbn` | Integer | The isbn number of the book to get details for. |
 
 * **Returned Data Format:** JSON
 
