@@ -216,11 +216,11 @@ Adds a book to the specified bookshelf for a user.
 
     **Required:**
     
-    | Name        | Type   | Description                                      |
-    | ----------- | ------ | ------------------------------------------------ |
-    | `username`  | String | The username of the user who owns the bookshelf. |
-    | `bookshelf` | String | The name of the bookshelf to add a book to.      |
-    | `isbn`      | String | The isbn of the book to add to the bookshelf.    |
+    | Name        | Type    | Description                                      |
+    | ----------- | ------- | ------------------------------------------------ |
+    | `username`  | String  | The username of the user who owns the bookshelf. |
+    | `bookshelf` | String  | The name of the bookshelf to add a book to.      |
+    | `isbn`      | Integer | The isbn of the book to add to the bookshelf.    |
 
 * **Returned Data Format:** Plain Text
 
@@ -264,11 +264,11 @@ Removes a book from a specified bookshelf for a user.
 
     **Required:**
     
-    | Name        | Type   | Description                                         |
-    | ----------- | ------ | --------------------------------------------------- |
-    | `username`  | String | The username of the user who owns the bookshelf.    |
-    | `bookshelf` | String | The name of the bookshelf to remove a book from.    |
-    | `isbn`      | String | The isbn of the book to remove from the bookshelf.  |
+    | Name        | Type    | Description                                         |
+    | ----------- | ------- | --------------------------------------------------- |
+    | `username`  | String  | The username of the user who owns the bookshelf.    |
+    | `bookshelf` | String  | The name of the bookshelf to remove a book from.    |
+    | `isbn`      | Integer | The isbn of the book to remove from the bookshelf.  |
 
 * **Returned Data Format:** Plain Text
 
@@ -336,7 +336,8 @@ Returns a list of books that match given search parameters and the number of boo
         "books": [
             {   
                 "title": "Hunger Games",
-                "authors": ["Suzanne Collins"]
+                "authors": ["Suzanne Collins"],
+                "isbn": 2222222222
             }
         ]
     }
@@ -363,9 +364,9 @@ Returns a detailed description for a single book. The information returned consi
 
     **Required:**
     
-    | Name   | Type   | Description                                     |
-    | -------| ------ | ----------------------------------------------- |
-    | `isbn` | String | The isbn number of the book to get details for. |
+    | Name   | Type    | Description                                     |
+    | -------| ------- | ----------------------------------------------- |
+    | `isbn` | Integer | The isbn number of the book to get details for. |
 
 * **Returned Data Format:** JSON
 
