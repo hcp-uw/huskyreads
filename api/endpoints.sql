@@ -33,6 +33,22 @@ WHERE username = Username
 /* Valid Bookshelf Names: "reading", "read", "want_to_read" */
 /* Parameters: username, bookshelfName */
 /* AHHHHHHHHHHH I DONT KNOW IF THIS WORKSSSS AHHHHHHHHHHHHHHH */
+SELECT id
+FROM User
+WHERE User.username = username
+
+CREATE TEMPORARY TABLE Shelves
+	SELECT User.id, Bookshelf.ISBN AS ISBN, Bookshelf.shelf_name AS name
+  	FROM Bookshelf
+  	INNER JOIN User 
+    ON User.id = Bookshelf.id_user
+    WHERE Bookshelf.shelf_name = 'reading' AND User.id = 1
+ 	;
+SELECT Shelves.id AS user_id, Shelves.name AS shelfname, Books.title AS title, Books.ISBN AS ISBN
+FROM Books
+RIGHT JOIN Shelves
+ON Shelves.ISBN = Books.ISBN
+-- BELOW IS OLDER CODE
 WITH Book AS (
   WITH Shelves AS (
   SELECT Bookshelf.ISBN AS ISBN, Bookshelf.shelf_name AS name
@@ -80,38 +96,49 @@ AND isbn = isbn
 AND shelf_name = bookshelf
 ;
 
-
+-- TESTED SUCCESSFULLY
 /* Retrieving Book Data */
 /* Parameters: title, author, genre ARR, offset, resultLength */
 /* I want to cry LMAO IDK IF THESE INNER JOINS ACTUALLY WORK PRAYGE */
-SELECT Books.title, Author.author, Genre.name, COUNT(*) as remainingBooksInSearch
-FROM Books
-WHERE Books.title = title
-AND Authors.author = author
-AND (Genre.name = genre[0] OR Genre.name = genre[1]...)
-INNER JOIN Books_Authors
-ON Books.ISBN = Books_Authors.ISBN_book
-INNER JOIN Authors
-ON Books_Authors.id_author = Authors.id
-INNER JOIN Book_Genre
-ON Books.ISBN = Book_Genre.ISBN_book
-INNER JOIN Genre
-ON Book_Genre.ISBN_book = Genre.id
-LIMIT resultLength DEFAULT 10
-OFFSET offset
+CREATE TEMPORARY TABLE Results
+    SELECT Books.title AS title, Authors.name AS author_name
+    FROM Books
+    INNER JOIN Book_Authors
+    ON Books.ISBN = Book_Authors.ISBN
+    INNER JOIN Authors
+    ON Book_Authors.id_author = Authors.id
+    INNER JOIN Book_Genre
+    ON Books.ISBN = Book_Genre.ISBN
+    INNER JOIN Genre
+    ON Book_Genre.id_genre = Genre.id
+    WHERE Books.title = "title5"
+    AND Authors.name = "Suzzy Collins"
+    AND Genre.name = "Thriller"
+    ;
+SELECT Results.title, GROUP_CONCAT(DISTINCT Results.author_name SEPARATOR ', ') AS authors
+FROM Results
+GROUP BY Results.title
+LIMIT 10
+OFFSET 0
 ;
 
-
+-- TESTED SUCCESSFULLY
 /* Get Detailed Information for Single Book */
 /* Parameter: ISBN */
-SELECT Books.title AS title, Book.description AS description, Book.date_published AS date_published, Authors.author, Genre.genre
-FROM Books
-INNER JOIN Books_Authors
-ON Books.ISBN = Books_Authors.ISBN_book
-INNER JOIN Authors
-ON Books_Authors.id_author = Authors.id
-INNER JOIN Book_Genre
-ON Books.ISBN = Book_Genre.ISBN_book
-INNER JOIN Genre
-ON Book_Genre.ISBN_book = Genre.id
+CREATE TEMPORARY TABLE Results
+    SELECT Books.title AS title, Books.date_published AS date_published, Authors.name AS author_name, Genre.name AS genre_name
+    FROM Books
+    INNER JOIN Book_Authors
+    ON Books.ISBN = Book_Authors.ISBN
+    INNER JOIN Authors
+    ON Book_Authors.id_author = Authors.id
+    INNER JOIN Book_Genre
+    ON Books.ISBN = Book_Genre.ISBN
+    INNER JOIN Genre
+    ON Book_Genre.id_genre = Genre.id
+    WHERE Books.ISBN = 5555555555
+    ;
+SELECT Results.title, Results.date_published, GROUP_CONCAT(DISTINCT Results.author_name SEPARATOR ', ') AS authors, GROUP_CONCAT(DISTINCT Results.genre_name SEPARATOR ', ') AS genres
+FROM Results
+GROUP BY Results.title, Results.date_published
 ;
