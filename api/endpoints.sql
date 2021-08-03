@@ -40,7 +40,7 @@ FROM User
 WHERE User.username = [username]
 ;
 CREATE TEMPORARY TABLE Shelves
-	SELECT Bookshelf.ISBN AS ISBN, Bookshelf.shelf_name AS name
+    SELECT Bookshelf.ISBN AS ISBN, Bookshelf.shelf_name AS name
     FROM Bookshelf
     INNER JOIN User
         ON User.id = Bookshelf.id_user
