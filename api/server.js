@@ -69,8 +69,8 @@ app.post("/login", async (req, res) => {
 			}
 		}
 	} catch (err) {
-		// loggingModule(err, "login");
-		console.log(err);
+		loggingModule(err, "login");
+		// console.log(err);
 		res.status(SERVER_ERROR_CODE).send(SERVER_ERROR_MESSAGE);
 	}
 });
@@ -87,13 +87,14 @@ app.post("/signup", async (req, res) => {
 			res.status(CLIENT_ERROR_CODE_400).send("Missing username or password");
 		} else if (await checkIfExist(username)) {
 			res.status(CLIENT_ERROR_CODE_400).send("Username already taken");
-		} else { 		
+		} else {
 			let info = [username, password];
 			createUser(info);
 			res.status(SUCCESS_CODE).send("Signup Successful");
 		}
 	} catch (err) {
-		// loggingModule(err, "signup");
+		loggingModule(err, "signup");
+        // console.log(err);
 		res.status(SERVER_ERROR_CODE).send(SERVER_ERROR_MESSAGE);
 	}
 });
@@ -108,7 +109,7 @@ app.post("/color_scheme", async (req, res) => {
 		let color_scheme = req.body.color_scheme;
 		if (!username || !password) {
 			res.status(CLIENT_ERROR_CODE_400).send("Missing username or color_scheme");
-		} else { 		
+		} else {
 			const db = await getDBConnection();
 			await db.close();
 		}
@@ -143,8 +144,7 @@ app.get("/bookshelves/get/:username/:bookshelf", async function(req, res) {
  */
 app.post("/bookshelves/add", async (req, res) => {
 	try {
-		const db = await getDBConnection();
-		await db.close();
+
 	} catch (err) {
 		loggingModule(err, "bookshelfAdd");
 	}
@@ -155,8 +155,7 @@ app.post("/bookshelves/add", async (req, res) => {
  */
 app.post("/bookshelves/remove", async (req, res) => {
 	try {
-		const db = await getDBConnection();
-		await db.close();
+		
 	} catch (err) {
 		loggingModule(err, "bookshelfRemove");
 	}
@@ -169,8 +168,7 @@ app.post("/bookshelves/remove", async (req, res) => {
  */
 app.get("/books/search/:title/:author/:genre/:offset/:resultLength", async function(req, res) {
 	try {
-		const db = await getDBConnection();
-		await db.close();
+		
 	} catch (err) {
 		loggingModule(err, "bookSearch");
 	}
@@ -181,8 +179,7 @@ app.get("/books/search/:title/:author/:genre/:offset/:resultLength", async funct
  */
 app.get("/books/detail/:isbn", async function(req, res) {
 	try {
-		const db = await getDBConnection();
-		await db.close();
+		
 	} catch (err) {
 		loggingModule(err, "bookDetail");
 	}
@@ -203,8 +200,7 @@ app.get("/books/detail/:isbn", async function(req, res) {
 
 /**
  * Creates new User based on info
- * 
- * @param {String[]} info 
+ * @param {String[]} info
  */
  async function createUser(info) {
 	let query = "INSERT INTO User (username, password) VALUES (?, ?);";
@@ -213,8 +209,7 @@ app.get("/books/detail/:isbn", async function(req, res) {
 
 /**
  * Gets password from username
- * 
- * @param {String} username 
+ * @param {String} username
  * @returns info of username
  */
 async function getPassword(username) {
@@ -224,7 +219,6 @@ async function getPassword(username) {
 }
 /**
  * Checks if username exists
- * 
  * @param {String} username
  * @returns {boolean} true if username aleady exists
  */
@@ -244,11 +238,10 @@ async function checkIfExist(username) {
  * NOTE: NOT YET TESTED (just write an endpoint and call this function)
  * NOTE: IF PROBLEM OCCURS WHILE LOGGING, ERROR MESSAGE WILL BE PRINTED TO CONSOLE
  */
-function loggingModule (errMsg, endpoint) {
+async function loggingModule (errMsg, endpoint) {
 	let datetime = new Date();
 	let fileName = "/logs/" + datetime.toISOString() + "_" + endpoint + ".txt";
-
-	fs.writeFile(fileName, errMsg, {flag: "w+"}, function (err) {
+	await fs.writeFile(fileName, errMsg, function (err) {
 		if (err) return console.log(err);
 	});
 }
