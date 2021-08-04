@@ -11,18 +11,30 @@ const util = require("util"); //npm install util
 const glob = require("glob"); //npm install glob
 const globPromise = util.promisify(glob);
 const bcrypt = require("bcrypt"); //npm install bcrypt
+const cors = require("cors"); //npm install cors
 
 const app = express();
+app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(multer().none());
 
 // Note: Use the logging module for all error codes
+const SUCCESS_CODE = 200;			// Success
 const CLIENT_ERROR_CODE_400 = 400;  // Bad Request
 const CLIENT_ERROR_CODE_401 = 401;  // Unauthorized Access
 const SERVER_ERROR_CODE = 500;      // Server Error format: "An error has occured on the server!"
+const SERVER_ERROR_MESSAGE = "An error has occured on the server"
 const LOCAL_HOST = 8000;
-const DB_NAME = "huskyReads"; // Database name
+const DB_NAME = "huskyreads"; // Database name
+
+const db = mysql.createPool({
+	host: process.env.DB_URL || 'localhost',
+	port: process.env.DB_PORT || '8889',
+	user: process.env.DB_USERNAME || 'admin',
+	password: process.env.DB_PASSWORD || 'root',
+	database: process.env.DB_NAME || DB_NAME
+});
 
 /* --------------------  ENDPOINTS  -------------------- */
 
@@ -49,11 +61,17 @@ app.post("/login", async (req, res) => {
 		if (!username || !password) {
 			res.status(CLIENT_ERROR_CODE_400).send("Missing username or password");
 		} else {
-			const db = await getDBConnection();
-			await db.close();
+			let returns = await getPassword(username);
+			if (returns.length >= 1 && password === returns[0]["password"]) {
+				res.status(SUCCESS_CODE).send("Login Successful");
+			} else {
+				res.status(CLIENT_ERROR_CODE_401).send("Invalid user credentials");
+			}
 		}
 	} catch (err) {
-		loggingModule(err, "login");
+		// loggingModule(err, "login");
+		console.log(err);
+		res.status(SERVER_ERROR_CODE).send(SERVER_ERROR_MESSAGE);
 	}
 });
 
@@ -67,12 +85,16 @@ app.post("/signup", async (req, res) => {
 		let password = req.body.password;
 		if (!username || !password) {
 			res.status(CLIENT_ERROR_CODE_400).send("Missing username or password");
+		} else if (await checkIfExist(username)) {
+			res.status(CLIENT_ERROR_CODE_400).send("Username already taken");
 		} else { 		
-			const db = await getDBConnection();
-			await db.close();
+			let info = [username, password];
+			createUser(info);
+			res.status(SUCCESS_CODE).send("Signup Successful");
 		}
 	} catch (err) {
-		loggingModule(err, "signup");
+		// loggingModule(err, "signup");
+		res.status(SERVER_ERROR_CODE).send(SERVER_ERROR_MESSAGE);
 	}
 });
 
@@ -167,16 +189,49 @@ app.get("/books/detail/:isbn", async function(req, res) {
 });
 
 /* -----------------  HELPER FUNCTIONS  ---------------- */
-async function getDBConnection() {
-	const db = mysql.createPool({
-		host: process.env.DB_URL || 'localhost',
-		port: process.env.DB_PORT || '8889',
-		user: process.env.DB_USERNAME || 'root',
-		password: process.env.DB_PASSWORD || 'root',
-		database: process.env.DB_NAME || DB_NAME
-	});
+// async function getDBConnection() {
+// 	const db = mysql.createPool({
+// 		host: process.env.DB_URL || 'localhost',
+// 		port: process.env.DB_PORT || '8889',
+// 		user: process.env.DB_USERNAME || 'admin',
+// 		password: process.env.DB_PASSWORD || 'root',
+// 		database: process.env.DB_NAME || DB_NAME
+// 	});
 
-	return db;
+// 	return db;
+// }
+
+/**
+ * Creates new User based on info
+ * 
+ * @param {String[]} info 
+ */
+ async function createUser(info) {
+	let query = "INSERT INTO User (username, password) VALUES (?, ?);";
+	await db.query(query, info);
+}
+
+/**
+ * Gets password from username
+ * 
+ * @param {String} username 
+ * @returns info of username
+ */
+async function getPassword(username) {
+	let query = "SELECT * FROM User WHERE username=?;";
+	let [rows] = await db.query(query, [username]);
+	return rows;
+}
+/**
+ * Checks if username exists
+ * 
+ * @param {String} username
+ * @returns {boolean} true if username aleady exists
+ */
+async function checkIfExist(username) {
+	let query = "SELECT * FROM User WHERE username = ?;";
+	let [rows] = await db.query(query, [username]);
+	return (rows.length >= 1);
 }
 
 
