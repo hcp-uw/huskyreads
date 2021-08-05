@@ -32,6 +32,13 @@ export default function App() {
   );
 }
 
-// hello! this is the root file and the App()
-// component is basically what gets rendered
-// in index.html
+// hello! this is the root file and the App() component is basically what gets
+// rendered in index.html file. I've created a basic file structure to start with
+// but please add new folders/files or change things in current pages if needed!
+// (some pages have some content because i was testing the navbar)
+
+// To do a browser preview, just type "npm start" into command line and it'll
+// automatically pull up the site in your browser & will also auto update as
+// you code!!
+
+// Shoot me a message through discord if you have questions! -audrey :)

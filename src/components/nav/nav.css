@@ -9,6 +9,11 @@ nav {
   margin: 0 2em;
 }
 
+h1 {
+  letter-spacing: 1px;
+  font-size: 1.8em;
+}
+
 ul {
   display: flex;
 }
