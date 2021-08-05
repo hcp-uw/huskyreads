@@ -4,13 +4,13 @@ import './nav.css';
 export default function Navbar() {
   return (
     <nav>
-      <NavLink to="/">
+      <NavLink to="/browse">
         <h1>HuskyReads</h1>
       </NavLink>
       <div className="split-right">
         <ul>
           <li>
-            <NavLink to="/">Browse</NavLink>
+            <NavLink to="/browse">Browse</NavLink>
           </li>
           <li>
             <NavLink to="/bookstand" activeClassName="active">Book Stand</NavLink>
