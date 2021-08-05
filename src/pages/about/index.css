@@ -1,0 +1,27 @@
+#member-list {
+    display: flex;
+    flex-flow: row wrap;
+    border: 5px solid black;
+    justify-content: center;
+    padding: 20px;
+}
+
+.member-box {
+    border: 2px solid black;
+    height: 500px;
+    max-width: 250px;
+    padding: 20px;
+    margin: 10px;
+    flex-flow: column;
+    text-align: center;
+}
+
+img {
+    width: 200px;
+    height: auto;
+}
+
+.description {
+    text-align: justify;
+    margin: 5px;
+}
