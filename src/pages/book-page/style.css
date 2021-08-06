@@ -1,0 +1,21 @@
+body {
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow','Arial', 'sans-serif';
+}
+
+.wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.book-image {
+    display: inline-block;
+    padding: 10px;
+}
+
+.basic-info {
+    display: inline-block;
+    clear: both;
+    position: relative;
+    padding: 10px;
+}
