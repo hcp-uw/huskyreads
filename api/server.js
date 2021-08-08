@@ -70,7 +70,6 @@ app.post("/login", async (req, res) => {
 		}
 	} catch (err) {
 		loggingModule(err, "login");
-		// console.log(err);
 		res.status(SERVER_ERROR_CODE).send(SERVER_ERROR_MESSAGE);
 	}
 });
@@ -94,7 +93,6 @@ app.post("/signup", async (req, res) => {
 		}
 	} catch (err) {
 		loggingModule(err, "signup");
-        // console.log(err);
 		res.status(SERVER_ERROR_CODE).send(SERVER_ERROR_MESSAGE);
 	}
 });
@@ -207,17 +205,7 @@ app.get("/books/detail/:isbn", async function(req, res) {
 });
 
 /* -----------------  HELPER FUNCTIONS  ---------------- */
-// async function getDBConnection() {
-// 	const db = mysql.createPool({
-// 		host: process.env.DB_URL || 'localhost',
-// 		port: process.env.DB_PORT || '8889',
-// 		user: process.env.DB_USERNAME || 'admin',
-// 		password: process.env.DB_PASSWORD || 'root',
-// 		database: process.env.DB_NAME || DB_NAME
-// 	});
 
-// 	return db;
-// }
 
 /**
  * Creates new User based on info
@@ -284,16 +272,16 @@ async function checkColor(color_scheme) {
 /* ------------------  LOGGING MODULE  ----------------- */
 /**
  * Logging module for any error that occurs in an endpoint - Writes error to a new file
- * File name sample format: "2021-08-01T20:36:31.346Z_login"
+ * File name sample format: "2021-08-01_login"
  * @param {Error} errMsg Error message outputted by the issue caused in endpoint
  * @param {String} endpoint Name of the endpoint
- * NOTE: NOT YET TESTED (just write an endpoint and call this function)
+ * NOTE: TESTED
  * NOTE: IF PROBLEM OCCURS WHILE LOGGING, ERROR MESSAGE WILL BE PRINTED TO CONSOLE
  */
 async function loggingModule (errMsg, endpoint) {
 	let datetime = new Date();
-	let fileName = "/logs/" + datetime.toISOString() + "_" + endpoint + ".txt";
-	await fs.writeFile(fileName, errMsg, function (err) {
+	let fileName = "logs/" + datetime.toISOString().substring(0, 10) + "_" + endpoint + ".txt";
+	await fs.writeFile(fileName,"\n" + errMsg, {flag: "a+"}, function (err) {
 		if (err) return console.log(err);
 	});
 }
