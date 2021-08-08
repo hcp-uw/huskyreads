@@ -107,16 +107,25 @@ app.post("/color_scheme", async (req, res) => {
 		res.type("text");
 		let username = req.body.username;
 		let color_scheme = req.body.color_scheme;
-		if (!username || !password) {
+		if (!username || !color_scheme) {
 			res.status(CLIENT_ERROR_CODE_400).send("Missing username or color_scheme");
+		} else if (await !checkIfExist(usernamme)) { 
+			res.status(CLIENT_ERROR_CODE_401).send("Invalid Username");
 		} else {
-			const db = await getDBConnection();
-			await db.close();
+			let info = [username, color_scheme];
+			if (!checkColor) {
+				res.status(CLIENT_ERROR_CODE_400).send("Invalid Color Scheme");
+			} else {
+				updateColorScheme(info);
+				res.status(SUCCESS_CODE).send(SERVER_ERROR_MESSAGE);
+			}
 		}
 	} catch (err) {
 		loggingModule(err, "color_scheme");
+		res.status(SERVER_ERROR_CODE).send(SERVER_ERROR_MESSAGE);
 	}
 });
+
 
 /**
  * Get user's book in bookshelf, with default value "all" for bookshelf name
@@ -125,16 +134,28 @@ app.get("/bookshelves/get/:username/:bookshelf", async function(req, res) {
 	try {
 		res.type("JSON");
 		let username = req.body.username;
-		let bookshelf = req.body.bookshelf
+		let bookshelf = req.body.bookshelf;
 		if (!username) {
 			res.status(CLIENT_ERROR_CODE_400).send("Missing username paramter");
+		} else if (await !checkIfExist(username)) {
+			res.status(CLIENT_ERROR_CODE_401).send("Invalid Username Parameter"); // Possibly change the error msg to something more clear?
 		} else {
-			const db = await getDBConnection();
-			await db.close();
+			if (!bookshelf) {
+				bookshelf = "all";	
+			}
+
+			let info = [username, bookshelf];
+			let result = await getBook(info);
+			if (result.length < 1) {
+				res.status(CLIENT_ERROR_CODE_400).send("Invaild bookshelf name");
+			}
+
+			res.status(SUCCESS_CODE).send(result);
 		}
 	} catch (err) {
 		loggingModule(err, "bookshelfGet");
-	}
+		res.status(SERVER_ERROR_CODE).send(SERVER_ERROR_MESSAGE);
+	}			
 });
 
 /**
@@ -206,6 +227,14 @@ app.get("/books/detail/:isbn", async function(req, res) {
 	let query = "INSERT INTO User (username, password) VALUES (?, ?);";
 	await db.query(query, info);
 }
+/**
+ * Updates the User's current Color Scheme. 
+ * @param {String[]} info 
+ */ 
+async function updateColorScheme(info) {
+	let query = "UPDATE User SET color_scheme = ? WHERE username = ?";
+	await db.query(query, info);
+}
 
 /**
  * Gets password from username
@@ -217,14 +246,37 @@ async function getPassword(username) {
 	let [rows] = await db.query(query, [username]);
 	return rows;
 }
+
+/**
+ * Gets the book from the specified bookshelf
+ * @param {String[]} info
+ * @returns the Bookshelf information of the user.
+ */
+async function geBook(info) {
+	let query = "SELECT * FROM User WHERE username = ?;"; // Unsure how to address the other parts of the query.
+	let [rows] = await db.query(query, [username]);
+	return rows;
+}
+
 /**
  * Checks if username exists
  * @param {String} username
- * @returns {boolean} true if username aleady exists
+ * @returns {boolean} true if username already exists
  */
 async function checkIfExist(username) {
 	let query = "SELECT * FROM User WHERE username = ?;";
 	let [rows] = await db.query(query, [username]);
+	return (rows.length >= 1);
+}
+
+/**
+ * Checks if the given color scheme exists. 
+ * @param {String} color_scheme
+ * @returns {boolean} true if the given color scheme exists
+ */
+async function checkColor(color_scheme) {
+	let query = "UPDATE User SET color_scheme = ? WHERE username = ?";
+	let [rows] = await db.query(query, info);
 	return (rows.length >= 1);
 }
 
