@@ -19,19 +19,15 @@ export default function Navbar() {
           <ul className="links lg">
             <li>
               <NavLink to="/browse">Browse</NavLink>
-              <div className="underline"/>
             </li>
             <li>
               <NavLink to="/bookstand" activeClassName="active">Book Stand</NavLink>
-              <div className="underline"/>
             </li>
             <li>
               <NavLink to="/settings" activeClassName="active">Settings</NavLink>
-              <div className="underline"/>
             </li>
             <li>
               <NavLink to="/about" activeClassName="active">About Us</NavLink>
-              <div className="underline"/>
             </li>
           </ul>
           <button className="search-btn">

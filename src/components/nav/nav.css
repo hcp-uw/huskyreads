@@ -31,7 +31,7 @@ a {
 }
 
 a:hover {
-  color: #757575;;
+  opacity: 0.6;
 }
 
 .split-right {
@@ -72,21 +72,8 @@ button:hover {
   padding: 0;
 }
 
-.underline {
-  position: absolute;
-  top: 1.4em;
-  background-color: #cfccc4;
-  width: 0%;
-  height: 3px;
-  transition: all 0.2s;
-}
-
-li:hover .underline {
-  width: 100%;
-}
-
-.active ~ .underline {
-  width: 100%;
+.lg .active {
+  border-bottom: #e7dec3 solid 3px;
 }
 
 /* snall screen navbar */
