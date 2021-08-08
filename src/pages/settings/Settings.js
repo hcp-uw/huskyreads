@@ -1,5 +1,11 @@
+import React from 'react';
+import { Button } from '@material-ui/core';
+
 export default function SettingsPage() {
   return (
-    <div>settings page</div>
+    <Button color="primary">Hello World</Button>
   );
 }
+
+
+ReactDOM.render("switch", SettingsPage());

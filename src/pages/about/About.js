@@ -4,9 +4,9 @@ export default function AboutPage() {
   );
 }
 
-purposebox = document.getElementById("purpose-box");
-purposebox.addEventListener("resize", () => {
-  if (purposebox.style.width === 400) {
-    purposebox.style.flexDirection = "column";
-  }
-})
+
+
+
+
+
+
