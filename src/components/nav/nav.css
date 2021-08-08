@@ -2,21 +2,29 @@ nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 0 1.8em;
   letter-spacing: 1px;
+  margin: -7.5px;
+  padding: .6em 1.5em;
+  box-shadow: 0 3px 18px rgb(238, 238, 238);
+  position: sticky;
+  top: 0;
+  background-color: #fff;
 }
 
 h1 {
   font-size: 1.8em;
+  margin: 0;
 }
 
 ul {
   display: flex;
+  margin: 0;
+  padding: 0;
 }
 
 li {
   position: relative;
-  margin: 1em;
+  margin: 0 .8em;
   list-style: none;
 }
 
@@ -52,13 +60,17 @@ li:hover .underline {
   align-items: center;
 }
 
+svg {
+  padding-top: 1px;
+}
+
 button {
   border-radius: 50%;
   border: none;
   background-color: #4b2e83;
-  width: 48px;
-  height: 48px;
-  margin-left: 1.5em;
+  width: 46px;
+  height: 46px;
+  margin-left: 1.2em;
   padding: 0;
   transition: all 0.3s;
 }
