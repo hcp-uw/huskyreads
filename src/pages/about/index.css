@@ -13,23 +13,18 @@ nav {
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
-    min-width: 1000px;
+    min-width: 95%;
     padding:75px;
     /* border: 1px black solid; */
 }
 
-#container > h3 {
-    margin: 50px;
-}
-
 #about-block {
-    min-width: 900px;
-    padding: 25px;
+    min-width: 90%;
+    padding: 10px;
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
     /* border: 2px black solid; */
-    margin-bottom: -10px;
 }
 
 #about-block > * {
@@ -37,37 +32,38 @@ nav {
 }
 
 #about-block > img {
-    width: 400px;
+    width: 40%;
+    min-width: 400px;
+    max-width: 500px;
     height: fit-content;
 }
 
 #purpose-box {
+    width: 40%;
     min-width: 400px;
-    height: auto;
+    max-width: 500px;
     font-size: 18px;
 }
 
 .title {
     font-size: 36px;
-    margin-left: 30px;
-    margin-top: -2px;
+    margin: -2px 0px -5px 30px;
 }
 
 #member-list {
     display: flex;
     flex-flow: row wrap;
     /* border: 5px solid black; */
-    justify-content: space-around;
+    justify-content: flex-start;
     align-items: center;
-    width: 100%;
+    max-width: 1200px;
 }
 
 .member-box {
     border: 2px solid rgb(196, 194, 194);
     max-width: 250px;
     padding: 20px;
-    margin-bottom: 35px;
-    margin-right: 35px;
+    margin: 35px;
     flex-flow: column;
     text-align: center;
     border-radius: 5px;
