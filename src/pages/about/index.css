@@ -1,5 +1,5 @@
 #container {
-    margin-top: 30px;
+    margin: 40px;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -8,7 +8,7 @@
 }
 
 #about-block {
-    min-width: 90%;
+    margin-right: 75px;
     padding: 10px;
     display: flex;
     flex-flow: row wrap;
