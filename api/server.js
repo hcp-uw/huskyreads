@@ -271,11 +271,11 @@ async function checkColor(color_scheme) {
 
 /* ------------------  LOGGING MODULE  ----------------- */
 /**
+ * TESTED
  * Logging module for any error that occurs in an endpoint - Writes error to a new file
  * File name sample format: "2021-08-01_login"
  * @param {Error} errMsg Error message outputted by the issue caused in endpoint
  * @param {String} endpoint Name of the endpoint
- * NOTE: TESTED
  * NOTE: IF PROBLEM OCCURS WHILE LOGGING, ERROR MESSAGE WILL BE PRINTED TO CONSOLE
  */
 async function loggingModule (errMsg, endpoint) {
