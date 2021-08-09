@@ -6,6 +6,3 @@ export default function SettingsPage() {
     <Button color="primary">Hello World</Button>
   );
 }
-
-
-ReactDOM.render("switch", SettingsPage());
