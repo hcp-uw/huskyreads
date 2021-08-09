@@ -28,6 +28,7 @@ a {
   text-decoration: none;
   color: #000;
   transition: all 0.2s;
+  border-bottom: #ffffff00 solid 3px;
 }
 
 a:hover {
@@ -73,7 +74,7 @@ button:hover {
 }
 
 .lg .active {
-  border-bottom: #e7dec3 solid 3px;
+  border-bottom: #dfd5b9 solid 3px;
 }
 
 /* snall screen navbar */
