@@ -88,7 +88,7 @@ app.post("/signup", async (req, res) => {
 			res.status(CLIENT_ERROR_CODE_400).send("Username already taken");
 		} else {
 			let info = [username, password];
-			createUser(info);
+			await createUser(info);
 			res.status(SUCCESS_CODE).send("Signup Successful");
 		}
 	} catch (err) {
