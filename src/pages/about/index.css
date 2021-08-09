@@ -4,18 +4,17 @@
     flex-direction: column;
     align-items: flex-start;
     width: 95%;
-    padding-left: 8%;
-    padding-right: 5%;
-    /* border: 1px black solid; */
+    padding-left: 5%;
 }
 
 #about-block {
     min-width: 90%;
     padding: 10px;
     display: flex;
-    flex-direction: row;
+    flex-flow: row wrap;
     justify-content: flex-start;
-    /* border: 2px black solid; */
+    box-shadow: 0 3px 18px rgb(218, 217, 217);
+    border-radius: 10px;
 }
 
 #about-block > * {
@@ -23,9 +22,9 @@
 }
 
 #about-block > img {
-    width: 40%;
+    width: 45%;
     min-width: 400px;
-    max-width: 500px;
+    max-width: 600px;
     height: fit-content;
 }
 
@@ -34,30 +33,36 @@
     min-width: 400px;
     max-width: 500px;
     font-size: 18px;
+    margin: 25px 0px 30px 50px;
 }
 
-.title {
+#team-title {
     font-size: 36px;
-    margin: -2px 0px -5px 30px;
+    margin: 30px 0px -5px 30px;
+}
+
+#page-title {
+    font-size: 36px;
+    margin-top: -5px;
+    margin-bottom: -5px;
 }
 
 #member-list {
     display: flex;
     flex-flow: row wrap;
-    /* border: 5px solid black; */
     justify-content: flex-start;
     align-items: center;
     max-width: 1200px;
 }
 
 .member-box {
-    border: 2px solid rgb(196, 194, 194);
+    box-shadow: 0 3px 18px rgb(218, 217, 217);
     max-width: 250px;
     padding: 20px;
-    margin: 35px;
+    margin: 40px;
     flex-flow: column;
     text-align: center;
-    border-radius: 5px;
+    border-radius: 10px;
 }
 
 .member-box > h3 {
