@@ -1,31 +1,72 @@
-import {NavLink} from 'react-router-dom';
+import { useState } from 'react';
+import { NavLink } from 'react-router-dom';
 import './nav.css';
 
 export default function Navbar() {
+  const [open, setOpen] = useState(false);
+  const toggleOpen = (open) => {setOpen(open)};
+
   return (
-    <nav>
-      <NavLink to="/browse">
-        <h1>HuskyReads</h1>
-      </NavLink>
-      <div className="split-right">
-        <ul>
+    <div>
+      <nav>
+        <NavLink to="/browse">
+          <h1>HuskyReads</h1>
+        </NavLink>
+        <div className="split-right">
+          <button className="menu-btn" onClick={() => {toggleOpen(!open)}}>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-menu"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+          </button>
+          <ul className="links lg">
+            <li>
+              <NavLink to="/browse">Browse</NavLink>
+            </li>
+            <li>
+              <NavLink to="/bookstand" activeClassName="active">Book Stand</NavLink>
+            </li>
+            <li>
+              <NavLink to="/settings" activeClassName="active">Settings</NavLink>
+            </li>
+            <li>
+              <NavLink to="/about" activeClassName="active">About Us</NavLink>
+            </li>
+          </ul>
+          <button className="search-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          </button>
+        </div>
+      </nav>
+      <ModalNav modalOpen={open} toggle={toggleOpen}/>
+    </div>
+  );
+}
+
+const ModalNav = (props) => {
+  let modalClass = "modal ";
+
+  if (!props.modalOpen) {
+    modalClass = modalClass + "hidden";
+    console.log(modalClass);
+  }
+
+  return (
+    <div className={modalClass}>
+      <div className="modal-bg" onClick={()=>{props.toggle(false)}}/>
+      <div className="window">
+        <ul className="links sm">
           <li>
-            <NavLink to="/browse">Browse</NavLink>
+            <NavLink to="/browse" onClick={()=>{props.toggle(false)}}>Browse</NavLink>
           </li>
           <li>
-            <NavLink to="/bookstand" activeClassName="active">Book Stand</NavLink>
+            <NavLink to="/bookstand" activeClassName="active" onClick={()=>{props.toggle(false)}}>Book Stand</NavLink>
           </li>
           <li>
-            <NavLink to="/settings" activeClassName="active">Settings</NavLink>
+            <NavLink to="/settings" activeClassName="active" onClick={()=>{props.toggle(false)}}>Settings</NavLink>
           </li>
           <li>
-            <NavLink to="/about" activeClassName="active">About Us</NavLink>
+            <NavLink to="/about" activeClassName="active" onClick={()=>{props.toggle(false)}}>About Us</NavLink>
           </li>
         </ul>
-        <button>
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-        </button>
       </div>
-    </nav>
+    </div>
   );
 }
