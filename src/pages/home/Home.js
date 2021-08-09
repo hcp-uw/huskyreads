@@ -1,5 +1,60 @@
 export default function HomePage() {
   return (
-    <div>home/browse page</div>
+    <div>
+      <div>home/browse page</div>
+      <div>home/browse page</div>
+      <div>home/browse page</div>
+      <div>home/browse page</div>
+      <div>home/browse page</div>
+      <div>home/browse page</div>
+      <div>home/browse page</div>
+      <div>home/browse page</div>
+      <div>home/browse page</div>
+      <div>home/browse page</div>
+      <div>home/browse page</div>
+      <div>home/browse page</div>
+      <div>home/browse page</div>
+      <div>home/browse page</div>
+      <div>home/browse page</div>
+      <div>home/browse page</div>
+      <div>home/browse page</div>
+      <div>home/browse page</div>
+      <div>home/browse page</div>
+      <div>home/browse page</div>
+      <div>home/browse page</div>
+      <div>home/browse page</div>
+      <div>home/browse page</div>
+      <div>home/browse page</div>
+      <div>home/browse page</div>
+      <div>home/browse page</div>
+      <div>home/browse page</div>
+      <div>home/browse page</div>
+      <div>home/browse page</div>
+      <div>home/browse page</div>
+      <div>home/browse page</div>
+      <div>home/browse page</div>
+      <div>home/browse page</div>
+      <div>home/browse page</div>
+      <div>home/browse page</div>
+      <div>home/browse page</div>
+      <div>home/browse page</div>
+      <div>home/browse page</div>
+      <div>home/browse page</div>
+      <div>home/browse page</div>
+      <div>home/browse page</div>
+      <div>home/browse page</div>
+      <div>home/browse page</div>
+      <div>home/browse page</div>
+      <div>home/browse page</div>
+      <div>home/browse page</div>
+      <div>home/browse page</div>
+      <div>home/browse page</div>
+      <div>home/browse page</div>
+      <div>home/browse page</div>
+      <div>home/browse page</div>
+      <div>home/browse page</div>
+      <div>home/browse page</div>
+      <div>home/browse page</div>
+    </div>
   );
 }

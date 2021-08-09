@@ -6,8 +6,6 @@ nav {
   margin: -7.5px;
   padding: .6em 1.5em;
   box-shadow: 0 3px 18px rgb(238, 238, 238);
-  position: sticky;
-  top: 0;
   background-color: #fff;
 }
 
@@ -80,7 +78,7 @@ button:hover {
 /* snall screen navbar */
 
 .modal-bg {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   right: 0;
