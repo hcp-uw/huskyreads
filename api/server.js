@@ -107,7 +107,7 @@ app.post("/color_scheme", async (req, res) => {
 		let color_scheme = req.body.color_scheme;
 		if (!username || !color_scheme) {
 			res.status(CLIENT_ERROR_CODE_400).send("Missing username or color_scheme");
-		} else if (await !checkIfExist(usernamme)) { 
+		} else if (await !checkIfExist(usernamme)) {
 			res.status(CLIENT_ERROR_CODE_401).send("Invalid Username");
 		} else {
 			let info = [username, color_scheme];
@@ -139,7 +139,7 @@ app.get("/bookshelves/get/:username/:bookshelf", async function(req, res) {
 			res.status(CLIENT_ERROR_CODE_401).send("Invalid Username Parameter"); // Possibly change the error msg to something more clear?
 		} else {
 			if (!bookshelf) {
-				bookshelf = "all";	
+				bookshelf = "all";
 			}
 
 			let info = [username, bookshelf];
@@ -216,9 +216,9 @@ app.get("/books/detail/:isbn", async function(req, res) {
 	await db.query(query, info);
 }
 /**
- * Updates the User's current Color Scheme. 
- * @param {String[]} info 
- */ 
+ * Updates the User's current Color Scheme.
+ * @param {String[]} info
+ */
 async function updateColorScheme(info) {
 	let query = "UPDATE User SET color_scheme = ? WHERE username = ?";
 	await db.query(query, info);
@@ -240,7 +240,7 @@ async function getPassword(username) {
  * @param {String[]} info
  * @returns the Bookshelf information of the user.
  */
-async function geBook(info) {
+async function getBook(info) {
 	let query = "SELECT * FROM User WHERE username = ?;"; // Unsure how to address the other parts of the query.
 	let [rows] = await db.query(query, [username]);
 	return rows;
@@ -258,7 +258,7 @@ async function checkIfExist(username) {
 }
 
 /**
- * Checks if the given color scheme exists. 
+ * Checks if the given color scheme exists.
  * @param {String} color_scheme
  * @returns {boolean} true if the given color scheme exists
  */
@@ -282,7 +282,9 @@ async function loggingModule (errMsg, endpoint) {
 	let datetime = new Date();
 	let fileName = "logs/" + datetime.toISOString().substring(0, 10) + "_" + endpoint + ".txt";
 	await fs.writeFile(fileName,"\n" + errMsg, {flag: "a+"}, function (err) {
-		if (err) return console.log(err);
+		if (err) {
+            console.log(err);
+        }
 	});
 }
 
