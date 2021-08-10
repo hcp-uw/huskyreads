@@ -111,10 +111,10 @@ app.post("/color_scheme", async (req, res) => {
 			res.status(CLIENT_ERROR_CODE_401).send("Invalid Username");
 		} else {
 			let info = [username, color_scheme];
-			if (!checkColor) {
+			if (!checkColor(color_scheme)) {
 				res.status(CLIENT_ERROR_CODE_400).send("Invalid Color Scheme");
 			} else {
-				updateColorScheme(info);
+				await updateColorScheme(info);
 				res.status(SUCCESS_CODE).send(SERVER_ERROR_MESSAGE);
 			}
 		}
@@ -144,7 +144,7 @@ app.get("/bookshelves/get/:username/:bookshelf", async function(req, res) {
 
 			let info = [username, bookshelf];
 			let result = await getBook(info);
-			if (result.length < 1) {
+			if (!result) {
 				res.status(CLIENT_ERROR_CODE_400).send("Invaild bookshelf name");
 			}
 
@@ -263,7 +263,7 @@ async function checkIfExist(username) {
  * @returns {boolean} true if the given color scheme exists
  */
 async function checkColor(color_scheme) {
-	let query = "UPDATE User SET color_scheme = ? WHERE username = ?";
+	let query = "SELECT User SET color_scheme = ? WHERE username = ?";
 	let [rows] = await db.query(query, info);
 	return (rows.length >= 1);
 }
