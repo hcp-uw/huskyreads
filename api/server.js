@@ -263,7 +263,7 @@ async function checkIfExist(username) {
  * @returns {boolean} true if the given color scheme exists
  */
 async function checkColor(color_scheme) {
-	let query = "SELECT User SET color_scheme = ? WHERE username = ?";
+	let query = "SELECT * FROM User WHERE username = ? AND color_scheme = ?";
 	let [rows] = await db.query(query, info);
 	return (rows.length >= 1);
 }
