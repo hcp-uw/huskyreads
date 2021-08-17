@@ -7,7 +7,7 @@ export default function Navbar() {
   const toggleOpen = (open) => {setOpen(open)};
 
   return (
-    <div>
+    <div className="navigation">
       <nav>
         <NavLink to="/browse">
           <h1>HuskyReads</h1>
@@ -40,7 +40,7 @@ export default function Navbar() {
   );
 }
 
-const ModalNav = (props) => {
+export function ModalNav(props) {
   let modalClass = "modal ";
 
   if (!props.modalOpen) {

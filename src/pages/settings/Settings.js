@@ -1,5 +1,8 @@
+import React from 'react';
+import { render } from 'react-dom/cjs/react-dom.development';
+
 export default function SettingsPage() {
-  return (
-    <div>settings page</div>
+  return(
+    <p>Settings page</p>
   );
 }
