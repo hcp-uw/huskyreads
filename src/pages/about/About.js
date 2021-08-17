@@ -4,7 +4,7 @@ function aboutPagePureHTML() {
     return (
       <div id="container">
             <div id="about-block">
-                <img src={process.env.PUBLIC_URL + "/images/huskypic.jpeg"} alt="husky pic" /> 
+                <img src="/images/huskypic.jpeg" alt="husky pic" /> 
                 <div id="purpose-box">
                     <p id="page-title"> About Husky Reads </p>
                     <p id="purpose-text">
@@ -21,7 +21,7 @@ function aboutPagePureHTML() {
             <p id="team-title"> Our Team </p>
             <div id="member-list">
                 <div className="member-box">
-                    <img src={process.env.PUBLIC_URL + "/images/cutepfp.png"} 
+                    <img src="/images/cutepfp.png" 
                          alt="pic"
                          className="member-pic" />
                     <h3>Vikram Nithyanandam</h3>
@@ -33,7 +33,7 @@ function aboutPagePureHTML() {
                     </p>
                 </div>
                 <div className="member-box">
-                    <img src={process.env.PUBLIC_URL + "/images/cutepfp.png"} 
+                    <img src="/images/cutepfp.png"
                          alt="pic" 
                          className="member-pic" />
                     <h3>Juda Fernandez</h3>
@@ -45,7 +45,7 @@ function aboutPagePureHTML() {
                     </p>
                 </div>
                 <div className="member-box">
-                    <img src={process.env.PUBLIC_URL + "/images/cutepfp.png"}
+                    <img src="/images/cutepfp.png"
                          alt="pic" 
                          className="member-pic" />
                     <h3>Audrey Kho</h3>
@@ -57,7 +57,7 @@ function aboutPagePureHTML() {
                     </p>
                 </div>
                 <div className="member-box">
-                    <img src={process.env.PUBLIC_URL + "/images/cutepfp.png"} 
+                    <img src="/images/cutepfp.png"
                          alt="pic" 
                          className="member-pic" />
                     <h3>Sriram Thothathri</h3>
@@ -69,7 +69,7 @@ function aboutPagePureHTML() {
                     </p>
                 </div>
                 <div className="member-box">
-                    <img src={process.env.PUBLIC_URL + "/images/cutepfp.png"}
+                    <img src="/images/cutepfp.png"
                          alt="pic" 
                          className="member-pic" />
                     <h3>Elliot Schumacher</h3>
@@ -81,7 +81,7 @@ function aboutPagePureHTML() {
                     </p>
                 </div>
                 <div className="member-box">
-                    <img src={process.env.PUBLIC_URL + "/images/cutepfp.png"} 
+                    <img src="/images/cutepfp.png"
                          alt="pic" 
                          className="member-pic" />
                     <h3>Frank Hou</h3>
