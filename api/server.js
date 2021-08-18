@@ -183,7 +183,7 @@ app.post("/bookshelves/remove", async (req, res) => {
  * Note: All parameters are optional (Should we require at least 1 parameter?)
  * If no books match search criteria... return an empty JSON Object
  */
-app.get("/books/search?", async function(req, res) {
+app.get("/books/search", async function(req, res) {
 	try {
 		res.type("json");
 		let offset = req.query.offset ? req.query.offset : 0;
