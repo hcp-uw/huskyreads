@@ -183,12 +183,12 @@ app.post("/bookshelves/remove", async (req, res) => {
  * Note: All parameters are optional (Should we require at least 1 parameter?)
  * If no books match search criteria... return an empty JSON Object
  */
-app.get("/books/search", async function(req, res) {
+app.get("/books/search?", async function(req, res) {
 	try {
 		res.type("json");
-		let offset = req.body.offset ? req.body.offset : 0;
-		let resultLength = req.body.resultLength ? req.body.resultLength : 10;
-		let books = await getMatchingBooks(req.body);
+		let offset = req.query.offset ? req.query.offset : 0;
+		let resultLength = req.query.resultLength ? req.query.resultLength : 10;
+		let books = await getMatchingBooks(req.query);
 		res.status(SUCCESS_CODE).json({
 			remainingBooksInSearch : books.slice(offset + resultLength).length,
 			books : books.slice(offset, offset + resultLength)
