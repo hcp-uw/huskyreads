@@ -30,7 +30,8 @@ const db = mysql.createPool({
 	port: process.env.DB_PORT || '8889',
 	user: process.env.DB_USERNAME || 'admin',
 	password: process.env.DB_PASSWORD || 'root',
-	database: process.env.DB_NAME || DB_NAME
+	database: process.env.DB_NAME || DB_NAME,
+	multipleStatements: true
 });
 
 /* --------------------  ENDPOINTS  -------------------- */
@@ -182,11 +183,19 @@ app.post("/bookshelves/remove", async (req, res) => {
  * Note: All parameters are optional (Should we require at least 1 parameter?)
  * If no books match search criteria... return an empty JSON Object
  */
-app.get("/books/search/:title/:author/:genre/:offset/:resultLength", async function(req, res) {
+app.get("/books/search", async function(req, res) {
 	try {
-		
+		res.type("json");
+		let offset = req.body.offset ? req.body.offset : 0;
+		let resultLength = req.body.resultLength ? req.body.resultLength : 10;
+		let books = await getMatchingBooks(req.body);
+		res.status(SUCCESS_CODE).json({
+			remainingBooksInSearch : books.slice(offset + resultLength).length,
+			books : books.slice(offset, offset + resultLength)
+		});
 	} catch (err) {
 		loggingModule(err, "bookSearch");
+		res.status(SERVER_ERROR_CODE).json({ err : SERVER_ERROR_MESSAGE });
 	}
 });
 
@@ -263,6 +272,53 @@ async function checkColor(color_scheme) {
 	let query = "SELECT * FROM User WHERE username = ? AND color_scheme = ?";
 	let [rows] = await db.query(query, info);
 	return (rows.length >= 1);
+}
+
+/**
+ * Gets all of the books that match the given search query. Each book returned
+ * will include its title, author(s) and isbn number.
+ * 
+ * @param {Object} info Search parameters provided by user
+ * @returns {Object[]} List of books that satify the search query
+ */
+async function getMatchingBooks(info) {
+	let title = info.title;
+	let author = info.author;
+	let genre = info.genre;
+
+	let params = [];
+	let query = `   DROP TEMPORARY TABLE IF EXISTS Results; CREATE TEMPORARY TABLE Results
+					SELECT Books.title AS title, Authors.name AS author_name, Books.ISBN AS isbn
+					FROM Books
+					INNER JOIN Book_Authors
+						ON Books.ISBN = Book_Authors.ISBN
+					INNER JOIN Authors
+						ON Book_Authors.id_author = Authors.id
+					INNER JOIN Book_Genre
+						ON Books.ISBN = Book_Genre.ISBN
+					INNER JOIN Genre
+						ON Book_Genre.id_genre = Genre.id
+					WHERE 1=1
+				`;
+	if (title) {
+		query += " AND Books.title = ?";
+		params.push(title);
+	} 
+	if (genre) {
+		query += " AND Genre.name IN ?";
+		params.push([genre]);
+	}
+	query += `;
+		SELECT Results.title, GROUP_CONCAT(DISTINCT Results.author_name SEPARATOR ',') AS authors, Results.isbn
+		FROM Results
+		GROUP BY Results.title
+	`;
+	if (author) {
+		query += "HAVING FIND_IN_SET(?, authors)";
+		params.push(author);
+	} 
+	query += `;`;
+	return [await db.query(query, params)][0][0][2];
 }
 
 

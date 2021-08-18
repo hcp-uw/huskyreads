@@ -307,11 +307,11 @@ Removes a book from a specified bookshelf for a user.
 ### Get List of Basic Book Data Based on Search Parameters
 
 Returns a list of books that match given search parameters and the number of books that have not yet been served to the user. The more parameters given, the narrower the search will be. If no books match the search criteria, an empty array is returned.
-* **Endpoint:** /books/search/:title/:author/:genre/:offset/:resultLength
+* **Endpoint:** /books/search
 
 * **Request Method:** GET
 
-* **URL Params:**
+* **BODY Params:**
 
     **Optional:**
     
