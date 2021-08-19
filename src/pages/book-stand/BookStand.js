@@ -1,5 +1,7 @@
-export default function BookStandPage() {
+export default function BookStandPage(detailedBookData) {
+  
   return (
-    <div>book stand page</div>
+    <div>Book stand</div>
   );
 }
+

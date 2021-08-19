@@ -6,6 +6,7 @@ import BookStandPage from "./pages/book-stand/BookStand";
 import HomePage from "./pages/home/Home";
 import LoginPage from "./pages/login/Login";
 import SettingsPage from "./pages/settings/Settings";
+import BookPage from "./pages/book-page/BookPage";
 
 export default function App() {
   return (
@@ -26,6 +27,9 @@ export default function App() {
         </Route>
         <Route path="/browse">
           <HomePage/>
+        </Route>
+        <Route path="/book-page">
+          <BookPage/>
         </Route>
       </Switch>
     </Router>
