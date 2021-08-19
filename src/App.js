@@ -28,9 +28,13 @@ export default function App() {
         <Route path="/browse">
           <HomePage/>
         </Route>
+        {/*
+        For testing purposes
+        
         <Route path="/book-page">
           <BookPage/>
         </Route>
+        */}
       </Switch>
     </Router>
   );
