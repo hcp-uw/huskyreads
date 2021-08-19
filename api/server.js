@@ -311,7 +311,7 @@ async function getMatchingBooks(info) {
 	query += `;
 		SELECT Results.title, GROUP_CONCAT(DISTINCT Results.author_name SEPARATOR ',') AS authors, Results.isbn
 		FROM Results
-		GROUP BY Results.title
+		GROUP BY Results.title, Results.isbn
 	`;
 	if (author) {
 		query += "HAVING FIND_IN_SET(?, authors)";
