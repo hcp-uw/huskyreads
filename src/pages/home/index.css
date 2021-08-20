@@ -1,0 +1,21 @@
+.browse-container {
+  max-width: 1340px;
+  margin: 1em auto;
+}
+
+.featured .book-list {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  align-items: flex-start;
+}
+
+.browse .book-list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+}
+
+.book-list::-webkit-scrollbar {
+  display: none;
+}
