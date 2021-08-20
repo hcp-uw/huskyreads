@@ -20,17 +20,31 @@ export default function SettingsPage() {
         backgroundColor: purple[700],
       },
     },
-    checked: {},
-    track: {},
+    checked: {
+
+    },
+    track: {
+
+    },
   })(Switch);
 
+  
+  function darkModeCheck() {
+    return true;
+  }
+  
+  function onChange() {
+    
+  }
 
   return(
     <div id="container">
       <h2>Settings</h2>
       <div className="mode-switch">
         <p>Dark mode</p>
-        <PurpleSwitch/>
+        <PurpleSwitch
+          checked={darkModeCheck}
+          onChange={onChange()}/>
       </div>
     </div>
   );
