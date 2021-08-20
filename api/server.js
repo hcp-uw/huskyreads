@@ -186,8 +186,8 @@ app.post("/bookshelves/remove", async (req, res) => {
 app.get("/books/search", async function(req, res) {
 	try {
 		res.type("json");
-		let offset = req.query.offset ? req.query.offset : 0;
-		let resultLength = req.query.resultLength ? req.query.resultLength : 10;
+		let offset = req.query.offset ? parseInt(req.query.offset) : 0;
+		let resultLength = req.query.resultLength ? parseInt(req.query.resultLength) : 10;
 		let books = await getMatchingBooks(req.query);
 		res.status(SUCCESS_CODE).json({
 			remainingBooksInSearch : books.slice(offset + resultLength).length,
