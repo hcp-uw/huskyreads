@@ -14,10 +14,10 @@ export default function SettingsPage() {
     switchBase: {
       color: purple[300],
       '&$checked': {
-        color: purple[500],
+        color: purple[700],
       },
       '&$checked + $track': {
-        backgroundColor: purple[500],
+        backgroundColor: purple[700],
       },
     },
     checked: {},
