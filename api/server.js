@@ -203,8 +203,35 @@ app.get("/books/search", async function(req, res) {
  * Gets detailed information for book based on ISBN
  */
 app.get("/books/detail/:isbn", async function(req, res) {
-	try {
-		
+    try {
+		res.type("JSON");
+        let isbn = req.body.isbn;
+        if (!isbn) {
+            res.status(CLIENT_ERROR_CODE_400).json({"error": "Missing ISBN Parameter"});
+        }
+        // put this into a function later
+        let query = "SELECT COUNT(*) FROM Books WHERE Books.isbn = ?";
+        let checkIfExists = await db.query(query, isbn);
+        if (checkIfExists == 0) {
+            res.status(CLIENT_ERROR_CODE_400).json({"error": "Invalid ISBN"});
+        }
+        // also put this into a function
+        let query =
+        `
+        SELECT Books.title AS title, Book.description AS description, Book.date_published AS date_published, Authors.author, Genre.genre
+        FROM Books
+        INNER JOIN Books_Authors
+        ON Books.? = Books_Authors.ISBN_book
+        INNER JOIN Authors
+        ON Books_Authors.id_author = Authors.id
+        INNER JOIN Book_Genre
+        ON Books.? = Book_Genre.ISBN_book
+        INNER JOIN Genre
+        ON Book_Genre.ISBN_book = Genre.id
+        `
+        let [results] = await db.query(query, [isbn, isbn]);
+        console.log(results); // see if it works! it probably won't but haha
+        res.json([results]);
 	} catch (err) {
 		loggingModule(err, "bookDetail");
 	}
