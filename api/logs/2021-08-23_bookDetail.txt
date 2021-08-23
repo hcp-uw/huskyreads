@@ -1,0 +1,5 @@
+
+Error: Table 'huskyreads.Books_Authors' doesn't exist
+Error: Unknown column 'Book.description' in 'field list'
+Error: Unknown column 'Authors.author' in 'field list'
+Error: Unknown column 'Book_Genre.ISBN_book' in 'on clause'
