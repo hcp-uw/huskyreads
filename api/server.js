@@ -208,13 +208,15 @@ app.get("/books/detail/:isbn", async function(req, res) {
         let isbn = req.params.isbn;
         if (!isbn) {
             res.status(CLIENT_ERROR_CODE_400).json({"error": "Missing ISBN Parameter"});
-        }
-        let exists = await checkIfISBNExists(isbn);
-        if (exists) {
-            res.status(CLIENT_ERROR_CODE_400).json({"error": "Invalid ISBN"});
-        }
-        let results = await getBookDetails(isbn);
-        res.json(results);
+        } else {
+			let exists = await checkIfISBNExists(isbn);
+			if (!exists) {
+				res.status(CLIENT_ERROR_CODE_400).json({"error": "Invalid ISBN"});
+			} else {
+				let results = await getBookDetails(isbn);
+				res.json(results);
+			}
+		}
 	} catch (err) {
 		loggingModule(err, "bookDetail");
 		res.status(SERVER_ERROR_CODE).json({ err : SERVER_ERROR_MESSAGE });
