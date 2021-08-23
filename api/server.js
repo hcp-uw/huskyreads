@@ -217,6 +217,7 @@ app.get("/books/detail/:isbn", async function(req, res) {
         res.json(results);
 	} catch (err) {
 		loggingModule(err, "bookDetail");
+		res.status(SERVER_ERROR_CODE).json({ err : SERVER_ERROR_MESSAGE });
 	}
 });
 
