@@ -225,13 +225,13 @@ app.get("/books/detail/:isbn", async function(req, res) {
 
 /**
  * @param {int} isbn Book ISBN number
- * @returns {int} number of books w/ the given ISBN
+ * @returns {boolean} True if a book exists with the given isbn, false otherwise
  * check if the book w/ the given isbn exists in our database
  */
 async function checkIfISBNExists(isbn) {
     let query = "SELECT COUNT(*) AS count FROM Books WHERE Books.isbn = ?";
     let [count] = await db.query(query, isbn);
-    return count[0].count == 0;
+    return count[0].count > 0;
 }
 
 /**
