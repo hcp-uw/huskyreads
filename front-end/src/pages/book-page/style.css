@@ -4,10 +4,13 @@
     position: relative;
 }
 
-.book-image {
+.left-column .right-column {
     display: inline-block;
     padding: 10px;
+    flex-direction: column;
+    margin: 10px;
 }
+
 
 .basic-info {
     display: inline-block;
@@ -19,4 +22,15 @@
 .filler {
     border: 1px black solid;
     fill: blue;
+}
+
+#imagebox {
+    width: 300px;
+    height: 400px;
+    border: 1px solid black;
+    margin-bottom: 20px;
+}
+
+#container {
+    flex-direction: row;
 }
