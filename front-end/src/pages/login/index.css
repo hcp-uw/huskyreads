@@ -1,0 +1,11 @@
+/*
+styling for Husky Reads
+*/
+
+/*
+Makes any HTML elements with the class "hidden" be hidden from the user.
+Add this to elements that you want to hide
+*/
+.hidden {
+    display: none;
+  }
