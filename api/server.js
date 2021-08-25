@@ -82,7 +82,7 @@ app.post("/signup", async (req, res) => {
 		let password = req.body.password;
 		if (!username || !password) {
 			res.status(CLIENT_ERROR_CODE_400).send("Missing username or password");
-		} else if (await checkIfExist(username)) {
+		} else if (await checkIfUsernameExists(username)) {
 			res.status(CLIENT_ERROR_CODE_400).send("Username already taken");
 		} else {
 			let info = [username, password];
@@ -105,7 +105,7 @@ app.post("/color_scheme", async (req, res) => {
 		let color_scheme = req.body.color_scheme;
 		if (!username || !color_scheme) {
 			res.status(CLIENT_ERROR_CODE_400).send("Missing username or color_scheme");
-		} else if (await !checkIfExist(usernamme)) {
+		} else if (await !checkIfUsernameExists(usernamme)) {
 			res.status(CLIENT_ERROR_CODE_401).send("Invalid Username");
 		} else {
 			let info = [username, color_scheme];
@@ -133,15 +133,16 @@ app.get("/bookshelves/get/:username/:bookshelf", async function(req, res) {
 		let bookshelf = req.body.bookshelf;
 		if (!username) {
 			res.status(CLIENT_ERROR_CODE_400).send("Missing username paramter");
-		} else if (await !checkIfExist(username)) {
+		} else if (await !checkIfUsernameExists(username)) {
 			res.status(CLIENT_ERROR_CODE_401).send("Invalid Username Parameter"); // Possibly change the error msg to something more clear?
 		} else {
 			if (!bookshelf) {
 				bookshelf = "all";
 			}
-
+            // need to convert "All" into something meaningful here, or do in query
 			let info = [username, bookshelf];
-			let result = await getBook(info);
+			let result = await getBook(info);   // getBook method needs working on
+
 			if (!result) {
 				res.status(CLIENT_ERROR_CODE_400).send("Invaild bookshelf name");
 			}
@@ -151,7 +152,7 @@ app.get("/bookshelves/get/:username/:bookshelf", async function(req, res) {
 	} catch (err) {
 		loggingModule(err, "bookshelfGet");
 		res.status(SERVER_ERROR_CODE).send(SERVER_ERROR_MESSAGE);
-	}			
+	}
 });
 
 /**
@@ -172,7 +173,7 @@ app.post("/bookshelves/add", async (req, res) => {
  */
 app.post("/bookshelves/remove", async (req, res) => {
 	try {
-		
+
 	} catch (err) {
 		loggingModule(err, "bookshelfRemove");
 	}
@@ -225,47 +226,7 @@ app.get("/books/detail/:isbn", async function(req, res) {
 
 /* -----------------  HELPER FUNCTIONS  ---------------- */
 
-/**
- * @param {int} isbn Book ISBN number
- * @returns {boolean} True if a book exists with the given isbn, false otherwise
- * check if the book w/ the given isbn exists in our database
- */
-async function checkIfISBNExists(isbn) {
-    let query = "SELECT COUNT(*) AS count FROM Books WHERE Books.isbn = ?";
-    let [count] = await db.query(query, isbn);
-    return count[0].count > 0;
-}
-
-/**
- * @param {int} isbn Book ISBN number
- * @returns {JSON} json object containing the necessary book information (determined by API)
- */
-async function getBookDetails(isbn) {
-    let query =
-    `
-    DROP TEMPORARY TABLE IF EXISTS Results;
-    CREATE TEMPORARY TABLE Results
-    SELECT Books.title AS title, Books.date_published AS date_published, Authors.name AS author_name, Genre.name AS genre_name
-    FROM Books
-    INNER JOIN Book_Authors
-        ON Books.ISBN = Book_Authors.ISBN
-    INNER JOIN Authors
-        ON Book_Authors.id_author = Authors.id
-    INNER JOIN Book_Genre
-        ON Books.ISBN = Book_Genre.ISBN
-    INNER JOIN Genre
-        ON Book_Genre.id_genre = Genre.id
-    WHERE Books.ISBN = ?
-    ;
-    SELECT Results.title, Results.date_published, GROUP_CONCAT(DISTINCT Results.author_name SEPARATOR ',') AS authors, GROUP_CONCAT(DISTINCT Results.genre_name SEPARATOR ',') AS genres
-    FROM Results
-    GROUP BY Results.title, Results.date_published
-    ;
-    `
-    let [results] = await db.query(query, isbn);
-    return results[2];
-}
-
+// MISC FUNCTIONS
 /**
  * Creates new User based on info
  * @param {String[]} info
@@ -274,6 +235,7 @@ async function getBookDetails(isbn) {
 	let query = "INSERT INTO User (username, password) VALUES (?, ?);";
 	await db.query(query, info);
 }
+
 /**
  * Updates the User's current Color Scheme.
  * @param {String[]} info
@@ -283,34 +245,13 @@ async function updateColorScheme(info) {
 	await db.query(query, info);
 }
 
-/**
- * Gets password from username
- * @param {String} username
- * @returns info of username
- */
-async function getPassword(username) {
-	let query = "SELECT * FROM User WHERE username=?;";
-	let [rows] = await db.query(query, [username]);
-	return rows;
-}
-
-/**
- * Gets the book from the specified bookshelf
- * @param {String[]} info
- * @returns the Bookshelf information of the user.
- */
-async function getBook(info) {
-	let query = "SELECT * FROM User WHERE username = ?;"; // Unsure how to address the other parts of the query.
-	let [rows] = await db.query(query, [username]);
-	return rows;
-}
-
+// CHECK FUNCTIONS
 /**
  * Checks if username exists
  * @param {String} username
  * @returns {boolean} true if username already exists
  */
-async function checkIfExist(username) {
+async function checkIfUsernameExists(username) {
 	let query = "SELECT * FROM User WHERE username = ?;";
 	let [rows] = await db.query(query, [username]);
 	return (rows.length >= 1);
@@ -328,9 +269,47 @@ async function checkColor(color_scheme) {
 }
 
 /**
+ * @param {int} isbn Book ISBN number
+ * @returns {boolean} True if a book exists with the given isbn, false otherwise
+ * check if the book w/ the given isbn exists in our database
+ */
+ async function checkIfISBNExists(isbn) {
+    let query = "SELECT COUNT(*) AS count FROM Books WHERE Books.isbn = ?";
+    let [count] = await db.query(query, isbn);
+    return count[0].count > 0;
+}
+
+// GET FUNCTIONS
+/**
+ * Gets password from username
+ * @param {String} username
+ * @returns info of username
+ */
+async function getPassword(username) {
+	let query = "SELECT * FROM User WHERE username=?;";
+	let [rows] = await db.query(query, [username]);
+	return rows;
+}
+
+/**
+ * Gets the book from the specified bookshelf
+ * @param {String[]} info
+ * @returns the Bookshelf information of the user.
+ */
+async function getBook(info) {
+    // Need to fix this query
+    if (info[1] === "all") {
+        // do something meaningful with "all" parameter here
+    }
+    // need to update query
+	let query = "SELECT * FROM User WHERE username = ?;"; // Unsure how to address the other parts of the query.
+	let [rows] = await db.query(query, info);
+	return rows;
+}
+
+/**
  * Gets all of the books that match the given search query. Each book returned
  * will include its title, author(s) and isbn number.
- *
  * @param {Object} info Search parameters provided by user
  * @returns {Object[]} List of books that satify the search query
  */
@@ -372,6 +351,35 @@ async function getMatchingBooks(info) {
 	}
 	query += `;`;
 	return [await db.query(query, params)][0][0][2];
+}
+
+/**
+ * @param {int} isbn Book ISBN number
+ * @returns {JSON} json object containing the necessary book information (determined by API)
+ */
+ async function getBookDetails(isbn) {
+    let query = `
+    DROP TEMPORARY TABLE IF EXISTS Results;
+    CREATE TEMPORARY TABLE Results
+    SELECT Books.title AS title, Books.date_published AS date_published, Authors.name AS author_name, Genre.name AS genre_name
+    FROM Books
+    INNER JOIN Book_Authors
+        ON Books.ISBN = Book_Authors.ISBN
+    INNER JOIN Authors
+        ON Book_Authors.id_author = Authors.id
+    INNER JOIN Book_Genre
+        ON Books.ISBN = Book_Genre.ISBN
+    INNER JOIN Genre
+        ON Book_Genre.id_genre = Genre.id
+    WHERE Books.ISBN = ?
+    ;
+    SELECT Results.title, Results.date_published, GROUP_CONCAT(DISTINCT Results.author_name SEPARATOR ',') AS authors, GROUP_CONCAT(DISTINCT Results.genre_name SEPARATOR ',') AS genres
+    FROM Results
+    GROUP BY Results.title, Results.date_published
+    ;
+    `
+    let [results] = await db.query(query, isbn);
+    return results[2];
 }
 
 
