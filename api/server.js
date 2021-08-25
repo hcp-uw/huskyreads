@@ -180,7 +180,6 @@ app.post("/bookshelves/remove", async (req, res) => {
             res.status(CLIENT_ERROR_CODE_400).send("Missing one or more required body parameters");
         } else  {
             let userId = await getUserId(username);
-            console.log("userId: " + userId);
             if (userId == 0) {
                 res.status(CLIENT_ERROR_CODE_401).send("Invalid username");
             } else if (bookshelf != "reading" && bookshelf != "read" && bookshelf != "want_to_read") {
@@ -347,7 +346,6 @@ async function checkIfExist(username) {
 async function getUserId(username) {
     let query = "SELECT id FROM User WHERE User.username = ?;"
     let [rows] = await db.query(query, [username]);
-    console.log("rows: " + rows);
     if (!rows[0]) {
         return 0;
     } else {
@@ -365,7 +363,6 @@ async function getUserId(username) {
 async function deleteBookshelfRecord(userId, bookshelf, isbn) {
     let query = "DELETE FROM Bookshelf WHERE id_user = ? AND isbn = ? AND shelf_name = ?;";
     let [rows] = await db.query(query, [userId, isbn, bookshelf])
-    console.log(rows.affectedRows);
     return rows.affectedRows > 0;
 }
 
