@@ -5,6 +5,8 @@
 
 "use strict"
 
+const mysql = require("mysql2/promise"); //npm install mysql2
+
 const DB_NAME = "huskyreads"; // Database name
 
 const db = mysql.createPool({

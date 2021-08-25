@@ -5,7 +5,6 @@
 
 const express = require("express"); //npm install express
 const fs = require('fs').promises; //npm install fs
-const mysql = require("mysql2/promise"); //npm install mysql2
 const multer = require("multer"); //npm install multer
 const bcrypt = require("bcrypt"); //npm install bcrypt
 const cors = require("cors"); //npm install cors
