@@ -171,11 +171,33 @@ app.post("/bookshelves/add", async (req, res) => {
  * Remove book from bookshelf
  */
 app.post("/bookshelves/remove", async (req, res) => {
-	try {
-		
-	} catch (err) {
-		loggingModule(err, "bookshelfRemove");
-	}
+    try {
+        res.type("JSON");
+        let username = req.body.username;
+        let bookshelf = req.body.bookshelf;
+        let isbn = req.body.isbn;
+        if (!username || !bookshelf || !isbn) {
+            res.status(CLIENT_ERROR_CODE_400).send("Missing one or more required body parameters");
+        } else  {
+            let userId = await getUserId(username);
+            if (userId == 0) {
+                res.status(CLIENT_ERROR_CODE_401).send("Invalid username");
+            } else if (bookshelf != "reading" && bookshelf != "read" && bookshelf != "want_to_read") {
+                // I'll swap out this if statement with the method Nicholas wrote
+                res.status(CLIENT_ERROR_CODE_400).send("Invalid bookshelf name");
+            } else {
+                let tableAltered = await deleteBookshelfRecord(userId, bookshelf, isbn);
+                if (!tableAltered) {
+                    res.status(CLIENT_ERROR_CODE_400).send("Book does not exist in " + bookshelf);
+                } else {
+                    res.send("Book successfully removed from the bookshelf");
+                }
+            }
+        }
+    } catch (err) {
+        loggingModule(err, "bookshelfRemove");
+        res.status(SERVER_ERROR_CODE).send(SERVER_ERROR_MESSAGE);
+    }
 });
 
 /**
@@ -314,6 +336,34 @@ async function checkIfExist(username) {
 	let query = "SELECT * FROM User WHERE username = ?;";
 	let [rows] = await db.query(query, [username]);
 	return (rows.length >= 1);
+}
+
+/**
+ * Returns the id of the user with the given username or 0 if no user exists.
+ * @param {String} username - The username of the user to get the id for.
+ * @returns {int} The users id or 0 if no user exists with the username.
+ */
+async function getUserId(username) {
+    let query = "SELECT id FROM User WHERE User.username = ?;"
+    let [rows] = await db.query(query, [username]);
+    if (!rows[0]) {
+        return 0;
+    } else {
+        return rows[0].id;
+    }
+}
+
+/**
+ * Removes a given book from a specified bookshelf for a given user.
+ * @param {int} userId - The id for the given user.
+ * @param {String} bookshelf - The name of the bookshelf to alter.
+ * @param {int} isbn - The isbn of the book to remove.
+ * @return {boolean} True if the table was altered, false otherwise.
+ */
+async function deleteBookshelfRecord(userId, bookshelf, isbn) {
+    let query = "DELETE FROM Bookshelf WHERE id_user = ? AND isbn = ? AND shelf_name = ?;";
+    let [rows] = await db.query(query, [userId, isbn, bookshelf])
+    return rows.affectedRows > 0;
 }
 
 /**

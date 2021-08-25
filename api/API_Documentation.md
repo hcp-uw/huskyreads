@@ -297,7 +297,7 @@ Removes a book from a specified bookshelf for a user.
     No book with the provided isbn exists in the specified bookshelf
 
     * **Code:** 400 </br>
-    **Content:** `"Book does not exist"`
+    **Content:** `"Book does not exist in <bookshelf_name>"`
 
     </br>
 
