@@ -28,13 +28,10 @@ export default function App() {
         <Route path="/browse">
           <HomePage/>
         </Route>
-        {/*
-        For testing purposes
-        
+        {/* remove lines 32-34 later */}
         <Route path="/book-page">
           <BookPage/>
         </Route>
-        */}
       </Switch>
     </Router>
   );

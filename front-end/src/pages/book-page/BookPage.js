@@ -1,22 +1,23 @@
 import "./style.css";
 
-export default function BookStandPage(detailedBookData) {
-  
+export default function BookPage(detailedBookData) {
     return(
-      <div id="container">
+      <div id="bookpage-container">
         <div id="left-column">
           <div id="imagebox"></div>
-          <select>
-            <option></option>
-            <option>Plan to Read</option>
-            <option>Currently Reading</option>
-            <option>Finished</option>
+          <select id="selector">
+            <option class="opt"></option>
+            <option class="opt">Plan to Read</option>
+            <option class="opt">Currently Reading</option>
+            <option class="opt">Finished</option>
           </select>
-
         </div>
+
         <div id="right-column">
-          <h1>{detailedBookData.title}</h1>
+          <h1>{detailedBookData.title} Lol</h1>
+          <hr />
           <p><strong>Author(s): </strong>{detailedBookData.authors}</p>
+          <p><strong>Genre(s): </strong>{detailedBookData.genres}</p>
           <p><strong>Description:</strong></p>
           <p>{detailedBookData.description}</p>
         </div>
