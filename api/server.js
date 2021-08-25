@@ -95,11 +95,11 @@ app.post("/color_scheme", async (req, res) => {
 		let color_scheme = req.body.color_scheme;
 		if (!username || !color_scheme) {
 			res.status(CLIENT_ERROR_CODE_400).send("Missing username or color_scheme");
-		} else if (await !helper.checkIfUsernameExists(usernamme)) {
+		} else if (await !helper.checkIfUsernameExists(username)) {
 			res.status(CLIENT_ERROR_CODE_401).send("Invalid Username");
 		} else {
 			let info = [username, color_scheme];
-			if (!checkColor(color_scheme)) {
+			if (!helper.checkColor(color_scheme)) {
 				res.status(CLIENT_ERROR_CODE_400).send("Invalid Color Scheme");
 			} else {
 				await helper.updateColorScheme(info);
