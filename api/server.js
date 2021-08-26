@@ -95,17 +95,20 @@ app.post("/color_scheme", async (req, res) => {
 		let color_scheme = req.body.color_scheme;
 		if (!username || !color_scheme) {
 			res.status(CLIENT_ERROR_CODE_400).send("Missing username or color_scheme");
-		} else if (await !helper.checkIfUsernameExists(username)) {
-			res.status(CLIENT_ERROR_CODE_401).send("Invalid Username");
 		} else {
-			let info = [username, color_scheme];
-			if (!helper.checkColor(color_scheme)) {
-				res.status(CLIENT_ERROR_CODE_400).send("Invalid Color Scheme");
-			} else {
-				await helper.updateColorScheme(info);
-				res.status(SUCCESS_CODE).send(SERVER_ERROR_MESSAGE);
-			}
-		}
+            let userId = await helper.getUserId(username);
+            if (!userId) {
+                res.status(CLIENT_ERROR_CODE_401).send("Invalid Username");
+            } else {
+                if (color_scheme != "light" && color_scheme != "dark") {
+                    res.status(CLIENT_ERROR_CODE_400).send("Invalid Color Scheme");
+                } else {
+                    let info = [username, color_scheme];
+                    await helper.updateColorScheme(info);
+                    res.status(SUCCESS_CODE).send("Color Scheme Updated Successfuly");
+                }
+            }
+        }
 	} catch (err) {
 		loggingModule(err, "color_scheme");
 		res.status(SERVER_ERROR_CODE).send(SERVER_ERROR_MESSAGE);
@@ -126,7 +129,7 @@ app.get("/bookshelves/get/:username/:bookshelf", async function(req, res) {
 		} else if (await !helper.checkIfUsernameExists(username)) {
 			res.status(CLIENT_ERROR_CODE_401).send("Invalid Username Parameter"); // Possibly change the error msg to something more clear?
 		} else {
-            let userID = helper.getUserId(username);
+            let userID = await helper.getUserId(username);
             if (!userID) {
                 res.status(CLIENT_ERROR_CODE_401).send("Invalid Username Parameter");
             }

@@ -61,17 +61,6 @@ async function checkIfUsernameExists(username) {
 }
 
 /**
- * Checks if the given color scheme exists.
- * @param {String} color_scheme
- * @returns {boolean} true if the given color scheme exists
- */
-async function checkColor(color_scheme) {
-	let query = "SELECT * FROM User WHERE username = ? AND color_scheme = ?";
-	let [rows] = await db.query(query, info);
-	return (rows.length >= 1);
-}
-
-/**
  * @param {int} isbn Book ISBN number
  * @returns {boolean} True if a book exists with the given isbn, false otherwise
  * check if the book w/ the given isbn exists in our database
@@ -239,4 +228,4 @@ async function getMatchingBooks(info) {
 }
 
 // Exporting functions for use
-module.exports = {createUser, updateColorScheme, deleteBookshelfRecord, checkIfUsernameExists, checkColor, checkIfISBNExists, getUserId, getPassword, getBookshelf, getMatchingBooks, getBookDetails};
+module.exports = {createUser, updateColorScheme, deleteBookshelfRecord, checkIfUsernameExists, checkIfISBNExists, getUserId, getPassword, getBookshelf, getMatchingBooks, getBookDetails};
