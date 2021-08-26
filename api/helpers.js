@@ -35,6 +35,19 @@ async function updateColorScheme(info) {
 	await db.query(query, info);
 }
 
+/**
+ * Removes a given book from a specified bookshelf for a given user.
+ * @param {int} userId - The id for the given user.
+ * @param {String} bookshelf - The name of the bookshelf to alter.
+ * @param {int} isbn - The isbn of the book to remove.
+ * @return {boolean} True if the table was altered, false otherwise.
+ */
+ async function deleteBookshelfRecord(userId, bookshelf, isbn) {
+    let query = "DELETE FROM Bookshelf WHERE id_user = ? AND isbn = ? AND shelf_name = ?;";
+    let [rows] = await db.query(query, [userId, isbn, bookshelf])
+    return rows.affectedRows > 0;
+}
+
 /* ---------------------------  CHECK FUNCTIONS  --------------------------- */
 /**
  * Checks if username exists
@@ -70,6 +83,22 @@ async function checkColor(color_scheme) {
 }
 
 /* ----------------------------  GET FUNCTIONS  ---------------------------- */
+
+/**
+ * Returns the id of the user with the given username or 0 if no user exists.
+ * @param {String} username - The username of the user to get the id for.
+ * @returns {int} The users id or 0 if no user exists with the username.
+ */
+ async function getUserId(username) {
+    let query = "SELECT id FROM User WHERE User.username = ?;"
+    let [rows] = await db.query(query, [username]);
+    if (!rows[0]) {
+        return 0;
+    } else {
+        return rows[0].id;
+    }
+}
+
 /**
  * Gets password from username
  * @param {String} username
@@ -211,4 +240,4 @@ async function getMatchingBooks(info) {
 }
 
 // Exporting functions for use
-module.exports = {createUser, updateColorScheme, checkIfUsernameExists, checkColor, checkIfISBNExists, getPassword, getBookshelf, getMatchingBooks, getBookDetails};
+module.exports = {createUser, updateColorScheme, deleteBookshelfRecord, checkIfUsernameExists, checkColor, checkIfISBNExists, getUserId, getPassword, getBookshelf, getMatchingBooks, getBookDetails};

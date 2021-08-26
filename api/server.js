@@ -159,11 +159,33 @@ app.post("/bookshelves/add", async (req, res) => {
  * Remove book from bookshelf
  */
 app.post("/bookshelves/remove", async (req, res) => {
-	try {
-
-	} catch (err) {
-		loggingModule(err, "bookshelfRemove");
-	}
+    try {
+        res.type("JSON");
+        let username = req.body.username;
+        let bookshelf = req.body.bookshelf;
+        let isbn = req.body.isbn;
+        if (!username || !bookshelf || !isbn) {
+            res.status(CLIENT_ERROR_CODE_400).send("Missing one or more required body parameters");
+        } else  {
+            let userId = await helper.getUserId(username);
+            if (userId == 0) {
+                res.status(CLIENT_ERROR_CODE_401).send("Invalid username");
+            } else if (bookshelf != "reading" && bookshelf != "read" && bookshelf != "want_to_read") {
+                // I'll swap out this if statement with the method Nicholas wrote
+                res.status(CLIENT_ERROR_CODE_400).send("Invalid bookshelf name");
+            } else {
+                let tableAltered = await helper.deleteBookshelfRecord(userId, bookshelf, isbn);
+                if (!tableAltered) {
+                    res.status(CLIENT_ERROR_CODE_400).send("Book does not exist in " + bookshelf);
+                } else {
+                    res.send("Book successfully removed from the bookshelf");
+                }
+            }
+        }
+    } catch (err) {
+        loggingModule(err, "bookshelfRemove");
+        res.status(SERVER_ERROR_CODE).send(SERVER_ERROR_MESSAGE);
+    }
 });
 
 /**
