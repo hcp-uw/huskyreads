@@ -129,14 +129,11 @@ app.get("/bookshelves/get/:username/:bookshelf", async function(req, res) {
 			if (!bookshelf) {
 				bookshelf = "all";
 			}
-            // need to convert "All" into something meaningful here, or do in query
 			let info = [username, bookshelf];
-			let result = await helper.getBook(info);   // getBook method needs working on
-
+			let result = await helper.getBookshelf(info);
 			if (!result) {
 				res.status(CLIENT_ERROR_CODE_400).send("Invaild bookshelf name");
 			}
-
 			res.status(SUCCESS_CODE).send(result);
 		}
 	} catch (err) {

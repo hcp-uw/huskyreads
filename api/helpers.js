@@ -85,18 +85,56 @@ async function getPassword(username) {
 
 /**
  * Gets the book from the specified bookshelf
- * @param {String[]} info
+ * @param {String[]} info in format of [username, bookshelf]
  * @returns the Bookshelf information of the user.
  */
-async function getBook(info) {
-    // Need to fix this query
+async function getBookshelf(info) {
+    let query = "SELECT id FROM User WHERE username = ?";
+    let userID = await db.query(query, info[0]);        // we should really try to reuse the checkIfUsernameExists query.
+    let bookshelves = [];
     if (info[1] === "all") {
-        // do something meaningful with "all" parameter here
+        // Purpose of this is to add all distinct bookshelf names into an array, so we can iterate over each bookshelf and get its corresponding books
+        query = "SELECT DISTINCT shelf_name FROM Bookshelf WHERE id_user = ?";
+        let [res] = await db.query(query, userID);  // could I just do let bookshelves = await db.query(query, userID)?
+        bookshelves = res;
+    } else {
+        bookshelves.push(info[1]);
     }
-    // need to update query
-	let query = "SELECT * FROM User WHERE username = ?;"; // Unsure how to address the other parts of the query.
-	let [rows] = await db.query(query, info);
-	return rows;
+    // WILL DEFINITELY NEED TO MAKE THIS QUERY FASTER (SCALABILITY SINCE WE MIGHT NEED TO CALL THIS MULTIPLE TIMES)
+	query =
+    `
+    CREATE TEMPORARY TABLE Shelves
+        SELECT Bookshelf.ISBN AS ISBN, Bookshelf.shelf_name AS name
+        FROM Bookshelf
+        INNER JOIN User
+            ON User.id = Bookshelf.id_user
+        WHERE Bookshelf.shelf_name = ? AND User.id = ?
+    ;
+    CREATE TEMPORARY TABLE Book_Data
+        SELECT Shelves.name AS shelfname, Books.title AS title, Books.ISBN AS ISBN
+        FROM Books
+        RIGHT JOIN Shelves
+            ON Shelves.ISBN = Books.ISBN
+    ;
+    SELECT Book_Data.shelfname, Book_Data.title, Book_Data.ISBN, GROUP_CONCAT(DISTINCT Authors.name SEPARATOR ',') AS authors, GROUP_CONCAT(DISTINCT Genre.name SEPARATOR ',') AS genres
+    FROM Book_Data
+    INNER JOIN Book_Authors
+        ON Book_Data.ISBN = Book_Authors.ISBN
+    INNER JOIN Book_Genre
+        ON Book_Data.ISBN = Book_Genre.ISBN
+    INNER JOIN Authors
+        ON Book_Authors.id_author = Authors.id
+    INNER JOIN Genre
+        ON Book_Genre.id_genre = Genre.id
+    GROUP BY Book_Data.shelfname, Book_Data.title, Book_Data.ISBN
+    ;
+    `
+    let result = [];
+    for (let bookshelf of bookshelves) {
+        let [rows] = await db.query(query, [bookshelf, userID]);
+        result.push(rows);
+    }
+	return result;
 }
 
 /**
@@ -175,4 +213,4 @@ async function getMatchingBooks(info) {
 }
 
 // Exporting functions for use
-module.exports = {createUser, updateColorScheme, checkIfUsernameExists, checkColor, checkIfISBNExists, getPassword, getBook, getMatchingBooks, getBookDetails};
+module.exports = {createUser, updateColorScheme, checkIfUsernameExists, checkColor, checkIfISBNExists, getPassword, getBookshelf, getMatchingBooks, getBookDetails};
