@@ -112,17 +112,16 @@ async function getPassword(username) {
 
 /**
  * Gets the book from the specified bookshelf
- * @param {String[]} info in format of [username, bookshelf]
+ * @param {String[]} info in format of [userID, bookshelf]
  * @returns the Bookshelf information of the user.
  */
 async function getBookshelf(info) {
-    let query = "SELECT id FROM User WHERE username = ?";
-    let userID = await db.query(query, info[0]);        // we should really try to reuse the checkIfUsernameExists query.
     let bookshelves = [];
+    let query = "";
     if (info[1] === "all") {
         // Purpose of this is to add all distinct bookshelf names into an array, so we can iterate over each bookshelf and get its corresponding books
         query = "SELECT DISTINCT shelf_name FROM Bookshelf WHERE id_user = ?";
-        let [res] = await db.query(query, userID);  // could I just do let bookshelves = await db.query(query, userID)?
+        let [res] = await db.query(query, info[0]);  // could I just do let bookshelves = await db.query(query, userID)?
         bookshelves = res;
     } else {
         bookshelves.push(info[1]);

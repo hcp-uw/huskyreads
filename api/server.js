@@ -126,10 +126,14 @@ app.get("/bookshelves/get/:username/:bookshelf", async function(req, res) {
 		} else if (await !helper.checkIfUsernameExists(username)) {
 			res.status(CLIENT_ERROR_CODE_401).send("Invalid Username Parameter"); // Possibly change the error msg to something more clear?
 		} else {
+            let userID = helper.getUserId(username);
+            if (!userID) {
+                res.status(CLIENT_ERROR_CODE_401).send("Invalid Username Parameter");
+            }
 			if (!bookshelf) {
 				bookshelf = "all";
 			}
-			let info = [username, bookshelf];
+			let info = [userID, bookshelf];
 			let result = await helper.getBookshelf(info);
 			if (!result) {
 				res.status(CLIENT_ERROR_CODE_400).send("Invaild bookshelf name");
