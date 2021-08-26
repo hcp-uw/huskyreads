@@ -167,14 +167,14 @@ app.post("/bookshelves/remove", async (req, res) => {
         if (!username || !bookshelf || !isbn) {
             res.status(CLIENT_ERROR_CODE_400).send("Missing one or more required body parameters");
         } else  {
-            let userId = await getUserId(username);
+            let userId = await helper.getUserId(username);
             if (userId == 0) {
                 res.status(CLIENT_ERROR_CODE_401).send("Invalid username");
             } else if (bookshelf != "reading" && bookshelf != "read" && bookshelf != "want_to_read") {
                 // I'll swap out this if statement with the method Nicholas wrote
                 res.status(CLIENT_ERROR_CODE_400).send("Invalid bookshelf name");
             } else {
-                let tableAltered = await deleteBookshelfRecord(userId, bookshelf, isbn);
+                let tableAltered = await helper.deleteBookshelfRecord(userId, bookshelf, isbn);
                 if (!tableAltered) {
                     res.status(CLIENT_ERROR_CODE_400).send("Book does not exist in " + bookshelf);
                 } else {
