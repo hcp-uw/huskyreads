@@ -6,9 +6,7 @@
 "use strict"
 
 const mysql = require("mysql2/promise"); //npm install mysql2
-
 const DB_NAME = "huskyreads"; // Database name
-
 const db = mysql.createPool({
 	host: process.env.DB_URL || 'localhost',
 	port: process.env.DB_PORT || '3306',
@@ -18,7 +16,7 @@ const db = mysql.createPool({
 	multipleStatements: true
 });
 
-/* ------------------  MISC FUNCTIONS  ----------------- */
+/* ----------------------------  MISC FUNCTIONS  --------------------------- */
 /**
  * Creates new User based on info
  * @param {String[]} info
@@ -37,7 +35,7 @@ async function updateColorScheme(info) {
 	await db.query(query, info);
 }
 
-/* -----------------  CHECK FUNCTIONS  ----------------- */
+/* ---------------------------  CHECK FUNCTIONS  --------------------------- */
 /**
  * Checks if username exists
  * @param {String} username
@@ -71,7 +69,7 @@ async function checkColor(color_scheme) {
     return count[0].count > 0;
 }
 
-/* ------------------  GET FUNCTIONS  ------------------ */
+/* ----------------------------  GET FUNCTIONS  ---------------------------- */
 /**
  * Gets password from username
  * @param {String} username
