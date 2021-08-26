@@ -1,0 +1,37 @@
+version: "3.8"
+
+services: 
+  front-end:
+    depends_on: 
+      - api
+    build: ./front-end
+    container_name: huskyreads_front_end
+    ports: 
+      - 3000:3000
+    volumes: 
+      - ./front-end:/app
+
+  api:
+    depends_on:
+      - db
+    build: ./api
+    container_name: huskyreads_api
+    ports:
+      - 8000:8000
+    volumes: 
+      - ./api:/app
+
+  db:
+    image: mysql:8.0.26
+    container_name: huskyreads_db
+    environment: 
+      MYSQL_ROOT_PASSWORD: "root"
+    ports: 
+      - 3306:3306
+    volumes:
+      - db_data:/var/lib/mysql
+      - db_logs:/var/log/mysql
+
+volumes:
+  db_data:
+  db_logs:
