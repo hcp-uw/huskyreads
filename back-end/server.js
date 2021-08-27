@@ -2,9 +2,7 @@
  * Server-side API code for HuskyReads Project
  */
 const express = require("express"); //npm install express
-const fs = require('fs').promises; //npm install fs
 const multer = require("multer"); //npm install multer
-const bcrypt = require("bcrypt"); //npm install bcrypt
 const cors = require("cors"); //npm install cors
 
 const userRoutes = require("./routes/user_routes");
@@ -19,7 +17,7 @@ app.use(multer().none());
 
 app.use('/', userRoutes);
 app.use('/book', bookRoutes);
-app.use('/bookshelf', bookshelfRoutes);
+//app.use('/bookshelf', bookshelfRoutes);
 
  /* -------------------  Public Port  ------------------- */
 app.use(express.static("public"));
