@@ -5,7 +5,7 @@ const { db } = require('../utils/db');
  * @returns {boolean} True if a book exists with the given isbn, false otherwise
  * check if the book w/ the given isbn exists in our database
  */
- exports.checkIfISBNExists = async (isbn) => {
+exports.checkIfISBNExists = async (isbn) => {
     let query = "SELECT COUNT(*) AS count FROM Books WHERE Books.isbn = ?";
     let [count] = await db.query(query, isbn);
     return count[0].count > 0;
