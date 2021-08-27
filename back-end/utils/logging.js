@@ -9,7 +9,7 @@ const fs = require('fs').promises; //npm install fs
  * @param {String} endpoint Name of the endpoint
  * NOTE: IF PROBLEM OCCURS WHILE LOGGING, ERROR MESSAGE WILL BE PRINTED TO CONSOLE
  */
-module.exports.loggingModule = async (errMsg, endpoint) => {
+exports.loggingModule = async (errMsg, endpoint) => {
     let datetime = new Date();
     let fileName = "logs/" + datetime.toISOString().substring(0, 10) + "_" + endpoint + ".txt";
     console.log(errMsg); // for individual testing
