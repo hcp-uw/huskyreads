@@ -1,26 +1,17 @@
 import "./style.css";
+import axios from 'axios'
 
-export default function BookPage() {
-    // temporary book!
-    let book = "";
-    try {
-      // fetch the buildings data and wait for it to resolve
-      let response = await fetch("localhost:8000/books/detail/1111111111");
-
-      // check response
-      if (!response.ok) {
-          alert("The status is wrong! Expected: 200, Was: " + response.status);
-          return; // Don't keep trying to execute if the response is bad.
-      }
-
-      // convert building data to JSON, wait for it to resolve
-      book = await response.json();
-    } catch (e) {
-      alert("There was an error contacting the server.");
-      console.log(e);  // Log error for debugging.
+export default async function BookPage(isbn) {
+    
+    getBook = async (num) => {
+      const response = await axios.get("localhost:8000/books/detail/" + num).catch((err) => console.log(err));
+      return response.data;
     }
     
+    let book = await getBook("1111111111");
+    
     return(
+    
       <div id="bookpage-container">
         <div id="left-column">
           <div id="imagebox"></div>
@@ -56,4 +47,5 @@ export default function BookPage() {
     "description": "Katniss Everdeen fights the distopian government"
   }
 */
+
 
