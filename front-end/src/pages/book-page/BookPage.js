@@ -1,6 +1,8 @@
 import "./style.css";
 
-export default function BookPage(detailedBookData) {
+export default function BookPage() {
+    // temporary book!
+    const book = fetch("localhost:8000/books/detail/1111111111");
     return(
       <div id="bookpage-container">
         <div id="left-column">
@@ -17,12 +19,12 @@ export default function BookPage(detailedBookData) {
         </div>
 
         <div id="right-column">
-          <h1>{detailedBookData.title} Lol</h1>
+          <h1>{book.title} Lol</h1>
           <hr />
-          <p><strong>Author(s): </strong>{detailedBookData.authors}</p>
-          <p><strong>Genre(s): </strong>{detailedBookData.genres}</p>
+          <p><strong>Author(s): </strong>{book.authors}</p>
+          <p><strong>Genre(s): </strong>{book.genres}</p>
           <p><strong>Description:</strong></p>
-          <p>{detailedBookData.description}</p>
+          <p>{book.description}</p>
         </div>
       </div>
     );
