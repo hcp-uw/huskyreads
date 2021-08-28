@@ -16,9 +16,9 @@ const Featured = () => {
     sampleArray.push(<BookCard title="The Very Hungry Caterpillar" img="images/sample.png" author="Eric Carle"/>);
   }
   return (
-    <section className="featured">
+    <section className="homepage-featured">
       <h2>Featured Books</h2>
-      <div className="book-list">
+      <div className="browse_book-list">
         {
           sampleArray.map(card => {
             return card;
@@ -35,9 +35,9 @@ const Browse = () => {
     sampleArray.push(<BookCard title="The Very Hungry Caterpillar" img="images/sample.png" author="Eric Carle"/>);
   }
   return (
-    <section className="browse">
+    <section className="homepage-browse">
       <h2>Browse</h2>
-      <div className="book-list">
+      <div className="browse_book-list">
         {
           sampleArray.map(card => {
             return card;
