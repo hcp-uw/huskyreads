@@ -36,6 +36,18 @@ async function updateColorScheme(info) {
 }
 
 /**
+ * Adds a book to the specified bookshelf for a given user
+ * @param {String} bookshelf - The name of the bookshelf to alter
+ * @param {int} userID - The id for the given user
+ * @param {int} isbn - The isbn of the book to add
+ * @return {boolean} True if the table was altered 
+ */
+async function insertBook(bookshelf, userID, isbn) {
+	let query = "INSERT INTO Bookshelf VALUES (?, ?, ?)";  
+	await db.query(query, [userID, isbn, bookshelf])
+}
+
+/**
  * Removes a given book from a specified bookshelf for a given user.
  * @param {int} userId - The id for the given user.
  * @param {String} bookshelf - The name of the bookshelf to alter.
@@ -69,6 +81,27 @@ async function checkIfUsernameExists(username) {
     let query = "SELECT COUNT(*) AS count FROM Books WHERE Books.isbn = ?";
     let [count] = await db.query(query, isbn);
     return count[0].count > 0;
+}
+
+/**
+ * Checks if the given Bookshelf name is valid
+ * @param {String[]} bookshelf
+ * @returns {boolean} True if the bookshelf name exists 
+ */
+async function checkIfVaildBookshelf(info) {
+	if (bookshelf == "all") {
+		return true;
+	}
+
+	let query = "SELECT DISTINCT shelf_name FROM Bookshelf WHERE id_user =?";
+	let [res] = await db.query(query, info[0]);
+	for (let i = 0; i < res.length; i++) {
+		if (res[0].shelf_name == bookshelf){
+			return true;
+		}
+	}
+
+	return false;
 }
 
 /* ----------------------------  GET FUNCTIONS  ---------------------------- */

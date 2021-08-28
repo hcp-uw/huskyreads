@@ -154,9 +154,30 @@ app.get("/bookshelves/get/:username/:bookshelf", async function(req, res) {
  */
 app.post("/bookshelves/add", async (req, res) => {
 	try {
+		res.type("JSON");
+		let username = req.body.username;
+		let bookshelf = req.body.bookshelf;
+		let isbn = req.body.isbn;
+		if (!username || !bookshelf || !isbn) {
+            res.status(CLIENT_ERROR_CODE_400).send("Missing one or more required body parameters");
+		} else {
+            let userID = await helper.getUserId(username);
+			let info = [userID, bookshelf];
+            if (userId == 0) {
+                res.status(CLIENT_ERROR_CODE_401).send("Invalid username");
+			} else if (helper.checkIfVaildBookshelf(info)) {
+				res.status(CLIENT_ERROR_CODE_400).send({"error": "Invaild bookshelf name"});
+			} else if (helper.checkIfISBNExists(isbn) {
+				res.status(CLIENT_ERROR_CODE_400).send("Book does not exist"); 
+			} else {
+                let tableAltered = await helper.insertBook(bookshelf, userID, isbn);
+				res.send("Book successfully added to the bookshelf");
+			}
 
+		}
 	} catch (err) {
 		loggingModule(err, "bookshelfAdd");
+        res.status(SERVER_ERROR_CODE).send(SERVER_ERROR_MESSAGE);
 	}
 });
 
