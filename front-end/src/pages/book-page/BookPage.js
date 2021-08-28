@@ -2,7 +2,24 @@ import "./style.css";
 
 export default function BookPage() {
     // temporary book!
-    const book = fetch("localhost:8000/books/detail/1111111111");
+    let book = "";
+    try {
+      // fetch the buildings data and wait for it to resolve
+      let response = await fetch("localhost:8000/books/detail/1111111111");
+
+      // check response
+      if (!response.ok) {
+          alert("The status is wrong! Expected: 200, Was: " + response.status);
+          return; // Don't keep trying to execute if the response is bad.
+      }
+
+      // convert building data to JSON, wait for it to resolve
+      book = await response.json();
+    } catch (e) {
+      alert("There was an error contacting the server.");
+      console.log(e);  // Log error for debugging.
+    }
+    
     return(
       <div id="bookpage-container">
         <div id="left-column">
@@ -39,3 +56,4 @@ export default function BookPage() {
     "description": "Katniss Everdeen fights the distopian government"
   }
 */
+
