@@ -5,12 +5,15 @@ export default function BookPage(detailedBookData) {
       <div id="bookpage-container">
         <div id="left-column">
           <div id="imagebox"></div>
-          <select id="selector">
-            <option class="opt"></option>
-            <option class="opt">Plan to Read</option>
-            <option class="opt">Currently Reading</option>
-            <option class="opt">Finished</option>
-          </select>
+          <div id="bookstand-selectors">
+            <select id="selector">
+              <option class="opt">Choose Shelf</option>
+              <option class="opt">Plan to Read</option>
+              <option class="opt">Currently Reading</option>
+              <option class="opt">Finished</option>
+            </select>
+            <button id="add-button">ADD TO BOOKSTAND</button>
+          </div>
         </div>
 
         <div id="right-column">
