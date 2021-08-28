@@ -134,9 +134,6 @@ app.get("/bookshelves/get/:username/:bookshelf", async function(req, res) {
             if (!userID) {
                 res.status(CLIENT_ERROR_CODE_401).send({"error": "Invalid Username Parameter"});
             } 
-			if (!bookshelf) {
-				bookshelf = "all";
-			}
 			let info = [userID, bookshelf];
 			let result = await helper.getBookshelf(info);
 			if (!result) {
