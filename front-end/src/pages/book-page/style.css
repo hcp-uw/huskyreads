@@ -44,16 +44,31 @@
 }
 
 #selector {
-    width: 100%;
-    min-width: 10ch;
-    max-width: 20ch;
+    width: auto;
+    min-width: 15ch;
     min-height: 40px;
     border: 1px solid black;
-    border-radius: 0.25em;
-    padding: 0.25em 0.5em;
-    font-size: 1.25rem;
+    border-radius: 0.50em;
+    padding: 0.5em 0.5em;
+    font-size: 1.0rem;
     cursor: pointer;
     line-height: 1.1;
-    background-color: rgb(64, 10, 126);
+    background-color: rgb(95, 39, 159);
     color: aliceblue;
+}
+
+#bookstand-selectors {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+#add-button {
+    border-radius: 0.4em;
+    padding: 0.5em 0.5em;
+    font-size: 1.0rem;
+    background-color: rgb(81, 185, 89);
+    color: aliceblue;
+    width: auto;
+    height: auto;
 }
