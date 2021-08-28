@@ -2,8 +2,7 @@ const express = require('express');
 
 const { deleteBookshelfRecord,
         getBookshelf } = require('../controllers/bookshelf_controller');
-const { getUserId,
-        checkIfUsernameExists } = require('../controllers/user_controller');
+const { getUserId } = require('../controllers/user_controller');
 
 const { loggingModule } = require('../utils/logging');
 const { codes } = require('../utils/db');
