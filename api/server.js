@@ -278,7 +278,6 @@ async function loggingModule (errMsg, endpoint) {
 	});
 }
 
-
 /* -------------------  Public Port  ------------------- */
 app.use(express.static("public"));
 const PORT = process.env.PORT || LOCAL_HOST;
