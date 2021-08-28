@@ -122,12 +122,10 @@ app.post("/color_scheme", async (req, res) => {
 app.get("/bookshelves/get/:username/:bookshelf", async function(req, res) {
 	try {
 		res.type("JSON");
-		let username = req.body.username;
-		let bookshelf = req.body.bookshelf;
+		let username = req.params.username;
+		let bookshelf = req.params.bookshelf;
 		if (!username) {
 			res.status(CLIENT_ERROR_CODE_400).send("Missing username paramter");
-		} else if (await !helper.checkIfUsernameExists(username)) {
-			res.status(CLIENT_ERROR_CODE_401).send("Invalid Username Parameter"); // Possibly change the error msg to something more clear?
 		} else {
             let userID = await helper.getUserId(username);
             if (!userID) {
