@@ -1,15 +1,13 @@
 import "./style.css";
 import axios from 'axios'
+import React, {useState} from 'react';
 
-export default async function BookPage(isbn) {
+export default async function BookPage() {
     
-    getBook = async (num) => {
-      const response = await axios.get("localhost:8000/books/detail/" + num).catch((err) => console.log(err));
-      return response.data;
-    }
-    
-    let book = await getBook("1111111111");
-    
+    const [book, setBook] = useState(
+      await axios.get("localhost:8000/books/detail/" + num).catch((err) => console.log(err))
+    );
+
     return(
     
       <div id="bookpage-container">
