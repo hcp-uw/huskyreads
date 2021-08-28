@@ -161,16 +161,20 @@ app.post("/bookshelves/add", async (req, res) => {
 		if (!username || !bookshelf || !isbn) {
             res.status(CLIENT_ERROR_CODE_400).send("Missing one or more required body parameters");
 		} else {
-            let userID = await helper.getUserId(username);
-			let info = [userID, bookshelf];
+            let userId = await helper.getUserId(username);
+			let info = [userId, bookshelf];
+            let isValidBookshelf = await helper.checkIfVaildBookshelf(info);
+            let isValidISBN = await helper.checkIfISBNExists(isbn);
             if (userId == 0) {
                 res.status(CLIENT_ERROR_CODE_401).send("Invalid username");
-			} else if (helper.checkIfVaildBookshelf(info)) {
-				res.status(CLIENT_ERROR_CODE_400).send({"error": "Invaild bookshelf name"});
-			} else if (helper.checkIfISBNExists(isbn)) {
+			} else if (!isValidBookshelf) {
+				res.status(CLIENT_ERROR_CODE_400).send("Invaild bookshelf name");
+			} else if (!isValidISBN) {
 				res.status(CLIENT_ERROR_CODE_400).send("Book does not exist"); 
-			} else {
-                let tableAltered = await helper.insertBook(bookshelf, userID, isbn);
+			} else if (await helper.checkIfBookExistsInBookshelf(bookshelf, userId, isbn)) {
+                res.status(CLIENT_ERROR_CODE_400).send("Book already exists in " + bookshelf);
+            } else {
+                let tableAltered = await helper.insertBook(bookshelf, userId, isbn);
 				res.send("Book successfully added to the bookshelf");
 			}
 		}

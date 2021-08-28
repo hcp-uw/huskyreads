@@ -85,23 +85,30 @@ async function checkIfUsernameExists(username) {
 
 /**
  * Checks if the given Bookshelf name is valid
- * @param {String[]} bookshelf
+ * @param {String[]} info
  * @returns {boolean} True if the bookshelf name exists 
  */
 async function checkIfVaildBookshelf(info) {
-	if (bookshelf == "all") {
+
+	if (info[1] == "all") {
 		return true;
 	}
+    let query = "SELECT shelf_name FROM Bookshelf_Names WHERE shelf_name = ?";
+	let [res] = await db.query(query, info[1]);
+	return res.length > 0;
+}
 
-	let query = "SELECT DISTINCT shelf_name FROM Bookshelf WHERE id_user =?";
-	let [res] = await db.query(query, info[0]);
-	for (let i = 0; i < res.length; i++) {
-		if (res[0].shelf_name == bookshelf){
-			return true;
-		}
-	}
-
-	return false;
+/**
+ * Checks if the given book already exists in the users given bookshelf.
+ * @param {String} bookshelf
+ * @param {int} userId
+ * @param {int} isbn 
+ * @return {boolean} True if the book is already in the bookshelf
+ */
+async function checkIfBookExistsInBookshelf(bookshelf, userId, isbn) {
+    let query = "SELECT * FROM Bookshelf WHERE id_user = ? AND shelf_name = ? AND ISBN = ?";
+    let [rows] = await db.query(query, [userId, bookshelf, isbn]);
+    return rows.length > 0;
 }
 
 /* ----------------------------  GET FUNCTIONS  ---------------------------- */
@@ -278,4 +285,4 @@ async function getMatchingBooks(info) {
 }
 
 // Exporting functions for use
-module.exports = {createUser, updateColorScheme, deleteBookshelfRecord, checkIfUsernameExists, checkIfISBNExists, getUserId, getPassword, getBookshelf, getMatchingBooks, getBookDetails};
+module.exports = {createUser, updateColorScheme, insertBook, deleteBookshelfRecord, checkIfUsernameExists, checkIfISBNExists, checkIfVaildBookshelf, checkIfBookExistsInBookshelf, getUserId, getPassword, getBookshelf, getMatchingBooks, getBookDetails};
