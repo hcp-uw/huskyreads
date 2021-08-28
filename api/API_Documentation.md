@@ -297,7 +297,7 @@ Removes a book from a specified bookshelf for a user.
     No book with the provided isbn exists in the specified bookshelf
 
     * **Code:** 400 </br>
-    **Content:** `"Book does not exist"`
+    **Content:** `"Book does not exist in <bookshelf_name>"`
 
     </br>
 
@@ -307,7 +307,7 @@ Removes a book from a specified bookshelf for a user.
 ### Get List of Basic Book Data Based on Search Parameters
 
 Returns a list of books that match given search parameters and the number of books that have not yet been served to the user. The more parameters given, the narrower the search will be. If no books match the search criteria, an empty array is returned.
-* **Endpoint:** /books/search/:title/:author/:genre/:offset/:resultLength
+* **Endpoint:** /books/search
 
 * **Request Method:** GET
 
