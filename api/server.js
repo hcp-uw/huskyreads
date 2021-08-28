@@ -126,6 +126,10 @@ app.get("/bookshelves/get/:username/:bookshelf", async function(req, res) {
 		let bookshelf = req.params.bookshelf;
 		if (!username) {
 			res.status(CLIENT_ERROR_CODE_400).send({"error": "Missing username paramter"});
+		} else if (bookshelf != "reading" && bookshelf != "read" && bookshelf != "want_to_read" && bookshelf != "all") {
+            // I'll swap out this if statement with the method Nicholas wrote
+            res.status(CLIENT_ERROR_CODE_400).send({"error": "Invalid bookshelf name"});
+        } else {
             let userID = await helper.getUserId(username);
             if (!userID) {
                 res.status(CLIENT_ERROR_CODE_401).send({"error": "Invalid Username Parameter"});
