@@ -2,14 +2,24 @@ import "./style.css";
 import axios from 'axios'
 import React, {useState} from 'react';
 
-export default async function BookPage() {
+export default function BookPage() {
     
-    const [book, setBook] = useState(
-      await axios.get("localhost:8000/books/detail/" + num).catch((err) => console.log(err))
-    );
+    const [book, setBook] = useState({
+      title: "TitleTest",
+      authors: "AuthorTest",
+      genres: "Horror",
+      description: "lolololololololololol",
+    });
+    
+    // toggleBook = async () => {
+    //   let response = await axios.get("localhost:8000/books/detail/" + num).catch((err) => console.log(err));
+    //   setBook(response.data);
+    // } 
+    // let test = await toggleBook();
+    // console.log(book);
 
     return(
-    
+      
       <div id="bookpage-container">
         <div id="left-column">
           <div id="imagebox"></div>
@@ -25,7 +35,7 @@ export default async function BookPage() {
         </div>
 
         <div id="right-column">
-          <h1>{book.title} Lol</h1>
+          <h1>Title: {book.title}</h1>
           <hr />
           <p><strong>Author(s): </strong>{book.authors}</p>
           <p><strong>Genre(s): </strong>{book.genres}</p>
