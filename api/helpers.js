@@ -111,13 +111,16 @@ async function getBookshelf(info) {
         // Purpose of this is to add all distinct bookshelf names into an array, so we can iterate over each bookshelf and get its corresponding books
         query = "SELECT DISTINCT shelf_name FROM Bookshelf WHERE id_user = ?";
         let [res] = await db.query(query, info[0]);  // could I just do let bookshelves = await db.query(query, userID)?
-        bookshelves = res;
+        for (let index = 0; index < res.length; index++) {
+            bookshelves.push(res[index].shelf_name);
+        }
     } else {
         bookshelves.push(info[1]);
     }
     // WILL DEFINITELY NEED TO MAKE THIS QUERY FASTER (SCALABILITY SINCE WE MIGHT NEED TO CALL THIS MULTIPLE TIMES)
 	query =
     `
+    DROP TEMPORARY TABLE IF EXISTS Shelves, Book_Data;
     CREATE TEMPORARY TABLE Shelves
         SELECT Bookshelf.ISBN AS ISBN, Bookshelf.shelf_name AS name
         FROM Bookshelf
@@ -131,7 +134,7 @@ async function getBookshelf(info) {
         RIGHT JOIN Shelves
             ON Shelves.ISBN = Books.ISBN
     ;
-    SELECT Book_Data.shelfname, Book_Data.title, Book_Data.ISBN, GROUP_CONCAT(DISTINCT Authors.name SEPARATOR ',') AS authors, GROUP_CONCAT(DISTINCT Genre.name SEPARATOR ',') AS genres
+    SELECT Book_Data.title, Book_Data.ISBN, GROUP_CONCAT(DISTINCT Authors.name SEPARATOR ',') AS authors, GROUP_CONCAT(DISTINCT Genre.name SEPARATOR ',') AS genres
     FROM Book_Data
     INNER JOIN Book_Authors
         ON Book_Data.ISBN = Book_Authors.ISBN
@@ -145,9 +148,20 @@ async function getBookshelf(info) {
     ;
     `
     let result = [];
-    for (let bookshelf of bookshelves) {
-        let [rows] = await db.query(query, [bookshelf, userID]);
-        result.push(rows);
+    for (let bookshelfName of bookshelves) {
+        let bookshelf = [];
+        let [rows] = await db.query(query, [bookshelfName, info[0]]);
+        let data = rows[3];
+        for (let row of data) {
+            let book = {
+                "isbn": row.ISBN,
+                "title": row.title,
+                "authors": row.authors,
+                "genres": row.genres
+            };
+            bookshelf.push(book);
+        }
+        result.push({"name": bookshelfName, "books": bookshelf});
     }
 	return result;
 }
@@ -206,7 +220,7 @@ async function getMatchingBooks(info) {
     let query = `
     DROP TEMPORARY TABLE IF EXISTS Results;
     CREATE TEMPORARY TABLE Results
-    SELECT Books.title AS title, Books.date_published AS date_published, Authors.name AS author_name, Genre.name AS genre_name
+    SELECT Books.title AS title, Books.date_published AS date_published, Books.description AS description, Authors.name AS author_name, Genre.name AS genre_name
     FROM Books
     INNER JOIN Book_Authors
         ON Books.ISBN = Book_Authors.ISBN
@@ -218,13 +232,16 @@ async function getMatchingBooks(info) {
         ON Book_Genre.id_genre = Genre.id
     WHERE Books.ISBN = ?
     ;
-    SELECT Results.title, Results.date_published, GROUP_CONCAT(DISTINCT Results.author_name SEPARATOR ',') AS authors, GROUP_CONCAT(DISTINCT Results.genre_name SEPARATOR ',') AS genres
+    SELECT Results.title, Results.date_published, Results.description, GROUP_CONCAT(DISTINCT Results.author_name SEPARATOR ',') AS authors, GROUP_CONCAT(DISTINCT Results.genre_name SEPARATOR ',') AS genres
     FROM Results
-    GROUP BY Results.title, Results.date_published
+    GROUP BY Results.title, Results.date_published, Results.description
     ;
     `
     let [results] = await db.query(query, isbn);
-    return results[2];
+    let data = results[2][0];
+    data.authors = data.authors.split(",");
+    data.genres = data.genres.split(",");
+    return data;
 }
 
 // Exporting functions for use

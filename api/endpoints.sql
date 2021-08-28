@@ -120,7 +120,7 @@ OFFSET [offset]
 /* Get Detailed Information for Single Book */
 /* Parameter: ISBN */
 CREATE TEMPORARY TABLE Results
-    SELECT Books.title AS title, Books.date_published AS date_published, Authors.name AS author_name, Genre.name AS genre_name
+    SELECT Books.title AS title, Books.date_published AS date_published, Books.description AS description, Authors.name AS author_name, Genre.name AS genre_name
     FROM Books
     INNER JOIN Book_Authors
         ON Books.ISBN = Book_Authors.ISBN
@@ -132,7 +132,7 @@ CREATE TEMPORARY TABLE Results
         ON Book_Genre.id_genre = Genre.id
     WHERE Books.ISBN = [ISBN]
     ;
-SELECT Results.title, Results.date_published, GROUP_CONCAT(DISTINCT Results.author_name SEPARATOR ',') AS authors, GROUP_CONCAT(DISTINCT Results.genre_name SEPARATOR ',') AS genres
+SELECT Results.title, Results.date_published, Results.description, GROUP_CONCAT(DISTINCT Results.author_name SEPARATOR ',') AS authors, GROUP_CONCAT(DISTINCT Results.genre_name SEPARATOR ',') AS genres
 FROM Results
-GROUP BY Results.title, Results.date_published
+GROUP BY Results.title, Results.date_published, Results.description
 ;
