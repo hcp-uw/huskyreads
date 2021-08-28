@@ -1,0 +1,41 @@
+.book-list_card {
+  margin: 5px 30px 25px;
+  max-width: 150px;
+  text-decoration: none;
+  display: block;
+}
+
+.book-list_card > * {
+  transition: 0.2s all ease;
+}
+
+.book-list_card:hover img {
+  transform: scale(1.01);
+}
+
+.book-list_card:hover h4, .book-list_card:hover p {
+  opacity: 0.8;
+}
+
+.book-card_img {
+  max-height: 200px;
+  width: 140px;
+  object-fit: contain;
+}
+
+.book-card_title, .book-card_author {
+  margin: 0;
+  padding-bottom: 8px;
+  letter-spacing: .3px;
+  width: 100%;
+}
+
+.book-card_title {
+  color: black;
+}
+
+.book-card_author {
+  color: rgb(56, 56, 56);
+  font-size: .85em;
+  font-weight: 500;
+}
