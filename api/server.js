@@ -21,7 +21,7 @@ const SUCCESS_CODE = 200;			// Success
 const CLIENT_ERROR_CODE_400 = 400;  // Bad Request
 const CLIENT_ERROR_CODE_401 = 401;  // Unauthorized Access
 const SERVER_ERROR_CODE = 500;      // Server Error format: "An error has occured on the server!"
-const SERVER_ERROR_MESSAGE = "An error has occured on the server"
+const SERVER_ERROR_MESSAGE = "An error has occured on the server";
 const LOCAL_HOST = 8000;
 
 /* --------------------  ENDPOINTS  -------------------- */
@@ -125,25 +125,24 @@ app.get("/bookshelves/get/:username/:bookshelf", async function(req, res) {
 		let username = req.params.username;
 		let bookshelf = req.params.bookshelf;
 		if (!username) {
-			res.status(CLIENT_ERROR_CODE_400).send("Missing username paramter");
-		} else {
+			res.status(CLIENT_ERROR_CODE_400).send({"error": "Missing username paramter"});
             let userID = await helper.getUserId(username);
             if (!userID) {
-                res.status(CLIENT_ERROR_CODE_401).send("Invalid Username Parameter");
-            }
+                res.status(CLIENT_ERROR_CODE_401).send({"error": "Invalid Username Parameter"});
+            } 
 			if (!bookshelf) {
 				bookshelf = "all";
 			}
 			let info = [userID, bookshelf];
 			let result = await helper.getBookshelf(info);
 			if (!result) {
-				res.status(CLIENT_ERROR_CODE_400).send("Invaild bookshelf name");
+				res.status(CLIENT_ERROR_CODE_400).send({"error": "Invaild bookshelf name"});
 			}
 			res.status(SUCCESS_CODE).send(result);
 		}
 	} catch (err) {
 		loggingModule(err, "bookshelfGet");
-		res.status(SERVER_ERROR_CODE).send(SERVER_ERROR_MESSAGE);
+		res.status(SERVER_ERROR_CODE).send({"error": SERVER_ERROR_MESSAGE});
 	}
 });
 
