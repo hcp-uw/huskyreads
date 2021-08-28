@@ -167,13 +167,12 @@ app.post("/bookshelves/add", async (req, res) => {
                 res.status(CLIENT_ERROR_CODE_401).send("Invalid username");
 			} else if (helper.checkIfVaildBookshelf(info)) {
 				res.status(CLIENT_ERROR_CODE_400).send({"error": "Invaild bookshelf name"});
-			} else if (helper.checkIfISBNExists(isbn) {
+			} else if (helper.checkIfISBNExists(isbn)) {
 				res.status(CLIENT_ERROR_CODE_400).send("Book does not exist"); 
 			} else {
                 let tableAltered = await helper.insertBook(bookshelf, userID, isbn);
 				res.send("Book successfully added to the bookshelf");
 			}
-
 		}
 	} catch (err) {
 		loggingModule(err, "bookshelfAdd");
