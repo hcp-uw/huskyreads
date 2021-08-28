@@ -1,4 +1,4 @@
-nav {
+.navigation-bar {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -8,40 +8,44 @@ nav {
   background-color: #fff;
 }
 
-h1 {
+.nav-logo {
   font-size: 1.8em;
   margin: 0;
 }
 
 /* general styles */
 
-li {
+.nav-links {
+  display: flex;
+}
+
+.nav-links li {
   position: relative;
   margin: 0 0.8em;
   list-style: none;
 }
 
-a {
+.navigation-wrapper a {
   text-decoration: none;
   color: #000;
   transition: all 0.2s;
   border-bottom: #ffffff00 solid 3px;
 }
 
-a:hover {
-  opacity: 0.6;
+.navigation-wrapper a:hover {
+  opacity: 0.8;
 }
 
-.split-right {
+.nav_split-right {
   display: flex;
   align-items: center;
 }
 
-svg {
+.nav_menu-btn svg, .nav_search-btn svg {
   padding-top: 2px;
 }
 
-button {
+.nav_menu-btn, .nav_search-btn {
   border-radius: 50%;
   border: none;
   background-color: #4b2e83;
@@ -52,18 +56,18 @@ button {
   transition: all 0.3s;
 }
 
-button:hover {
+.nav_menu-btn:hover, .nav_search-btn:hover {
   background-color: #6445a3;
   cursor: pointer;
 }
 
-.hidden {
+.nav-modal.hidden {
   display: none !important;
 }
 
 /* large screen navbar */
 
-.links.lg {
+.nav-links.lg {
   display: flex;
   align-items: center;
   margin: 0;
@@ -88,11 +92,11 @@ button:hover {
   opacity: 0.5;
 }
 
-.window {
+.nav_modal-window {
   position: absolute;
   top: 12%;
   left: 50%;
-  border-radius: 20px;
+  border-radius: 15px;
   box-shadow: 0 3px 18px rgba(0, 0, 0, 0.1);
   opacity: 1;
   background-color: #fff;
@@ -104,21 +108,35 @@ button:hover {
 
 .sm {
   position: relative;
+  flex-direction: column;
   font-size: 2em;
+  font-weight: 500;
   line-height: 2.5em;
   margin: 0;
   padding: 40px 22px;
+  scrollbar-width: 2px;
+}
+
+.nav_modal-window::-webkit-scrollbar {
+  width: 8px;
+}
+
+.nav_modal-window::-webkit-scrollbar-thumb {
+  width: 8px;
+  margin-right: 18px;
+  background-color: #888888;
+  border-radius: 50px;
 }
 
 @media (min-width: 768px) {
-  .menu-btn,
-  .modal {
+  .nav_menu-btn,
+  .nav-modal {
     display: none;
   }
 }
 
 @media (max-width: 767px) {
-  .links.lg {
+  .nav-links.lg {
     display: none;
   }
 }
