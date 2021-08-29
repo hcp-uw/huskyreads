@@ -25,10 +25,10 @@ export default function BookPage() {
           <div id="imagebox"></div>
           <div id="bookstand-selectors">
             <select id="selector">
-              <option class="opt">Choose Shelf</option>
-              <option class="opt">Plan to Read</option>
-              <option class="opt">Currently Reading</option>
-              <option class="opt">Finished</option>
+              <option className="opt">Choose Shelf</option>
+              <option className="opt">Plan to Read</option>
+              <option className="opt">Currently Reading</option>
+              <option className="opt">Finished</option>
             </select>
             <button id="add-button">ADD TO BOOKSTAND</button>
           </div>
