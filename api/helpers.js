@@ -19,7 +19,7 @@ const db = mysql.createPool({
 /* ----------------------------  MISC FUNCTIONS  --------------------------- */
 /**
  * Creates new User based on info
- * @param {String[]} info
+ * @param {String[]} info -
  */
  async function createUser(info) {
 	let query = "INSERT INTO User (username, password) VALUES (?, ?);";
@@ -85,14 +85,14 @@ async function checkIfUsernameExists(username) {
 
 /**
  * Checks if the given Bookshelf name is valid
- * @param {String[]} info
+ * @param {String[]} info - stored in the format [userID, bookshelf]
  * @returns {boolean} True if the bookshelf name exists 
  */
 async function checkIfVaildBookshelf(info) {
-
 	if (info[1] == "all") {
 		return true;
 	}
+
     let query = "SELECT shelf_name FROM Bookshelf_Names WHERE shelf_name = ?";
 	let [res] = await db.query(query, info[1]);
 	return res.length > 0;
@@ -100,9 +100,9 @@ async function checkIfVaildBookshelf(info) {
 
 /**
  * Checks if the given book already exists in the users given bookshelf.
- * @param {String} bookshelf
- * @param {int} userId
- * @param {int} isbn 
+ * @param {String} bookshelf - The given bookshelf
+ * @param {int} userId - The user's associated ID
+ * @param {int} isbn - The given ISBN 
  * @return {boolean} True if the book is already in the bookshelf
  */
 async function checkIfBookExistsInBookshelf(bookshelf, userId, isbn) {
@@ -130,7 +130,7 @@ async function checkIfBookExistsInBookshelf(bookshelf, userId, isbn) {
 
 /**
  * Gets password from username
- * @param {String} username
+ * @param {String} username - The username of the user to get the password for.
  * @returns info of username
  */
 async function getPassword(username) {
@@ -141,7 +141,7 @@ async function getPassword(username) {
 
 /**
  * Gets the book from the specified bookshelf
- * @param {String[]} info in format of [userID, bookshelf]
+ * @param {String[]} info - stored in the format [userID, bookshelf]
  * @returns the Bookshelf information of the user.
  */
 async function getBookshelf(info) {
@@ -253,6 +253,7 @@ async function getMatchingBooks(info) {
 }
 
 /**
+ * Fetches all the details of the given book
  * @param {int} isbn Book ISBN number
  * @returns {JSON} json object containing the necessary book information (determined by API)
  */
