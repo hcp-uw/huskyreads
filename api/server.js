@@ -174,7 +174,7 @@ app.post("/bookshelves/add", async (req, res) => {
 			} else if (await helper.checkIfBookExistsInBookshelf(bookshelf, userId, isbn)) {
                 res.status(CLIENT_ERROR_CODE_400).send("Book already exists in " + bookshelf);
             } else {
-                let tableAltered = await helper.insertBook(bookshelf, userId, isbn);
+                await helper.insertBook(bookshelf, userId, isbn);
 				res.send("Book successfully added to the bookshelf");
 			}
 		}
