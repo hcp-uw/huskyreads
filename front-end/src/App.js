@@ -28,7 +28,7 @@ export default function App() {
         <Route path="/browse">
           <HomePage/>
         </Route>
-        {/* remove lines 32-34 later 
+        {/* remove lines 32-34 later
         <Route path="/book-page">
           <BookPage/>
         </Route>

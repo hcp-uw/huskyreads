@@ -29,7 +29,7 @@ export default function Navbar() {
             <li>
               <NavLink to="/about" activeClassName="active">About Us</NavLink>
             </li>
-            {/* remove this line below later 
+            {/* remove this line below later
             <li>
               <NavLink to="/book-page" activeClassName="active">Book Page Test</NavLink>
             </li>
