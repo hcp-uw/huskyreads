@@ -19,7 +19,7 @@ const db = mysql.createPool({
 /* ----------------------------  MISC FUNCTIONS  --------------------------- */
 /**
  * Creates new User based on info
- * @param {String[]} info
+ * @param {String[]} info -
  */
  async function createUser(info) {
 	let query = "INSERT INTO User (username, password) VALUES (?, ?);";
@@ -33,6 +33,18 @@ const db = mysql.createPool({
 async function updateColorScheme(info) {
 	let query = "UPDATE User SET color_scheme = ? WHERE username = ?";
 	await db.query(query, info);
+}
+
+/**
+ * Adds a book to the specified bookshelf for a given user
+ * @param {String} bookshelf - The name of the bookshelf to alter
+ * @param {int} userID - The id for the given user
+ * @param {int} isbn - The isbn of the book to add
+ * @return {boolean} True if the table was altered 
+ */
+async function insertBook(bookshelf, userID, isbn) {
+	let query = "INSERT INTO Bookshelf VALUES (?, ?, ?)";  
+	await db.query(query, [userID, isbn, bookshelf])
 }
 
 /**
@@ -71,6 +83,34 @@ async function checkIfUsernameExists(username) {
     return count[0].count > 0;
 }
 
+/**
+ * Checks if the given Bookshelf name is valid
+ * @param {String[]} info - stored in the format [userID, bookshelf]
+ * @returns {boolean} True if the bookshelf name exists 
+ */
+async function checkIfVaildBookshelf(info) {
+	if (info[1] == "all") {
+		return true;
+	}
+
+    let query = "SELECT shelf_name FROM Bookshelf_Names WHERE shelf_name = ?";
+	let [res] = await db.query(query, info[1]);
+	return res.length > 0;
+}
+
+/**
+ * Checks if the given book already exists in the users given bookshelf.
+ * @param {String} bookshelf - The given bookshelf
+ * @param {int} userId - The user's associated ID
+ * @param {int} isbn - The given ISBN 
+ * @return {boolean} True if the book is already in the bookshelf
+ */
+async function checkIfBookExistsInBookshelf(bookshelf, userId, isbn) {
+    let query = "SELECT * FROM Bookshelf WHERE id_user = ? AND shelf_name = ? AND ISBN = ?";
+    let [rows] = await db.query(query, [userId, bookshelf, isbn]);
+    return rows.length > 0;
+}
+
 /* ----------------------------  GET FUNCTIONS  ---------------------------- */
 
 /**
@@ -90,7 +130,7 @@ async function checkIfUsernameExists(username) {
 
 /**
  * Gets password from username
- * @param {String} username
+ * @param {String} username - The username of the user to get the password for.
  * @returns info of username
  */
 async function getPassword(username) {
@@ -101,7 +141,7 @@ async function getPassword(username) {
 
 /**
  * Gets the book from the specified bookshelf
- * @param {String[]} info in format of [userID, bookshelf]
+ * @param {String[]} info - stored in the format [userID, bookshelf]
  * @returns the Bookshelf information of the user.
  */
 async function getBookshelf(info) {
@@ -213,6 +253,7 @@ async function getMatchingBooks(info) {
 }
 
 /**
+ * Fetches all the details of the given book
  * @param {int} isbn Book ISBN number
  * @returns {JSON} json object containing the necessary book information (determined by API)
  */
@@ -245,4 +286,4 @@ async function getMatchingBooks(info) {
 }
 
 // Exporting functions for use
-module.exports = {createUser, updateColorScheme, deleteBookshelfRecord, checkIfUsernameExists, checkIfISBNExists, getUserId, getPassword, getBookshelf, getMatchingBooks, getBookDetails};
+module.exports = {createUser, updateColorScheme, insertBook, deleteBookshelfRecord, checkIfUsernameExists, checkIfISBNExists, checkIfVaildBookshelf, checkIfBookExistsInBookshelf, getUserId, getPassword, getBookshelf, getMatchingBooks, getBookDetails};

@@ -154,9 +154,33 @@ app.get("/bookshelves/get/:username/:bookshelf", async function(req, res) {
  */
 app.post("/bookshelves/add", async (req, res) => {
 	try {
-
+		res.type("JSON");
+		let username = req.body.username;
+		let bookshelf = req.body.bookshelf;
+		let isbn = req.body.isbn;
+		if (!username || !bookshelf || !isbn) {
+            res.status(CLIENT_ERROR_CODE_400).send("Missing one or more required body parameters");
+		} else {
+            let userId = await helper.getUserId(username);
+			let info = [userId, bookshelf];
+            let isValidBookshelf = await helper.checkIfVaildBookshelf(info);
+            let isValidISBN = await helper.checkIfISBNExists(isbn);
+            if (userId == 0) {
+                res.status(CLIENT_ERROR_CODE_401).send("Invalid username");
+			} else if (!isValidBookshelf) {
+				res.status(CLIENT_ERROR_CODE_400).send("Invaild bookshelf name");
+			} else if (!isValidISBN) {
+				res.status(CLIENT_ERROR_CODE_400).send("Book does not exist"); 
+			} else if (await helper.checkIfBookExistsInBookshelf(bookshelf, userId, isbn)) {
+                res.status(CLIENT_ERROR_CODE_400).send("Book already exists in " + bookshelf);
+            } else {
+                await helper.insertBook(bookshelf, userId, isbn);
+				res.send("Book successfully added to the bookshelf");
+			}
+		}
 	} catch (err) {
 		loggingModule(err, "bookshelfAdd");
+        res.status(SERVER_ERROR_CODE).send(SERVER_ERROR_MESSAGE);
 	}
 });
 
@@ -257,7 +281,6 @@ async function loggingModule (errMsg, endpoint) {
         }
 	});
 }
-
 
 /* -------------------  Public Port  ------------------- */
 app.use(express.static("public"));
