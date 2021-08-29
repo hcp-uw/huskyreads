@@ -1,4 +1,4 @@
-import {BrowserRouter as Router, Switch, Route, Redirect} from "react-router-dom";
+import {BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Navbar from "./components/nav/Nav";
 import './index.css';
 import AboutPage from "./pages/about/About";
@@ -6,7 +6,7 @@ import BookStandPage from "./pages/book-stand/BookStand";
 import HomePage from "./pages/home/Home";
 import LoginPage from "./pages/login/Login";
 import SettingsPage from "./pages/settings/Settings";
-import BookPage from "./pages/book-page/BookPage";
+// import BookPage from "./pages/book-page/BookPage";
 
 export default function App() {
   return (
@@ -28,10 +28,11 @@ export default function App() {
         <Route path="/browse">
           <HomePage/>
         </Route>
-        {/* remove lines 32-34 later */}
+        {/* remove lines 32-34 later 
         <Route path="/book-page">
           <BookPage/>
         </Route>
+        */}
       </Switch>
     </Router>
   );
