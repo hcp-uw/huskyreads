@@ -27,7 +27,7 @@ const db = mysql.createPool({
 }
 
 /**
- * Updates the User's current Color Scheme.
+ * Updates the User's current color scheme.
  * @param {String[]} info - The clients username and color_scheme
  */
 async function updateColorScheme(info) {
@@ -51,7 +51,7 @@ async function insertBook(bookshelf, userID, isbn) {
  * @param {int} userId - The id for the given user
  * @param {String} bookshelf - The name of the bookshelf to alter
  * @param {int} isbn - The isbn of the book to remove
- * @return {boolean} True if the table was altered, false otherwise
+ * @return {boolean} - True if the table was altered, false otherwise
  */
  async function deleteBookshelfRecord(userId, bookshelf, isbn) {
     let query = "DELETE FROM Bookshelf WHERE id_user = ? AND isbn = ? AND shelf_name = ?;";
@@ -61,9 +61,9 @@ async function insertBook(bookshelf, userID, isbn) {
 
 /* ---------------------------  CHECK FUNCTIONS  --------------------------- */
 /**
- * Checks if username already exists
- * @param {String} username - the given username 
- * @returns {boolean} True if the username already exists
+ * Checks if the given username already exists
+ * @param {String} username - The given username 
+ * @returns {boolean} - True if the given username already exists
  */
 async function checkIfUsernameExists(username) {
 	let query = "SELECT * FROM User WHERE username = ?;";
@@ -73,8 +73,8 @@ async function checkIfUsernameExists(username) {
 
 /**
  * Check if the given ISBN corresponds to a book in the database
- * @param {int} isbn - The given book ISBN
- * @returns {boolean} True if a book exists with the given isbn, false otherwise
+ * @param {int} isbn - The given book's ISBN
+ * @returns {boolean} - True if a book has the corresponding ISBN
  */
  async function checkIfISBNExists(isbn) {
     let query = "SELECT COUNT(*) AS count FROM Books WHERE Books.isbn = ?";
@@ -84,9 +84,8 @@ async function checkIfUsernameExists(username) {
 
 /**
  * Checks if the given Bookshelf name exists within the database
- * @param {String[]} info - The userID of the user, and the Bookshelf being 
- *                          checked
- * @returns {boolean} True if the bookshelf name exists 
+ * @param {String[]} info - The userID of the user, and the Bookshelf being checked
+ * @returns {boolean} - True if the bookshelf name exists 
  */
 async function checkIfVaildBookshelf(info) {
 	if (info[1] == "all") {
@@ -99,11 +98,11 @@ async function checkIfVaildBookshelf(info) {
 }
 
 /**
- * Checks if the given book already exists in the users given bookshelf.
+ * Checks if the given book exists in the users given bookshelf.
  * @param {String} bookshelf - The given bookshelf
  * @param {int} userId - The user's associated ID
  * @param {int} isbn - The given ISBN 
- * @return {boolean} True if the book is already in the bookshelf
+ * @return {boolean} - True if the book is already in the bookshelf
  */
 async function checkIfBookExistsInBookshelf(bookshelf, userId, isbn) {
     let query = "SELECT * FROM Bookshelf WHERE id_user = ? AND shelf_name = ? AND ISBN = ?";
@@ -114,9 +113,9 @@ async function checkIfBookExistsInBookshelf(bookshelf, userId, isbn) {
 /* ----------------------------  GET FUNCTIONS  ---------------------------- */
 
 /**
- * Returns the id of the user with the given username or 0 if no user exists.
- * @param {String} username - The username of the user to get the id for.
- * @returns {int} The users id or 0 if no user exists with the username.
+ * Returns the ID of the given username or 0 if the username does not exist
+ * @param {String} username - The given username for the user
+ * @returns {int} - The user's ID or 0 if the username does not exist
  */
  async function getUserId(username) {
     let query = "SELECT id FROM User WHERE User.username = ?;"
@@ -129,9 +128,9 @@ async function checkIfBookExistsInBookshelf(bookshelf, userId, isbn) {
 }
 
 /**
- * Gets password from username
- * @param {String} username - The username of the user to get the password for.
- * @returns info of username
+ * Gets the given user's password
+ * @param {String} username - The given username of the user
+ * @returns - The row in the database for the given user
  */
 async function getPassword(username) {
 	let query = "SELECT * FROM User WHERE username=?;";
@@ -141,8 +140,8 @@ async function getPassword(username) {
 
 /**
  * Gets the book from the specified bookshelf
- * @param {String[]} info - stored in the format [userID, bookshelf]
- * @returns the Bookshelf information of the user.
+ * @param {String[]} info - The user's userID and the bookshelf being accessed 
+ * @returns - The bookshelf information of the user.
  */
 async function getBookshelf(info) {
     let bookshelves = [];
@@ -210,8 +209,8 @@ async function getBookshelf(info) {
 /**
  * Gets all of the books that match the given search query. Each book returned
  * will include its title, author(s) and isbn number.
- * @param {Object} info - Search parameters provided by user
- * @returns {Object[]} List of books that satisfy the given search query
+ * @param {Object} info - Search parameters provided by the user
+ * @returns {Object[]} - List of books that satisfy the given search query
  */
 async function getMatchingBooks(info) {
 	let title = info.title;
@@ -254,9 +253,9 @@ async function getMatchingBooks(info) {
 }
 
 /**
- * Fetches all the details of the given book
- * @param {int} isbn Book ISBN number
- * @returns {JSON} json object containing the necessary book information (determined by API)
+ * Fetches the title, date published, description, author's name, and genre from the given book
+ * @param {int} isbn- the given book's ISBN number
+ * @returns {JSON} data - JSON object containing the book information (determined by API)
  */
  async function getBookDetails(isbn) {
     let query = `
