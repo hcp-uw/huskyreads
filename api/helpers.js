@@ -203,14 +203,15 @@ async function getBookshelf(info) {
         }
         result.push({"name": bookshelfName, "books": bookshelf});
     }
+
 	return result;
 }
 
 /**
  * Gets all of the books that match the given search query. Each book returned
  * will include its title, author(s) and isbn number.
- * @param {Object} info Search parameters provided by user
- * @returns {Object[]} List of books that satify the search query
+ * @param {Object} info - Search parameters provided by user
+ * @returns {Object[]} List of books that satisfy the given search query
  */
 async function getMatchingBooks(info) {
 	let title = info.title;

@@ -149,15 +149,14 @@ app.get("/bookshelves/get/:username/:bookshelf", async function(req, res) {
 
 /**
  * Add book to bookshelf
- * (Check for duplicates within specific bookshelf)
- * (Do not need to check for overall duplicates? I assume?)
  */
 app.post("/bookshelves/add", async (req, res) => {
 	try {
-		res.type("JSON");
+        res.type("JSON");
 		let username = req.body.username;
 		let bookshelf = req.body.bookshelf;
 		let isbn = req.body.isbn;
+
 		if (!username || !bookshelf || !isbn) {
             res.status(CLIENT_ERROR_CODE_400).send("Missing one or more required body parameters");
 		} else {
@@ -165,6 +164,7 @@ app.post("/bookshelves/add", async (req, res) => {
 			let info = [userId, bookshelf];
             let isValidBookshelf = await helper.checkIfVaildBookshelf(info);
             let isValidISBN = await helper.checkIfISBNExists(isbn);
+
             if (userId == 0) {
                 res.status(CLIENT_ERROR_CODE_401).send("Invalid username");
 			} else if (!isValidBookshelf) {
@@ -193,7 +193,8 @@ app.post("/bookshelves/remove", async (req, res) => {
         let username = req.body.username;
         let bookshelf = req.body.bookshelf;
         let isbn = req.body.isbn;
-        if (!username || !bookshelf || !isbn) {
+
+        if (!(username || bookshelf || isbn)) {
             res.status(CLIENT_ERROR_CODE_400).send("Missing one or more required body parameters");
         } else  {
             let userId = await helper.getUserId(username);
