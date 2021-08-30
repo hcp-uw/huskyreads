@@ -18,8 +18,8 @@ const db = mysql.createPool({
 
 /* ----------------------------  MISC FUNCTIONS  --------------------------- */
 /**
- * Creates new User based on info
- * @param {String[]} info -
+ * Creates new User with a unique username, and a password
+ * @param {String[]} info - The new clients username and password
  */
  async function createUser(info) {
 	let query = "INSERT INTO User (username, password) VALUES (?, ?);";
@@ -28,7 +28,7 @@ const db = mysql.createPool({
 
 /**
  * Updates the User's current Color Scheme.
- * @param {String[]} info
+ * @param {String[]} info - The clients username and color_scheme
  */
 async function updateColorScheme(info) {
 	let query = "UPDATE User SET color_scheme = ? WHERE username = ?";
@@ -40,7 +40,6 @@ async function updateColorScheme(info) {
  * @param {String} bookshelf - The name of the bookshelf to alter
  * @param {int} userID - The id for the given user
  * @param {int} isbn - The isbn of the book to add
- * @return {boolean} True if the table was altered 
  */
 async function insertBook(bookshelf, userID, isbn) {
 	let query = "INSERT INTO Bookshelf VALUES (?, ?, ?)";  
@@ -48,11 +47,11 @@ async function insertBook(bookshelf, userID, isbn) {
 }
 
 /**
- * Removes a given book from a specified bookshelf for a given user.
- * @param {int} userId - The id for the given user.
- * @param {String} bookshelf - The name of the bookshelf to alter.
- * @param {int} isbn - The isbn of the book to remove.
- * @return {boolean} True if the table was altered, false otherwise.
+ * Removes a book from a specified bookshelf for a given user
+ * @param {int} userId - The id for the given user
+ * @param {String} bookshelf - The name of the bookshelf to alter
+ * @param {int} isbn - The isbn of the book to remove
+ * @return {boolean} True if the table was altered, false otherwise
  */
  async function deleteBookshelfRecord(userId, bookshelf, isbn) {
     let query = "DELETE FROM Bookshelf WHERE id_user = ? AND isbn = ? AND shelf_name = ?;";
@@ -62,9 +61,9 @@ async function insertBook(bookshelf, userID, isbn) {
 
 /* ---------------------------  CHECK FUNCTIONS  --------------------------- */
 /**
- * Checks if username exists
- * @param {String} username
- * @returns {boolean} true if username already exists
+ * Checks if username already exists
+ * @param {String} username - the given username 
+ * @returns {boolean} True if the username already exists
  */
 async function checkIfUsernameExists(username) {
 	let query = "SELECT * FROM User WHERE username = ?;";
@@ -73,9 +72,9 @@ async function checkIfUsernameExists(username) {
 }
 
 /**
- * @param {int} isbn Book ISBN number
+ * Check if the given ISBN corresponds to a book in the database
+ * @param {int} isbn - The given book ISBN
  * @returns {boolean} True if a book exists with the given isbn, false otherwise
- * check if the book w/ the given isbn exists in our database
  */
  async function checkIfISBNExists(isbn) {
     let query = "SELECT COUNT(*) AS count FROM Books WHERE Books.isbn = ?";
@@ -84,8 +83,9 @@ async function checkIfUsernameExists(username) {
 }
 
 /**
- * Checks if the given Bookshelf name is valid
- * @param {String[]} info - stored in the format [userID, bookshelf]
+ * Checks if the given Bookshelf name exists within the database
+ * @param {String[]} info - The userID of the user, and the Bookshelf being 
+ *                          checked
  * @returns {boolean} True if the bookshelf name exists 
  */
 async function checkIfVaildBookshelf(info) {
