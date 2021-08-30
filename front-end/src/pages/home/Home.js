@@ -47,21 +47,3 @@ const Browse = () => {
     </section>
   );
 }
-
-// not sure if this is the correct syntax but this'll give us a rough start
-testSearch = async (title, author, genre) => {
-  fetchURL = "localhost:8000/books/search?";
-  if (title !== undefined) {
-    fetchURL += `title=${title}`;
-  }
-  if (author !== undefined) {
-    fetchURL += `author=${author}`;
-  }
-  if (genre !== undefined) {
-    fetchURL += `genre=${genre}`;
-  }
-  const response = await fetch(fetchURL)
-    .then(response.ok == true)
-    .catch((error) => console.log(error));
-  return response.json();
-}

@@ -1,4 +1,5 @@
 import "./index.css";
+import axios from 'axios';
 
 function aboutPagePureHTML() {
     return (
@@ -123,39 +124,34 @@ function aboutPagePureHTML() {
   
 
 export default function AboutPage() {
-  const testing = false;
-  if (!testing) {
-    return(aboutPagePureHTML());
-  } else {
-    return(
-        <div id="container">  
-            <div id="about-block">
-                
-                <div id="purpose-box">
-                    
-                </div>
-            </div>
-            <p id="team-title"> Our Team </p>
-            <div id="member-list">
-            
-                <div className="member-box">
-                    
-                </div>
-                <div className="member-box">
-                    
-                </div>
-                <div className="member-box">
-                    
-                </div>
-                <div className="member-box">
-                    
-                </div>
-                <div className="member-box">
-                    
-                </div> 
-            </div>
-        </div>  
-      );
-    
-  }
+  
+    testSearch = async () => {
+        let fetchURL = "http://localhost:8000/books/search";
+        /*
+        if (title !== undefined) {
+            fetchURL += `title=${title}`;
+        }
+        if (author !== undefined) {
+        fetchURL += `author=${author}`;
+        }
+        if (genre !== undefined) {
+        fetchURL += `genre=${genre}`;
+        }
+        */
+        const response = await axios.get(fetchURL).catch((error) => console.log(error));
+        console.log(response);
+    }
+  
+
+    const testing = false;
+    if (!testing) {
+        return(aboutPagePureHTML());
+    }
 }
+
+
+
+/*
+// not sure if this is the correct syntax but this'll give us a rough start
+
+*/
