@@ -59,6 +59,7 @@ async function checkIfBookExistsInBookshelf(bookshelf, userID, isbn) {
     let query = "SELECT * FROM Bookshelf WHERE id_user = ? AND shelf_name = ? AND isbn = ?";
     let [rows] = await db.query(query, [userID, bookshelf, isbn]);
     return rows.length > 0;
+}
 
 module.exports = {checkIfUsernameExists, checkIfIsbnExists, checkIfVaildBookshelf, checkIfBookExistsInBookshelf}; 
 

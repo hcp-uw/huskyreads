@@ -47,5 +47,10 @@ async function insertBook(bookshelf, userID, isbn) {
  * @param {int} isbn - The isbn of the book to remove
  * @return {boolean} - True if the table was altered, false otherwise
  */
+ async function deleteBookshelfRecord(userID, bookshelf, isbn) {
+    let query = "DELETE FROM Bookshelf WHERE id_user = ? AND isbn = ? AND shelf_name = ?;";
+    let [rows] = await db.query(query, [userID, isbn, bookshelf])
+    return rows.affectedRows > 0;
+}
 
 module.exports = {createUser, updateColorScheme, insertBook, deleteBookshelfRecord};

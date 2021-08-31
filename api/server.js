@@ -12,9 +12,9 @@ const cors = require("cors"); //npm install cors
 
 /* --------------------  IMPORTS -------------------- */
 
-const userHelper = require("./helpers/user_helper.js");  
-const getHelper = require("./helpers/get_helper.js");
-const checkHelper = require("./helpers/check_helper.js");
+const userHelper = require("./helpers/user_helpers.js");  
+const getHelper = require("./helpers/get_helpers.js");
+const checkHelper = require("./helpers/check_helpers.js");
 
 const app = express();
 app.use(cors());
