@@ -84,7 +84,7 @@ async function checkIfUsernameExists(username) {
 
 /**
  * Checks if the given Bookshelf name exists within the database
- * @param {String[]} shelfInfo- The userID of the user, and the Bookshelf being checked
+ * @param {String[]} shelfInfo - The userID of the user, and the Bookshelf being checked
  * @returns {boolean} - True if the bookshelf name exists 
  */
 async function checkIfVaildBookshelf(shelfInfo) {
