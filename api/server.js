@@ -252,7 +252,7 @@ app.get("/books/detail/:isbn", async function(req, res) {
         if (!isbn) {
             res.status(CLIENT_ERROR_CODE_400).json({"error": "Missing ISBN Parameter"});
         } else {
-			let result = await helper.checkIfIsbnExists(ISBN);
+			let result = await helper.checkIfIsbnExists(isbn);
 			if (!result) {
 				res.status(CLIENT_ERROR_CODE_400).json({"error": "Invalid ISBN"});
 			} else {
