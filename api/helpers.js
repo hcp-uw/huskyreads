@@ -39,23 +39,23 @@ async function updateColorScheme(userInfo) {
  * Adds a book to the specified bookshelf for a given user
  * @param {String} bookshelf - The name of the bookshelf to alter
  * @param {int} userID - The id for the given user
- * @param {int} ISBN - The ISBN of the book to add
+ * @param {int} isbn - The isbn of the book to add
  */
-async function insertBook(bookshelf, userID, ISBN) {
+async function insertBook(bookshelf, userID, isbn) {
 	let query = "INSERT INTO Bookshelf VALUES (?, ?, ?)";  
-	await db.query(query, [userID, ISBN, bookshelf])
+	await db.query(query, [userID, isbn, bookshelf])
 }
 
 /**
  * Removes a book from a specified bookshelf for a given user
  * @param {int} userID - The id for the given user
  * @param {String} bookshelf - The name of the bookshelf to alter
- * @param {int} ISBN - The ISBN of the book to remove
+ * @param {int} isbn - The isbn of the book to remove
  * @return {boolean} - True if the table was altered, false otherwise
  */
- async function deleteBookshelfRecord(userID, bookshelf, ISBN) {
+ async function deleteBookshelfRecord(userID, bookshelf, isbn) {
     let query = "DELETE FROM Bookshelf WHERE id_user = ? AND isbn = ? AND shelf_name = ?;";
-    let [rows] = await db.query(query, [userID, ISBN, bookshelf])
+    let [rows] = await db.query(query, [userID, isbn, bookshelf])
     return rows.affectedRows > 0;
 }
 
@@ -72,13 +72,13 @@ async function checkIfUsernameExists(username) {
 }
 
 /**
- * Check if the given ISBN corresponds to a book in the database
- * @param {int} ISBN - The given book's ISBN
- * @returns {boolean} - True if a book has the corresponding ISBN
+ * Check if the given isbn corresponds to a book in the database
+ * @param {int} isbn - The given book's isbn
+ * @returns {boolean} - True if a book has the corresponding isbn
  */
- async function checkIfISBNExists(ISBN) {
+ async function checkIfIsbnExists(isbn) {
     let query = "SELECT COUNT(*) AS count FROM Books WHERE Books.isbn = ?";
-    let [count] = await db.query(query, ISBN);
+    let [count] = await db.query(query, isbn);
     return count[0].count > 0;
 }
 
@@ -101,12 +101,12 @@ async function checkIfVaildBookshelf(shelfInfo) {
  * Checks if the given book exists in the users given bookshelf.
  * @param {String} bookshelf - The given bookshelf
  * @param {int} userID - The user's associated ID
- * @param {int} ISBN - The given ISBN 
+ * @param {int} isbn - The given isbn 
  * @return {boolean} - True if the book is already in the bookshelf
  */
-async function checkIfBookExistsInBookshelf(bookshelf, userID, ISBN) {
-    let query = "SELECT * FROM Bookshelf WHERE id_user = ? AND shelf_name = ? AND ISBN = ?";
-    let [rows] = await db.query(query, [userID, bookshelf, ISBN]);
+async function checkIfBookExistsInBookshelf(bookshelf, userID, isbn) {
+    let query = "SELECT * FROM Bookshelf WHERE id_user = ? AND shelf_name = ? AND isbn = ?";
+    let [rows] = await db.query(query, [userID, bookshelf, isbn]);
     return rows.length > 0;
 }
 
@@ -263,7 +263,7 @@ async function getMatchingBooks(info) {
 
 /**
  * Fetches the title, date published, description, author's name, and genre from the given book
- * @param {int} isbn- the given book's ISBN number
+ * @param {int} isbn- the given book's isbn number
  * @returns {JSON} data - JSON object containing the book information (determined by API)
  */
  async function getBookDetails(isbn) {
@@ -296,4 +296,4 @@ async function getMatchingBooks(info) {
 }
 
 // Exporting functions for use
-module.exports = {createUser, updateColorScheme, insertBook, deleteBookshelfRecord, checkIfUsernameExists, checkIfISBNExists, checkIfVaildBookshelf, checkIfBookExistsInBookshelf, getUserID, getPassword, getBookshelf, getMatchingBooks, getBookDetails};
+module.exports = {createUser, updateColorScheme, insertBook, deleteBookshelfRecord, checkIfUsernameExists, checkIfIsbnExists, checkIfVaildBookshelf, checkIfBookExistsInBookshelf, getUserID, getPassword, getBookshelf, getMatchingBooks, getBookDetails};

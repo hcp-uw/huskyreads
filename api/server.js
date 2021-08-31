@@ -158,26 +158,26 @@ app.post("/bookshelves/add", async (req, res) => {
         res.type("JSON");
 		let username = req.body.username;
 		let bookshelf = req.body.bookshelf;
-		let ISBN = req.body.isbn;
+		let isbn = req.body.isbn;
 
-		if (!username || !bookshelf || !ISBN) {
+		if (!username || !bookshelf || !isbn) {
             res.status(CLIENT_ERROR_CODE_400).send("Missing one or more required body parameters");
 		} else {
             let userID = await helper.getUserID(username);
 			let info = [userID, bookshelf];
             let isValidBookshelf = await helper.checkIfVaildBookshelf(info);
-            let isValidISBN = await helper.checkIfISBNExists(ISBN);
+            let isValidIsbn = await helper.checkIfIsbnExists(isbn);
 
             if (userID == 0) {
                 res.status(CLIENT_ERROR_CODE_401).send("Invalid username");
 			} else if (!isValidBookshelf) {
 				res.status(CLIENT_ERROR_CODE_400).send("Invaild bookshelf name");
-			} else if (!isValidISBN) {
+			} else if (!isValidIsbn) {
 				res.status(CLIENT_ERROR_CODE_400).send("Book does not exist"); 
-			} else if (await helper.checkIfBookExistsInBookshelf(bookshelf, userID, ISBN)) {
+			} else if (await helper.checkIfBookExistsInBookshelf(bookshelf, userID, isbn)) {
                 res.status(CLIENT_ERROR_CODE_400).send("Book already exists in " + bookshelf);
             } else {
-                await helper.insertBook(bookshelf, userID, ISBN);
+                await helper.insertBook(bookshelf, userID, isbn);
 				res.send("Book successfully added to the bookshelf");
 			}
 		}
@@ -195,9 +195,9 @@ app.post("/bookshelves/remove", async (req, res) => {
         res.type("JSON");
         let username = req.body.username;
         let bookshelf = req.body.bookshelf;
-        let ISBN = req.body.isbn;
+        let isbn = req.body.isbn;
 
-        if (!username || !bookshelf || !ISBN) {
+        if (!username || !bookshelf || !isbn) {
             res.status(CLIENT_ERROR_CODE_400).send("Missing one or more required body parameters");
         } else  {
             let userID = await helper.getUserID(username);
@@ -207,7 +207,7 @@ app.post("/bookshelves/remove", async (req, res) => {
                 // I'll swap out this if statement with the method Nicholas wrote
                 res.status(CLIENT_ERROR_CODE_400).send("Invalid bookshelf name");
             } else {
-                let tableAltered = await helper.deleteBookshelfRecord(userID, bookshelf, ISBN);
+                let tableAltered = await helper.deleteBookshelfRecord(userID, bookshelf, isbn);
                 if (!tableAltered) {
                     res.status(CLIENT_ERROR_CODE_400).send("Book does not exist in " + bookshelf);
                 } else {
@@ -243,20 +243,20 @@ app.get("/books/search", async function(req, res) {
 });
 
 /**
- * Gets detailed information for book based on ISBN
+ * Gets detailed information for book based on isbn
  */
 app.get("/books/detail/:isbn", async function(req, res) {
     try {
 		res.type("JSON");
-        let ISBN = req.params.isbn;
-        if (!ISBN) {
+        let isbn = req.params.isbn;
+        if (!isbn) {
             res.status(CLIENT_ERROR_CODE_400).json({"error": "Missing ISBN Parameter"});
         } else {
-			let result = await helper.checkIfISBNExists(ISBN);
+			let result = await helper.checkIfIsbnExists(ISBN);
 			if (!result) {
 				res.status(CLIENT_ERROR_CODE_400).json({"error": "Invalid ISBN"});
 			} else {
-				let bookInfo = await helper.getBookDetails(ISBN);
+				let bookInfo = await helper.getBookDetails(isbn);
 				res.json(bookInfo);
 			}
 		}
