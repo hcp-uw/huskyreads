@@ -19,43 +19,43 @@ const db = mysql.createPool({
 /* ----------------------------  MISC FUNCTIONS  --------------------------- */
 /**
  * Creates new User with a unique username, and a password
- * @param {String[]} info - The new clients username and password
+ * @param {String[]} userInfo - The new clients username and password
  */
- async function createUser(info) {
+ async function createUser(userInfo) {
 	let query = "INSERT INTO User (username, password) VALUES (?, ?);";
-	await db.query(query, info);
+	await db.query(query, userInfo);
 }
 
 /**
  * Updates the User's current color scheme.
- * @param {String[]} info - The clients username and color_scheme
+ * @param {String[]} userInfo - The clients username and color_scheme
  */
-async function updateColorScheme(info) {
+async function updateColorScheme(userInfo) {
 	let query = "UPDATE User SET color_scheme = ? WHERE username = ?";
-	await db.query(query, info);
+	await db.query(query, userInfo);
 }
 
 /**
  * Adds a book to the specified bookshelf for a given user
  * @param {String} bookshelf - The name of the bookshelf to alter
  * @param {int} userID - The id for the given user
- * @param {int} isbn - The isbn of the book to add
+ * @param {int} ISBN - The ISBN of the book to add
  */
-async function insertBook(bookshelf, userID, isbn) {
+async function insertBook(bookshelf, userID, ISBN) {
 	let query = "INSERT INTO Bookshelf VALUES (?, ?, ?)";  
-	await db.query(query, [userID, isbn, bookshelf])
+	await db.query(query, [userID, ISBN, bookshelf])
 }
 
 /**
  * Removes a book from a specified bookshelf for a given user
- * @param {int} userId - The id for the given user
+ * @param {int} userID - The id for the given user
  * @param {String} bookshelf - The name of the bookshelf to alter
- * @param {int} isbn - The isbn of the book to remove
+ * @param {int} ISBN - The ISBN of the book to remove
  * @return {boolean} - True if the table was altered, false otherwise
  */
- async function deleteBookshelfRecord(userId, bookshelf, isbn) {
+ async function deleteBookshelfRecord(userID, bookshelf, ISBN) {
     let query = "DELETE FROM Bookshelf WHERE id_user = ? AND isbn = ? AND shelf_name = ?;";
-    let [rows] = await db.query(query, [userId, isbn, bookshelf])
+    let [rows] = await db.query(query, [userID, ISBN, bookshelf])
     return rows.affectedRows > 0;
 }
 
@@ -73,40 +73,40 @@ async function checkIfUsernameExists(username) {
 
 /**
  * Check if the given ISBN corresponds to a book in the database
- * @param {int} isbn - The given book's ISBN
+ * @param {int} ISBN - The given book's ISBN
  * @returns {boolean} - True if a book has the corresponding ISBN
  */
- async function checkIfISBNExists(isbn) {
+ async function checkIfISBNExists(ISBN) {
     let query = "SELECT COUNT(*) AS count FROM Books WHERE Books.isbn = ?";
-    let [count] = await db.query(query, isbn);
+    let [count] = await db.query(query, ISBN);
     return count[0].count > 0;
 }
 
 /**
  * Checks if the given Bookshelf name exists within the database
- * @param {String[]} info - The userID of the user, and the Bookshelf being checked
+ * @param {String[]} shelfInfo- The userID of the user, and the Bookshelf being checked
  * @returns {boolean} - True if the bookshelf name exists 
  */
-async function checkIfVaildBookshelf(info) {
-	if (info[1] == "all") {
+async function checkIfVaildBookshelf(shelfInfo) {
+	if (shelfInfo[1] == "all") {
 		return true;
 	}
 
     let query = "SELECT shelf_name FROM Bookshelf_Names WHERE shelf_name = ?";
-	let [res] = await db.query(query, info[1]);
+	let [res] = await db.query(query, shelfInfo[1]);
 	return res.length > 0;
 }
 
 /**
  * Checks if the given book exists in the users given bookshelf.
  * @param {String} bookshelf - The given bookshelf
- * @param {int} userId - The user's associated ID
- * @param {int} isbn - The given ISBN 
+ * @param {int} userID - The user's associated ID
+ * @param {int} ISBN - The given ISBN 
  * @return {boolean} - True if the book is already in the bookshelf
  */
-async function checkIfBookExistsInBookshelf(bookshelf, userId, isbn) {
+async function checkIfBookExistsInBookshelf(bookshelf, userID, ISBN) {
     let query = "SELECT * FROM Bookshelf WHERE id_user = ? AND shelf_name = ? AND ISBN = ?";
-    let [rows] = await db.query(query, [userId, bookshelf, isbn]);
+    let [rows] = await db.query(query, [userID, bookshelf, ISBN]);
     return rows.length > 0;
 }
 
@@ -117,7 +117,7 @@ async function checkIfBookExistsInBookshelf(bookshelf, userId, isbn) {
  * @param {String} username - The given username for the user
  * @returns {int} - The user's ID or 0 if the username does not exist
  */
- async function getUserId(username) {
+ async function getUserID(username) {
     let query = "SELECT id FROM User WHERE User.username = ?;"
     let [rows] = await db.query(query, [username]);
     if (!rows[0]) {
@@ -146,16 +146,19 @@ async function getPassword(username) {
 async function getBookshelf(info) {
     let bookshelves = [];
     let query = "";
+
     if (info[1] === "all") {
-        // Purpose of this is to add all distinct bookshelf names into an array, so we can iterate over each bookshelf and get its corresponding books
+        // Purpose of this is to add all distinct bookshelf names into an array, so we can iterate
+        // over each bookshelf and get its corresponding books
         query = "SELECT DISTINCT shelf_name FROM Bookshelf WHERE id_user = ?";
-        let [res] = await db.query(query, info[0]);  // could I just do let bookshelves = await db.query(query, userID)?
+        let [res] = await db.query(query, info[0]);  // could I just do let bookshelves bookshelves = await db.query(query, userID)?
         for (let index = 0; index < res.length; index++) {
             bookshelves.push(res[index].shelf_name);
         }
     } else {
         bookshelves.push(info[1]);
     }
+
     // WILL DEFINITELY NEED TO MAKE THIS QUERY FASTER (SCALABILITY SINCE WE MIGHT NEED TO CALL THIS MULTIPLE TIMES)
 	query =
     `
@@ -186,6 +189,7 @@ async function getBookshelf(info) {
     GROUP BY Book_Data.shelfname, Book_Data.title, Book_Data.ISBN
     ;
     `
+
     let result = [];
     for (let bookshelfName of bookshelves) {
         let bookshelf = [];
@@ -200,6 +204,7 @@ async function getBookshelf(info) {
             };
             bookshelf.push(book);
         }
+
         result.push({"name": bookshelfName, "books": bookshelf});
     }
 
@@ -235,19 +240,23 @@ async function getMatchingBooks(info) {
 		query += " AND Books.title = ?";
 		params.push(title);
 	}
+
 	if (genre) {
 		query += " AND Genre.name IN ?";
 		params.push([genre]);
 	}
+
 	query += `;
 		SELECT Results.title, GROUP_CONCAT(DISTINCT Results.author_name SEPARATOR ',') AS authors, Results.isbn
 		FROM Results
 		GROUP BY Results.title, Results.isbn
 	`;
+
 	if (author) {
 		query += "HAVING FIND_IN_SET(?, authors)";
 		params.push(author);
 	}
+
 	query += `;`;
 	return [await db.query(query, params)][0][0][2];
 }
@@ -278,6 +287,7 @@ async function getMatchingBooks(info) {
     GROUP BY Results.title, Results.date_published, Results.description
     ;
     `
+
     let [results] = await db.query(query, isbn);
     let data = results[2][0];
     data.authors = data.authors.split(",");
@@ -286,4 +296,4 @@ async function getMatchingBooks(info) {
 }
 
 // Exporting functions for use
-module.exports = {createUser, updateColorScheme, insertBook, deleteBookshelfRecord, checkIfUsernameExists, checkIfISBNExists, checkIfVaildBookshelf, checkIfBookExistsInBookshelf, getUserId, getPassword, getBookshelf, getMatchingBooks, getBookDetails};
+module.exports = {createUser, updateColorScheme, insertBook, deleteBookshelfRecord, checkIfUsernameExists, checkIfISBNExists, checkIfVaildBookshelf, checkIfBookExistsInBookshelf, getUserID, getPassword, getBookshelf, getMatchingBooks, getBookDetails};
