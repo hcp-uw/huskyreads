@@ -141,15 +141,15 @@ app.get("/bookshelves/get/:username/:bookshelf", async function(req, res) {
             let userID = await getHelper.getUserID(username);
             if (!userID) {
                 res.status(CLIENT_ERROR_CODE_401).send({"error": "Invalid Username Parameter"});
-            } 
-
-			let info = [userID, bookshelf];
-			let result = await getHelper.getBookshelf(info);
-			if (!result) {
-				res.status(CLIENT_ERROR_CODE_400).send({"error": "Invaild bookshelf name"});
-			}
-
-			res.status(SUCCESS_CODE).send(result);
+            } else {
+                let info = [userID, bookshelf];
+                let result = await getHelper.getBookshelf(info);
+                if (!result) {
+                    res.status(CLIENT_ERROR_CODE_400).send({"error": "Invaild bookshelf name"});
+                } else {
+                    res.status(SUCCESS_CODE).send(result);
+                }
+            }
 		}
 	} catch (err) {
 		loggingModule(err, "bookshelfGet");
@@ -259,7 +259,7 @@ app.get("/books/detail/:isbn", async function(req, res) {
         if (!isbn) {
             res.status(CLIENT_ERROR_CODE_400).json({"error": "Missing ISBN Parameter"});
         } else {
-			let result = await checkHelper.checkIfIsbnExists(ISBN);
+			let result = await checkHelper.checkIfIsbnExists(isbn);
 			if (!result) {
 				res.status(CLIENT_ERROR_CODE_400).json({"error": "Invalid ISBN"});
 			} else {
