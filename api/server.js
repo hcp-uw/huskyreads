@@ -80,7 +80,7 @@ app.post("/signup", async (req, res) => {
 		let password = req.body.password;
 		if (!username || !password) {
 			res.status(CLIENT_ERROR_CODE_400).send("Missing username or password");
-		} else if (await checkHelper.checkIfUsernameExists(username)) {
+		} else if (await getHelper.getUserID(username)) {
 			res.status(CLIENT_ERROR_CODE_400).send("Username already taken");
 		} else {
 			let info = [username, password];
