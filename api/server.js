@@ -98,7 +98,7 @@ app.post("/color_scheme", async (req, res) => {
 			res.status(CLIENT_ERROR_CODE_400).send("Missing username or color_scheme");
 		} else {
             let userID = await helper.getUserID(username);
-            if (!userId) {
+            if (!userID) {
                 res.status(CLIENT_ERROR_CODE_401).send("Invalid Username");
             } else {
                 if (color_scheme != "light" && color_scheme != "dark") {
