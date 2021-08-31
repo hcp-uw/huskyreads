@@ -9,13 +9,20 @@ const fs = require('fs').promises; //npm install fs
 const multer = require("multer"); //npm install multer
 const bcrypt = require("bcrypt"); //npm install bcrypt
 const cors = require("cors"); //npm install cors
-const helper = require("./helpers");  // adds helper methods from helpers.js
+
+/* --------------------  IMPORTS -------------------- */
+
+const userHelper = require("./helpers/user_helper.js");  
+const getHelper = require("./helpers/get_helper.js");
+const checkHelper = require("./helpers/check_helper.js");
 
 const app = express();
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(multer().none());
+
+/* --------------------  ERROR CODES -------------------- */
 
 // Note: Use the logging module for all error codes
 const SUCCESS_CODE = 200;			// Success
@@ -50,7 +57,7 @@ app.post("/login", async (req, res) => {
 		if (!username || !password) {
 			res.status(CLIENT_ERROR_CODE_400).send("Missing username or password");
 		} else {
-			let returns = await helper.getPassword(username);
+			let returns = await getHelper.getPassword(username);
 			if (returns.length >= 1 && password === returns[0]["password"]) {
 				res.status(SUCCESS_CODE).send("Login Successful");
 			} else {
@@ -73,11 +80,11 @@ app.post("/signup", async (req, res) => {
 		let password = req.body.password;
 		if (!username || !password) {
 			res.status(CLIENT_ERROR_CODE_400).send("Missing username or password");
-		} else if (await helper.checkIfUsernameExists(username)) {
+		} else if (await checkHelper.checkIfUsernameExists(username)) {
 			res.status(CLIENT_ERROR_CODE_400).send("Username already taken");
 		} else {
 			let info = [username, password];
-			await helper.createUser(info);
+			await userHelper.createUser(info);
 			res.status(SUCCESS_CODE).send("Signup Successful");
 		}
 	} catch (err) {
@@ -97,7 +104,7 @@ app.post("/color_scheme", async (req, res) => {
 		if (!username || !color_scheme) {
 			res.status(CLIENT_ERROR_CODE_400).send("Missing username or color_scheme");
 		} else {
-            let userID = await helper.getUserID(username);
+            let userID = await getHelper.getUserID(username);
             if (!userID) {
                 res.status(CLIENT_ERROR_CODE_401).send("Invalid Username");
             } else {
@@ -105,7 +112,7 @@ app.post("/color_scheme", async (req, res) => {
                     res.status(CLIENT_ERROR_CODE_400).send("Invalid Color Scheme");
                 } else {
                     let info = [username, color_scheme];
-                    await helper.updateColorScheme(info);
+                    await userHelper.updateColorScheme(info);
                     res.status(SUCCESS_CODE).send("Color Scheme Updated Successfuly");
                 }
             }
@@ -131,13 +138,13 @@ app.get("/bookshelves/get/:username/:bookshelf", async function(req, res) {
             // I'll swap out this if statement with the method Nicholas wrote
             res.status(CLIENT_ERROR_CODE_400).send({"error": "Invalid bookshelf name"});
         } else {
-            let userID = await helper.getUserID(username);
+            let userID = await getHelper.getUserID(username);
             if (!userID) {
                 res.status(CLIENT_ERROR_CODE_401).send({"error": "Invalid Username Parameter"});
             } 
 
 			let info = [userID, bookshelf];
-			let result = await helper.getBookshelf(info);
+			let result = await getHelper.getBookshelf(info);
 			if (!result) {
 				res.status(CLIENT_ERROR_CODE_400).send({"error": "Invaild bookshelf name"});
 			}
@@ -163,10 +170,10 @@ app.post("/bookshelves/add", async (req, res) => {
 		if (!username || !bookshelf || !isbn) {
             res.status(CLIENT_ERROR_CODE_400).send("Missing one or more required body parameters");
 		} else {
-            let userID = await helper.getUserID(username);
+            let userID = await getHelper.getUserID(username);
 			let info = [userID, bookshelf];
-            let isValidBookshelf = await helper.checkIfVaildBookshelf(info);
-            let isValidIsbn = await helper.checkIfIsbnExists(isbn);
+            let isValidBookshelf = await checkHelper.checkIfVaildBookshelf(info);
+            let isValidIsbn = await checkHelper.checkIfIsbnExists(isbn);
 
             if (userID == 0) {
                 res.status(CLIENT_ERROR_CODE_401).send("Invalid username");
@@ -174,10 +181,10 @@ app.post("/bookshelves/add", async (req, res) => {
 				res.status(CLIENT_ERROR_CODE_400).send("Invaild bookshelf name");
 			} else if (!isValidIsbn) {
 				res.status(CLIENT_ERROR_CODE_400).send("Book does not exist"); 
-			} else if (await helper.checkIfBookExistsInBookshelf(bookshelf, userID, isbn)) {
+			} else if (await checkHelper.checkIfBookExistsInBookshelf(bookshelf, userID, isbn)) {
                 res.status(CLIENT_ERROR_CODE_400).send("Book already exists in " + bookshelf);
             } else {
-                await helper.insertBook(bookshelf, userID, isbn);
+                await userHelper.insertBook(bookshelf, userID, isbn);
 				res.send("Book successfully added to the bookshelf");
 			}
 		}
@@ -200,14 +207,14 @@ app.post("/bookshelves/remove", async (req, res) => {
         if (!username || !bookshelf || !isbn) {
             res.status(CLIENT_ERROR_CODE_400).send("Missing one or more required body parameters");
         } else  {
-            let userID = await helper.getUserID(username);
+            let userID = await getHelper.getUserID(username);
             if (userID == 0) {
                 res.status(CLIENT_ERROR_CODE_401).send("Invalid username");
             } else if (bookshelf != "reading" && bookshelf != "read" && bookshelf != "want_to_read") {
                 // I'll swap out this if statement with the method Nicholas wrote
                 res.status(CLIENT_ERROR_CODE_400).send("Invalid bookshelf name");
             } else {
-                let tableAltered = await helper.deleteBookshelfRecord(userID, bookshelf, isbn);
+                let tableAltered = await userHelper.deleteBookshelfRecord(userID, bookshelf, isbn);
                 if (!tableAltered) {
                     res.status(CLIENT_ERROR_CODE_400).send("Book does not exist in " + bookshelf);
                 } else {
@@ -231,7 +238,7 @@ app.get("/books/search", async function(req, res) {
 		res.type("json");
 		let offset = req.query.offset ? parseInt(req.query.offset) : 0;
 		let resultLength = req.query.resultLength ? parseInt(req.query.resultLength) : 10;
-		let books = await helper.getMatchingBooks(req.query);
+		let books = await getHelper.getMatchingBooks(req.query);
 		res.status(SUCCESS_CODE).json({
 			remainingBooksInSearch : books.slice(offset + resultLength).length,
 			books : books.slice(offset, offset + resultLength)
@@ -252,11 +259,11 @@ app.get("/books/detail/:isbn", async function(req, res) {
         if (!isbn) {
             res.status(CLIENT_ERROR_CODE_400).json({"error": "Missing ISBN Parameter"});
         } else {
-			let result = await helper.checkIfIsbnExists(ISBN);
+			let result = await checkHelper.checkIfIsbnExists(ISBN);
 			if (!result) {
 				res.status(CLIENT_ERROR_CODE_400).json({"error": "Invalid ISBN"});
 			} else {
-				let bookInfo = await helper.getBookDetails(isbn);
+				let bookInfo = await getHelper.getBookDetails(isbn);
 				res.json(bookInfo);
 			}
 		}
