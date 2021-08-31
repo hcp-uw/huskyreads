@@ -29,7 +29,7 @@ export default function AboutPage() {
         }
     
         const response = await axios.get(fetchURL).catch((error) => console.log(error));
-        setData(response);
+        setData(response.data);
     }
     
     const testing = false;
@@ -38,7 +38,7 @@ export default function AboutPage() {
         return(
             <div>
                 {aboutPagePureHTML()}
-                {data.remainingBooksInSearch}
+                <p>{data.books !== undefined && data.books[0].title}</p>
             </div>
         );
     }
