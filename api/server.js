@@ -1,6 +1,7 @@
 /**
  * Server-side API code for HuskyReads Project
  */
+
 "use strict";
 
 const express = require("express"); //npm install express
@@ -96,8 +97,8 @@ app.post("/color_scheme", async (req, res) => {
 		if (!username || !color_scheme) {
 			res.status(CLIENT_ERROR_CODE_400).send("Missing username or color_scheme");
 		} else {
-            let userId = await helper.getUserId(username);
-            if (!userId) {
+            let userID = await helper.getUserID(username);
+            if (!userID) {
                 res.status(CLIENT_ERROR_CODE_401).send("Invalid Username");
             } else {
                 if (color_scheme != "light" && color_scheme != "dark") {
@@ -130,15 +131,17 @@ app.get("/bookshelves/get/:username/:bookshelf", async function(req, res) {
             // I'll swap out this if statement with the method Nicholas wrote
             res.status(CLIENT_ERROR_CODE_400).send({"error": "Invalid bookshelf name"});
         } else {
-            let userID = await helper.getUserId(username);
+            let userID = await helper.getUserID(username);
             if (!userID) {
                 res.status(CLIENT_ERROR_CODE_401).send({"error": "Invalid Username Parameter"});
             } 
+
 			let info = [userID, bookshelf];
 			let result = await helper.getBookshelf(info);
 			if (!result) {
 				res.status(CLIENT_ERROR_CODE_400).send({"error": "Invaild bookshelf name"});
 			}
+
 			res.status(SUCCESS_CODE).send(result);
 		}
 	} catch (err) {
@@ -149,32 +152,32 @@ app.get("/bookshelves/get/:username/:bookshelf", async function(req, res) {
 
 /**
  * Add book to bookshelf
- * (Check for duplicates within specific bookshelf)
- * (Do not need to check for overall duplicates? I assume?)
  */
 app.post("/bookshelves/add", async (req, res) => {
 	try {
-		res.type("JSON");
+        res.type("JSON");
 		let username = req.body.username;
 		let bookshelf = req.body.bookshelf;
 		let isbn = req.body.isbn;
+
 		if (!username || !bookshelf || !isbn) {
             res.status(CLIENT_ERROR_CODE_400).send("Missing one or more required body parameters");
 		} else {
-            let userId = await helper.getUserId(username);
-			let info = [userId, bookshelf];
+            let userID = await helper.getUserID(username);
+			let info = [userID, bookshelf];
             let isValidBookshelf = await helper.checkIfVaildBookshelf(info);
-            let isValidISBN = await helper.checkIfISBNExists(isbn);
-            if (userId == 0) {
+            let isValidIsbn = await helper.checkIfIsbnExists(isbn);
+
+            if (userID == 0) {
                 res.status(CLIENT_ERROR_CODE_401).send("Invalid username");
 			} else if (!isValidBookshelf) {
 				res.status(CLIENT_ERROR_CODE_400).send("Invaild bookshelf name");
-			} else if (!isValidISBN) {
+			} else if (!isValidIsbn) {
 				res.status(CLIENT_ERROR_CODE_400).send("Book does not exist"); 
-			} else if (await helper.checkIfBookExistsInBookshelf(bookshelf, userId, isbn)) {
+			} else if (await helper.checkIfBookExistsInBookshelf(bookshelf, userID, isbn)) {
                 res.status(CLIENT_ERROR_CODE_400).send("Book already exists in " + bookshelf);
             } else {
-                await helper.insertBook(bookshelf, userId, isbn);
+                await helper.insertBook(bookshelf, userID, isbn);
 				res.send("Book successfully added to the bookshelf");
 			}
 		}
@@ -193,17 +196,18 @@ app.post("/bookshelves/remove", async (req, res) => {
         let username = req.body.username;
         let bookshelf = req.body.bookshelf;
         let isbn = req.body.isbn;
+
         if (!username || !bookshelf || !isbn) {
             res.status(CLIENT_ERROR_CODE_400).send("Missing one or more required body parameters");
         } else  {
-            let userId = await helper.getUserId(username);
-            if (userId == 0) {
+            let userID = await helper.getUserID(username);
+            if (userID == 0) {
                 res.status(CLIENT_ERROR_CODE_401).send("Invalid username");
             } else if (bookshelf != "reading" && bookshelf != "read" && bookshelf != "want_to_read") {
                 // I'll swap out this if statement with the method Nicholas wrote
                 res.status(CLIENT_ERROR_CODE_400).send("Invalid bookshelf name");
             } else {
-                let tableAltered = await helper.deleteBookshelfRecord(userId, bookshelf, isbn);
+                let tableAltered = await helper.deleteBookshelfRecord(userID, bookshelf, isbn);
                 if (!tableAltered) {
                     res.status(CLIENT_ERROR_CODE_400).send("Book does not exist in " + bookshelf);
                 } else {
@@ -239,7 +243,7 @@ app.get("/books/search", async function(req, res) {
 });
 
 /**
- * Gets detailed information for book based on ISBN
+ * Gets detailed information for book based on isbn
  */
 app.get("/books/detail/:isbn", async function(req, res) {
     try {
@@ -248,12 +252,12 @@ app.get("/books/detail/:isbn", async function(req, res) {
         if (!isbn) {
             res.status(CLIENT_ERROR_CODE_400).json({"error": "Missing ISBN Parameter"});
         } else {
-			let exists = await helper.checkIfISBNExists(isbn);
-			if (!exists) {
+			let result = await helper.checkIfIsbnExists(isbn);
+			if (!result) {
 				res.status(CLIENT_ERROR_CODE_400).json({"error": "Invalid ISBN"});
 			} else {
-				let results = await helper.getBookDetails(isbn);
-				res.json(results);
+				let bookInfo = await helper.getBookDetails(isbn);
+				res.json(bookInfo);
 			}
 		}
 	} catch (err) {
