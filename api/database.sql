@@ -4,7 +4,7 @@
 **/
 
 /* Clears old tables */
-DROP TABLE IF EXISTS User, Bookshelf, Books, Book_Authors, Book_Genre, Authors, Genre, Reviews;
+DROP TABLE IF EXISTS User, Bookshelf, Bookshelf_Names, Books, Book_Authors, Book_Genre, Authors, Genre, Reviews;
 
 
 /* Creates our SQL Database */
@@ -19,6 +19,10 @@ CREATE TABLE Bookshelf (
     id_user int REFERENCES User,
     ISBN bigint REFERENCES Books,
     shelf_name varchar(255)
+);
+
+CREATE TABLE Bookshelf_Names (
+    shelf_name varchar(255) unique
 );
 
 CREATE TABLE Books (
@@ -63,6 +67,10 @@ INSERT INTO User (username, password) VALUES ("nicholas", "pass3");
 INSERT INTO User (username, password) VALUES ("vikram", "pass4");
 INSERT INTO User (username, password) VALUES ("john", "pass5");
 INSERT INTO User (username, password) VALUES ("jane", "pass6");
+
+INSERT INTO Bookshelf_Names (shelf_name) VALUES ("reading");
+INSERT INTO Bookshelf_Names (shelf_name) VALUES ("want_to_read");
+INSERT INTO Bookshelf_Names (shelf_name) VALUES ("read");
 
 INSERT INTO Bookshelf (id_user, ISBN, shelf_name) VALUES (1, 1111111111, "reading");
 INSERT INTO Bookshelf (id_user, ISBN, shelf_name) VALUES (1, 1111111111, "read");

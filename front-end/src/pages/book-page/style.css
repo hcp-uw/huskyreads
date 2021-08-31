@@ -1,22 +1,75 @@
-.wrapper {
-    max-width: 1200px;
-    margin: 0 auto;
-    position: relative;
+#bookpage-container {
+    display: flex;
+    flex-direction: row;
+    width: 90%;
+    margin: 50px;
+    padding: 20px;
 }
 
-.book-image {
-    display: inline-block;
+#left-column #right-column {
     padding: 10px;
+    display: flex;
+    flex-direction: column;
+    margin: 20px;
+    justify-content: space-between;
 }
 
-.basic-info {
-    display: inline-block;
-    clear: both;
-    position: relative;
-    padding: 10px;
+#right-column > * {
+    margin: 30px;
+    margin-left: 50px;
 }
 
-.filler {
-    border: 1px black solid;
-    fill: blue;
+#right-column > h1 {
+    margin-top: -7px;
+    font-size: 48px;
+}
+
+#right-column > hr {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+
+#left-column {
+    align-items: center;
+}
+
+#imagebox {
+    width: 400px;
+    height: 500px;
+    border: 1px solid black;
+    margin-bottom: 30px;
+    border-radius: 1.0em;
+    background-color: rgb(170, 170, 170);
+}
+
+#selector {
+    width: auto;
+    min-width: 15ch;
+    min-height: 40px;
+    border: none;
+    border-radius: 0.50em;
+    padding: 0.5em 0.6em;
+    font-size: 1.0rem;
+    cursor: pointer;
+    line-height: 1.1;
+    background-color: rgb(95, 39, 159);
+    color: aliceblue;
+}
+
+#bookstand-selectors {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+#add-button {
+    border-radius: 0.4em;
+    padding: 0.5em 0.6em;
+    font-size: 1.0rem;
+    background-color: rgb(81, 185, 89);
+    color: aliceblue;
+    width: auto;
+    height: auto;
+    border: none;
 }

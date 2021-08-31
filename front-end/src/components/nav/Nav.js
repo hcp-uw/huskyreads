@@ -7,16 +7,16 @@ export default function Navbar() {
   const toggleOpen = (open) => {setOpen(open)};
 
   return (
-    <div className="navigation">
-      <nav>
+    <div className="navigation-wrapper">
+      <nav className="navigation-bar">
         <NavLink to="/browse">
-          <h1>HuskyReads</h1>
+          <h1 className="nav-logo">HuskyReads</h1>
         </NavLink>
-        <div className="split-right">
-          <button className="menu-btn" onClick={() => {toggleOpen(!open)}}>
+        <div className="nav_split-right">
+          <button className="nav_menu-btn" onClick={() => {toggleOpen(!open)}}>
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-menu"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
           </button>
-          <ul className="links lg">
+          <ul className="nav-links lg">
             <li>
               <NavLink to="/browse">Browse</NavLink>
             </li>
@@ -29,8 +29,13 @@ export default function Navbar() {
             <li>
               <NavLink to="/about" activeClassName="active">About Us</NavLink>
             </li>
+            {/* remove this line below later
+            <li>
+              <NavLink to="/book-page" activeClassName="active">Book Page Test</NavLink>
+            </li>
+            */}
           </ul>
-          <button className="search-btn">
+          <button className="nav_search-btn">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
           </button>
         </div>
@@ -41,7 +46,7 @@ export default function Navbar() {
 }
 
 export function ModalNav(props) {
-  let modalClass = "modal ";
+  let modalClass = "nav-modal ";
 
   if (!props.modalOpen) {
     modalClass = modalClass + "hidden";
@@ -51,8 +56,8 @@ export function ModalNav(props) {
   return (
     <div className={modalClass}>
       <div className="modal-bg" onClick={()=>{props.toggle(false)}}/>
-      <div className="window">
-        <ul className="links sm">
+      <div className="nav_modal-window">
+        <ul className="nav-links sm">
           <li>
             <NavLink to="/browse" onClick={()=>{props.toggle(false)}}>Browse</NavLink>
           </li>
@@ -65,8 +70,7 @@ export function ModalNav(props) {
           <li>
             <NavLink to="/about" activeClassName="active" onClick={()=>{props.toggle(false)}}>About Us</NavLink>
           </li>
-          {/*
-          For testing purposes
+          {/* remove this line below later 
           <li>
             <NavLink to="/book-page" activeClassName="active">Book Page Test</NavLink>
           </li>
