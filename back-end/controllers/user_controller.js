@@ -19,17 +19,6 @@ exports.updateColorScheme = async (userInfo) => {
 }
 
 /**
- * Checks if the given username already exists
- * @param {String} username - The given username 
- * @returns {boolean} - True if the given username already exists
- */
-exports.checkIfUsernameExists = async (username) => {
-    let query = "SELECT * FROM User WHERE username = ?;";
-    let [rows] = await db.query(query, [username]);
-    return (rows.length >= 1);
-}
-
-/**
  * Returns the ID of the given username or 0 if the username does not exist
  * @param {String} username - The given username for the user
  * @returns {int} - The user's ID or 0 if the username does not exist
