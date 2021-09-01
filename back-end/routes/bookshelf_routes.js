@@ -34,7 +34,7 @@ router.get("/get/:username/:bookshelf", async function(req, res) {
             } 
 			let info = [userID, bookshelf];
 			let result = await getBookshelf(info);
-			if (!result) {
+			if (result.length === 0) {
 				res.status(codes.CLIENT_ERROR_CODE_400).send({"error": "Invaild bookshelf name"});
 			}
 			res.status(codes.SUCCESS_CODE).send(result);
