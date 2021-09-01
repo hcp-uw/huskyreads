@@ -1,6 +1,7 @@
 /**
  * Server-side API code for HuskyReads Project
  */
+
 "use strict";
 
 const express = require("express"); //npm install express
@@ -21,7 +22,7 @@ const SUCCESS_CODE = 200;			// Success
 const CLIENT_ERROR_CODE_400 = 400;  // Bad Request
 const CLIENT_ERROR_CODE_401 = 401;  // Unauthorized Access
 const SERVER_ERROR_CODE = 500;      // Server Error format: "An error has occured on the server!"
-const SERVER_ERROR_MESSAGE = "An error has occured on the server"
+const SERVER_ERROR_MESSAGE = "An error has occured on the server";
 const LOCAL_HOST = 8000;
 
 /* --------------------  ENDPOINTS  -------------------- */
@@ -96,8 +97,8 @@ app.post("/color_scheme", async (req, res) => {
 		if (!username || !color_scheme) {
 			res.status(CLIENT_ERROR_CODE_400).send("Missing username or color_scheme");
 		} else {
-            let userId = await helper.getUserId(username);
-            if (!userId) {
+            let userID = await helper.getUserID(username);
+            if (!userID) {
                 res.status(CLIENT_ERROR_CODE_401).send("Invalid Username");
             } else {
                 if (color_scheme != "light" && color_scheme != "dark") {
@@ -122,43 +123,67 @@ app.post("/color_scheme", async (req, res) => {
 app.get("/bookshelves/get/:username/:bookshelf", async function(req, res) {
 	try {
 		res.type("JSON");
-		let username = req.body.username;
-		let bookshelf = req.body.bookshelf;
+		let username = req.params.username;
+		let bookshelf = req.params.bookshelf;
 		if (!username) {
-			res.status(CLIENT_ERROR_CODE_400).send("Missing username paramter");
-		} else if (await !helper.checkIfUsernameExists(username)) {
-			res.status(CLIENT_ERROR_CODE_401).send("Invalid Username Parameter"); // Possibly change the error msg to something more clear?
-		} else {
-            let userID = await helper.getUserId(username);
+			res.status(CLIENT_ERROR_CODE_400).send({"error": "Missing username paramter"});
+		} else if (bookshelf != "reading" && bookshelf != "read" && bookshelf != "want_to_read" && bookshelf != "all") {
+            // I'll swap out this if statement with the method Nicholas wrote
+            res.status(CLIENT_ERROR_CODE_400).send({"error": "Invalid bookshelf name"});
+        } else {
+            let userID = await helper.getUserID(username);
             if (!userID) {
-                res.status(CLIENT_ERROR_CODE_401).send("Invalid Username Parameter");
-            }
-			if (!bookshelf) {
-				bookshelf = "all";
-			}
+                res.status(CLIENT_ERROR_CODE_401).send({"error": "Invalid Username Parameter"});
+            } 
+
 			let info = [userID, bookshelf];
 			let result = await helper.getBookshelf(info);
 			if (!result) {
-				res.status(CLIENT_ERROR_CODE_400).send("Invaild bookshelf name");
+				res.status(CLIENT_ERROR_CODE_400).send({"error": "Invaild bookshelf name"});
 			}
+
 			res.status(SUCCESS_CODE).send(result);
 		}
 	} catch (err) {
 		loggingModule(err, "bookshelfGet");
-		res.status(SERVER_ERROR_CODE).send(SERVER_ERROR_MESSAGE);
+		res.status(SERVER_ERROR_CODE).send({"error": SERVER_ERROR_MESSAGE});
 	}
 });
 
 /**
  * Add book to bookshelf
- * (Check for duplicates within specific bookshelf)
- * (Do not need to check for overall duplicates? I assume?)
  */
 app.post("/bookshelves/add", async (req, res) => {
 	try {
+        res.type("JSON");
+		let username = req.body.username;
+		let bookshelf = req.body.bookshelf;
+		let isbn = req.body.isbn;
 
+		if (!username || !bookshelf || !isbn) {
+            res.status(CLIENT_ERROR_CODE_400).send("Missing one or more required body parameters");
+		} else {
+            let userID = await helper.getUserID(username);
+			let info = [userID, bookshelf];
+            let isValidBookshelf = await helper.checkIfVaildBookshelf(info);
+            let isValidIsbn = await helper.checkIfIsbnExists(isbn);
+
+            if (userID == 0) {
+                res.status(CLIENT_ERROR_CODE_401).send("Invalid username");
+			} else if (!isValidBookshelf) {
+				res.status(CLIENT_ERROR_CODE_400).send("Invaild bookshelf name");
+			} else if (!isValidIsbn) {
+				res.status(CLIENT_ERROR_CODE_400).send("Book does not exist"); 
+			} else if (await helper.checkIfBookExistsInBookshelf(bookshelf, userID, isbn)) {
+                res.status(CLIENT_ERROR_CODE_400).send("Book already exists in " + bookshelf);
+            } else {
+                await helper.insertBook(bookshelf, userID, isbn);
+				res.send("Book successfully added to the bookshelf");
+			}
+		}
 	} catch (err) {
 		loggingModule(err, "bookshelfAdd");
+        res.status(SERVER_ERROR_CODE).send(SERVER_ERROR_MESSAGE);
 	}
 });
 
@@ -171,17 +196,18 @@ app.post("/bookshelves/remove", async (req, res) => {
         let username = req.body.username;
         let bookshelf = req.body.bookshelf;
         let isbn = req.body.isbn;
+
         if (!username || !bookshelf || !isbn) {
             res.status(CLIENT_ERROR_CODE_400).send("Missing one or more required body parameters");
         } else  {
-            let userId = await helper.getUserId(username);
-            if (userId == 0) {
+            let userID = await helper.getUserID(username);
+            if (userID == 0) {
                 res.status(CLIENT_ERROR_CODE_401).send("Invalid username");
             } else if (bookshelf != "reading" && bookshelf != "read" && bookshelf != "want_to_read") {
                 // I'll swap out this if statement with the method Nicholas wrote
                 res.status(CLIENT_ERROR_CODE_400).send("Invalid bookshelf name");
             } else {
-                let tableAltered = await helper.deleteBookshelfRecord(userId, bookshelf, isbn);
+                let tableAltered = await helper.deleteBookshelfRecord(userID, bookshelf, isbn);
                 if (!tableAltered) {
                     res.status(CLIENT_ERROR_CODE_400).send("Book does not exist in " + bookshelf);
                 } else {
@@ -217,7 +243,7 @@ app.get("/books/search", async function(req, res) {
 });
 
 /**
- * Gets detailed information for book based on ISBN
+ * Gets detailed information for book based on isbn
  */
 app.get("/books/detail/:isbn", async function(req, res) {
     try {
@@ -226,12 +252,12 @@ app.get("/books/detail/:isbn", async function(req, res) {
         if (!isbn) {
             res.status(CLIENT_ERROR_CODE_400).json({"error": "Missing ISBN Parameter"});
         } else {
-			let exists = await helper.checkIfISBNExists(isbn);
-			if (!exists) {
+			let result = await helper.checkIfIsbnExists(isbn);
+			if (!result) {
 				res.status(CLIENT_ERROR_CODE_400).json({"error": "Invalid ISBN"});
 			} else {
-				let results = await helper.getBookDetails(isbn);
-				res.json(results);
+				let bookInfo = await helper.getBookDetails(isbn);
+				res.json(bookInfo);
 			}
 		}
 	} catch (err) {
@@ -259,7 +285,6 @@ async function loggingModule (errMsg, endpoint) {
         }
 	});
 }
-
 
 /* -------------------  Public Port  ------------------- */
 app.use(express.static("public"));
