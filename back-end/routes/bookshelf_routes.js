@@ -31,13 +31,11 @@ router.get("/get/:username/:bookshelf", async function(req, res) {
             let userID = await getUserID(username);
             if (!userID) {
                 res.status(codes.CLIENT_ERROR_CODE_401).send({"error": "Invalid Username Parameter"});
-            } 
-			let info = [userID, bookshelf];
-			let result = await getBookshelf(info);
-			if (result.length === 0) {
-				res.status(codes.CLIENT_ERROR_CODE_400).send({"error": "Invaild bookshelf name"});
-			}
-			res.status(codes.SUCCESS_CODE).send(result);
+            } else {
+                let info = [userID, bookshelf];
+                let result = await getBookshelf(info);
+                res.status(codes.SUCCESS_CODE).send(result);
+            }
 		}
 	} catch (err) {
 		loggingModule(err, "bookshelfGet");
