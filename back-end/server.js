@@ -16,8 +16,8 @@ app.use(express.json());
 app.use(multer().none());
 
 app.use('/', userRoutes);
-app.use('/book', bookRoutes);
-app.use('/bookshelf', bookshelfRoutes);
+app.use('/books', bookRoutes);
+app.use('/bookshelves', bookshelfRoutes);
 
  /* -------------------  Public Port  ------------------- */
 app.use(express.static("public"));

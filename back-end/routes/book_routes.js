@@ -2,7 +2,7 @@ const express = require('express');
 
 const { getMatchingBooks,
         getBookDetails,
-        checkIfISBNExists } = require('../controllers/book_controller');
+        checkIfIsbnExists } = require('../controllers/book_controller');
 
 const { loggingModule } = require('../utils/logging');
 const { codes } = require('../utils/db');
@@ -40,7 +40,7 @@ router.get("/detail/:isbn", async function(req, res) {
         if (!isbn) {
             res.status(codes.CLIENT_ERROR_CODE_400).json({"error": "Missing ISBN Parameter"});
         } else {
-			let exists = await checkIfISBNExists(isbn);
+			let exists = await checkIfIsbnExists(isbn);
 			if (!exists) {
 				res.status(codes.CLIENT_ERROR_CODE_400).json({"error": "Invalid ISBN"});
 			} else {

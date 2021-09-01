@@ -1,8 +1,13 @@
 const express = require('express');
 
 const { deleteBookshelfRecord,
-        getBookshelf } = require('../controllers/bookshelf_controller');
-const { getUserId } = require('../controllers/user_controller');
+        getBookshelf,
+        checkIfBookExistsInBookshelf,
+        insertBook,
+        checkIfValidBookshelf } = require('../controllers/bookshelf_controller');
+const { checkIfIsbnExists,
+         } = require('../controllers/book_controller');
+const { getUserID } = require('../controllers/user_controller');
 
 const { loggingModule } = require('../utils/logging');
 const { codes } = require('../utils/db');
@@ -23,7 +28,7 @@ router.get("/get/:username/:bookshelf", async function(req, res) {
             // I'll swap out this if statement with the method Nicholas wrote
             res.status(codes.CLIENT_ERROR_CODE_400).send({"error": "Invalid bookshelf name"});
         } else {
-            let userID = await getUserId(username);
+            let userID = await getUserID(username);
             if (!userID) {
                 res.status(codes.CLIENT_ERROR_CODE_401).send({"error": "Invalid Username Parameter"});
             } 
@@ -42,14 +47,38 @@ router.get("/get/:username/:bookshelf", async function(req, res) {
 
 /**
  * Add book to bookshelf
- * (Check for duplicates within specific bookshelf)
- * (Do not need to check for overall duplicates? I assume?)
  */
-router.post("/add", async (req, res) => {
+router.post("/bookshelves/add", async (req, res) => {
 	try {
+        res.type("JSON");
+		let username = req.body.username;
+		let bookshelf = req.body.bookshelf;
+		let isbn = req.body.isbn;
 
+		if (!username || !bookshelf || !isbn) {
+            res.status(codes.CLIENT_ERROR_CODE_400).send("Missing one or more required body parameters");
+		} else {
+            let userID = await getUserID(username);
+			let info = [userID, bookshelf];
+            let isValidBookshelf = await checkIfValidBookshelf(info);
+            let isValidIsbn = await checkIfIsbnExists(isbn);
+
+            if (userID == 0) {
+                res.status(codes.CLIENT_ERROR_CODE_401).send("Invalid username");
+			} else if (!isValidBookshelf) {
+				res.status(codes.CLIENT_ERROR_CODE_400).send("Invaild bookshelf name");
+			} else if (!isValidIsbn) {
+				res.status(codes.CLIENT_ERROR_CODE_400).send("Book does not exist"); 
+			} else if (await checkIfBookExistsInBookshelf(bookshelf, userID, isbn)) {
+                res.status(codes.CLIENT_ERROR_CODE_400).send("Book already exists in " + bookshelf);
+            } else {
+                await insertBook(bookshelf, userID, isbn);
+				res.send("Book successfully added to the bookshelf");
+			}
+		}
 	} catch (err) {
 		loggingModule(err, "bookshelfAdd");
+        res.status(codes.SERVER_ERROR_CODE).send(codes.SERVER_ERROR_MESSAGE);
 	}
 });
 
@@ -65,7 +94,7 @@ router.post("/remove", async (req, res) => {
         if (!username || !bookshelf || !isbn) {
             res.status(codes.CLIENT_ERROR_CODE_400).send("Missing one or more required body parameters");
         } else  {
-            let userId = await getUserId(username);
+            let userId = await getUserID(username);
             if (userId == 0) {
                 res.status(codes.CLIENT_ERROR_CODE_401).send("Invalid username");
             } else if (bookshelf != "reading" && bookshelf != "read" && bookshelf != "want_to_read") {

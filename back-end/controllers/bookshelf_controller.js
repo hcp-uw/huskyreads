@@ -1,36 +1,39 @@
 const { db } = require('../utils/db');
 
 /**
- * Removes a given book from a specified bookshelf for a given user.
- * @param {int} userId - The id for the given user.
- * @param {String} bookshelf - The name of the bookshelf to alter.
- * @param {int} isbn - The isbn of the book to remove.
- * @return {boolean} True if the table was altered, false otherwise.
+ * Removes a book from a specified bookshelf for a given user
+ * @param {int} userID - The id for the given user
+ * @param {String} bookshelf - The name of the bookshelf to alter
+ * @param {int} isbn - The isbn of the book to remove
+ * @return {boolean} - True if the table was altered, false otherwise
  */
-exports.deleteBookshelfRecord = async (userId, bookshelf, isbn) => {
+exports.deleteBookshelfRecord = async (userID, bookshelf, isbn) => {
     let query = "DELETE FROM Bookshelf WHERE id_user = ? AND isbn = ? AND shelf_name = ?;";
-    let [rows] = await db.query(query, [userId, isbn, bookshelf])
+    let [rows] = await db.query(query, [userID, isbn, bookshelf])
     return rows.affectedRows > 0;
 }
 
 /**
  * Gets the book from the specified bookshelf
- * @param {String[]} info in format of [userID, bookshelf]
- * @returns the Bookshelf information of the user.
+ * @param {String[]} info - The user's userID and the bookshelf being accessed 
+ * @returns - The bookshelf information of the user.
  */
 exports.getBookshelf = async (info) => {
     let bookshelves = [];
     let query = "";
+
     if (info[1] === "all") {
-        // Purpose of this is to add all distinct bookshelf names into an array, so we can iterate over each bookshelf and get its corresponding books
+        // Purpose of this is to add all distinct bookshelf names into an array, so we can iterate
+        // over each bookshelf and get its corresponding books
         query = "SELECT DISTINCT shelf_name FROM Bookshelf WHERE id_user = ?";
-        let [res] = await db.query(query, info[0]);  // could I just do let bookshelves = await db.query(query, userID)?
+        let [res] = await db.query(query, info[0]);  // could I just do let bookshelves bookshelves = await db.query(query, userID)?
         for (let index = 0; index < res.length; index++) {
             bookshelves.push(res[index].shelf_name);
         }
     } else {
         bookshelves.push(info[1]);
     }
+
     // WILL DEFINITELY NEED TO MAKE THIS QUERY FASTER (SCALABILITY SINCE WE MIGHT NEED TO CALL THIS MULTIPLE TIMES)
 	query =
     `
@@ -61,6 +64,7 @@ exports.getBookshelf = async (info) => {
     GROUP BY Book_Data.shelfname, Book_Data.title, Book_Data.ISBN
     ;
     `
+
     let result = [];
     for (let bookshelfName of bookshelves) {
         let bookshelf = [];
@@ -75,7 +79,48 @@ exports.getBookshelf = async (info) => {
             };
             bookshelf.push(book);
         }
+
         result.push({"name": bookshelfName, "books": bookshelf});
     }
+
 	return result;
+}
+
+/**
+ * Adds a book to the specified bookshelf for a given user
+ * @param {String} bookshelf - The name of the bookshelf to alter
+ * @param {int} userID - The id for the given user
+ * @param {int} isbn - The isbn of the book to add
+ */
+exports.insertBook = async (bookshelf, userID, isbn) => {
+	let query = "INSERT INTO Bookshelf VALUES (?, ?, ?)";  
+	await db.query(query, [userID, isbn, bookshelf])
+}
+
+/**
+ * Checks if the given Bookshelf name exists within the database
+ * @param {String[]} shelfInfo - The userID of the user, and the Bookshelf being checked
+ * @returns {boolean} - True if the bookshelf name exists 
+ */
+exports.checkIfValidBookshelf = async (shelfInfo) => {
+	if (shelfInfo[1] == "all") {
+		return true;
+	}
+
+    let query = "SELECT shelf_name FROM Bookshelf_Names WHERE shelf_name = ?";
+	let [res] = await db.query(query, shelfInfo[1]);
+	return res.length > 0;
+}
+
+/**
+ * Checks if the given book exists in the users given bookshelf.
+ * @param {String} bookshelf - The given bookshelf
+ * @param {int} userID - The user's associated ID
+ * @param {int} isbn - The given isbn 
+ * @return {boolean} - True if the book is already in the bookshelf
+ */
+exports.checkIfBookExistsInBookshelf = async (bookshelf, userID, isbn) => {
+    let query = "SELECT * FROM Bookshelf WHERE id_user = ? AND shelf_name = ? AND isbn = ?";
+    let [rows] = await db.query(query, [userID, bookshelf, isbn]);
+    return rows.length > 0;
 }

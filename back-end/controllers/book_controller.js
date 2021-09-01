@@ -1,11 +1,11 @@
 const { db } = require('../utils/db');
 
 /**
- * @param {int} isbn Book ISBN number
- * @returns {boolean} True if a book exists with the given isbn, false otherwise
- * check if the book w/ the given isbn exists in our database
+ * Check if the given isbn corresponds to a book in the database
+ * @param {int} isbn - The given book's isbn
+ * @returns {boolean} - True if a book has the corresponding isbn
  */
-exports.checkIfISBNExists = async (isbn) => {
+exports.checkIfIsbnExists = async (isbn) => {
     let query = "SELECT COUNT(*) AS count FROM Books WHERE Books.isbn = ?";
     let [count] = await db.query(query, isbn);
     return count[0].count > 0;
@@ -14,8 +14,8 @@ exports.checkIfISBNExists = async (isbn) => {
 /**
  * Gets all of the books that match the given search query. Each book returned
  * will include its title, author(s) and isbn number.
- * @param {Object} info Search parameters provided by user
- * @returns {Object[]} List of books that satify the search query
+ * @param {Object} info - Search parameters provided by the user
+ * @returns {Object[]} - List of books that satisfy the given search query
  */
 exports.getMatchingBooks= async (info) => {
 	let title = info.title;
@@ -58,8 +58,9 @@ exports.getMatchingBooks= async (info) => {
 }
 
 /**
- * @param {int} isbn Book ISBN number
- * @returns {JSON} json object containing the necessary book information (determined by API)
+ * Fetches the title, date published, description, author's name, and genre from the given book
+ * @param {int} isbn- the given book's isbn number
+ * @returns {JSON} data - JSON object containing the book information (determined by API)
  */
 exports.getBookDetails = async (isbn) => {
     let query = `

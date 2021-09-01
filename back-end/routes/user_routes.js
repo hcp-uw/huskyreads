@@ -1,7 +1,7 @@
 const express = require('express');
 
 const { getPassword,
-        getUserId, 
+        getUserID, 
         createUser, 
         checkIfUsernameExists, 
         updateColorScheme } = require('../controllers/user_controller');
@@ -69,7 +69,7 @@ router.post("/color_scheme", async (req, res) => {
 		if (!username || !color_scheme) {
 			res.status(codes.CLIENT_ERROR_CODE_400).send("Missing username or color_scheme");
 		} else {
-            let userId = await getUserId(username);
+            let userId = await getUserID(username);
             if (!userId) {
                 res.status(codes.CLIENT_ERROR_CODE_401).send("Invalid Username");
             } else {
