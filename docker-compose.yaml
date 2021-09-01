@@ -6,25 +6,34 @@ services:
       - api
     build: ./front-end
     container_name: huskyreads_front_end
+    restart: always
     ports: 
       - 3000:3000
     volumes: 
-      - ./front-end:/app
+      - ./front-end/app:/app
+    command: /app/entrypoint.sh
 
   api:
     depends_on:
       - db
-    build: ./api
+    build: ./back-end
     container_name: huskyreads_api
+    restart: always
     ports:
       - 8000:8000
     volumes: 
-      - ./api:/app
+      - ./back-end/app:/app
+    command: /app/entrypoint.sh
 
   db:
     image: mysql:8.0.26
     container_name: huskyreads_db
+    restart: always
     environment: 
+      MYSQL_HOST: "localhost"
+      MYSQL_DATABASE: "huskyreads"
+      MYSQL_USER: "root"
+      MYSQL_PASSWORD: "root"
       MYSQL_ROOT_PASSWORD: "root"
     ports: 
       - 3306:3306
