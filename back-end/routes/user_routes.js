@@ -44,7 +44,7 @@ router.post("/signup", async (req, res) => {
 		let password = req.body.password;
 		if (!username || !password) {
 			res.status(codes.CLIENT_ERROR_CODE_400).send("Missing username or password");
-		} else if (await getUserID(username) === 0) {
+		} else if (await getUserID(username) !== 0) {
 			res.status(codes.CLIENT_ERROR_CODE_400).send("Username already taken");
 		} else {
 			let info = [username, password];
