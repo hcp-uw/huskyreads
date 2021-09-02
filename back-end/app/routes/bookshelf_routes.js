@@ -46,7 +46,7 @@ router.get("/get/:username/:bookshelf", async function(req, res) {
 /**
  * Add book to bookshelf
  */
-router.post("/bookshelves/add", async (req, res) => {
+router.post("/add", async (req, res) => {
 	try {
         res.type("JSON");
 		let username = req.body.username;

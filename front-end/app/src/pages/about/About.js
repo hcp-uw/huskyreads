@@ -7,7 +7,6 @@ export default function AboutPage() {
     
     const testing = false;
     if (!testing) {
-        console.log(data);
         return(aboutPagePureHTML());
     }
 
