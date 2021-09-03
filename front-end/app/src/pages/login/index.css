@@ -70,6 +70,15 @@ button {
   left: -30px
 }
 
+#error-message {
+  font-size: 12;
+  color: rgb(187, 12, 12);
+  position: absolute;
+  top: 150px;
+  left: -50px;
+  white-space: nowrap;
+}
+
 #change-page-type {
   position: absolute;
   top: 120px;

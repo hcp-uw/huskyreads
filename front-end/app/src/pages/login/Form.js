@@ -160,15 +160,13 @@ export default class Form extends React.Component {
                 onChange={this.handleChange}
               />
             </div>
-            <div
-              style={{ fontSize: 12, color: "red"}}>
+            <div id ="error-message">
               {this.state.errorMessage}
             </div>
 
             <button id="submit" type="submit">{this.state.onLogin ? "Login" : "Sign up"}</button>
           </form>
 
-          {/* <div id="change-page-type"> */}
             <div id="change-page-type">{this.state.onLogin ? "Don't have an account yet?" : "Already have an account?"} </div>
             <button
               id="change-page-type-button"
