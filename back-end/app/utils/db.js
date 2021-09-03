@@ -3,8 +3,8 @@ require('dotenv').config();
 
 
 const db = mysql.createPool({
-	host: process.env.DB_URL || 'localhost',
-	port: process.env.DB_PORT || '3306',
+	host: process.env.DB_URL || 'db',
+	port: process.env.DB_PORT || '2000',
 	user: process.env.DB_USERNAME || 'root',
 	password: process.env.DB_PASSWORD || 'root',
 	database: process.env.DB_NAME || "huskyreads",
