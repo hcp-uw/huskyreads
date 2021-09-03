@@ -130,46 +130,53 @@ export default class Form extends React.Component {
     }
 
     return(
+      <>
+        <header id="top-left-header">HuskyReads</header>
+        <div id="bottom-left-text">Husky Coding Club 2021</div>
+        <div className="center">
+          <header id="title"><h1>HuskyReads</h1></header>
+          <header id="page-type"><h1>{this.state.onLogin ? "Log in" : "Sign up"}:</h1></header>
+          <form onSubmit={this.handleSubmit}>
+            <div>
+              <input
+                id="username-box"
+                class="input-box"
+                name="username"
+                placeholder="USERNAME"
+                value={this.state.username}
+                onChange={this.handleChange}
+              />
+            </div>
+            <div>
+              <input
+                // type="password" -> uncomment this if you actually want
+                // passwords to show up as black dots when typed in(like
+                // what you usually see on websites when you type in a password)
+                id="password-box"
+                class="input-box"
+                name="password"
+                placeholder="PASSWORD"
+                value={this.state.password}
+                onChange={this.handleChange}
+              />
+            </div>
+            <div
+              style={{ fontSize: 12, color: "red"}}>
+              {this.state.errorMessage}
+            </div>
 
-      <div>
-        <header><h1>Husky Reads</h1></header>
-        <header><h1>{this.state.onLogin ? "Log in" : "Sign up"}:</h1></header>
-        <form onSubmit={this.handleSubmit}>
-          <div>
-            <input
-              name="username"
-              placeholder="Username"
-              value={this.state.username}
-              onChange={this.handleChange}
-            />
-          </div>
-          <div>
-            <input
-              // type="password" -> uncomment this if you actually want
-              // passwords to show up as black dots when typed in(like
-              // what you usually see on websites when you type in a password)
-              name="password"
-              placeholder="Password"
-              value={this.state.password}
-              onChange={this.handleChange}
-            />
-          </div>
-          <div
-            style={{ fontSize: 12, color: "red"}}>
-            {this.state.errorMessage}
-          </div>
+            <button id="submit" type="submit">{this.state.onLogin ? "Login" : "Sign up"}</button>
+          </form>
 
-          <button type="submit">{this.state.onLogin ? "Login" : "Sign up"}</button>
-        </form>
-
-        <div>{this.state.onLogin ? "Don't have an account yet?" : "Already have an account?"} </div>
-        <button
-          onClick={this.state.onLogin ? this.showSignUpPage : this.showLoginPage}>
-          {this.state.onLogin ? "Sign the hell up" : "Log the hell in"}
-        </button>
-
-      </div>
-
+          {/* <div id="change-page-type"> */}
+            <div id="change-page-type">{this.state.onLogin ? "Don't have an account yet?" : "Already have an account?"} </div>
+            <button
+              id="change-page-type-button"
+              onClick={this.state.onLogin ? this.showSignUpPage : this.showLoginPage}>
+              {this.state.onLogin ? <div>Sign the hell up</div> : <div>Log the hell in</div>}
+            </button>
+        </div>
+      </>
     );
   }
 
