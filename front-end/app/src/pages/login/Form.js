@@ -164,7 +164,7 @@ export default class Form extends React.Component {
               {this.state.errorMessage}
             </div>
 
-            <button id="submit" type="submit">{this.state.onLogin ? "Login" : "Sign up"}</button>
+            <button id="submit" type="submit">{this.state.onLogin ? "LOGIN" : "SIGN UP"}</button>
           </form>
 
             <div id="change-page-type">{this.state.onLogin ? "Don't have an account yet?" : "Already have an account?"} </div>

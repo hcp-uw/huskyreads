@@ -56,6 +56,7 @@ styling for login
 
 button {
   font-family: 'Manrope', 'Inter', sans-serif;
+  opacity: 95%;
 }
 
 #submit {
@@ -88,11 +89,15 @@ button {
 }
 
 #change-page-type-button {
-  width: 100px;
+
+  color: rgb(8, 116, 116);
+  white-space: nowrap;
+  background:none;
+  border:none;
+  margin:0;
+  padding:0;
+  cursor: pointer;
   position: absolute;
-  border-radius: 10px;
-  color: white;
-  background-color: rgb(82, 1, 82);
-  top: 110px;
+  top: 122px;
   left: 160px;
 }
