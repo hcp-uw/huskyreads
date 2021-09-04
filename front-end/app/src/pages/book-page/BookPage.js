@@ -18,12 +18,15 @@ export default function BookPage(ISBN) {
     // expecting this base URL to change
     let fetchURL = "http://localhost:8000/books/detail/";
   
-    if (isbn !== undefined) {
+    if (isbnParam !== undefined) {
       fetchURL += `${isbnParam}`;
     }
 
     const response = await axios.get(fetchURL).catch((error) => console.log(error));
-    
+    if (response === undefined) {
+      return;
+    }
+
     setTitle(response.data.title);
     setAuthors(response.data.authors);
     setGenres(response.data.genres);
