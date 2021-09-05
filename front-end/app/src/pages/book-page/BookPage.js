@@ -3,17 +3,23 @@ import axios from 'axios'
 import React, {useState, useEffect} from 'react';
 
 export default function BookPage(ISBN) {
+
+  // I instantiated the object initially to withstand any potential errors 
+  // that could be thrown.
+  const [book, setBook] = useState({
+    title: undefined,
+    authors: undefined,
+    genres: undefined,
+    datePublished: undefined,
+    description: undefined
+  });
     
-  const [title, setTitle] = useState("");
-  const [authors, setAuthors] = useState([]);
-  const [genres, setGenres] = useState([]);
-  const [date, setDate] = useState("");
-  const [description, setDescription] = useState([]);
-    
+  // calls the the book constructor
   useEffect(() => {
     getBookData(ISBN);
   }, []);
-    
+  
+  // book fetch and constructor
   async function getBookData(isbnParam) {
     // expecting this base URL to change
     let fetchURL = "http://localhost:8000/books/detail/";
@@ -23,17 +29,12 @@ export default function BookPage(ISBN) {
     }
 
     const response = await axios.get(fetchURL).catch((error) => console.log(error));
-    if (response === undefined) {
-      return;
+    if (response !== undefined) {
+      setBook(response.data);
     }
-
-    setTitle(response.data.title);
-    setAuthors(response.data.authors);
-    setGenres(response.data.genres);
-    setDate(response.data.datePublished);
-    setDescription(response.data.description);
   }
 
+  // returns book page
   return( 
     <div id="bookpage-container">
       <div id="left-column">
@@ -50,19 +51,44 @@ export default function BookPage(ISBN) {
       </div>
 
       <div id="right-column">
-        <h1>Title: {title}</h1>
-        {/* TODO: The code for inserting these parameters are incorrect and will paste before
-        fully loading. Need to fix that. Reference the testing folder code. */}
+        <h1>Title: {book.title !== undefined && book.title}</h1>
+        {/* TODO: Test the preliminary code below! */}
         <hr />
-        <p><strong>Author(s): </strong>{authors}</p>
-        <p><strong>Genre(s): </strong>{genres}</p>
-        <p><strong>Date Published:</strong>{date}</p>
+        <p>
+          <strong>Author(s): </strong>
+          {
+            // Builds the list of authors to display to user
+            // odd code, untested, praying it somewhat works
+            book.authors.map(author => { 
+              if (author !== book.authors[book.authors.length - 1]) {
+                return `${author},`; 
+              }
+              return author;
+            })
+          }
+        </p>
+        <p>
+          <strong>Genre(s): </strong>
+          {
+            // Builds the list of genres to display to user
+            // odd code, untested, praying it somewhat works
+            book.genres.map((genre) => { 
+              if (genre !== book.genres[book.genres.length - 1]) {
+                return `${genre},`; 
+              }
+              return genre;
+            })
+          }
+        </p>
+        <p><strong>Date Published:</strong>
+          {book.datePublished !== undefined && book.datePublished}</p>
         <p><strong>Description:</strong></p>
-        <p>{description}</p>
+        <p>{book.description !== undefined && book.description}</p>
       </div>
     </div>
   );
 }
+
 
 /*   reminder from api doc that bookdata will come as
   {
