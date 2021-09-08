@@ -78,6 +78,23 @@ Adds a new user with the given username and password. If the provided username a
 
     </br>
 
+### Logging out user
+
+Deletes authorization cookie.
+
+* **Endpoint:** /logout
+
+* **Request Method:** POST
+
+* **Returned Data Format:** test
+
+* **Success Response:**
+
+    * **Code:** 200 </br>
+    **Content:** `"Logout Successful"` 
+
+    </br>
+
 ### Setting a Users Preferred Color Scheme
 
 Sets a user's preferred color scheme. Valid color schemes are either `"light"` or `"dark"` mode.

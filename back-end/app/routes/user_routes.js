@@ -77,6 +77,21 @@ router.post("/signup", async (req, res) => {
 });
 
 /**
+ * Logout endpoint (Create new User)
+ */
+ router.post("/logout", async (req, res) => {
+	try {
+		res.type("text");
+		res.status(codes.SUCCESS_CODE)
+			.clearCookie('auth')
+			.send("Logout Successful");
+	} catch (err) {
+		loggingModule(err, "logout");
+		res.status(codes.SERVER_ERROR_CODE).send(codes.SERVER_ERROR_MESSAGE);
+	}
+});
+
+/**
  * Update user color scheme
  */
 router.post("/color_scheme", async (req, res) => {
@@ -111,7 +126,7 @@ router.post("/color_scheme", async (req, res) => {
 });
 
 /**
- * Update user color scheme
+ * Grab color_scheme from cookie
  */
  router.get("/grab/color_scheme", async (req, res) => {
 	try {
@@ -133,6 +148,9 @@ router.post("/color_scheme", async (req, res) => {
 	}
 });
 
+/**
+ * Grab username from cookie
+ */
 router.get("/grab/username", async (req, res) => {
 	try {
 		res.type("json");
