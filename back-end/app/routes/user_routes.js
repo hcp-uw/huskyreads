@@ -133,7 +133,7 @@ router.post("/color_scheme", async (req, res) => {
 	}
 });
 
-router.get("/grab/user", async (req, res) => {
+router.get("/grab/username", async (req, res) => {
 	try {
 		res.type("json");
 		try {

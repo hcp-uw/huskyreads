@@ -145,7 +145,7 @@ Grabs the color_scheme stored as a cookie. Valid color schemes are either `"ligh
 ### Grabbing username from cookie
 
 Grabs the username of the user that was previously logged in. Note that username cookies expire after 2 days.
-* **Endpoint:** /grab/color_scheme
+* **Endpoint:** /grab/username
 
 * **Request Method:** GET
 
