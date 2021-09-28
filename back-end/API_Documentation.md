@@ -86,7 +86,7 @@ Deletes authorization cookie.
 
 * **Request Method:** POST
 
-* **Returned Data Format:** test
+* **Returned Data Format:** Plain Text
 
 * **Success Response:**
 
