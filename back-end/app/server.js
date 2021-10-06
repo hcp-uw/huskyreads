@@ -4,12 +4,15 @@
 const express = require("express"); //npm install express
 const multer = require("multer"); //npm install multer
 const cors = require("cors"); //npm install cors
+const cookieParser = require("cookie-parser");
+require('dotenv').config();
 
 const userRoutes = require("./routes/user_routes");
 const bookRoutes = require("./routes/book_routes");
 const bookshelfRoutes = require("./routes/bookshelf_routes");
 
 const app = express();
+app.use(cookieParser());
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
