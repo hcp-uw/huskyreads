@@ -78,6 +78,23 @@ Adds a new user with the given username and password. If the provided username a
 
     </br>
 
+### Logging out user
+
+Deletes authorization cookie.
+
+* **Endpoint:** /logout
+
+* **Request Method:** POST
+
+* **Returned Data Format:** Plain Text
+
+* **Success Response:**
+
+    * **Code:** 200 </br>
+    **Content:** `"Logout Successful"` 
+
+    </br>
+
 ### Setting a Users Preferred Color Scheme
 
 Sets a user's preferred color scheme. Valid color schemes are either `"light"` or `"dark"` mode.
@@ -117,6 +134,63 @@ Sets a user's preferred color scheme. Valid color schemes are either `"light"` o
 
     * **Code:** 400 </br>
     **Content:** `"Invalid color scheme"`
+
+    </br>
+
+### Grabbing color_scheme from cookie
+
+Grabs the color_scheme stored as a cookie. Valid color schemes are either `"light"` or `"dark"` mode. Will default to `"light"` if no cookie has been set.
+* **Endpoint:** /grab/color_scheme
+
+* **Request Method:** GET
+
+* **Returned Data Format:** JSON
+
+* **Success Response:**
+
+    * **Code:** 200 </br>
+    **Content:** 
+
+    ```JSON
+    {
+        "color_scheme": "light"
+    }
+    ```  
+
+    </br>
+
+### Grabbing username from cookie
+
+Grabs the username of the user that was previously logged in. Note that username cookies expire after 2 days.
+* **Endpoint:** /grab/username
+
+* **Request Method:** GET
+
+* **Returned Data Format:** JSON
+
+* **Success Response:**
+
+    * **Code:** 200 </br>
+    **Content:** 
+
+    ```JSON
+    {
+        "username": "username123"
+    }
+    ```  
+
+* **Error Response:**
+
+    User not logged in OR cookie has expired. User must login again.
+
+    * **Code:** 401 </br>
+    **Content:**
+
+    ```JSON
+    {
+        "error": "User not logged in"
+    }
+    ```
 
     </br>
 
@@ -408,5 +482,17 @@ Returns a detailed description for a single book. The information returned consi
 ---
 All server errors will return the following content:
 
+If text response:
+
   * **Code:** 500 </br>
     **Content:** `"An error has occured on the server"`
+
+If JSON response:
+  * **Code:** 500 </br>
+    **Content:**
+
+    ```JSON
+    {
+        "error": "An error has occured on the server"
+    }
+    ```

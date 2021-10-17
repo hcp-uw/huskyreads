@@ -1,5 +1,4 @@
 const mysql = require("mysql2/promise"); //npm install mysql2
-require('dotenv').config();
 
 
 const db = mysql.createPool({
