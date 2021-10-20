@@ -21,7 +21,7 @@ export default function BookPage(ISBN) {
 
   // book fetch and constructor
   async function getBookData(isbnParam) {
-    // expecting this base URL to change
+    // expecting this base URL to change btw!!
     let fetchURL = "http://localhost:8000/books/detail/";
 
     if (isbnParam !== undefined) {
