@@ -4,7 +4,7 @@ import React, {useState, useEffect} from 'react';
 
 export default function BookPage(ISBN) {
 
-  // I instantiated the object initially to withstand any potential errors 
+  // I instantiated the object initially to withstand any potential errors
   // that could be thrown.
   const [book, setBook] = useState({
     title: undefined,
@@ -13,17 +13,17 @@ export default function BookPage(ISBN) {
     datePublished: undefined,
     description: undefined
   });
-    
+
   // calls the the book constructor
   useEffect(() => {
     getBookData(ISBN);
   }, []);
-  
+
   // book fetch and constructor
   async function getBookData(isbnParam) {
     // expecting this base URL to change
     let fetchURL = "http://localhost:8000/books/detail/";
-  
+
     if (isbnParam !== undefined) {
       fetchURL += `${isbnParam}`;
     }
@@ -35,7 +35,7 @@ export default function BookPage(ISBN) {
   }
 
   // returns book page
-  return( 
+  return(
     <div id="bookpage-container">
       <div id="left-column">
         <div id="imagebox"></div>
@@ -59,9 +59,9 @@ export default function BookPage(ISBN) {
           {
             // Builds the list of authors to display to user
             // odd code, untested, praying it somewhat works
-            book.authors.map(author => { 
+            book.authors.map(author => {
               if (author !== book.authors[book.authors.length - 1]) {
-                return `${author},`; 
+                return `${author},`;
               }
               return author;
             })
@@ -72,9 +72,9 @@ export default function BookPage(ISBN) {
           {
             // Builds the list of genres to display to user
             // odd code, untested, praying it somewhat works
-            book.genres.map((genre) => { 
+            book.genres.map((genre) => {
               if (genre !== book.genres[book.genres.length - 1]) {
-                return `${genre},`; 
+                return `${genre},`;
               }
               return genre;
             })
