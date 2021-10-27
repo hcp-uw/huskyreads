@@ -140,7 +140,7 @@ export default class Form extends React.Component {
             <div>
               <input
                 id="username-box"
-                class="input-box"
+                className="input-box"
                 name="username"
                 placeholder="USERNAME"
                 value={this.state.username}
@@ -153,7 +153,7 @@ export default class Form extends React.Component {
                 // passwords to show up as black dots when typed in(like
                 // what you usually see on websites when you type in a password)
                 id="password-box"
-                class="input-box"
+                className="input-box"
                 name="password"
                 placeholder="PASSWORD"
                 value={this.state.password}
