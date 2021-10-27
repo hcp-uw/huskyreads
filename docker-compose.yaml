@@ -25,21 +25,21 @@ services:
       - ./back-end/app:/app
     command: /app/entrypoint.sh
 
-  # db:
-  #   image: mysql:8.0.26
-  #   container_name: huskyreads_db
-  #   restart: always
-  #   environment:
-  #     MYSQL_HOST: "localhost"
-  #     MYSQL_DATABASE: "huskyreads"
-  #     MYSQL_USER: "root"
-  #     MYSQL_PASSWORD: "root"
-  #     MYSQL_ROOT_PASSWORD: "root"
-  #   ports:
-  #     - 3306:3306
-  #   volumes:
-  #     - db_data:/var/lib/mysql
-  #     - db_logs:/var/log/mysql
+  db:
+    image: mysql:8.0.26
+    container_name: huskyreads_db
+    restart: always
+    environment:
+      MYSQL_HOST: "localhost"
+      MYSQL_DATABASE: "huskyreads"
+      MYSQL_USER: "root"
+      MYSQL_PASSWORD: "root"
+      MYSQL_ROOT_PASSWORD: "root"
+    ports:
+      - 2000:3306
+    volumes:
+      - db_data:/var/lib/mysql
+      - db_logs:/var/log/mysql
 
 volumes:
   db_data:
