@@ -28,13 +28,13 @@ export default function SettingsPage() {
     },
   })(Switch);
 
-  
+
   function darkModeCheck() {
     return true;
   }
-  
+
   function onChange() {
-    
+
   }
 
   return(

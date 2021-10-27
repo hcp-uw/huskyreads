@@ -14,8 +14,8 @@ services:
     command: /app/entrypoint.sh
 
   api:
-    depends_on:
-      - db
+    # depends_on:
+    # - db
     build: ./back-end
     container_name: huskyreads_api
     restart: always
