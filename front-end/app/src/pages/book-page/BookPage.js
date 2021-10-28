@@ -4,17 +4,27 @@ import React, {useState, useEffect} from 'react';
 
 export default function BookPage(ISBN) {
 
-  // I instantiated the object initially to withstand any potential errors
-  // that could be thrown.
+  /*
+  Sample book JSON for detailed info on a book, given an ISBN
+  {
+    "title": "Hunger Games",
+    "authors": ["Suzanne Collins"],
+    "genres": ["Young Adult", "Dystopian"],
+    "datePublished": "2012-12-20",
+    "description": "Katniss Everdeen fights the distopian government"
+  }
+  */
+
   const [book, setBook] = useState({
-    title: undefined,
-    authors: undefined,
-    genres: undefined,
-    datePublished: undefined,
-    description: undefined
+    title: "",
+    authors: [],
+    genres: [],
+    datePublished: "",
+    description: ""
   });
 
-  // calls the the book constructor
+  // calls the the book constructor ONCE! The [] at the end of useEffect helps
+  // with that
   useEffect(() => {
     getBookData(ISBN);
   }, []);
