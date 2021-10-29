@@ -2,7 +2,7 @@ import "./style.css";
 import axios from 'axios'
 import React, {useState, useEffect} from 'react';
 
-export default function BookPage(ISBN) {
+export default function BookPage(isbn) {
 
   /*
   Sample book JSON for detailed info on a book, given an ISBN
@@ -26,7 +26,7 @@ export default function BookPage(ISBN) {
   // calls the the book constructor ONCE! The [] at the end of useEffect helps
   // with that
   useEffect(() => {
-    getBookData(ISBN);
+    getBookData(isbn);
   }, []);
 
   // book fetch and constructor
@@ -35,7 +35,10 @@ export default function BookPage(ISBN) {
     let fetchURL = "http://localhost:8000/books/detail/";
 
     if (isbnParam !== undefined) {
-      fetchURL += `${isbnParam}`;
+      // testing ISBN
+      fetchURL += "11111111111";
+      // supposed to be the line below, but we're using 11111111111 for testing purposes.
+      // fetchURL += `${isbnParam}`;
     }
 
     const response = await axios.get(fetchURL).catch((error) => console.log(error));
@@ -52,9 +55,9 @@ export default function BookPage(ISBN) {
         <div id="bookstand-selectors">
           <select id="selector">
             <option className="opt">Choose Shelf</option>
-            <option className="opt">Plan to Read</option>
-            <option className="opt">Currently Reading</option>
-            <option className="opt">Finished</option>
+            <option className="opt" value="want_to_read">Plan to Read</option>
+            <option className="opt" value="reading">Currently Reading</option>
+            <option className="opt" value="read">Finished</option>
           </select>
           <button id="add-button">ADD TO BOOKSTAND</button>
         </div>
@@ -70,10 +73,11 @@ export default function BookPage(ISBN) {
             // Builds the list of authors to display to user
             // odd code, untested, praying it somewhat works
             book.authors.map(author => {
-              if (author !== book.authors[book.authors.length - 1]) {
-                return `${author},`;
+              // is this the last author of the author list? Then print w/o comma.
+              if (book.authors.indexOf(author) === book.authors.length - 1) {
+                return author;
               }
-              return author;
+              return `${author}, `;
             })
           }
         </p>
@@ -83,10 +87,11 @@ export default function BookPage(ISBN) {
             // Builds the list of genres to display to user
             // odd code, untested, praying it somewhat works
             book.genres.map((genre) => {
-              if (genre !== book.genres[book.genres.length - 1]) {
-                return `${genre},`;
+              // is this the last genre of the genre list? Then print w/o comma.
+              if (book.genres.indexOf(genre) === book.genres.length - 1) {
+                return genre;
               }
-              return genre;
+              return `${genre},`;
             })
           }
         </p>
