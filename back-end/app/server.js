@@ -26,3 +26,6 @@ app.use('/bookshelves', bookshelfRoutes);
 app.use(express.static("public"));
 const PORT = process.env.PORT || 8000;
 app.listen(PORT);
+
+// For testing
+module.exports = app;
