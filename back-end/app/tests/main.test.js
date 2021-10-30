@@ -1,6 +1,6 @@
 var global = require('./global_utils');
 
-describe("Main", function() {
+describe("Running Tests", function() {
     before(function(done) {
         global.resetDB(done);
     })
