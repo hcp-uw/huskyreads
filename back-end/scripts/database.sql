@@ -16,9 +16,19 @@ CREATE TABLE User (
 );
 
 CREATE TABLE Bookshelf (
-    id_user int REFERENCES User,
-    ISBN bigint REFERENCES Books,
-    shelf_name varchar(255) NOT NULL
+    id_user int NOT NULL,
+    ISBN bigint NOT NULL,
+    shelf_name varchar(255) NOT NULL,
+    CONSTRAINT USERDELETE
+    FOREIGN KEY (id_user)
+    REFERENCES User(id)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE,
+    CONSTRAINT ISBNMATCH
+    FOREIGN KEY (ISBN)
+    REFERENCES Books(ISBN)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
 );
 
 CREATE TABLE Bookshelf_Names (
@@ -33,13 +43,32 @@ CREATE TABLE Books (
 );
 
 CREATE TABLE Book_Authors (
-  ISBN bigint REFERENCES Books,
-  id_author int REFERENCES Authors
+  ISBN bigint NOT NULL,
+  id_author int NOT NULL,
+  CONSTRAINT REFBOOK
+  FOREIGN KEY (ISBN)
+  REFERENCES Books(ISBN)
+    ON UPDATE CASCADE
+    ON DELETE CASCADE,
+  CONSTRAINT REFAUTHOR
+  FOREIGN KEY (id_auther)
+  REFERENCES Authors(id)
+    ON UPDATE CASCADE
+    ON DELETE CASCADE
 );
 
 CREATE TABLE Book_Genre (
-  ISBN bigint REFERENCES Books,
-  id_genre int REFERENCES Genre
+  ISBN bigint NOT NULL,
+  id_genre int NOT NULL,
+  FOREIGN KEY (ISBN)
+  REFERENCES Books(ISBN)
+    ON UPDATE CASCADE
+    ON DELETE CASCADE,
+  CONSTRAINT REFGENRE
+  FOREIGN KEY (id_genre)
+  REFERENCES Genre(id)
+    ON UPDATE CASCADE
+    ON DELETE CASCADE
 );
 
 CREATE TABLE Authors (
@@ -54,10 +83,14 @@ CREATE TABLE Genre (
 
 CREATE TABLE Reviews (
   id_review int PRIMARY KEY AUTO_INCREMENT,
-  ISBN bigint REFERENCES Books,
-  author varchar(255),
+  ISBN bigint NOT NULL,
+  author varchar(255) NOT NULL,
   content varchar(255),
-  published date
+  published date NOT NULL,
+  FOREIGN KEY (ISBN)
+  REFERENCES Books(ISBN)
+    ON UPDATE CASCADE
+    ON DELETE CASCADE
 );
 
 /* SAMPLE DATA */
