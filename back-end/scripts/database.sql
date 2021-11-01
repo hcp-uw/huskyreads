@@ -10,24 +10,24 @@ DROP TABLE IF EXISTS User, Bookshelf, Bookshelf_Names, Books, Book_Authors, Book
 /* Creates our SQL Database */
 CREATE TABLE User (
     id int PRIMARY KEY AUTO_INCREMENT,
-    username varchar(255) unique,
-    password varchar(255),
+    username varchar(255) unique NOT NULL,
+    password varchar(255) NOT NULL,
     color_scheme varchar(255) DEFAULT "light"
 );
 
 CREATE TABLE Bookshelf (
     id_user int REFERENCES User,
     ISBN bigint REFERENCES Books,
-    shelf_name varchar(255)
+    shelf_name varchar(255) NOT NULL
 );
 
 CREATE TABLE Bookshelf_Names (
-    shelf_name varchar(255) unique
+    shelf_name varchar(255) unique NOT NULL
 );
 
 CREATE TABLE Books (
   ISBN bigint unique PRIMARY KEY,
-  title varchar(255),
+  title varchar(255) NOT NULL,
   description TEXT,
   date_published date
 );
@@ -44,12 +44,12 @@ CREATE TABLE Book_Genre (
 
 CREATE TABLE Authors (
   id int PRIMARY KEY AUTO_INCREMENT,
-  name varchar(255)
+  name varchar(255) NOT NULL
 );
 
 CREATE TABLE Genre (
   id int PRIMARY KEY AUTO_INCREMENT,
-  name varchar(255)
+  name varchar(255) NOT NULL
 );
 
 CREATE TABLE Reviews (
