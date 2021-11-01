@@ -104,7 +104,7 @@ router.post("/color_scheme", async (req, res) => {
 		} else {
             let userId = await getUserID(username);
             if (!userId) {
-                res.status(codes.CLIENT_ERROR_CODE_401).send("Invalid Username");
+                res.status(codes.CLIENT_ERROR_CODE_401).send("Invalid username");
             } else {
                 if (color_scheme != "light" && color_scheme != "dark") {
                     res.status(codes.CLIENT_ERROR_CODE_400).send("Invalid Color Scheme");
@@ -115,7 +115,7 @@ router.post("/color_scheme", async (req, res) => {
 					const color = jwt.sign({color: color_scheme}, process.env.JWT_KEY, {expiresIn: 2147483000});
 					res.status(codes.SUCCESS_CODE)
 						.cookie('color', color, { httpOnly: false })
-						.send("Color Scheme Updated Successfuly");
+						.send("Color Scheme Updated Successfully");
                 }
             }
         }

@@ -38,7 +38,7 @@ describe('POST /login', function() {
         .send(user)
         .end(function(err, res) {
             res.should.have.status(200);
-            res.text.should.be.equal.toString("Login Successful");
+            res.text.should.be.to.equal("Login Successful");
             done();
         })
     })
@@ -53,7 +53,7 @@ describe('POST /login', function() {
         .send(user)
         .end(function(err, res) {
             res.should.have.status(200);
-            res.text.should.be.equal.toString("Login Successful");
+            res.text.should.be.to.equal("Login Successful");
             done();
         })
     })
@@ -68,7 +68,7 @@ describe('POST /login', function() {
         .send(user)
         .end(function(err, res) {
             res.should.have.status(200);
-            res.text.should.be.equal.toString("Login Successful");
+            res.text.should.be.to.equal("Login Successful");
             done();
         })
     })
@@ -82,7 +82,7 @@ describe('POST /login', function() {
         .send(user)
         .end(function(err, res) {
             res.should.have.status(400);
-            res.text.should.be.equal.toString("Missing username or password");
+            res.text.should.be.to.equal("Missing username or password");
             done();
         })
     })
@@ -96,7 +96,7 @@ describe('POST /login', function() {
         .send(user)
         .end(function(err, res) {
             res.should.have.status(400);
-            res.text.should.be.equal.toString("Missing username or password");
+            res.text.should.be.to.equal("Missing username or password");
             done();
         })
     })
@@ -109,7 +109,7 @@ describe('POST /login', function() {
         .send(user)
         .end(function(err, res) {
             res.should.have.status(400);
-            res.text.should.be.equal.toString("Missing username or password");
+            res.text.should.be.to.equal("Missing username or password");
             done();
         })
     })
@@ -124,7 +124,7 @@ describe('POST /login', function() {
         .send(user)
         .end(function(err, res) {
             res.should.have.status(401);
-            res.text.should.be.equal.toString("Invalid user credentials");
+            res.text.should.be.to.equal("Invalid user credentials");
             done();
         })
     })
@@ -139,7 +139,7 @@ describe('POST /login', function() {
         .send(user)
         .end(function(err, res) {
             res.should.have.status(401);
-            res.text.should.be.equal.toString("Invalid user credentials");
+            res.text.should.be.to.equal("Invalid user credentials");
             done();
         })
     })
@@ -154,7 +154,7 @@ describe('POST /login', function() {
         .send(user)
         .end(function(err, res) {
             res.should.have.status(401);
-            res.text.should.be.equal.toString("Invalid user credentials");
+            res.text.should.be.to.equal("Invalid user credentials");
             done();
         })
     })
