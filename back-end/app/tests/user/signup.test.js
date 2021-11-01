@@ -18,10 +18,11 @@ describe('POST /signup', function() {
         .send(user)
         .end(function(err, res) {
             res.should.have.status(200);
-            res.text.should.be.equal.toString("Signup Successful");
+            res.text.should.be.to.equal("Signup Successful");
             done();
         })
     })
+
     it('200: signup second user', function(done) {
         let user = {
             username: "frank",
@@ -32,10 +33,11 @@ describe('POST /signup', function() {
         .send(user)
         .end(function(err, res) {
             res.should.have.status(200);
-            res.text.should.be.equal.toString("Signup Successful");
+            res.text.should.be.to.equal("Signup Successful");
             done();
         })
     })
+
     it('200: signup third user', function(done) {
         let user = {
             username: "vikram",
@@ -46,10 +48,11 @@ describe('POST /signup', function() {
         .send(user)
         .end(function(err, res) {
             res.should.have.status(200);
-            res.text.should.be.equal.toString("Signup Successful");
+            res.text.should.be.to.equal("Signup Successful");
             done();
         })
     })
+
     it('400: username already exists', function(done) {
         let user = {
             username: "frank",
@@ -60,10 +63,11 @@ describe('POST /signup', function() {
         .send(user)
         .end(function(err, res) {
             res.should.have.status(400);
-            res.text.should.be.equal.toString("Username already taken");
+            res.text.should.be.to.equal("Username already taken");
             done();
         })
     })
+
     it('400: missing username', function(done) {
         let user = {
             password: "pass1"
@@ -73,10 +77,11 @@ describe('POST /signup', function() {
         .send(user)
         .end(function(err, res) {
             res.should.have.status(400);
-            res.text.should.be.equal.toString("Missing username or password");
+            res.text.should.be.to.equal("Missing username or password");
             done();
         })
     })
+
     it('400: missing password', function(done) {
         let user = {
             username: "frank",
@@ -86,10 +91,11 @@ describe('POST /signup', function() {
         .send(user)
         .end(function(err, res) {
             res.should.have.status(400);
-            res.text.should.be.equal.toString("Missing username or password");
+            res.text.should.be.to.equal("Missing username or password");
             done();
         })
     })
+
     it('400: missing username and password', function(done) {
         let user = {
         }
@@ -98,10 +104,11 @@ describe('POST /signup', function() {
         .send(user)
         .end(function(err, res) {
             res.should.have.status(400);
-            res.text.should.be.equal.toString("Missing username or password");
+            res.text.should.be.to.equal("Missing username or password");
             done();
         })
     })
+
     it('400: empty username', function(done) {
         let user = {
             username: "",
@@ -112,10 +119,11 @@ describe('POST /signup', function() {
         .send(user)
         .end(function(err, res) {
             res.should.have.status(400);
-            res.text.should.be.equal.toString("Missing username or password");
+            res.text.should.be.to.equal("Missing username or password");
             done();
         })
     })
+
     it('400: empty password', function(done) {
         let user = {
             username: "frank",
@@ -126,10 +134,11 @@ describe('POST /signup', function() {
         .send(user)
         .end(function(err, res) {
             res.should.have.status(400);
-            res.text.should.be.equal.toString("Missing username or password");
+            res.text.should.be.to.equal("Missing username or password");
             done();
         })
     })
+    
     it('400: empty username and password', function(done) {
         let user = {
             username: "",
@@ -140,7 +149,7 @@ describe('POST /signup', function() {
         .send(user)
         .end(function(err, res) {
             res.should.have.status(400);
-            res.text.should.be.equal.toString("Missing username or password");
+            res.text.should.be.to.equal("Missing username or password");
             done();
         })
     })

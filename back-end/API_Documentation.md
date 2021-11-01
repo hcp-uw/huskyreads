@@ -116,7 +116,7 @@ Sets a user's preferred color scheme. Valid color schemes are either `"light"` o
 * **Success Response:**
 
     * **Code:** 200 </br>
-    **Content:** `"Color Scheme Updated Successfuly"`
+    **Content:** `"Color Scheme Updated Successfully"`
 
 * **Error Response:**
 
