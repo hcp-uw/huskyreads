@@ -59,7 +59,7 @@ export function ModalNav(props) {
       <div className="nav_modal-window">
         <ul className="nav-links sm">
           <li>
-            <NavLink to="/browse" onClick={()=>{props.toggle(false)}}>Browse</NavLink>
+            <NavLink to="/" onClick={()=>{props.toggle(false)}}>Browse</NavLink>
           </li>
           <li>
             <NavLink to="/bookstand" activeClassName="active" onClick={()=>{props.toggle(false)}}>Book Stand</NavLink>

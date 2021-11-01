@@ -17,7 +17,7 @@ export default function BookPage(ISBN) {
   // calls the the book constructor
   useEffect(() => {
     getBookData(ISBN);
-  }, []);
+  }, [ISBN]);
 
   // book fetch and constructor
   async function getBookData(isbnParam) {
