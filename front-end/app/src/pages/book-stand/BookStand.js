@@ -3,11 +3,12 @@ import axios from 'axios';
 
 export default function BookStandPage() {
 
-  const [bookStand, setBookStand] = useState();
-  const GRAB_COOKIE_URL = "http://localhost:8000/grab/username";
-  const SHELVES_URL = "http://localhost:8000/get/";
+  const [bookStand, setBookStand] = useState([]);
+
   let returnToLogin = false;
   let errorPage = false;
+  const PORT = 8000;
+  const URL = "http://localhost:" + PORT;
 
   // plan: get the username from the client by getting it from their cookie
   // with "http://localhost:8000/grab/username". Using that username, we get
@@ -21,33 +22,29 @@ export default function BookStandPage() {
     getShelves();
   }, []);
 
+  // TODO: test if it's properly accounting for errors that can arise from this endpoint call,
+  // such as cookie expiration or error codes.
   async function getShelves() {
-    const USERNAME = await axios.get(GRAB_COOKIE_URL)
-      .then((res) => {return res.username})
-      .catch((res) => {
-        console.error(res.error);
-        return undefined;
-      });
+    const GRAB_COOKIE_URL = URL + "/grab/username";
+    const USERNAME = await axios.get(GRAB_COOKIE_URL);
 
-    // TODO: test if it's properly accounting for errors that can arise from this endpoint call,
-    // such as cookie expiration or error codes.
-    let shelfList = undefined;
-    if (USERNAME !== undefined) {
-      shelfList = await axios.get(`${SHELVES_URL}${USERNAME}`)
-        .catch((res) => {
-          console.error(res.error);
-          return undefined;
-        });
+    // check if user is still logged in
+    if (USERNAME.error === undefined) {
+      // user is still logged in
+      const GET_BOOKSTAND = "/bookshelves/get/"
+      const BOOKSTAND = await axios.get(URL + GET_BOOKSTAND + USERNAME.username);
+      if (BOOKSTAND.error === undefined) {
+        // bookstand fetch worked
+        setBookStand(BOOKSTAND);
+      } else {
+        // bookstand fetch didn't work
+        console.log(BOOKSTAND.error);
+        errorPage = true;
+      }
     } else {
+      // user is not logged in, send to login page
+      console.log(USERNAME.error);
       returnToLogin = true;
-    }
-
-    // TODO: test if it's properly accounting for errors that can arise from this endpoint call,
-    // such asr error codes.
-    if (shelfList !== undefined) {
-      setBookStand(shelfList);
-    } else {
-      errorPage = true;
     }
   }
 
