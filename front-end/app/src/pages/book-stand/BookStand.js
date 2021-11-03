@@ -3,9 +3,7 @@ import axios from 'axios';
 
 export default function BookStandPage() {
 
-  const [bookStand, setBookStand] = useState({
-    bookShelves: [],
-  });
+  const [bookStand, setBookStand] = useState();
   const GRAB_COOKIE_URL = "http://localhost:8000/grab/username";
   const SHELVES_URL = "http://localhost:8000/get/";
   let returnToLogin = false;
@@ -26,14 +24,20 @@ export default function BookStandPage() {
   async function getShelves() {
     const USERNAME = await axios.get(GRAB_COOKIE_URL)
       .then((res) => {return res.username})
-      .catch((res) => console.error(res.error));
+      .catch((res) => {
+        console.error(res.error);
+        return undefined;
+      });
 
     // TODO: test if it's properly accounting for errors that can arise from this endpoint call,
     // such as cookie expiration or error codes.
     let shelfList = undefined;
     if (USERNAME !== undefined) {
       shelfList = await axios.get(`${SHELVES_URL}${USERNAME}`)
-        .catch((res) => console.error(res.error));
+        .catch((res) => {
+          console.error(res.error);
+          return undefined;
+        });
     } else {
       returnToLogin = true;
     }
