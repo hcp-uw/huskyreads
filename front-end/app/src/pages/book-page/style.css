@@ -1,4 +1,4 @@
-#bookpage-container {
+main {
     display: flex;
     flex-direction: row;
     width: 90%;

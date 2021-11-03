@@ -5,18 +5,20 @@ import React, {useState, useEffect} from 'react';
 export default function BookPage(ISBN) {
 
   // expecting this base URL to change btw!!
-  const GRAB_COOKIE_URL = "http://localhost:8000/grab/username";
   let returnToLogin = false;
   let errorPage = false;
+  const PORT = 8000;
+  const URL = "http://localhost:" + PORT;
+
 
   // I instantiated the object initially to withstand any potential errors
   // that could be thrown.
   const [book, setBook] = useState({
-    title: undefined,
-    authors: undefined,
-    genres: undefined,
-    datePublished: undefined,
-    description: undefined,
+    title: "",
+    authors: [],
+    genres: [],
+    datePublished: "",
+    description: "",
   });
 
   // calls the the book constructor
@@ -26,33 +28,25 @@ export default function BookPage(ISBN) {
 
   // book fetch and constructor
   async function getBookData(isbnParam) {
-    let fetchURL = "http://localhost:8000/books/detail/";
-
+    const GET_BOOK = "/books/detail/";
+    const GET_USERNAME = "/grab/username";
     // cookie check!!!
-    const USERNAME = await axios.get(GRAB_COOKIE_URL)
-      .then((res) => {return res.username})
-      .catch((res) => console.error(res.error));
-
-    // TODO: test if it's properly accounting for errors that can arise from this endpoint call,
-    // such as cookie expiration or error codes.
-    let book = undefined;
-    if (USERNAME !== undefined) {
-      if (isbnParam !== undefined) {
-        fetchURL += `${isbnParam}`;
-        book = await axios.get(fetchURL)
-        .catch((res) => {
-          console.error(res.error);
-          return undefined;
-        });
-      } else {
+    try {
+      const USERNAME = await axios.get(URL + GET_USERNAME);
+      let name = USERNAME.username;
+      let book = undefined;
+      if (name === undefined) {
+        console.log(USERNAME.error);
+        returnToLogin = true;
+      } else if (isbnParam === undefined || isbnParam.isNaN()) {
         errorPage = true;
+      } else {
+        let fetchURL = URL + GET_BOOK + isbnParam;
+        book = await axios.get(fetchURL);
+        setBook(book);
       }
-    } else {
-      returnToLogin = true;
-    }
-
-    if (book !== undefined) {
-      setBook(book.data);
+    } catch (err) {
+      console.log(err.error);
     }
   }
 
@@ -70,8 +64,8 @@ export default function BookPage(ISBN) {
     )
   } else {
     return(
-      <div id="bookpage-container">
-        <div id="left-column">
+      <main>
+        <section id="left-column">
           <img id="imagebox"></img>
           <div id="bookstand-selectors">
             <select id="selector">
@@ -82,8 +76,8 @@ export default function BookPage(ISBN) {
             </select>
             <button id="add-button">ADD TO BOOKSTAND</button>
           </div>
-        </div>
-        <div id="right-column">
+        </section>
+        <section id="right-column">
           <h1>Title: {book.title !== undefined && book.title}</h1>
           {/* TODO: Test the preliminary code below! */}
           <hr />
@@ -117,8 +111,8 @@ export default function BookPage(ISBN) {
             {book.datePublished !== undefined && book.datePublished}</p>
           <p><strong>Description:</strong></p>
           <p>{book.description !== undefined && book.description}</p>
-        </div>
-      </div>
+        </section>
+      </main>
     );
   }
 }
