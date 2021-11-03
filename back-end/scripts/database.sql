@@ -10,7 +10,7 @@ DROP TABLE IF EXISTS User, Bookshelf, Bookshelf_Names, Books, Book_Authors, Book
 /* Creates our SQL Database */
 CREATE TABLE User (
     id int PRIMARY KEY AUTO_INCREMENT,
-    username varchar(255) unique NOT NULL,
+    username varchar(255) UNIQUE NOT NULL,
     password varchar(255) NOT NULL,
     color_scheme varchar(255) DEFAULT "light"
 );
@@ -32,11 +32,11 @@ CREATE TABLE Bookshelf (
 );
 
 CREATE TABLE Bookshelf_Names (
-    shelf_name varchar(255) unique NOT NULL
+    shelf_name varchar(255) UNIQUE NOT NULL
 );
 
 CREATE TABLE Books (
-  ISBN bigint unique PRIMARY KEY,
+  ISBN bigint UNIQUE PRIMARY KEY,
   title varchar(255) NOT NULL,
   description TEXT,
   date_published date
