@@ -25,26 +25,30 @@ export default function BookStandPage() {
   // TODO: test if it's properly accounting for errors that can arise from this endpoint call,
   // such as cookie expiration or error codes.
   async function getShelves() {
-    const GRAB_COOKIE_URL = URL + "/grab/username";
-    const USERNAME = await axios.get(GRAB_COOKIE_URL);
-
-    // check if user is still logged in
-    if (USERNAME.error === undefined) {
-      // user is still logged in
+    try {
       const GET_BOOKSTAND = "/bookshelves/get/"
-      const BOOKSTAND = await axios.get(URL + GET_BOOKSTAND + USERNAME.username);
-      if (BOOKSTAND.error === undefined) {
-        // bookstand fetch worked
-        setBookStand(BOOKSTAND);
+      const GRAB_COOKIE_URL = URL + "/grab/username";
+      const USERNAME = await axios.get(GRAB_COOKIE_URL);
+
+      // check if user is still logged in
+      if (USERNAME.error === undefined) {
+        // user is still logged in
+        const BOOKSTAND = await axios.get(URL + GET_BOOKSTAND + USERNAME.username);
+        if (BOOKSTAND.error === undefined) {
+          // bookstand fetch worked
+          setBookStand(BOOKSTAND);
+        } else {
+          // bookstand fetch didn't work
+          console.log(BOOKSTAND.error);
+          errorPage = true;
+        }
       } else {
-        // bookstand fetch didn't work
-        console.log(BOOKSTAND.error);
-        errorPage = true;
+        // user is not logged in, send to login page
+        console.log(USERNAME.error);
+        returnToLogin = true;
       }
-    } else {
-      // user is not logged in, send to login page
-      console.log(USERNAME.error);
-      returnToLogin = true;
+    } catch (err) {
+      console.log(err);
     }
   }
 
