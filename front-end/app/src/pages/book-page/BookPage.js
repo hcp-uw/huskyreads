@@ -2,106 +2,125 @@ import "./style.css";
 import axios from 'axios'
 import React, {useState, useEffect} from 'react';
 
-export default function BookPage(isbn) {
+export default function BookPage(ISBN) {
 
-  /*
-  Sample book JSON for detailed info on a book, given an ISBN
-  {
-    "title": "Hunger Games",
-    "authors": ["Suzanne Collins"],
-    "genres": ["Young Adult", "Dystopian"],
-    "datePublished": "2012-12-20",
-    "description": "Katniss Everdeen fights the distopian government"
-  }
-  */
+  // expecting this base URL to change btw!!
+  const GRAB_COOKIE_URL = "http://localhost:8000/grab/username";
+  let returnToLogin = false;
+  let errorPage = false;
 
+  // I instantiated the object initially to withstand any potential errors
+  // that could be thrown.
   const [book, setBook] = useState({
-    title: "",
-    authors: [],
-    genres: [],
-    datePublished: "",
-    description: ""
+    title: undefined,
+    authors: undefined,
+    genres: undefined,
+    datePublished: undefined,
+    description: undefined,
   });
 
-  // calls the the book constructor ONCE! The [] at the end of useEffect helps
-  // with that
+  // calls the the book constructor
   useEffect(() => {
-    getBookData(isbn);
+    getBookData(ISBN);
   }, []);
 
   // book fetch and constructor
   async function getBookData(isbnParam) {
-    // expecting this base URL to change btw!!
     let fetchURL = "http://localhost:8000/books/detail/";
 
-    if (isbnParam !== undefined) {
-      // testing ISBN
-      fetchURL += "11111111111";
-      // supposed to be the line below, but we're using 11111111111 for testing purposes.
-      // fetchURL += `${isbnParam}`;
+    // cookie check!!!
+    const USERNAME = await axios.get(GRAB_COOKIE_URL)
+      .then((res) => {return res.username})
+      .catch((res) => console.error(res.error));
+
+    // TODO: test if it's properly accounting for errors that can arise from this endpoint call,
+    // such as cookie expiration or error codes.
+    let book = undefined;
+    if (USERNAME !== undefined) {
+      if (isbnParam !== undefined) {
+        fetchURL += `${isbnParam}`;
+        book = await axios.get(fetchURL)
+        .catch((res) => {
+          console.error(res.error);
+          return undefined;
+        });
+      } else {
+        errorPage = true;
+      }
+    } else {
+      returnToLogin = true;
     }
 
-    const response = await axios.get(fetchURL).catch((error) => console.log(error));
-    if (response !== undefined) {
-      setBook(response.data);
+    if (book !== undefined) {
+      setBook(book.data);
     }
   }
 
   // returns book page
-  return(
-    <div id="bookpage-container">
-      <div id="left-column">
-        <div id="imagebox"></div>
-        <div id="bookstand-selectors">
-          <select id="selector">
-            <option className="opt">Choose Shelf</option>
-            <option className="opt" value="want_to_read">Plan to Read</option>
-            <option className="opt" value="reading">Currently Reading</option>
-            <option className="opt" value="read">Finished</option>
-          </select>
-          <button id="add-button">ADD TO BOOKSTAND</button>
+
+  if (returnToLogin) {
+    // need to log out the user using post request with logout URL
+    // then return the login/signup page
+    return (
+      <Form />
+    );
+  } else if (errorPage) {
+    return (
+      <p>Error! Check console!</p>
+    )
+  } else {
+    return(
+      <div id="bookpage-container">
+        <div id="left-column">
+          <img id="imagebox"></img>
+          <div id="bookstand-selectors">
+            <select id="selector">
+              <option className="opt">Choose Shelf</option>
+              <option className="opt">Plan to Read</option>
+              <option className="opt">Currently Reading</option>
+              <option className="opt">Finished</option>
+            </select>
+            <button id="add-button">ADD TO BOOKSTAND</button>
+          </div>
+        </div>
+        <div id="right-column">
+          <h1>Title: {book.title !== undefined && book.title}</h1>
+          {/* TODO: Test the preliminary code below! */}
+          <hr />
+          <p>
+            <strong>Author(s): </strong>
+            {
+              // Builds the list of authors to display to user
+              // odd code, untested, praying it somewhat works
+              book.authors.map(author => {
+                if (author !== book.authors[book.authors.length - 1]) {
+                  return `${author},`;
+                }
+                return author;
+              })
+            }
+          </p>
+          <p>
+            <strong>Genre(s): </strong>
+            {
+              // Builds the list of genres to display to user
+              // odd code, untested, praying it somewhat works
+              book.genres.map((genre) => {
+                if (genre !== book.genres[book.genres.length - 1]) {
+                  return `${genre},`;
+                }
+                return genre;
+              })
+            }
+          </p>
+          <p><strong>Date Published:</strong>
+            {book.datePublished !== undefined && book.datePublished}</p>
+          <p><strong>Description:</strong></p>
+          <p>{book.description !== undefined && book.description}</p>
         </div>
       </div>
-
-      <div id="right-column">
-        <h1>Title: {book.title !== undefined && book.title}</h1>
-        {/* TODO: Test the preliminary code below! */}
-        <hr />
-        <p>
-          <strong>Author(s): </strong>
-          {
-            // Builds the list of authors to display to user
-            // odd code, untested, praying it somewhat works
-            book.authors.map(author => {
-              // is this the last author of the author list? Then print w/o comma.
-              if (book.authors.indexOf(author) === book.authors.length - 1) {
-                return author;
-              }
-              return `${author}, `;
-            })
-          }
-        </p>
-        <p>
-          <strong>Genre(s): </strong>
-          {
-            // Builds the list of genres to display to user
-            // odd code, untested, praying it somewhat works
-            book.genres.map((genre) => {
-              // is this the last genre of the genre list? Then print w/o comma.
-              if (book.genres.indexOf(genre) === book.genres.length - 1) {
-                return genre;
-              }
-              return `${genre},`;
-            })
-          }
-        </p>
-        <p><strong>Date Published:</strong>
-          {book.datePublished !== undefined && book.datePublished}</p>
-        <p><strong>Description:</strong></p>
-        <p>{book.description !== undefined && book.description}</p>
-      </div>
-    </div>
-  );
+    );
+  }
 }
 
 
