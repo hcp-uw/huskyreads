@@ -1,5 +1,6 @@
 // Just in case we end up using a different databse for testing, we have
-// a way to create a new url
+// a way to create a new url. Gives a programmatic way to switch tables
+// in case a change is needed.
 process.env.NODE_ENV = 'test';
 
 // Require dev-dependencies

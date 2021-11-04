@@ -27,7 +27,7 @@ describe('POST /login', function() {
     before(function(done) {
         initialize(done);
     })
-    
+
     it('200: login user', function(done) {
         let user = {
             username: "elliot",

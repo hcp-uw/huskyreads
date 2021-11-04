@@ -14,10 +14,11 @@ function runTests(description, path) {
 // Run all tests
 describe("Running all tests", function() {
     runTests("Testing user_routes.js", "./user");
+    runTests("Testing bookshelf_routes.js", "./bookshelf");
     after(function(done) {
         console.log("\n  Finished!");
         done();
-    })
-})
+    });
+});
 
 

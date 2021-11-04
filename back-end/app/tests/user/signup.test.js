@@ -7,7 +7,7 @@ describe('POST /signup', function() {
     before(function(done) {
         global.resetDB(done);
     })
-    
+
     it('200: signup user', function(done) {
         let user = {
             username: "elliot",
@@ -138,7 +138,7 @@ describe('POST /signup', function() {
             done();
         })
     })
-    
+
     it('400: empty username and password', function(done) {
         let user = {
             username: "",
