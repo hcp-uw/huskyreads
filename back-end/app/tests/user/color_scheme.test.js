@@ -37,7 +37,7 @@ describe('POST /color_scheme', function() {
         .send(user)
         .end(function(err, res) {
             res.should.have.status(200);
-            res.text.should.be.to.equal("Color Scheme Updated Successfully");
+            res.text.should.equal("Color Scheme Updated Successfully");
             done();
         })
     })
@@ -52,7 +52,7 @@ describe('POST /color_scheme', function() {
         .send(user)
         .end(function(err, res) {
             res.should.have.status(200);
-            res.text.should.be.to.equal("Color Scheme Updated Successfully");
+            res.text.should.equal("Color Scheme Updated Successfully");
             done();
         })
     })
@@ -67,7 +67,7 @@ describe('POST /color_scheme', function() {
         .send(user)
         .end(function(err, res) {
             res.should.have.status(200);
-            res.text.should.be.to.equal("Color Scheme Updated Successfully");
+            res.text.should.equal("Color Scheme Updated Successfully");
             done();
         })
     })
@@ -82,7 +82,7 @@ describe('POST /color_scheme', function() {
         .send(user)
         .end(function(err, res) {
             res.should.have.status(200);
-            res.text.should.be.to.equal("Color Scheme Updated Successfully");
+            res.text.should.equal("Color Scheme Updated Successfully");
             done();
         })
     })
@@ -97,7 +97,7 @@ describe('POST /color_scheme', function() {
         .send(user)
         .end(function(err, res) {
             res.should.have.status(200);
-            res.text.should.be.to.equal("Color Scheme Updated Successfully");
+            res.text.should.equal("Color Scheme Updated Successfully");
             done();
         })
     })
@@ -112,7 +112,7 @@ describe('POST /color_scheme', function() {
         .send(user)
         .end(function(err, res) {
             res.should.have.status(200);
-            res.text.should.be.to.equal("Color Scheme Updated Successfully");
+            res.text.should.equal("Color Scheme Updated Successfully");
             done();
         })
     })
@@ -126,7 +126,7 @@ describe('POST /color_scheme', function() {
         .send(user)
         .end(function(err, res) {
             res.should.have.status(400);
-            res.text.should.be.to.equal("Missing username or color_scheme");
+            res.text.should.equal("Missing username or color_scheme");
             done();
         })
     })
@@ -140,7 +140,7 @@ describe('POST /color_scheme', function() {
         .send(user)
         .end(function(err, res) {
             res.should.have.status(400);
-            res.text.should.be.to.equal("Missing username or color_scheme");
+            res.text.should.equal("Missing username or color_scheme");
             done();
         })
     })
@@ -154,7 +154,7 @@ describe('POST /color_scheme', function() {
         .send(user)
         .end(function(err, res) {
             res.should.have.status(400);
-            res.text.should.be.to.equal("Missing username or color_scheme");
+            res.text.should.equal("Missing username or color_scheme");
             done();
         })
     })
@@ -169,7 +169,7 @@ describe('POST /color_scheme', function() {
         .send(user)
         .end(function(err, res) {
             res.should.have.status(401);
-            res.text.should.be.to.equal("Invalid username");
+            res.text.should.equal("Invalid username");
             done();
         })
     })
@@ -184,7 +184,7 @@ describe('POST /color_scheme', function() {
         .send(user)
         .end(function(err, res) {
             res.should.have.status(401);
-            res.text.should.be.to.equal("Invalid username");
+            res.text.should.equal("Invalid username");
             done();
         })
     })

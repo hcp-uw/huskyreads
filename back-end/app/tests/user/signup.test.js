@@ -18,7 +18,7 @@ describe('POST /signup', function() {
         .send(user)
         .end(function(err, res) {
             res.should.have.status(200);
-            res.text.should.be.to.equal("Signup Successful");
+            res.text.should.equal("Signup Successful");
             done();
         })
     })
@@ -33,7 +33,7 @@ describe('POST /signup', function() {
         .send(user)
         .end(function(err, res) {
             res.should.have.status(200);
-            res.text.should.be.to.equal("Signup Successful");
+            res.text.should.equal("Signup Successful");
             done();
         })
     })
@@ -48,7 +48,7 @@ describe('POST /signup', function() {
         .send(user)
         .end(function(err, res) {
             res.should.have.status(200);
-            res.text.should.be.to.equal("Signup Successful");
+            res.text.should.equal("Signup Successful");
             done();
         })
     })
@@ -63,7 +63,7 @@ describe('POST /signup', function() {
         .send(user)
         .end(function(err, res) {
             res.should.have.status(400);
-            res.text.should.be.to.equal("Username already taken");
+            res.text.should.equal("Username already taken");
             done();
         })
     })
@@ -77,7 +77,7 @@ describe('POST /signup', function() {
         .send(user)
         .end(function(err, res) {
             res.should.have.status(400);
-            res.text.should.be.to.equal("Missing username or password");
+            res.text.should.equal("Missing username or password");
             done();
         })
     })
@@ -91,7 +91,7 @@ describe('POST /signup', function() {
         .send(user)
         .end(function(err, res) {
             res.should.have.status(400);
-            res.text.should.be.to.equal("Missing username or password");
+            res.text.should.equal("Missing username or password");
             done();
         })
     })
@@ -104,7 +104,7 @@ describe('POST /signup', function() {
         .send(user)
         .end(function(err, res) {
             res.should.have.status(400);
-            res.text.should.be.to.equal("Missing username or password");
+            res.text.should.equal("Missing username or password");
             done();
         })
     })
@@ -119,7 +119,7 @@ describe('POST /signup', function() {
         .send(user)
         .end(function(err, res) {
             res.should.have.status(400);
-            res.text.should.be.to.equal("Missing username or password");
+            res.text.should.equal("Missing username or password");
             done();
         })
     })
@@ -134,7 +134,7 @@ describe('POST /signup', function() {
         .send(user)
         .end(function(err, res) {
             res.should.have.status(400);
-            res.text.should.be.to.equal("Missing username or password");
+            res.text.should.equal("Missing username or password");
             done();
         })
     })
@@ -149,7 +149,7 @@ describe('POST /signup', function() {
         .send(user)
         .end(function(err, res) {
             res.should.have.status(400);
-            res.text.should.be.to.equal("Missing username or password");
+            res.text.should.equal("Missing username or password");
             done();
         })
     })
