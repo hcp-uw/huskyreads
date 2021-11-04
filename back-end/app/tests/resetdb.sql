@@ -53,6 +53,10 @@ CREATE TABLE Reviews (
   published date
 );
 
+INSERT INTO Bookshelf_Names (shelf_name) VALUES ("reading");
+INSERT INTO Bookshelf_Names (shelf_name) VALUES ("want_to_read");
+INSERT INTO Bookshelf_Names (shelf_name) VALUES ("read");
+
 INSERT INTO Books (ISBN, title, description, date_published) VALUES (1111111111, "title1", "Long Description1", '2020--12-1');
 INSERT INTO Books (ISBN, title, description, date_published) VALUES (2222222222, "title2", "Long Description2", '2020--12-2');
 INSERT INTO Books (ISBN, title, description, date_published) VALUES (3333333333, "title3", "Long Description3", '2020--12-3');
