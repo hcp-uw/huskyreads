@@ -153,7 +153,7 @@ describe('POST /bookshelves/add', function() {
     });
   });
 
-  it('200: adding duplicate book into the same read shelf', function(done) {
+  it('400: adding duplicate book into the same read shelf', function(done) {
     let task = {
       username: "vikram",
       bookshelf: "read",
@@ -170,7 +170,7 @@ describe('POST /bookshelves/add', function() {
     });
   });
 
-  it('200: adding duplicate book into the same read shelf', function(done) {
+  it('400: adding duplicate book into the same want_to_read shelf', function(done) {
     let task = {
       username: "vikram",
       bookshelf: "want_to_read",
@@ -270,7 +270,7 @@ describe('POST /bookshelves/add', function() {
   /*************************************
    * Invalid username testing
    ***********************************/
-   it('200: Invalid username', function(done) {
+   it('401: Invalid username', function(done) {
     let task = {
       username: "vikram1",
       bookshelf: "read",
@@ -288,10 +288,10 @@ describe('POST /bookshelves/add', function() {
   });
 
     /*************************************
-   * Invalid bookshelf testing
+   * Invalid bookshelf name testing
    ***********************************/
 
-  it('200: Invalid bookshelf', function(done) {
+  it('400: Invalid bookshelf', function(done) {
     let task = {
       username: "vikram",
       bookshelf: "read--",
@@ -308,7 +308,7 @@ describe('POST /bookshelves/add', function() {
     });
   });
 
-  it('200: Invalid bookshelf', function(done) {
+  it('400: Invalid bookshelf', function(done) {
     let task = {
       username: "frank",
       bookshelf: "read-!-",
@@ -321,6 +321,26 @@ describe('POST /bookshelves/add', function() {
     .end(function(err, res) {
       res.should.have.status(400);
       res.text.should.equal("Invalid bookshelf name");
+      done();
+    });
+  });
+
+  /*************************************
+   * Missing book testing
+   ***********************************/
+  it('400: Missing book', function(done) {
+    let task = {
+      username: "frank",
+      bookshelf: "read",
+      isbn: 1234567890,
+    }
+
+    chai.request(server)
+    .post('/bookshelves/add')
+    .send(task)
+    .end(function(err, res) {
+      res.should.have.status(400);
+      res.text.should.equal("Book does not exist");
       done();
     });
   });

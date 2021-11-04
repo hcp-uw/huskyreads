@@ -26,7 +26,7 @@ describe('POST /color_scheme', function() {
     before(function(done) {
         initialize(done);
     })
-    
+
     it('200: same color (from default)', function(done) {
         let user = {
             username: "elliot",
