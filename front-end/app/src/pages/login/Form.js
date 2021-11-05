@@ -41,10 +41,12 @@ export default class Form extends React.Component {
    * user login/signup
    */
   handleError = (error) => {
-    const errorMessage = error.response.data;
-    this.setState({
-      errorMessage: errorMessage
-    });
+    if (error.response.data !== undefined) {
+      const errorMessage = error.response.data;
+      this.setState({
+        errorMessage: errorMessage
+      });
+    }
     // console.log(error);
   }
 

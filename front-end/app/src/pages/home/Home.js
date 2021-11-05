@@ -15,6 +15,15 @@ export default function HomePage() {
         .catch(function (error) {
           console.log(error);
         });
+
+        await axios
+        .get("http://localhost:8000/grab/username")
+        .then(({ data }) => {
+          console.log(data)
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
     }
 
     getData();
