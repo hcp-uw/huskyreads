@@ -45,6 +45,7 @@ export default class Form extends React.Component {
     this.setState({
       errorMessage: errorMessage
     });
+    // console.log(error);
   }
 
   /**
