@@ -15,22 +15,6 @@ CREATE TABLE User (
     color_scheme varchar(255) DEFAULT "light"
 );
 
-CREATE TABLE Bookshelf (
-    id_user int NOT NULL,
-    ISBN bigint NOT NULL,
-    shelf_name varchar(255) NOT NULL,
-    CONSTRAINT USERDELETE
-    FOREIGN KEY (id_user)
-    REFERENCES User(id)
-        ON UPDATE CASCADE
-        ON DELETE CASCADE,
-    CONSTRAINT ISBNMATCH
-    FOREIGN KEY (ISBN)
-    REFERENCES Books(ISBN)
-        ON UPDATE CASCADE
-        ON DELETE CASCADE
-);
-
 CREATE TABLE Bookshelf_Names (
     shelf_name varchar(255) UNIQUE NOT NULL
 );
@@ -40,35 +24,6 @@ CREATE TABLE Books (
   title varchar(255) NOT NULL,
   description TEXT,
   date_published date
-);
-
-CREATE TABLE Book_Authors (
-  ISBN bigint NOT NULL,
-  id_author int NOT NULL,
-  CONSTRAINT REFBOOK
-  FOREIGN KEY (ISBN)
-  REFERENCES Books(ISBN)
-    ON UPDATE CASCADE
-    ON DELETE CASCADE,
-  CONSTRAINT REFAUTHOR
-  FOREIGN KEY (id_auther)
-  REFERENCES Authors(id)
-    ON UPDATE CASCADE
-    ON DELETE CASCADE
-);
-
-CREATE TABLE Book_Genre (
-  ISBN bigint NOT NULL,
-  id_genre int NOT NULL,
-  FOREIGN KEY (ISBN)
-  REFERENCES Books(ISBN)
-    ON UPDATE CASCADE
-    ON DELETE CASCADE,
-  CONSTRAINT REFGENRE
-  FOREIGN KEY (id_genre)
-  REFERENCES Genre(id)
-    ON UPDATE CASCADE
-    ON DELETE CASCADE
 );
 
 CREATE TABLE Authors (
@@ -81,6 +36,21 @@ CREATE TABLE Genre (
   name varchar(255) NOT NULL
 );
 
+CREATE TABLE Bookshelf (
+    id_user int NOT NULL,
+    ISBN bigint NOT NULL,
+    shelf_name varchar(255) NOT NULL,
+    CONSTRAINT USERDELETE
+    FOREIGN KEY (id_user)
+    REFERENCES User(id)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE,
+    CONSTRAINT ISBNMATCH
+    FOREIGN KEY (ISBN)
+    REFERENCES Books(ISBN)
+        ON DELETE CASCADE
+);
+
 CREATE TABLE Reviews (
   id_review int PRIMARY KEY AUTO_INCREMENT,
   ISBN bigint NOT NULL,
@@ -89,9 +59,34 @@ CREATE TABLE Reviews (
   published date NOT NULL,
   FOREIGN KEY (ISBN)
   REFERENCES Books(ISBN)
-    ON UPDATE CASCADE
     ON DELETE CASCADE
 );
+
+CREATE TABLE Book_Authors (
+  ISBN bigint NOT NULL,
+  id_author int NOT NULL,
+  CONSTRAINT REFBOOK
+  FOREIGN KEY (ISBN)
+  REFERENCES Books(ISBN)
+    ON DELETE CASCADE,
+  CONSTRAINT REFAUTHOR
+  FOREIGN KEY (id_author)
+  REFERENCES Authors(id)
+    ON DELETE CASCADE
+);
+
+CREATE TABLE Book_Genre (
+  ISBN bigint NOT NULL,
+  id_genre int NOT NULL,
+  FOREIGN KEY (ISBN)
+  REFERENCES Books(ISBN)
+    ON DELETE CASCADE,
+  CONSTRAINT REFGENRE
+  FOREIGN KEY (id_genre)
+  REFERENCES Genre(id)
+    ON DELETE CASCADE
+);
+
 
 /* SAMPLE DATA */
 INSERT INTO User (username, password, color_scheme) VALUES ("elliot", "pass1", "dark");
