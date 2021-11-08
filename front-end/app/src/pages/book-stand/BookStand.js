@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-export default function BookStandPage() {
+export default function BookStandPage(username) {
 
   const [bookStand, setBookStand] = useState([]);
 
@@ -27,13 +27,11 @@ export default function BookStandPage() {
   async function getShelves() {
     try {
       const GET_BOOKSTAND = "/bookshelves/get/"
-      const GRAB_COOKIE_URL = URL + "/grab/username";
-      const USERNAME = await axios.get(GRAB_COOKIE_URL);
 
       // check if user is still logged in
-      if (USERNAME.error === undefined) {
+      if (username !== undefined) {
         // user is still logged in
-        const BOOKSTAND = await axios.get(URL + GET_BOOKSTAND + USERNAME.username);
+        const BOOKSTAND = await axios.get(URL + GET_BOOKSTAND + username);
         if (BOOKSTAND.error === undefined) {
           // bookstand fetch worked
           setBookStand(BOOKSTAND);
@@ -44,7 +42,7 @@ export default function BookStandPage() {
         }
       } else {
         // user is not logged in, send to login page
-        console.log(USERNAME.error);
+        console.log("Username not passed in: " + username);
         returnToLogin = true;
       }
     } catch (err) {
