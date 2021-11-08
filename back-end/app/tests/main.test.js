@@ -15,6 +15,7 @@ function runTests(description, path) {
 describe("Running all tests", function() {
     runTests("Testing user_routes.js", "./user");
     runTests("Testing bookshelf_routes.js", "./bookshelf");
+    runTests("Testing book_routes.js", "./book");
     after(function(done) {
         console.log("\n  Finished!");
         done();
