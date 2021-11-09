@@ -99,6 +99,25 @@ INSERT INTO Bookshelf_Names (shelf_name) VALUES ("reading");
 INSERT INTO Bookshelf_Names (shelf_name) VALUES ("want_to_read");
 INSERT INTO Bookshelf_Names (shelf_name) VALUES ("read");
 
+INSERT INTO Books (ISBN, title, description, date_published) VALUES (1111111111, "title1", "Long Description1", '2020--12-1');
+INSERT INTO Books (ISBN, title, description, date_published) VALUES (2222222222, "title2", "Long Description2", '2020--12-2');
+INSERT INTO Books (ISBN, title, description, date_published) VALUES (3333333333, "title3", "Long Description3", '2020--12-3');
+INSERT INTO Books (ISBN, title, description, date_published) VALUES (4444444444, "title4", "Long Description4", '2020--12-4');
+INSERT INTO Books (ISBN, title, description, date_published) VALUES (5555555555, "title5", "Long Description5", '2020--12-5');
+INSERT INTO Books (ISBN, title, description, date_published) VALUES (6666666666, "title6", "Long Description6", '2020--12-6');
+
+INSERT INTO Authors (name) VALUES ("Terrence Tao");
+INSERT INTO Authors (name) VALUES ("Brett Wortmanz");
+INSERT INTO Authors (name) VALUES ("Foo Bar the Third");
+INSERT INTO Authors (name) VALUES ("Suzzy Collins");
+INSERT INTO Authors (name) VALUES ("Albert Einstein");
+
+INSERT INTO Genre (name) VALUES ("Horror");
+INSERT INTO Genre (name) VALUES ("Romance");
+INSERT INTO Genre (name) VALUES ("Action");
+INSERT INTO Genre (name) VALUES ("Young Adult");
+INSERT INTO Genre (name) VALUES ("Thriller");
+
 INSERT INTO Bookshelf (id_user, ISBN, shelf_name) VALUES (1, 1111111111, "reading");
 INSERT INTO Bookshelf (id_user, ISBN, shelf_name) VALUES (1, 1111111111, "read");
 INSERT INTO Bookshelf (id_user, ISBN, shelf_name) VALUES (1, 2222222222, "reading");
@@ -107,13 +126,6 @@ INSERT INTO Bookshelf (id_user, ISBN, shelf_name) VALUES (1, 4444444444, "readin
 INSERT INTO Bookshelf (id_user, ISBN, shelf_name) VALUES (2, 5555555555, "want_to_read");
 INSERT INTO Bookshelf (id_user, ISBN, shelf_name) VALUES (3, 1111111111, "want_to_read");
 INSERT INTO Bookshelf (id_user, ISBN, shelf_name) VALUES (2, 4444444444, "reading");
-
-INSERT INTO Books (ISBN, title, description, date_published) VALUES (1111111111, "title1", "Long Description1", '2020--12-1');
-INSERT INTO Books (ISBN, title, description, date_published) VALUES (2222222222, "title2", "Long Description2", '2020--12-2');
-INSERT INTO Books (ISBN, title, description, date_published) VALUES (3333333333, "title3", "Long Description3", '2020--12-3');
-INSERT INTO Books (ISBN, title, description, date_published) VALUES (4444444444, "title4", "Long Description4", '2020--12-4');
-INSERT INTO Books (ISBN, title, description, date_published) VALUES (5555555555, "title5", "Long Description5", '2020--12-5');
-INSERT INTO Books (ISBN, title, description, date_published) VALUES (6666666666, "title6", "Long Description6", '2020--12-6');
 
 INSERT INTO Book_Authors (ISBN, id_author) VALUES (1111111111, 1);
 INSERT INTO Book_Authors (ISBN, id_author) VALUES (2222222222, 2);
@@ -128,15 +140,3 @@ INSERT INTO Book_Genre (ISBN, id_genre) VALUES (3333333333, 3);
 INSERT INTO Book_Genre (ISBN, id_genre) VALUES (4444444444, 3);  /* Edge Case */
 INSERT INTO Book_Genre (ISBN, id_genre) VALUES (5555555555, 5); /* Edge Case */
 INSERT INTO Book_Genre (ISBN, id_genre) VALUES (5555555555, 4); /* Edge Case */
-
-INSERT INTO Authors (name) VALUES ("Terrence Tao");
-INSERT INTO Authors (name) VALUES ("Brett Wortmanz");
-INSERT INTO Authors (name) VALUES ("Foo Bar the Third");
-INSERT INTO Authors (name) VALUES ("Suzzy Collins");
-INSERT INTO Authors (name) VALUES ("Albert Einstein");
-
-INSERT INTO Genre (name) VALUES ("Horror");
-INSERT INTO Genre (name) VALUES ("Romance");
-INSERT INTO Genre (name) VALUES ("Action");
-INSERT INTO Genre (name) VALUES ("Young Adult");
-INSERT INTO Genre (name) VALUES ("Thriller");
