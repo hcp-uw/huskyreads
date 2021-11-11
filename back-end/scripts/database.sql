@@ -40,10 +40,13 @@ CREATE TABLE Bookshelf (
     id_user int NOT NULL,
     ISBN bigint NOT NULL,
     shelf_name varchar(255) NOT NULL,
+    /* Constraint: If a user is deleted, delete the user's corresponding bookshelves */
     CONSTRAINT USERDELETE
     FOREIGN KEY (id_user)
     REFERENCES User(id)
         ON DELETE CASCADE,
+    /* Constraint: If a book is deleted, delete corresponding book data in bookshelves */
+    /* Not expecting this to happen often, but functionality is here */
     CONSTRAINT ISBNMATCH
     FOREIGN KEY (ISBN)
     REFERENCES Books(ISBN)
@@ -52,10 +55,11 @@ CREATE TABLE Bookshelf (
 
 CREATE TABLE Reviews (
   id_review int PRIMARY KEY AUTO_INCREMENT,
-  ISBN bigint NOT NULL,
+  ISBN bigint NOT NULL REFERENCES Books,
   author varchar(255) NOT NULL,
   content varchar(255),
   published date NOT NULL,
+  /* Constraint: If a book is deleted, also delete the book's related reviews */
   FOREIGN KEY (ISBN)
   REFERENCES Books(ISBN)
     ON DELETE CASCADE
@@ -63,26 +67,20 @@ CREATE TABLE Reviews (
 
 CREATE TABLE Book_Authors (
   ISBN bigint NOT NULL,
-  id_author int NOT NULL,
+  id_author int NOT NULL REFERENCES Authors,
+  /* Constraint: If a book is deleted, also delete book's related authors */
   CONSTRAINT REFBOOK
   FOREIGN KEY (ISBN)
   REFERENCES Books(ISBN)
-    ON DELETE CASCADE,
-  CONSTRAINT REFAUTHOR
-  FOREIGN KEY (id_author)
-  REFERENCES Authors(id)
     ON DELETE CASCADE
 );
 
 CREATE TABLE Book_Genre (
-  ISBN bigint NOT NULL,
+  ISBN bigint NOT NULL REFERENCES Genre,
   id_genre int NOT NULL,
+  /* Constraint: If a book is deleted, also delete the book's related genres */
   FOREIGN KEY (ISBN)
   REFERENCES Books(ISBN)
-    ON DELETE CASCADE,
-  CONSTRAINT REFGENRE
-  FOREIGN KEY (id_genre)
-  REFERENCES Genre(id)
     ON DELETE CASCADE
 );
 
@@ -141,6 +139,10 @@ INSERT INTO Book_Genre (ISBN, id_genre) VALUES (4444444444, 3);  /* Edge Case */
 INSERT INTO Book_Genre (ISBN, id_genre) VALUES (5555555555, 5); /* Edge Case */
 INSERT INTO Book_Genre (ISBN, id_genre) VALUES (5555555555, 4); /* Edge Case */
 
+/* RUN DELETE STATEMENTS SEPARATELY IF DOING TESTING */
 /* Testing Code For Deletion: Should delete the user in table User and its affiliated bookshelf and books */
 DELETE FROM User WHERE username = "frank";
 DELETE FROM User WHERE username = "elliot";
+
+/* Remove book from specific user from shelf */
+DELETE FROM Bookshelf WHERE id_user = 1 AND shelf_name = "reading" AND ISBN = 1111111111;
