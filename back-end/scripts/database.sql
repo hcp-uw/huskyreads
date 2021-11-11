@@ -140,3 +140,7 @@ INSERT INTO Book_Genre (ISBN, id_genre) VALUES (3333333333, 3);
 INSERT INTO Book_Genre (ISBN, id_genre) VALUES (4444444444, 3);  /* Edge Case */
 INSERT INTO Book_Genre (ISBN, id_genre) VALUES (5555555555, 5); /* Edge Case */
 INSERT INTO Book_Genre (ISBN, id_genre) VALUES (5555555555, 4); /* Edge Case */
+
+/* Testing Code For Deletion: Should delete the user in table User and its affiliated bookshelf and books */
+DELETE FROM User WHERE username = "frank";
+DELETE FROM User WHERE username = "elliot";
