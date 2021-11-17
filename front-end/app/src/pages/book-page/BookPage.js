@@ -29,20 +29,12 @@ export default function BookPage(ISBN) {
   // book fetch and constructor
   async function getBookData(isbnParam) {
     const GET_BOOK = "/books/detail/";
-    const GET_USERNAME = "/grab/username";
-    // cookie check!!!
     try {
-      const USERNAME = await axios.get(URL + GET_USERNAME);
-      let name = USERNAME.username;
-      let book = undefined;
-      if (name === undefined) {
-        console.log(USERNAME.error);
-        returnToLogin = true;
-      } else if (isbnParam === undefined || isbnParam.isNaN()) {
+      if (isbnParam === undefined || isbnParam.isNaN()) {
         errorPage = true;
       } else {
         let fetchURL = URL + GET_BOOK + isbnParam;
-        book = await axios.get(fetchURL);
+        let book = await axios.get(fetchURL);
         setBook(book);
       }
     } catch (err) {
