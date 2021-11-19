@@ -86,12 +86,12 @@ CREATE TABLE Book_Genre (
 
 
 /* SAMPLE DATA */
-INSERT INTO User (username, password, color_scheme) VALUES ("elliot", "pass1", "dark");
-INSERT INTO User (username, password) VALUES ("frank", "pass2");
-INSERT INTO User (username, password) VALUES ("nicholas", "pass3");
-INSERT INTO User (username, password) VALUES ("vikram", "pass4");
-INSERT INTO User (username, password) VALUES ("john", "pass5");
-INSERT INTO User (username, password) VALUES ("jane", "pass6");
+INSERT INTO User (username, password, color_scheme) VALUES ("elliot", "$2b$10$U41SKHcvR0YnllxQ7bT89eNm0I8iU/uA.PTOPGlb1v.6R2FAfdwRG", "dark");
+INSERT INTO User (username, password) VALUES ("frank", "$2b$10$LAwdabZi8jOU7rmzUYqCf.IUW6iZQyorzo8yW8CDf6dZRmtt2stcy");
+INSERT INTO User (username, password) VALUES ("nicholas", "$2b$10$pBksFtv4TFV5.B/zSNZIwe695STLrF22brxR6rSh3KlhrHfn1stve");
+INSERT INTO User (username, password) VALUES ("vikram", "$2b$10$JQoXT7nX8N6ob7.ubdWPQOhT2xC8N2Fi01YHDpQ.r3Uq2x8VUR.a2");
+INSERT INTO User (username, password) VALUES ("john", "$2b$10$oBqv7hZRNQPNh9kegqIz5ut4QwKEmEV14Y7ZQ.YcRIq2bIUk855AW");
+INSERT INTO User (username, password) VALUES ("jane", "$2b$10$LUlfZfjO7a/tKjgFRHYU6e.PlWu2l7/H3/1oAjkb/2iDCf4WxGoG6");
 
 INSERT INTO Bookshelf_Names (shelf_name) VALUES ("reading");
 INSERT INTO Bookshelf_Names (shelf_name) VALUES ("want_to_read");
