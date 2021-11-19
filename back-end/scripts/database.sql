@@ -141,8 +141,8 @@ INSERT INTO Book_Genre (ISBN, id_genre) VALUES (5555555555, 4); /* Edge Case */
 
 /* RUN DELETE STATEMENTS SEPARATELY IF DOING TESTING */
 /* Testing Code For Deletion: Should delete the user in table User and its affiliated bookshelf and books */
-DELETE FROM User WHERE username = "frank";
-DELETE FROM User WHERE username = "elliot";
+-- DELETE FROM User WHERE username = "frank";
+-- DELETE FROM User WHERE username = "elliot";
 
 /* Remove book from specific user from shelf */
-DELETE FROM Bookshelf WHERE id_user = 1 AND shelf_name = "reading" AND ISBN = 1111111111;
+-- DELETE FROM Bookshelf WHERE id_user = 1 AND shelf_name = "reading" AND ISBN = 1111111111;
