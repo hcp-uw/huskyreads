@@ -4,7 +4,7 @@
 **/
 
 /* Clears old tables */
-DROP TABLE IF EXISTS User, Bookshelf, Bookshelf_Names, Books, Book_Authors, Book_Genre, Authors, Genre, Reviews;
+DROP TABLE IF EXISTS User, Bookshelf, Books, Book_Authors, Book_Genre, Authors, Genre, Reviews;
 
 
 /* Creates our SQL Database */
@@ -13,10 +13,6 @@ CREATE TABLE User (
     username varchar(255) UNIQUE NOT NULL,
     password varchar(255) NOT NULL,
     color_scheme varchar(255) DEFAULT "light"
-);
-
-CREATE TABLE Bookshelf_Names (
-    shelf_name varchar(255) UNIQUE NOT NULL
 );
 
 CREATE TABLE Books (
@@ -92,10 +88,6 @@ INSERT INTO User (username, password) VALUES ("nicholas", "$2b$10$pBksFtv4TFV5.B
 INSERT INTO User (username, password) VALUES ("vikram", "$2b$10$JQoXT7nX8N6ob7.ubdWPQOhT2xC8N2Fi01YHDpQ.r3Uq2x8VUR.a2");
 INSERT INTO User (username, password) VALUES ("john", "$2b$10$oBqv7hZRNQPNh9kegqIz5ut4QwKEmEV14Y7ZQ.YcRIq2bIUk855AW");
 INSERT INTO User (username, password) VALUES ("jane", "$2b$10$LUlfZfjO7a/tKjgFRHYU6e.PlWu2l7/H3/1oAjkb/2iDCf4WxGoG6");
-
-INSERT INTO Bookshelf_Names (shelf_name) VALUES ("reading");
-INSERT INTO Bookshelf_Names (shelf_name) VALUES ("want_to_read");
-INSERT INTO Bookshelf_Names (shelf_name) VALUES ("read");
 
 INSERT INTO Books (ISBN, title, description, date_published) VALUES (1111111111, "title1", "Long Description1", '2020--12-1');
 INSERT INTO Books (ISBN, title, description, date_published) VALUES (2222222222, "title2", "Long Description2", '2020--12-2');
