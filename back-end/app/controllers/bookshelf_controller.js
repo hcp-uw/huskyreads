@@ -25,7 +25,7 @@ exports.getBookshelf = async (info) => {
     if (info[1] === "all") {
         // Purpose of this is to add all distinct bookshelf names into an array, so we can iterate
         // over each bookshelf and get its corresponding books
-        query = "SELECT Bookshelf.shelf_name FROM Bookshelf WHERE Bookshelf.id_user = ?";
+        query = "SELECT DISTINCT Bookshelf.shelf_name FROM Bookshelf WHERE Bookshelf.id_user = ?";
         let [res] = await db.query(query, info[0]);
         for (let index = 0; index < res.length; index++) {
             bookshelves.push(res[index].shelf_name);
@@ -109,7 +109,7 @@ exports.checkIfValidBookshelf = async (shelfInfo) => {
 
     let query = "SELECT Bookshelf.shelf_name FROM Bookshelf WHERE Bookshelf.id_user = ? AND Bookshelf.shelf_name = ?";
 	let [res] = await db.query(query, [shelfInfo[0], shelfInfo[1]]);
-	return res.length > 0;
+	return res.length > 0;  // Needs to be non-zero
 }
 
 /**
