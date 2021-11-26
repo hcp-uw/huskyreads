@@ -42,10 +42,42 @@ def importToSQL(filePath: str):
     f = open(filePath)
     data = json.load(f)
 
-    for book in data["books"]:  # Assumes data field is called "books"
-        print(type(book))             # Filler code - making sure file reading works.
-        print()
-        # Adding this code in once the data is in correct format
+    """
+    Data that we want:
+    - ISBN (10)
+    - title
+    - book description
+    - date published
+    - author(s)
+    - genre(s) / subject(s)
+
+    Data that we have (ones that I think is important):
+    - title
+    - subtitle (do we want to include this?)
+    - author (sometimes this is missing, also represented as something like /authors/[author-id] as a string)
+    - isbn_10 / isbn_13 (i guess we want 10)    Not all books have isbn_13, but isbn_10 needs additional parsing
+    - languages (do we want to include this?)
+    - number of pages (do we want to include this?)
+    - publish date
+    - subjects (genres)
+    """
+    # Assumes data field is called "books" - this is controlled by the data modifying code
+    # Assumes "isbn_10" refers to an integer (decimal); NOTE: isbn_10 can have leading zeros.
+    for book in data["books"]:
+        getISBN10 = book.get("isbn_10")
+        if len(getISBN10) > 0:
+            # Should be guaranteed at least one of the values is a valid decimal number
+            for isbn in getISBN10:
+                try:
+                    getISBN10 = int(isbn)
+                except:
+                    continue
+        # Parses data out from authors field
+        author = book.get("authors")
+        if author is not None:
+            author = author[0].get("key")
+        vals = [book.get("title"), getISBN10, book.get("publish_date"), author, book.get("subjects")]
+        # TODO: import vals into database for Books table
 
     f.close()
 
