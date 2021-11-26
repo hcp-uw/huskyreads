@@ -1,6 +1,6 @@
 import json
 # python3 -m pip install mysql-connector-python
-# Frank: I'm having import issues w/ VSCode, always seems to be a problem lol
+# MAKE SURE YOUR PACKAGES ARE INSTALLED UNDER THE CORRECT PYTHON INTERPRETER
 import mysql.connector
 from mysql.connector import errorcode
 # TODO: Generic-this! Or Gitignore in the future so we dont have some public access rando accessing our database
@@ -43,16 +43,16 @@ def importToSQL(filePath: str):
     data = json.load(f)
 
     for book in data["books"]:  # Assumes data field is called "books"
-        print(book)             # Filler code - making sure file reading works.
+        print(type(book))             # Filler code - making sure file reading works.
+        print()
         # Adding this code in once the data is in correct format
 
     f.close()
 
 
 def main():
-    # TODO: Make a file containing all specified paths (sample), and !gitignore file containing private paths
-    # TODO: Make path generic: "/Users/[name]/Documents/GitHub/huskyreads/back-end/data/processed/processed_output.json"
-    file_path = "/Users/frankhou/Documents/GitHub/huskyreads/back-end/data/processed/processed_output.json"
+    # Relative Path
+    file_path = "back-end/data/processed/processed_output.json"
     importToSQL(file_path)
 
 if __name__ == '__main__':

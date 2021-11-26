@@ -52,9 +52,9 @@ def append_multiple_lines(lines_to_append: str, output_path=os.path.join(PROCESS
     for line in lines_to_append:
         cleaned_line = text_cleaner(line)
         books.append(cleaned_line)
-        
+
     with open(output_path, 'a+', encoding='utf-8') as f_out:
-        json_result = json.dumps({'books': books}, indent=4, sort_keys = False) 
+        json_result = json.dumps({'books': books}, indent=4, sort_keys = False)
         f_out.write(json_result)
 
 def main():
