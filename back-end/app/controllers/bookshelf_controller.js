@@ -8,7 +8,7 @@ const { db } = require('../utils/db');
  * @return {boolean} - True if the table was altered, false otherwise
  */
 exports.deleteBookshelfRecord = async (userID, bookshelf, isbn) => {
-    let query = "DELETE FROM Bookshelf WHERE id_user = ? AND isbn = ? AND shelf_name = ?;";
+    let query = "DELETE FROM Bookshelf WHERE id_user = ? AND isbn = ? AND shelf_name = ?";
     let [rows] = await db.query(query, [userID, isbn, bookshelf])
     return rows.affectedRows > 0;
 }
@@ -74,8 +74,8 @@ exports.getBookshelf = async (info) => {
             let book = {
                 "isbn": row.ISBN,
                 "title": row.title,
-                "authors": row.authors.split(","),  // should fix issue?
-                "genres": row.genres.split(",")     // same here. Need testing
+                "authors": row.authors.split(","),
+                "genres": row.genres.split(",")
             };
             bookshelf.push(book);
         }
@@ -106,10 +106,9 @@ exports.checkIfValidBookshelf = async (shelfInfo) => {
 	if (shelfInfo[1] == "all") {
 		return true;
 	}
-
-    let query = "SELECT Bookshelf.shelf_name FROM Bookshelf WHERE Bookshelf.id_user = ? AND Bookshelf.shelf_name = ?";
+    let query = "SELECT COUNT(shelf_name) AS count FROM Bookshelf WHERE id_user = ? AND shelf_name = ?";
 	let [res] = await db.query(query, [shelfInfo[0], shelfInfo[1]]);
-	return res.length > 0;  // Needs to be non-zero
+	return res[0] > 0;  // Needs to be non-zero
 }
 
 /**
@@ -120,7 +119,7 @@ exports.checkIfValidBookshelf = async (shelfInfo) => {
  * @return {boolean} - True if the book is already in the bookshelf
  */
 exports.checkIfBookExistsInBookshelf = async (bookshelf, userID, isbn) => {
-    let query = "SELECT * FROM Bookshelf WHERE id_user = ? AND shelf_name = ? AND isbn = ?";
+    let query = "SELECT COUNT(*) AS count FROM Bookshelf WHERE id_user = ? AND shelf_name = ? AND isbn = ?";
     let [rows] = await db.query(query, [userID, bookshelf, isbn]);
-    return rows.length > 0;
+    return rows[0] > 0;
 }
