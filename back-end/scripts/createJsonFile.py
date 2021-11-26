@@ -50,7 +50,7 @@ def append_multiple_lines(lines_to_append: str, output_path=os.path.join(PROCESS
 
     books = list()
     for line in lines_to_append:
-        cleaned_line = text_processer(line)
+        cleaned_line = text_cleaner(line)
         books.append(cleaned_line)
         
     with open(output_path, 'a+', encoding='utf-8') as f_out:
