@@ -15,7 +15,7 @@ exports.deleteBookshelfRecord = async (userID, bookshelf, isbn) => {
 
 /**
  * Gets the book from the specified bookshelf
- * @param {String[]} info - The user's userID and the bookshelf being accessed 
+ * @param {String[]} info - The user's userID and the bookshelf being accessed
  * @returns - The bookshelf information of the user.
  */
 exports.getBookshelf = async (info) => {
@@ -74,8 +74,8 @@ exports.getBookshelf = async (info) => {
             let book = {
                 "isbn": row.ISBN,
                 "title": row.title,
-                "authors": row.authors,
-                "genres": row.genres
+                "authors": row.authors.split(","),  // should fix issue?
+                "genres": row.genres.split(",")     // same here. Need testing
             };
             bookshelf.push(book);
         }
@@ -93,14 +93,14 @@ exports.getBookshelf = async (info) => {
  * @param {int} isbn - The isbn of the book to add
  */
 exports.insertBook = async (bookshelf, userID, isbn) => {
-	let query = "INSERT INTO Bookshelf VALUES (?, ?, ?)";  
+	let query = "INSERT INTO Bookshelf VALUES (?, ?, ?)";
 	await db.query(query, [userID, isbn, bookshelf])
 }
 
 /**
  * Checks if the given Bookshelf name exists within the database
  * @param {String[]} shelfInfo - The userID of the user, and the Bookshelf being checked
- * @returns {boolean} - True if the bookshelf name exists 
+ * @returns {boolean} - True if the bookshelf name exists
  */
 exports.checkIfValidBookshelf = async (shelfInfo) => {
 	if (shelfInfo[1] == "all") {
@@ -116,7 +116,7 @@ exports.checkIfValidBookshelf = async (shelfInfo) => {
  * Checks if the given book exists in the users given bookshelf.
  * @param {String} bookshelf - The given bookshelf
  * @param {int} userID - The user's associated ID
- * @param {int} isbn - The given isbn 
+ * @param {int} isbn - The given isbn
  * @return {boolean} - True if the book is already in the bookshelf
  */
 exports.checkIfBookExistsInBookshelf = async (bookshelf, userID, isbn) => {
