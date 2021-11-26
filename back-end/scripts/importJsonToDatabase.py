@@ -4,7 +4,7 @@ import json
 import mysql.connector
 from mysql.connector import errorcode
 # TODO: Generic-this! Or Gitignore in the future so we dont have some public access rando accessing our database
-config = {
+CONFIG = {
   'user': 'root',
   'password': 'root',
   'host': '127.0.0.1',
@@ -13,8 +13,14 @@ config = {
 }
 
 def connectToDatabase():
+    """ Creates connection to the MySQL Database
+
+    Returns:
+        The database connection object
+    """
     try:
-        cnx = cnx = mysql.connector.connect(**config)
+        cnx = mysql.connector.connect(**CONFIG)
+        return cnx
     except mysql.connector.Error as err:
         if err.errno == errorcode.ER_ACCESS_DENIED_ERROR:
             print("Something is wrong with your user name or password")
@@ -22,12 +28,10 @@ def connectToDatabase():
             print("Database does not exist")
         else:
             print(err)
-    else:
-        cnx.close()
 
 
-def importToSQL(filePath: str):
-    """ Parses Book Data from JSON File into SQL Database
+def retrieveData(filePath: str):
+    """ Retrieves necessary data from a json file for insertion into SQL database
 
         Args:
             filePath:
@@ -37,7 +41,8 @@ def importToSQL(filePath: str):
             JSON file to contain field "Books", with value [arr] where each indice contains book data
 
         Returns:
-            The processed line from the book data
+            Array of values to be inserted into database: with format
+            [title, isbn, publish-date, author, subjects]
     """
     f = open(filePath)
     data = json.load(f)
@@ -77,15 +82,40 @@ def importToSQL(filePath: str):
         if author is not None:
             author = author[0].get("key")
         vals = [book.get("title"), getISBN10, book.get("publish_date"), author, book.get("subjects")]
-        # TODO: import vals into database for Books table
 
     f.close()
+    return vals
+
+
+def insertDataToSQL(vals: list, cnx: object):
+    """ Parses Book Data from JSON File into SQL Database
+
+        Args:
+            vals:
+                The list of values to add to database: of format
+                [title, isbn, publish-date, author, subjects]
+            cnx:
+                The connection object to the database
+    """
+    cursor = cnx.cursor()
+    query = ("INSERT INTO Books "
+            "(ISBN, title, date_published)"
+            "(VALUES (%s, %s, %s))")
+    values = (vals[1], vals[0], vals[3]) # NOTE: vals[3] needs to be a datetime object!
+    # Or should we modify database to have the date_published be a string? Since every entry varies in accuracy
+    cursor.execute(query, values)
+    # Do this for authors, subjects (genres) too.
+    cnx.commit()
+    cursor.close()
 
 
 def main():
     # Relative Path
     file_path = "back-end/data/processed/processed_output.json"
-    importToSQL(file_path)
+    vals = retrieveData(file_path)
+    cnx = connectToDatabase()
+    #insertDataToSQL(vals, cnx)
+    cnx.close()
 
 if __name__ == '__main__':
     main()
