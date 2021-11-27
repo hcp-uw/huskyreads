@@ -9,6 +9,7 @@ CONFIG = {
   'password': 'root',
   'host': '127.0.0.1',
   'database': 'huskyreads',
+  'port': 3307,     # MAKE SURE THIS PORT ALIGNS WITH YOUR PORT IN THE .env FILE
   'raise_on_warnings': True
 }
 
@@ -30,6 +31,7 @@ def connectToDatabase():
             print(err)
 
 
+# TODO: Identify what data we'd like to retrieve / how to obtain description data
 def retrieveData(filePath: str):
     """ Retrieves necessary data from a json file for insertion into SQL database
 
@@ -41,8 +43,8 @@ def retrieveData(filePath: str):
             JSON file to contain field "Books", with value [arr] where each indice contains book data
 
         Returns:
-            Array of values to be inserted into database: with format
-            [title, isbn, publish-date, author, subjects]
+            Array of books to be inserted into database:
+            books have format: [title, isbn, publish-date, author, subjects]
     """
     f = open(filePath)
     data = json.load(f)
@@ -68,6 +70,7 @@ def retrieveData(filePath: str):
     """
     # Assumes data field is called "books" - this is controlled by the data modifying code
     # Assumes "isbn_10" refers to an integer (decimal); NOTE: isbn_10 can have leading zeros.
+    bookdata = []
     for book in data["books"]:
         getISBN10 = book.get("isbn_10")
         if len(getISBN10) > 0:
@@ -81,13 +84,14 @@ def retrieveData(filePath: str):
         author = book.get("authors")
         if author is not None:
             author = author[0].get("key")
-        vals = [book.get("title"), getISBN10, book.get("publish_date"), author, book.get("subjects")]
+        bookdata.append([book.get("title"), getISBN10, book.get("publish_date"), author, book.get("subjects")])
 
     f.close()
-    return vals
+    return bookdata
 
-
-def insertDataToSQL(vals: list, cnx: object):
+# TODO: Add author data, genre data into database
+# TODO: Add date data to the Books table (needs date formatting)
+def insertDataToSQL(books: list, cnx: object):
     """ Parses Book Data from JSON File into SQL Database
 
         Args:
@@ -98,13 +102,10 @@ def insertDataToSQL(vals: list, cnx: object):
                 The connection object to the database
     """
     cursor = cnx.cursor()
-    query = ("INSERT INTO Books "
-            "(ISBN, title, date_published)"
-            "(VALUES (%s, %s, %s))")
-    values = (vals[1], vals[0], vals[3]) # NOTE: vals[3] needs to be a datetime object!
-    # Or should we modify database to have the date_published be a string? Since every entry varies in accuracy
-    cursor.execute(query, values)
-    # Do this for authors, subjects (genres) too.
+    for book in books:
+        query = "INSERT INTO Books (ISBN, title) VALUES (%s, %s)"
+        values = (book[1], book[0])
+        cursor.execute(query, values)
     cnx.commit()
     cursor.close()
 
@@ -114,7 +115,9 @@ def main():
     file_path = "back-end/data/processed/processed_output.json"
     vals = retrieveData(file_path)
     cnx = connectToDatabase()
-    #insertDataToSQL(vals, cnx)
+    print("Connection Successful!")
+    insertDataToSQL(vals, cnx)
+    print("Data import successful! Please refresh database")
     cnx.close()
 
 if __name__ == '__main__':

@@ -23,7 +23,7 @@ CREATE TABLE Books (
   ISBN bigint UNIQUE PRIMARY KEY,
   title varchar(255) NOT NULL,
   description TEXT,
-  date_published date
+  date_published DATE
 );
 
 CREATE TABLE Authors (
