@@ -66,7 +66,7 @@ router.post("/add", async (req, res) => {
 			} else if (!isValidBookshelf) {
 				res.status(codes.CLIENT_ERROR_CODE_400).send("Invaild bookshelf name");
 			} else if (!isValidIsbn) {
-				res.status(codes.CLIENT_ERROR_CODE_400).send("Book does not exist"); 
+				res.status(codes.CLIENT_ERROR_CODE_400).send("Book does not exist");
 			} else if (await checkIfBookExistsInBookshelf(bookshelf, userID, isbn)) {
                 res.status(codes.CLIENT_ERROR_CODE_400).send("Book already exists in " + bookshelf);
             } else {
