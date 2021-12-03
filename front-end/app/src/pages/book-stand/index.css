@@ -1,0 +1,43 @@
+.bookstand-container {
+  max-width: 1260px;
+  margin: 0 auto;
+}
+
+.bookstand-buttons {
+  display: flex;
+  justify-content: center;
+  margin: 48px 0;
+}
+
+.bookstand-buttons div {
+  display: table;
+  border-radius: 16px;
+  text-align: center;
+  vertical-align: middle;
+  font-size: 2.2em;
+  font-weight: 600;
+  padding: 3.7em 0;
+  width: 17.5em;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.bookstand-buttons div:hover {
+  opacity: 0.85;
+}
+
+.bookstand-buttons div:first-child {
+  background-color: #421E59;
+  color: #fff;
+  margin-right: 32px;
+}
+
+.bookstand-buttons div:nth-child(2n) {
+  background-color: #E1C69E;
+  color: #000;
+}
+
+.bookstand-list {
+  display: flex;
+  flex-wrap: wrap;
+}

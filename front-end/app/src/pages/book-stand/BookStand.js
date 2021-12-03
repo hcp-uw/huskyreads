@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import Form from "../login/Form";
+import BookCard from '../../components/book-card/BookCard';
+import "./index.css";
 
 export default function BookStandPage(username) {
 
@@ -63,7 +66,34 @@ export default function BookStandPage(username) {
     )
   } else {
     return (
-      <div>Book stand</div>
+      <div className="bookstand-container">
+        <section className="bookstand-buttons">
+          <div >
+            My Wish List
+          </div>
+          <div>
+            Books I've Read
+          </div>
+        </section>
+        <section className="bookstand-selected-cat">
+          <h3>Currently Reading</h3>
+          <div className="bookstand-list">
+            <BookCard img="images/sample.png" title="worm" author="aaa"/>
+            <BookCard img="images/sample.png" title="worm" author="aaa"/>
+            <BookCard img="images/sample.png" title="worm" author="aaa"/>
+            <BookCard img="images/sample.png" title="worm" author="aaa"/>
+            <BookCard img="images/sample.png" title="worm" author="aaa"/>
+            <BookCard img="images/sample.png" title="worm" author="aaa"/>
+            <BookCard img="images/sample.png" title="worm" author="aaa"/>
+            <BookCard img="images/sample.png" title="worm" author="aaa"/>
+            <BookCard img="images/sample.png" title="worm" author="aaa"/>
+            <BookCard img="images/sample.png" title="worm" author="aaa"/>
+            <BookCard img="images/sample.png" title="worm" author="aaa"/>
+            <BookCard img="images/sample.png" title="worm" author="aaa"/>
+          </div>
+        </section>
+      </div>
+
     );
   }
 }
