@@ -327,6 +327,13 @@ Adds a book to the specified bookshelf for a user.
 
     </br>
 
+    Book already exists in bookshelf
+
+    * **Code:** 400 </br>
+    **Content:** `"Book already exists in <bookshelf>"`
+
+    </br>
+
 ### Remove a Book From a Bookshelf
 
 Removes a book from a specified bookshelf for a user. 
