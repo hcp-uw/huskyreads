@@ -22,21 +22,19 @@ router.get("/get/:username/:bookshelf", async function(req, res) {
 		res.type("JSON");
 		let username = req.params.username;
 		let bookshelf = req.params.bookshelf;
+        let userID = await getUserID(username);
+        let info = [userID, bookshelf];
+        let isValidBookshelf = await checkIfValidBookshelf(info);
 		if (!username) {
 			res.status(codes.CLIENT_ERROR_CODE_400).send({"error": "Missing username paramter"});
-		} else if (bookshelf != "reading" && bookshelf != "read" && bookshelf != "want_to_read" && bookshelf != "all") {
-            // Should use the checkIfValidBookshelf method here
+		} else if (!isValidBookshelf) {
             res.status(codes.CLIENT_ERROR_CODE_400).send({"error": "Invalid bookshelf name"});
+        } else if (!userID) {
+            res.status(codes.CLIENT_ERROR_CODE_401).send({"error": "Invalid Username Parameter"});
         } else {
-            let userID = await getUserID(username);
-            if (!userID) {
-                res.status(codes.CLIENT_ERROR_CODE_401).send({"error": "Invalid Username Parameter"});
-            } else {
-                let info = [userID, bookshelf];
-                let result = await getBookshelf(info);
-                res.status(codes.SUCCESS_CODE).send(result);
-            }
-		}
+            let result = await getBookshelf(info);
+            res.status(codes.SUCCESS_CODE).send(result);
+        }
 	} catch (err) {
 		loggingModule(err, "bookshelfGet");
 		res.status(codes.SERVER_ERROR_CODE).send({"error": codes.SERVER_ERROR_MESSAGE});
