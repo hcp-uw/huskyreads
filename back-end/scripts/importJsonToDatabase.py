@@ -32,7 +32,7 @@ def connectToDatabase():
 
 
 # TODO: Identify what data we'd like to retrieve / how to obtain description data
-def retrieveData(filePath: str):
+def retrieveBookData(filePath: str):
     """ Retrieves necessary data from a json file for insertion into SQL database
 
         Args:
@@ -89,15 +89,16 @@ def retrieveData(filePath: str):
     f.close()
     return bookdata
 
-# TODO: Add author data, genre data into database
+# TODO: Add genre (subject) data into database - Subjects don't have their own ID code!
 # TODO: Add date data to the Books table (needs date formatting)
-def insertDataToSQL(books: list, cnx: object):
+def insertBookData(books: list, cnx: object):
     """ Parses Book Data from JSON File into SQL Database
 
         Args:
             vals:
                 The list of values to add to database: of format
                 [title, isbn, publish-date, author, subjects]
+                author is expected to be an ID-type String
             cnx:
                 The connection object to the database
     """
@@ -110,13 +111,20 @@ def insertDataToSQL(books: list, cnx: object):
     cursor.close()
 
 
+# TODO: Add author data into the database
+def insertAuthorData(authors: list, cnx: object):
+    cursor = cnx.cursor()
+    cnx.commit()
+    cursor.close()
+
+
 def main():
     # Relative Path
     file_path = "back-end/data/processed/processed_output.json"
-    vals = retrieveData(file_path)
+    vals = retrieveBookData(file_path)
     cnx = connectToDatabase()
     print("Connection Successful!")
-    insertDataToSQL(vals, cnx)
+    insertBookData(vals, cnx)
     print("Data import successful! Please refresh database")
     cnx.close()
 
