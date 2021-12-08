@@ -105,18 +105,32 @@ def insertBookData(books: list, cnx: object):
     cursor = cnx.cursor()
     for book in books:
         # Inserting books into Book table
-        query = "INSERT INTO Books (ISBN, title, date_published) VALUES (%s, %s, %s)"
+        query = "INSERT INTO Books (ISBN, title, date_published) VALUES (%s, %s, %s);"
         # TODO: Modify API Documentation to reflect changes in database for Book Date
         values = (book[1], book[0], book[2])
         cursor.execute(query, values)
-        # TODO: Insert subjects into Genre table, Insert connections in Book_Genre
+        # Inserts subjects into Genre table, Insert connections in Book_Genre
+        if book[4] is not None:
+            for subject in book[4]:
+                query = "INSERT INTO Genre (name) VALUES (%s)"
+                values = (subject,)
+                cursor.execute(query, values)
+                query = "INSERT INTO Book_Genre (ISBN, id_genre) VALUES (%s, %s)"
+                values = (book[1], cursor.lastrowid)
+                cursor.execute(query, values)
+        # TODO: Insert authors into Book_Authors table
+        ### if book[3] is not None:
+            ### authorID = book[3][9:]
+            ### query = "INSERT INTO Book_Authors (ISBN, id_author) VALUES (%s, %s)"
+            ### values = (book[1], authorID)
+            ### cursor.execute(query, values)
     cnx.commit()
     cursor.close()
 
 
-# TODO: Add author data into the database
+# TODO: Add author data into the author table
 def insertAuthorData(authors: list, cnx: object):
-    """ Parses Book Data from JSON File into SQL Database
+    """ Parses Author Data from JSON File into Author table
 
         Args:
             authors:
