@@ -106,9 +106,9 @@ exports.checkIfValidBookshelf = async (shelfInfo) => {
 	if (shelfInfo[1] == "all") {
 		return true;
 	}
-    let query = "SELECT COUNT(shelf_name) AS count FROM Bookshelf WHERE id_user = ? AND shelf_name = ?";
+    let query = "SELECT bookshelves FROM User WHERE id = ? AND INSTR(bookshelves, ?) > 0";
 	let [res] = await db.query(query, [shelfInfo[0], shelfInfo[1]]);
-	return res[0] > 0;  // Needs to be non-zero
+	return res[0] !== undefined;
 }
 
 /**
@@ -119,7 +119,7 @@ exports.checkIfValidBookshelf = async (shelfInfo) => {
  * @return {boolean} - True if the book is already in the bookshelf
  */
 exports.checkIfBookExistsInBookshelf = async (bookshelf, userID, isbn) => {
-    let query = "SELECT COUNT(*) AS count FROM Bookshelf WHERE id_user = ? AND shelf_name = ? AND isbn = ?";
-    let [rows] = await db.query(query, [userID, bookshelf, isbn]);
-    return rows[0] > 0;
+    let query = "SELECT * FROM Bookshelf WHERE id_user = ? AND shelf_name = ? AND isbn = ?";
+    let [res] = await db.query(query, [userID, bookshelf, isbn]);
+    return res.length > 0;  // Needs to be non-zero
 }

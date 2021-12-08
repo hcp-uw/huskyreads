@@ -25,7 +25,7 @@ router.get("/get/:username/:bookshelf", async function(req, res) {
 		if (!username) {
 			res.status(codes.CLIENT_ERROR_CODE_400).send({"error": "Missing username paramter"});
 		} else if (bookshelf != "reading" && bookshelf != "read" && bookshelf != "want_to_read" && bookshelf != "all") {
-            // I'll swap out this if statement with the method Nicholas wrote
+            // Should use the checkIfValidBookshelf method here
             res.status(codes.CLIENT_ERROR_CODE_400).send({"error": "Invalid bookshelf name"});
         } else {
             let userID = await getUserID(username);

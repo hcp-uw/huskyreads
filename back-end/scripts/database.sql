@@ -12,6 +12,7 @@ CREATE TABLE User (
     id int PRIMARY KEY AUTO_INCREMENT,
     username varchar(255) UNIQUE NOT NULL,
     password varchar(255) NOT NULL,
+    bookshelves varchar(4000) DEFAULT "read*reading*want_to_read",
     color_scheme varchar(255) DEFAULT "light"
 );
 
