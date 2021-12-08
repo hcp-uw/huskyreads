@@ -89,14 +89,14 @@ def retrieveBookData(filePath: str):
     f.close()
     return bookdata
 
-# TODO: Add genre (subject) data into database - Subjects don't have their own ID code!
+
 # TODO: Add date data to the Books table (needs date formatting)
 def insertBookData(books: list, cnx: object):
     """ Parses Book Data from JSON File into SQL Database
 
         Args:
             vals:
-                The list of values to add to database: of format
+                The list of values to add to database: each value is of format
                 [title, isbn, publish-date, author, subjects]
                 author is expected to be an ID-type String
             cnx:
@@ -104,15 +104,26 @@ def insertBookData(books: list, cnx: object):
     """
     cursor = cnx.cursor()
     for book in books:
-        query = "INSERT INTO Books (ISBN, title) VALUES (%s, %s)"
-        values = (book[1], book[0])
+        # Inserting books into Book table
+        query = "INSERT INTO Books (ISBN, title, date_published) VALUES (%s, %s, %s)"
+        # TODO: Modify API Documentation to reflect changes in database for Book Date
+        values = (book[1], book[0], book[2])
         cursor.execute(query, values)
+        # TODO: Insert subjects into Genre table, Insert connections in Book_Genre
     cnx.commit()
     cursor.close()
 
 
 # TODO: Add author data into the database
 def insertAuthorData(authors: list, cnx: object):
+    """ Parses Book Data from JSON File into SQL Database
+
+        Args:
+            authors:
+                List of Authors, which each author having format [author_id, author_name]
+            cnx:
+                The connection object to the database
+    """
     cursor = cnx.cursor()
     cnx.commit()
     cursor.close()
