@@ -90,7 +90,6 @@ def retrieveBookData(filePath: str):
     return bookdata
 
 
-# TODO: Add date data to the Books table (needs date formatting)
 def insertBookData(books: list, cnx: object):
     """ Parses Book Data from JSON File into SQL Database
 
@@ -109,7 +108,7 @@ def insertBookData(books: list, cnx: object):
         # TODO: Modify API Documentation to reflect changes in database for Book Date
         values = (book[1], book[0], book[2])
         cursor.execute(query, values)
-        # Inserts subjects into Genre table, Insert connections in Book_Genre
+        # Inserts subjects into Genre table, Inserts connections in Book_Genre
         if book[4] is not None:
             for subject in book[4]:
                 query = "INSERT INTO Genre (name) VALUES (%s)"  # TODO: Fix duplicate entries
@@ -118,12 +117,12 @@ def insertBookData(books: list, cnx: object):
                 query = "INSERT INTO Book_Genre (ISBN, id_genre) VALUES (%s, %s)"
                 values = (book[1], cursor.lastrowid)
                 cursor.execute(query, values)
-        # TODO: Insert authors into Book_Authors table
-        ### if book[3] is not None:
-            ### authorID = book[3][9:]
-            ### query = "INSERT INTO Book_Authors (ISBN, id_author) VALUES (%s, %s)"
-            ### values = (book[1], authorID)
-            ### cursor.execute(query, values)
+        # Insert author references into Book_Authors table
+        if book[3] is not None:
+            authorID = book[3][9:]
+            query = "INSERT INTO Book_Authors (ISBN, id_author) VALUES (%s, %s)"
+            values = (book[1], authorID)
+            cursor.execute(query, values)
     cnx.commit()
     cursor.close()
 

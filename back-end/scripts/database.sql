@@ -27,7 +27,7 @@ CREATE TABLE Books (
 );
 
 CREATE TABLE Authors (
-  id int PRIMARY KEY AUTO_INCREMENT,
+  id varchar(40),
   name varchar(255) NOT NULL
 );
 
@@ -67,7 +67,7 @@ CREATE TABLE Reviews (
 
 CREATE TABLE Book_Authors (
   ISBN bigint NOT NULL,
-  id_author int NOT NULL REFERENCES Authors,
+  id_author varchar(40) REFERENCES Authors,
   /* Constraint: If a book is deleted, also delete book's related authors */
   CONSTRAINT REFBOOK
   FOREIGN KEY (ISBN)
