@@ -73,8 +73,8 @@ CREATE TABLE Book_Authors (
 );
 
 CREATE TABLE Book_Genre (
-  ISBN bigint NOT NULL REFERENCES Genre,
-  id_genre int NOT NULL,
+  ISBN bigint NOT NULL,
+  id_genre int NOT NULL REFERENCES Genre,
   /* Constraint: If a book is deleted, also delete the book's related genres */
   FOREIGN KEY (ISBN)
   REFERENCES Books(ISBN)
