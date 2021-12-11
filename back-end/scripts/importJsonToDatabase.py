@@ -111,11 +111,17 @@ def insertBookData(books: list, cnx: object):
         # Inserts subjects into Genre table, Inserts connections in Book_Genre
         if book[4] is not None:
             for subject in book[4]:
-                query = "INSERT INTO Genre (name) VALUES (%s)"  # TODO: Fix duplicate entries
+                query = "SELECT * FROM Genre WHERE name = %s"
                 values = (subject,)
                 cursor.execute(query, values)
+                res = cursor.fetchall()
+                if res == []:
+                    query = "INSERT INTO Genre (name) VALUES (%s)"
+                    values = (subject,)
+                    cursor.execute(query, values)
+                rowid = cursor.lastrowid if len(res) == 0 else res[0][0]
                 query = "INSERT INTO Book_Genre (ISBN, id_genre) VALUES (%s, %s)"
-                values = (book[1], cursor.lastrowid)
+                values = (book[1], rowid)
                 cursor.execute(query, values)
         # Insert author references into Book_Authors table
         if book[3] is not None:
