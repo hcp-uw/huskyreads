@@ -33,7 +33,7 @@ def connectToDatabase():
 
 # TODO: Identify what data we'd like to retrieve / how to obtain description data
 def retrieveBookData(filePath: str):
-    """ Retrieves necessary data from a json file for insertion into SQL database
+    """ Retrieves necessary book data from a json file for insertion into SQL database
 
         Args:
             filePath:
@@ -48,26 +48,6 @@ def retrieveBookData(filePath: str):
     """
     f = open(filePath)
     data = json.load(f)
-
-    """
-    Data that we want:
-    - ISBN (10)
-    - title
-    - book description
-    - date published
-    - author(s)
-    - genre(s) / subject(s)
-
-    Data that we have (ones that I think is important):
-    - title
-    - subtitle (do we want to include this?)
-    - author (sometimes this is missing, also represented as something like /authors/[author-id] as a string)
-    - isbn_10 / isbn_13 (i guess we want 10)    Not all books have isbn_13, but isbn_10 needs additional parsing
-    - languages (do we want to include this?)
-    - number of pages (do we want to include this?)
-    - publish date
-    - subjects (genres)
-    """
     # Assumes data field is called "books" - this is controlled by the data modifying code
     # Assumes "isbn_10" refers to an integer (decimal); NOTE: isbn_10 can have leading zeros.
     bookdata = []
@@ -90,16 +70,37 @@ def retrieveBookData(filePath: str):
     return bookdata
 
 
+# TODO: Write author data retrieval code
+def retrieveAuthorData(filePath: str):
+    """ Retrieves necessary author data from a json file for insertion into SQL database
+
+        Args:
+            filePath:
+                The file-path to the JSON file containing the data
+
+        Returns:
+            Array of authors to be inserted into database:
+            Authors have format: [author_id, author_name]
+    """
+    f = open(filePath)
+    data = json.load(f)
+    authorData = []
+    return authorData
+
+
 def insertBookData(books: list, cnx: object):
     """ Parses Book Data from JSON File into SQL Database
 
         Args:
-            vals:
+            books:
                 The list of values to add to database: each value is of format
-                [title, isbn, publish-date, author, subjects]
-                author is expected to be an ID-type String
             cnx:
                 The connection object to the database
+
+        Expected:
+            Each element of the books list is a list of format
+            [title, isbn, publish-date, author, subjects].
+            title, publish-date, author is a string, isbn is an int, subject is a list
     """
     cursor = cnx.cursor()
     for book in books:
@@ -111,10 +112,11 @@ def insertBookData(books: list, cnx: object):
         # Inserts subjects into Genre table, Inserts connections in Book_Genre
         if book[4] is not None:
             for subject in book[4]:
-                query = "SELECT * FROM Genre WHERE name = %s"
+                query = "SELECT * FROM Genre WHERE name = %s" # Checks for duplicates
                 values = (subject,)
                 cursor.execute(query, values)
                 res = cursor.fetchall()
+                # Add if there isn't a duplicate
                 if res == []:
                     query = "INSERT INTO Genre (name) VALUES (%s)"
                     values = (subject,)
@@ -133,28 +135,38 @@ def insertBookData(books: list, cnx: object):
     cursor.close()
 
 
-# TODO: Add author data into the author table
+# TODO: Test this! (We don't have processed author data yet)
 def insertAuthorData(authors: list, cnx: object):
     """ Parses Author Data from JSON File into Author table
 
         Args:
             authors:
-                List of Authors, which each author having format [author_id, author_name]
+                List of Authors
             cnx:
                 The connection object to the database
+        Expected:
+            Each element of authors list is a list with format [author_id, author_name]
+            author_id, author_name expected to be strings
     """
     cursor = cnx.cursor()
+    for author in authors:
+        query = "INSERT INTO Authors (id, name) VALUES (%s, %s)"
+        values = (author[0], author[1])
+        cursor.execute(query, values)
     cnx.commit()
     cursor.close()
 
 
 def main():
     # Relative Path
-    file_path = "back-end/data/processed/processed_output.json"
-    vals = retrieveBookData(file_path)
+    file_path_books = "back-end/data/processed/processed_output.json"
+    file_path_authors = ""
+    books = retrieveBookData(file_path_books)
+    authors = retrieveAuthorData(file_path_books)
     cnx = connectToDatabase()
     print("Connection Successful!")
-    insertBookData(vals, cnx)
+    insertBookData(books, cnx)
+    insertAuthorData(authors, cnx)
     print("Data import successful! Please refresh database")
     cnx.close()
 
