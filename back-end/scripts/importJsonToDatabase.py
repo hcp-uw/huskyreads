@@ -85,6 +85,9 @@ def retrieveAuthorData(filePath: str):
     f = open(filePath)
     data = json.load(f)
     authorData = []
+    # Assumes json object table name is author
+    for author in data["author"]:
+        authorData.append([author.get("key")[9:], author.get("name")])
     return authorData
 
 
