@@ -1,17 +1,23 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import Form from "../login/Form";
-import BookCard from '../../components/book-card/BookCard';
+import React, { useState, useEffect, useRef } from "react";
+import axios from "axios";
+import BookCard from "../../components/book-card/BookCard";
 import "./index.css";
 
 export default function BookStandPage(props) {
-
-  const [bookStand, setBookStand] = useState([]);
+  const [selected, setSelected] = useState("reading");
+  const [unselected, setUnselected] = useState(new Set("read", "want_to_read"));
+  const [bookstand, setBookStand] = useState([]);
+  const categories = ["reading", "read", "want_to_read"];
 
   let returnToLogin = false;
   let errorPage = false;
   const PORT = 8000;
   const URL = "http://localhost:" + PORT;
+  const labels = {
+    reading: "Currently Reading",
+    read: "Books I've Read",
+    want_to_read: "My Wish List",
+  };
 
   // plan: get the username from the client by getting it from their cookie
   // with "http://localhost:8000/grab/username". Using that username, we get
@@ -22,18 +28,20 @@ export default function BookStandPage(props) {
 
   // TODO: test if it's properly accounting for errors that can arise from this endpoint call,
   // such as cookie expiration or error codes.
+
   async function getShelves() {
     try {
-      const GET_BOOKSTAND = "/bookshelves/get/"
-      console.log(props.username);
+      const GET_BOOKSTAND = "/bookshelves/get/";
 
       // check if user is still logged in
       if (props.username !== undefined) {
         // user is still logged in
-        const BOOKSTAND = await axios.get(URL + GET_BOOKSTAND + props.username + "/reading");
+        const BOOKSTAND = await axios.get(
+          URL + GET_BOOKSTAND + props.username + "/" + selected
+        );
         if (BOOKSTAND.error === undefined) {
           // bookstand fetch worked
-          setBookStand(BOOKSTAND);
+          setBookStand(BOOKSTAND.data[0]);
         } else {
           // bookstand fetch didn't work
           console.log(BOOKSTAND.error);
@@ -49,36 +57,49 @@ export default function BookStandPage(props) {
     }
   }
 
-  getShelves();
+  useEffect(() => {
+    // find unselected categories & add them to a Set
+    let set = new Set();
+    for (let i = 0; i < categories.length; i++) {
+      if (categories[i] !== selected) {
+        set.add(categories[i]);
+      }
+    }
+    setUnselected(set);
+    getShelves();
+  }, [selected]);
 
   // decides what to show on the screen
   if (returnToLogin) {
     // force reloads the page to bring user back to the login page
     window.location.reload();
   } else if (errorPage) {
-    return (
-      <p>Error! Check console!</p>
-    )
+    return <p>Error! Check console!</p>;
   } else {
+    console.log(unselected);
+
     return (
       <div className="bookstand-container">
         <section className="bookstand-buttons">
-          <div >
-            My Wish List
-          </div>
-          <div>
-            Books I've Read
-          </div>
+          {Array.from(unselected).map((str) => {
+            return (
+              <div
+                onClick={() => {
+                  setSelected(str);
+                }}
+              >
+                {labels[str]}
+              </div>
+            );
+          })}
         </section>
         <section className="bookstand-selected-cat">
-          <h3>Currently Reading</h3>
+          <h3>{labels[selected]}</h3>
           <div className="bookstand-list">
-            <BookCard img="images/sample.png" title="worm" author="aaa"/>
+            <BookCard img="images/sample.png" title="worm" author="aaa" />
           </div>
         </section>
       </div>
-
     );
   }
 }
-
