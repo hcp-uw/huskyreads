@@ -79,17 +79,6 @@ export default function BookStandPage(username) {
           <h3>Currently Reading</h3>
           <div className="bookstand-list">
             <BookCard img="images/sample.png" title="worm" author="aaa"/>
-            <BookCard img="images/sample.png" title="worm" author="aaa"/>
-            <BookCard img="images/sample.png" title="worm" author="aaa"/>
-            <BookCard img="images/sample.png" title="worm" author="aaa"/>
-            <BookCard img="images/sample.png" title="worm" author="aaa"/>
-            <BookCard img="images/sample.png" title="worm" author="aaa"/>
-            <BookCard img="images/sample.png" title="worm" author="aaa"/>
-            <BookCard img="images/sample.png" title="worm" author="aaa"/>
-            <BookCard img="images/sample.png" title="worm" author="aaa"/>
-            <BookCard img="images/sample.png" title="worm" author="aaa"/>
-            <BookCard img="images/sample.png" title="worm" author="aaa"/>
-            <BookCard img="images/sample.png" title="worm" author="aaa"/>
           </div>
         </section>
       </div>
