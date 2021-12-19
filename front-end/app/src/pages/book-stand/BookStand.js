@@ -4,7 +4,7 @@ import Form from "../login/Form";
 import BookCard from '../../components/book-card/BookCard';
 import "./index.css";
 
-export default function BookStandPage(username) {
+export default function BookStandPage(props) {
 
   const [bookStand, setBookStand] = useState([]);
 
@@ -20,21 +20,17 @@ export default function BookStandPage(username) {
   // implement the scroll function used in the browse page and use the BookCard
   // set up by Audrey to display each book under each bookshelf.
 
-  // calls the the book constructor ONCE
-  useEffect(() => {
-    getShelves();
-  }, []);
-
   // TODO: test if it's properly accounting for errors that can arise from this endpoint call,
   // such as cookie expiration or error codes.
   async function getShelves() {
     try {
       const GET_BOOKSTAND = "/bookshelves/get/"
+      console.log(props.username);
 
       // check if user is still logged in
-      if (username !== undefined) {
+      if (props.username !== undefined) {
         // user is still logged in
-        const BOOKSTAND = await axios.get(URL + GET_BOOKSTAND + username);
+        const BOOKSTAND = await axios.get(URL + GET_BOOKSTAND + props.username + "/reading");
         if (BOOKSTAND.error === undefined) {
           // bookstand fetch worked
           setBookStand(BOOKSTAND);
@@ -45,7 +41,7 @@ export default function BookStandPage(username) {
         }
       } else {
         // user is not logged in, send to login page
-        console.log("Username not passed in: " + username);
+        console.log("Username not passed in: " + props.username);
         returnToLogin = true;
       }
     } catch (err) {
@@ -53,13 +49,12 @@ export default function BookStandPage(username) {
     }
   }
 
+  getShelves();
+
   // decides what to show on the screen
   if (returnToLogin) {
-    // need to log out the user using post request with logout URL
-    // then return the login/signup page
-    return (
-      <Form />
-    );
+    // force reloads the page to bring user back to the login page
+    window.location.reload();
   } else if (errorPage) {
     return (
       <p>Error! Check console!</p>

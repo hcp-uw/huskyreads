@@ -105,7 +105,7 @@ export default class Form extends React.Component {
             <Navbar/>
             <Switch>
               <Route path="/bookstand">
-                <BookStandPage/>
+                <BookStandPage username={this.state.username}/>
               </Route>
               <Route path="/settings">
                 <SettingsPage/>
