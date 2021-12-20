@@ -67,7 +67,7 @@ export default function BookStandPage(props) {
     }
     setUnselected(set);
     getShelves();
-  }, [selected, categories]);
+  }, [selected]);
 
   // decides what to show on the screen
   if (returnToLogin) {
