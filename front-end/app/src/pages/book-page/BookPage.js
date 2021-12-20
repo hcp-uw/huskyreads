@@ -5,6 +5,8 @@ import Form from '../login/Form';
 
 export default function BookPage(isbn) {
 
+  const URL = "localhost:";
+  const PORT = 8000;
   // expecting this base URL to change btw!!
   let errorPage = false;
 
@@ -25,14 +27,12 @@ export default function BookPage(isbn) {
       if (isbn === undefined || isbn.isNaN()) {
         errorPage = true;
       } else {
-        let fetchURL = GET_BOOK + isbn;
-        let res = await fetch(fetchURL);
-        let check = statusCheck(res);
-        let bookData = await check.json();
-        setBook(bookData);
+        let fetchURL = URL + PORT + GET_BOOK + isbn;
+        let bookData = await axios.get(fetchURL);
+        setBook(bookData.data);
       }
     } catch (err) {
-      console.log(err.error);
+      console.log(err);
       errorPage = true;
     }
   }, []);
