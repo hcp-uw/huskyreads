@@ -158,7 +158,9 @@ INSERT INTO Authors (name) VALUES
     ("Brett Wortmanz"),
     ("Foo Bar the Third"),
     ("Suzzy Collins"),
-    ("Albert Einstein")
+    ("Albert Einstein"),
+    ("李涛"),                           /* Testing non-latin characters */
+    ("Александр Сергеевич Пушкин")      /* Testing non-latin characters */
 ;
 
 INSERT INTO Genres (name) VALUES
