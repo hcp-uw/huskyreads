@@ -6,6 +6,7 @@
 .bookstand-buttons {
   display: flex;
   justify-content: center;
+  align-items: center;
   margin: 48px 0;
 }
 
@@ -17,7 +18,8 @@
   font-size: 2.2em;
   font-weight: 600;
   padding: 3.7em 0;
-  width: 17.5em;
+  width: 98%;
+  max-width: 17.5em;
   cursor: pointer;
   transition: all 0.3s;
 }
@@ -45,5 +47,10 @@
 @media (max-width: 756px) {
   .bookstand-buttons {
     flex-direction: column;
+  }
+
+  .bookstand-buttons div:first-child {
+    margin-right: 0;
+    margin-bottom: .6em;
   }
 }
