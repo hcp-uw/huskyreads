@@ -21,7 +21,7 @@ export default function BookPage(isbn) {
   });
 
   // calls the the book constructor
-  useEffect(async () => {
+  async function axiosCall() {
     const GET_BOOK = "/books/detail/";
     try {
       if (isbn === undefined || isbn.isNaN()) {
@@ -35,6 +35,10 @@ export default function BookPage(isbn) {
       console.log(err);
       errorPage = true;
     }
+  }
+
+  useEffect(() => {
+    axiosCall();
   }, []);
 
 
