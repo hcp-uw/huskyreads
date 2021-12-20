@@ -1,15 +1,11 @@
 import "./style.css";
-import axios from 'axios'
+import axios from 'axios';
 import React, {useState, useEffect} from 'react';
 
-export default function BookPage(ISBN) {
+export default function BookPage(isbn) {
 
   // expecting this base URL to change btw!!
-  let returnToLogin = false;
   let errorPage = false;
-  const PORT = 8000;
-  const URL = "http://localhost:" + PORT;
-
 
   // I instantiated the object initially to withstand any potential errors
   // that could be thrown.
@@ -22,35 +18,22 @@ export default function BookPage(ISBN) {
   });
 
   // calls the the book constructor
-  useEffect(() => {
-    getBookData(ISBN);
-  }, []);
-
-  // book fetch and constructor
-  async function getBookData(isbnParam) {
+  useEffect(async () => {
     const GET_BOOK = "/books/detail/";
     try {
-      if (isbnParam === undefined || isbnParam.isNaN()) {
+      if (isbn === undefined || isbn.isNaN()) {
         errorPage = true;
       } else {
-        let fetchURL = URL + GET_BOOK + isbnParam;
+        let fetchURL = GET_BOOK + isbn;
         let book = await axios.get(fetchURL);
         setBook(book);
       }
     } catch (err) {
       console.log(err.error);
     }
-  }
+  }, []);
 
-  // returns book page
-
-  if (returnToLogin) {
-    // need to log out the user using post request with logout URL
-    // then return the login/signup page
-    return (
-      <Form />
-    );
-  } else if (errorPage) {
+  if (errorPage) {
     return (
       <p>Error! Check console!</p>
     )
