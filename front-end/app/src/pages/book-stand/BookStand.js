@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import BookCard from "../../components/book-card/BookCard";
 import "./index.css";
@@ -67,7 +67,7 @@ export default function BookStandPage(props) {
     }
     setUnselected(set);
     getShelves();
-  }, [selected]);
+  }, [selected, categories]);
 
   // decides what to show on the screen
   if (returnToLogin) {
@@ -76,7 +76,7 @@ export default function BookStandPage(props) {
   } else if (errorPage) {
     return <p>Error! Check console!</p>;
   } else {
-    console.log(unselected);
+    console.log(bookstand);
 
     return (
       <div className="bookstand-container">
