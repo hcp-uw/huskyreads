@@ -1,16 +1,12 @@
 import "./style.css";
-import axios from 'axios'
+import axios from 'axios';
 import React, {useState, useEffect} from 'react';
 import Form from '../login/Form';
 
-export default function BookPage(ISBN) {
+export default function BookPage(isbn) {
 
   // expecting this base URL to change btw!!
-  let returnToLogin = false;
   let errorPage = false;
-  const PORT = 8000;
-  const URL = "http://localhost:" + PORT;
-
 
   // I instantiated the object initially to withstand any potential errors
   // that could be thrown.
@@ -23,43 +19,33 @@ export default function BookPage(ISBN) {
   });
 
   // calls the the book constructor
-  useEffect(() => {
-    getBookData(ISBN);
-  }, []);
-
-  // book fetch and constructor
-  async function getBookData(isbnParam) {
+  useEffect(async () => {
     const GET_BOOK = "/books/detail/";
-    const GET_USERNAME = "/grab/username";
-    // cookie check!!!
     try {
-      const USERNAME = await axios.get(URL + GET_USERNAME);
-      let name = USERNAME.username;
-      let book = undefined;
-      if (name === undefined) {
-        console.log(USERNAME.error);
-        returnToLogin = true;
-      } else if (isbnParam === undefined || isbnParam.isNaN()) {
+      if (isbn === undefined || isbn.isNaN()) {
         errorPage = true;
       } else {
-        let fetchURL = URL + GET_BOOK + isbnParam;
-        book = await axios.get(fetchURL);
-        setBook(book);
+        let fetchURL = GET_BOOK + isbn;
+        let res = await fetch(fetchURL);
+        let check = statusCheck(res);
+        let bookData = await check.json();
+        setBook(bookData);
       }
     } catch (err) {
       console.log(err.error);
+      errorPage = true;
     }
+  }, []);
+
+
+  async function statusCheck(res) {
+    if (!res.ok) {
+      throw new Error(await res.statusText);
+    }
+    return res;
   }
 
-  // returns book page
-
-  if (returnToLogin) {
-    // need to log out the user using post request with logout URL
-    // then return the login/signup page
-    return (
-      <Form />
-    );
-  } else if (errorPage) {
+  if (errorPage) {
     return (
       <p>Error! Check console!</p>
     )
