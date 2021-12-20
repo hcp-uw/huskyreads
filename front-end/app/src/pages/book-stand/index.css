@@ -1,23 +1,22 @@
 .bookstand-container {
-  max-width: 1260px;
+  max-width: 1280px;
+  width: 97%;
   margin: 0 auto;
 }
 
 .bookstand-buttons {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   margin: 48px 0;
 }
 
 .bookstand-buttons div {
-  display: table;
   border-radius: 16px;
   text-align: center;
-  vertical-align: middle;
   font-size: 2.2em;
   font-weight: 600;
-  padding: 3.7em 0;
+  padding: 3em 0;
   width: 98%;
   max-width: 17.5em;
   cursor: pointer;
@@ -37,11 +36,18 @@
 .bookstand-buttons div:nth-child(2n) {
   background-color: #E1C69E;
   color: #000;
+  font-weight: 700;
+}
+
+.bookstand-selected-cat {
+  margin: 0 auto;
 }
 
 .bookstand-list {
   display: flex;
+  justify-content: space-between;
   flex-wrap: wrap;
+  margin: 0 -30px;
 }
 
 @media (max-width: 756px) {
@@ -52,5 +58,9 @@
   .bookstand-buttons div:first-child {
     margin-right: 0;
     margin-bottom: .6em;
+  }
+
+  .bookstand-list {
+    justify-content: space-evenly;
   }
 }

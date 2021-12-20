@@ -6,7 +6,7 @@ import "./index.css";
 export default function BookStandPage(props) {
   const [selected, setSelected] = useState("reading");
   const [unselected, setUnselected] = useState(new Set("read", "want_to_read"));
-  const [bookstand, setBookStand] = useState([]);
+  const [booksDisplay, setDisplay] = useState([]);
   const categories = ["reading", "read", "want_to_read"];
 
   let returnToLogin = false;
@@ -41,7 +41,7 @@ export default function BookStandPage(props) {
         );
         if (BOOKSTAND.error === undefined) {
           // bookstand fetch worked
-          setBookStand(BOOKSTAND.data[0]);
+          setDisplay(BOOKSTAND.data[0].books);
         } else {
           // bookstand fetch didn't work
           console.log(BOOKSTAND.error);
@@ -76,7 +76,7 @@ export default function BookStandPage(props) {
   } else if (errorPage) {
     return <p>Error! Check console!</p>;
   } else {
-    console.log(bookstand);
+    console.log(booksDisplay);
 
     return (
       <div className="bookstand-container">
@@ -88,15 +88,19 @@ export default function BookStandPage(props) {
                   setSelected(str);
                 }}
               >
-                {labels[str]}
+                <p>{labels[str]}</p>
               </div>
             );
           })}
         </section>
         <section className="bookstand-selected-cat">
-          <h3>{labels[selected]}</h3>
+          <h3 style={{fontSize: "1.38em"}}>{labels[selected]}</h3>
           <div className="bookstand-list">
-            <BookCard img="images/sample.png" title="worm" author="aaa" />
+            {
+              booksDisplay.map(book => {
+                return <BookCard title={book.title} authors={book.authors} isbn={book.isbn} />
+              })
+            }
           </div>
         </section>
       </div>
