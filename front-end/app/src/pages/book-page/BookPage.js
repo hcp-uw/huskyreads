@@ -25,13 +25,24 @@ export default function BookPage(isbn) {
         errorPage = true;
       } else {
         let fetchURL = GET_BOOK + isbn;
-        let book = await axios.get(fetchURL);
-        setBook(book);
+        let res = await fetch(fetchURL);
+        let check = statusCheck(res);
+        let bookData = await check.json();
+        setBook(bookData);
       }
     } catch (err) {
       console.log(err.error);
+      errorPage = true;
     }
   }, []);
+
+
+  async function statusCheck(res) {
+    if (!res.ok) {
+      throw new Error(await res.statusText);
+    }
+    return res;
+  }
 
   if (errorPage) {
     return (
