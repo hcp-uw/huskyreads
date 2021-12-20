@@ -4,19 +4,15 @@
 **/
 
 /* Clears old tables */
-DROP TABLE IF EXISTS User, Bookshelf, Bookshelf_Names, Books, Book_Authors, Book_Genre, Authors, Genre, Reviews;
+DROP TABLE IF EXISTS Users, Books, Reviews, Bookshelves, Bookshelf_Books, Authors, Genres, Book_Authors, Book_Genres;
 
 
 /* Creates our SQL Database */
-CREATE TABLE User (
+CREATE TABLE Users (
     id int PRIMARY KEY AUTO_INCREMENT,
     username varchar(255) UNIQUE NOT NULL,
     password varchar(255) NOT NULL,
     color_scheme varchar(255) DEFAULT "light"
-);
-
-CREATE TABLE Bookshelf_Names (
-    shelf_name varchar(255) UNIQUE NOT NULL
 );
 
 CREATE TABLE Books (
@@ -26,24 +22,42 @@ CREATE TABLE Books (
   date_published date
 );
 
-CREATE TABLE Authors (
-  id int PRIMARY KEY AUTO_INCREMENT,
-  name varchar(255) NOT NULL
+CREATE TABLE Reviews (
+  id_review int PRIMARY KEY AUTO_INCREMENT,
+  ISBN_book bigint NOT NULL REFERENCES Books,
+  id_user int NOT NULL,
+  content varchar(255),
+  published date NOT NULL,
+  CONSTRAINT USERDELETED
+  FOREIGN KEY (id_user)
+  REFERENCES Users(id)
+    ON DELETE CASCADE,
+  /* Constraint: If a book is deleted, also delete the book's related reviews */
+  CONSTRAINT BOOKDELETED
+  FOREIGN KEY (ISBN_book)
+  REFERENCES Books(ISBN)
+    ON DELETE CASCADE
 );
 
-CREATE TABLE Genre (
-  id int PRIMARY KEY AUTO_INCREMENT,
-  name varchar(255) NOT NULL
-);
-
-CREATE TABLE Bookshelf (
+/* Default: Per user, insert read, reading, want_to_read as three separate bookshelves into this table */
+CREATE TABLE Bookshelves (
+    id int PRIMARY KEY AUTO_INCREMENT,
     id_user int NOT NULL,
-    ISBN bigint NOT NULL,
     shelf_name varchar(255) NOT NULL,
     /* Constraint: If a user is deleted, delete the user's corresponding bookshelves */
     CONSTRAINT USERDELETE
     FOREIGN KEY (id_user)
-    REFERENCES User(id)
+    REFERENCES Users(id)
+        ON DELETE CASCADE
+);
+
+CREATE TABLE Bookshelf_Books (
+    id_bookshelf int,
+    ISBN bigint NOT NULL,
+    /* Constraint: If a bookshelf is deleted, delete the bookshelf's book connections */
+    CONSTRAINT SHELFDELETE
+    FOREIGN KEY (id_bookshelf)
+    REFERENCES Bookshelves(id)
         ON DELETE CASCADE,
     /* Constraint: If a book is deleted, delete corresponding book data in bookshelves */
     /* Not expecting this to happen often, but functionality is here */
@@ -53,33 +67,31 @@ CREATE TABLE Bookshelf (
         ON DELETE CASCADE
 );
 
-CREATE TABLE Reviews (
-  id_review int PRIMARY KEY AUTO_INCREMENT,
-  ISBN bigint NOT NULL REFERENCES Books,
-  author varchar(255) NOT NULL,
-  content varchar(255),
-  published date NOT NULL,
-  /* Constraint: If a book is deleted, also delete the book's related reviews */
-  FOREIGN KEY (ISBN)
-  REFERENCES Books(ISBN)
-    ON DELETE CASCADE
+CREATE TABLE Authors (
+  id int PRIMARY KEY AUTO_INCREMENT,
+  name varchar(255) NOT NULL
+);
+
+CREATE TABLE Genres (
+  id int PRIMARY KEY AUTO_INCREMENT,
+  name varchar(255) NOT NULL
 );
 
 CREATE TABLE Book_Authors (
-  ISBN bigint NOT NULL,
+  ISBN_book bigint NOT NULL,
   id_author int NOT NULL REFERENCES Authors,
-  /* Constraint: If a book is deleted, also delete book's related authors */
+  /* Constraint: If a book is deleted, also delete book's author connections */
   CONSTRAINT REFBOOK
-  FOREIGN KEY (ISBN)
+  FOREIGN KEY (ISBN_book)
   REFERENCES Books(ISBN)
     ON DELETE CASCADE
 );
 
-CREATE TABLE Book_Genre (
-  ISBN bigint NOT NULL REFERENCES Genre,
+CREATE TABLE Book_Genres (
+  ISBN_book bigint NOT NULL REFERENCES Genres,
   id_genre int NOT NULL,
-  /* Constraint: If a book is deleted, also delete the book's related genres */
-  FOREIGN KEY (ISBN)
+  /* Constraint: If a book is deleted, also delete the book's genre connections */
+  FOREIGN KEY (ISBN_BOOK)
   REFERENCES Books(ISBN)
     ON DELETE CASCADE
 );
