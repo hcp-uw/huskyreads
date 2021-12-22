@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useEffect } from 'react';
 import Switch from '@material-ui/core/Switch';
 import "./index.css";
 
