@@ -41,10 +41,15 @@ export default class Form extends React.Component {
    * user login/signup
    */
   handleError = (error) => {
-    const errorMessage = error.response.data;
-    this.setState({
-      errorMessage: errorMessage
-    });
+    if (error.response === undefined) {
+      this.setState({
+        errorMessage: "No connection to backend!"
+      });
+    } else {
+      this.setState({
+        errorMessage: error.response.data
+      });
+    }
   }
 
   /**
@@ -89,7 +94,6 @@ export default class Form extends React.Component {
   }
 
   handleSubmit = (event) => {
-
     // prevents the form from being refreshed when clicking submit button
     event.preventDefault();
     this.validate();
@@ -105,7 +109,7 @@ export default class Form extends React.Component {
             <Navbar/>
             <Switch>
               <Route path="/bookstand">
-                <BookStandPage/>
+                <BookStandPage username={this.state.username}/>
               </Route>
               <Route path="/settings">
                 <SettingsPage/>

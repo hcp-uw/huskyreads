@@ -1,11 +1,29 @@
 import './index.css';
 
-export default function BookCard({img, title, author}) {
+export default function BookCard({img, title, authors, isbn}) {
+  let authorText = "";
+  let image = "";
+  if (img === undefined) {
+    image = "/images/sample.png";
+  } else {
+    image = img;
+  }
+
+  if (authors === undefined || authors.length === 0) {
+    authorText = "Author Unknown";
+  } else {
+    for (let i = 0; i < authors.length; i++) {
+      authorText += authors[i] + ", ";
+    }
+
+    authorText = authorText.slice(0, authorText.length - 2);
+  }
+
   return (
-    <a className="book-list_card" href="/browse">
-      <img className="book-card_img" src={img} alt={title}/>
+    <a id={isbn} className="book-list_card" href="/">
+      <img className="book-card_img" src={image} alt={title}/>
       <h4 className="book-card_title">{title}</h4>
-      <p className="book-card_author">{author}</p>
+      <p className="book-card_author">{authorText}</p>
     </a>
   );
 }

@@ -55,7 +55,7 @@ export default function BookPage(isbn) {
     )
   } else {
     return(
-      <main>
+      <main id="bookpage-container">
         <section id="left-column">
           <img id="imagebox"></img>
           <div id="bookstand-selectors">
