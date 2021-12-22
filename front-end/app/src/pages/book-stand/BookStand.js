@@ -5,9 +5,9 @@ import "./index.css";
 
 export default function BookStandPage(props) {
   const [selected, setSelected] = useState("reading");
-  const [unselected, setUnselected] = useState(new Set("read", "want_to_read"));
+  const [saved, setSaved] = useState("");
+  const [unselected, setUnselected] = useState(["read", "want_to_read"]);
   const [booksDisplay, setDisplay] = useState([]);
-  const categories = ["reading", "read", "want_to_read"];
 
   let returnToLogin = false;
   let errorPage = false;
@@ -59,13 +59,10 @@ export default function BookStandPage(props) {
 
   useEffect(() => {
     // find unselected categories & add them to a Set
-    let set = new Set();
-    for (let i = 0; i < categories.length; i++) {
-      if (categories[i] !== selected) {
-        set.add(categories[i]);
-      }
-    }
-    setUnselected(set);
+    let index = unselected.indexOf(selected);
+    let newUnselected = unselected;
+    newUnselected[index] = saved;
+    setUnselected(newUnselected);
     getShelves();
   }, [selected]);
 
@@ -73,6 +70,7 @@ export default function BookStandPage(props) {
   if (returnToLogin) {
     // force reloads the page to bring user back to the login page
     window.location.reload();
+    return null;
   } else if (errorPage) {
     return <p>Error! Check console!</p>;
   } else {
@@ -83,8 +81,9 @@ export default function BookStandPage(props) {
         <section className="bookstand-buttons">
           {Array.from(unselected).map((str) => {
             return (
-              <div
+              <div key={str}
                 onClick={() => {
+                  setSaved(selected);
                   setSelected(str);
                 }}
               >
@@ -98,7 +97,7 @@ export default function BookStandPage(props) {
           <div className="bookstand-list">
             {
               booksDisplay.map(book => {
-                return <BookCard title={book.title} authors={book.authors} isbn={book.isbn} />
+                return <BookCard key={book.isbn} title={book.title} authors={book.authors} isbn={book.isbn} />
               })
             }
           </div>
