@@ -11,10 +11,12 @@
 
 .book-list_card:hover img {
   transform: scale(1.01);
+  cursor: pointer;
 }
 
 .book-list_card:hover h4, .book-list_card:hover p {
   opacity: 0.75;
+  cursor: pointer;
 }
 
 .book-card_img {

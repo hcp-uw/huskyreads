@@ -17,7 +17,7 @@ export default function BookCard({ img, title, authors, isbn }) {
   }
 
   return (
-    <a id={isbn} className="book-list_card" href="/">
+    <div id={isbn} className="book-list_card" href="/">
       <img
         ref={ref}
         className="book-card_img"
@@ -29,6 +29,6 @@ export default function BookCard({ img, title, authors, isbn }) {
       />
       <h4 className="book-card_title">{title}</h4>
       <p className="book-card_author">{authorText}</p>
-    </a>
+    </div>
   );
 }

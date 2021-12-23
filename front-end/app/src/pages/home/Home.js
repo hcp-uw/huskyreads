@@ -1,10 +1,18 @@
 import { useEffect, useState } from "react";
 import BookCard from "../../components/book-card/BookCard";
+import BookPage from "../book-page/BookPage";
 import "./index.css";
 const axios = require("axios");
 
 export default function HomePage() {
   const [browseData, setData] = useState();
+  const [selectedISBN, setISBN] = useState(1111111111);
+  const [openPage, setOpen] = useState(false);
+  let pageClass = "bookpage-modal ";
+
+  function toggleBookPage() {
+    setOpen(!openPage);
+  }
 
   useEffect(() => {
     async function getData() {
@@ -21,84 +29,83 @@ export default function HomePage() {
     getData();
   }, []);
 
+  if (!openPage) {
+    pageClass += "hidden";
+  }
+  console.log(pageClass)
+
   return (
     <div className="browse-container">
       {browseData !== undefined && (
         <div>
-          <Featured data={browseData} />
-          <Browse data={browseData} />
+          <Featured data={browseData} toggleOpen={toggleBookPage} selectedISBN={selectedISBN} setISBN={setISBN} />
+          <Browse data={browseData} toggleOpen={toggleBookPage} selectedISBN={selectedISBN} setISBN={setISBN} />
         </div>
       )}
+      <div className={pageClass}>
+        <BookPage isbn={selectedISBN} />
+      </div>
     </div>
   );
 }
 
 const Featured = ({ data }, ...props) => {
-  const books = [];
-
   let featured = data;
-  if (data) {
+  if (featured) {
     const shuffled = data.slice().sort(() => 0.2 - Math.random());
     featured = shuffled.slice(0, 3);
-  }
 
-  if (featured !== undefined) {
-    for (let i = 0; i < featured.length; i++) {
-      books.push(
-        <BookCard
-          title={featured[i].title}
-          img={
-            "https://covers.openlibrary.org/b/isbn/" +
-            featured[i].isbn +
-            "-M.jpg?default=false"
-          }
-          authors={featured[i].authors}
-          isbn={featured[i].isbn}
-          key={featured[i].isbn}
-        />
-      );
-    }
+    return (
+      <section className="homepage-featured">
+        <h3 style={{ fontSize: "1.38em" }}>Featured Books</h3>
+        <div className="browse_book-list">
+          {featured.map((book) => {
+            return (
+              <BookCard
+                title={book.title}
+                img={
+                  "https://covers.openlibrary.org/b/isbn/" +
+                  book.isbn +
+                  "-M.jpg?default=false"
+                }
+                authors={book.authors}
+                isbn={book.isbn}
+                key={book.isbn}
+
+                setISBN={props.setISBN}
+                selectedISBN={props.selectedISBN}
+              />
+            );
+          })}
+        </div>
+      </section>
+    );
   }
-  return (
-    <section className="homepage-featured">
-      <h3 style={{ fontSize: "1.38em" }}>Featured Books</h3>
-      <div className="browse_book-list">
-        {books.map((card) => {
-          return card;
-        })}
-      </div>
-    </section>
-  );
 };
 
-const Browse = ({ data, covers }, ...props) => {
-  const books = [];
-  if (data !== undefined) {
-    for (let i = 0; i < data.length; i++) {
-      books.push(
-        <BookCard
-          title={data[i].title}
-          img={
-            "https://covers.openlibrary.org/b/isbn/" +
-            data[i].isbn +
-            "-M.jpg?default=false"
-          }
-          authors={data[i].authors}
-          isbn={data[i].isbn}
-          key={data[i].isbn}
-        />
-      );
-    }
+const Browse = ({ data }, ...props) => {
+  if (data) {
+    return (
+      <section className="homepage-browse">
+        <h3 style={{ fontSize: "1.38em" }}>Browse</h3>
+        <div className="browse_book-list">
+          {data.map(book => {
+            return (
+              <BookCard
+                title={book.title}
+                img={
+                  "https://covers.openlibrary.org/b/isbn/" +
+                  book.isbn +
+                  "-M.jpg?default=false"
+                }
+                authors={book.authors}
+                isbn={book.isbn}
+                key={book.isbn}
+              />
+            );
+          })}
+        </div>
+      </section>
+    );
   }
-
-  return (
-    <section className="homepage-browse">
-      <h3 style={{ fontSize: "1.38em" }}>Browse</h3>
-      <div className="browse_book-list">
-        {books.map((card) => {
-          return card;
-        })}
-      </div>
-    </section>
-  );
 };
