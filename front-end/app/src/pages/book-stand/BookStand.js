@@ -80,7 +80,8 @@ export default function BookStandPage(props) {
         <section className="bookstand-buttons">
           {Array.from(unselected).map((str) => {
             return (
-              <div key={str}
+              <div
+                key={str}
                 onClick={() => {
                   setSaved(selected);
                   setSelected(str);
@@ -92,13 +93,23 @@ export default function BookStandPage(props) {
           })}
         </section>
         <section className="bookstand-selected-cat">
-          <h3 style={{fontSize: "1.38em"}}>{labels[selected]}</h3>
+          <h3 style={{ fontSize: "1.38em" }}>{labels[selected]}</h3>
           <div className="bookstand-list">
-            {
-              booksDisplay.map(book => {
-                return <BookCard key={book.isbn} title={book.title} authors={book.authors} isbn={book.isbn} />
-              })
-            }
+            {booksDisplay.map((book) => {
+              return (
+                <BookCard
+                  key={book.isbn}
+                  img={
+                    "https://covers.openlibrary.org/b/isbn/" +
+                    book.isbn +
+                    "-M.jpg?default=false"
+                  }
+                  title={book.title}
+                  authors={book.authors}
+                  isbn={book.isbn}
+                />
+              );
+            })}
           </div>
         </section>
       </div>
