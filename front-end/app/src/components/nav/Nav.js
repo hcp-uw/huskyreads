@@ -50,7 +50,6 @@ export function ModalNav(props) {
 
   if (!props.modalOpen) {
     modalClass = modalClass + "hidden";
-    console.log(modalClass);
   }
 
   return (

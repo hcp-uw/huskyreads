@@ -19,7 +19,7 @@
   display: flex;
   flex-wrap: wrap;
   align-items: flex-start;
-  margin-left: -30px;
+  margin: 0 -30px;
 }
 
 .browse_book-list::-webkit-scrollbar {

@@ -5,6 +5,7 @@ const axios = require("axios");
 
 export default function HomePage() {
   const [browseData, setData] = useState();
+
   useEffect(() => {
     async function getData() {
       await axios
@@ -35,8 +36,6 @@ export default function HomePage() {
 const Featured = ({ data }, ...props) => {
   const books = [];
 
-  console.log(data);
-
   let featured = data;
   if (data) {
     const shuffled = data.slice().sort(() => 0.2 - Math.random());
@@ -45,30 +44,24 @@ const Featured = ({ data }, ...props) => {
 
   if (featured !== undefined) {
     for (let i = 0; i < featured.length; i++) {
-      if (featured[i].cover) {
-        books.push(
-          <BookCard
-            title={featured[i].title}
-            img={featured[i].cover}
-            authors={featured[i].authors}
-            isbn={featured[i].isbn}
-          />
-        );
-      } else {
-        books.push(
-          <BookCard
-            title={featured[i].title}
-            img="images/default-cover.png"
-            authors={featured[i].authors}
-            isbn={featured[i].isbn}
-          />
-        );
-      }
+      books.push(
+        <BookCard
+          title={featured[i].title}
+          img={
+            "https://covers.openlibrary.org/b/isbn/" +
+            featured[i].isbn +
+            "-M.jpg?default=false"
+          }
+          authors={featured[i].authors}
+          isbn={featured[i].isbn}
+          key={featured[i].isbn}
+        />
+      );
     }
   }
   return (
     <section className="homepage-featured">
-      <h3 style={{fontSize: "1.38em"}}>Featured Books</h3>
+      <h3 style={{ fontSize: "1.38em" }}>Featured Books</h3>
       <div className="browse_book-list">
         {books.map((card) => {
           return card;
@@ -78,35 +71,29 @@ const Featured = ({ data }, ...props) => {
   );
 };
 
-const Browse = ({ data }, ...props) => {
+const Browse = ({ data, covers }, ...props) => {
   const books = [];
   if (data !== undefined) {
     for (let i = 0; i < data.length; i++) {
-      if (data[i].cover) {
-        books.push(
-          <BookCard
-            title={data[i].title}
-            img={data[i].cover}
-            authors={data[i].authors}
-            isbn={data[i].isbn}
-          />
-        );
-      } else {
-        books.push(
-          <BookCard
-            title={data[i].title}
-            img="images/default-cover.png"
-            authors={data[i].authors}
-            isbn={data[i].isbn}
-          />
-        );
-      }
+      books.push(
+        <BookCard
+          title={data[i].title}
+          img={
+            "https://covers.openlibrary.org/b/isbn/" +
+            data[i].isbn +
+            "-M.jpg?default=false"
+          }
+          authors={data[i].authors}
+          isbn={data[i].isbn}
+          key={data[i].isbn}
+        />
+      );
     }
   }
 
   return (
     <section className="homepage-browse">
-      <h3 style={{fontSize: "1.38em"}}>Browse</h3>
+      <h3 style={{ fontSize: "1.38em" }}>Browse</h3>
       <div className="browse_book-list">
         {books.map((card) => {
           return card;

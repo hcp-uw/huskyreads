@@ -1,17 +1,13 @@
-import './index.css';
+import "./index.css";
+import { useRef } from "react";
 
-export default function BookCard({img, title, authors, isbn}) {
+export default function BookCard({ img, title, authors, isbn }) {
   let authorText = "";
-  let image = "";
-  if (img === undefined) {
-    image = "/images/default-cover.png";
-  } else {
-    image = img;
-  }
+  let ref = useRef(null);
 
   if (authors === undefined || authors.length === 0) {
     authorText = "Author Unknown";
-  } else if (typeof(authors) == "string") {
+  } else if (typeof authors == "string") {
     authorText = authors;
   } else {
     for (let i = 0; i < authors.length; i++) {
@@ -22,7 +18,15 @@ export default function BookCard({img, title, authors, isbn}) {
 
   return (
     <a id={isbn} className="book-list_card" href="/">
-      <img className="book-card_img" src={image} alt={title}/>
+      <img
+        ref={ref}
+        className="book-card_img"
+        src={img}
+        onError={() => {
+          ref.current.src = "images/default-cover.png";
+        }}
+        alt={title}
+      />
       <h4 className="book-card_title">{title}</h4>
       <p className="book-card_author">{authorText}</p>
     </a>
