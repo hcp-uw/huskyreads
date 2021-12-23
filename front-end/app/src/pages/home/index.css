@@ -1,6 +1,7 @@
 .browse-container {
-  max-width: 1230px;
+  max-width: 1280px;
   margin: 1.2em auto;
+  padding: 0 1.5em;
 }
 
 .homepage-featured .browse_book-list {

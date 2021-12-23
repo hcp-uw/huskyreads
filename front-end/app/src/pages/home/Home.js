@@ -68,7 +68,7 @@ const Featured = ({ data }, ...props) => {
   }
   return (
     <section className="homepage-featured">
-      <h2>Featured Books</h2>
+      <h3 style={{fontSize: "1.38em"}}>Featured Books</h3>
       <div className="browse_book-list">
         {books.map((card) => {
           return card;
@@ -106,7 +106,7 @@ const Browse = ({ data }, ...props) => {
 
   return (
     <section className="homepage-browse">
-      <h2>Browse</h2>
+      <h3 style={{fontSize: "1.38em"}}>Browse</h3>
       <div className="browse_book-list">
         {books.map((card) => {
           return card;
