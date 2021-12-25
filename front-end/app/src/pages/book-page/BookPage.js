@@ -69,7 +69,7 @@ export default function BookPage({ isbn }) {
           </div>
         </section>
         <section id="right-column">
-          <h1>Title: {book.title !== undefined && book.title}</h1>
+          <h1>{book.title !== undefined && book.title}</h1>
           {/* TODO: Test the preliminary code below! */}
           <hr />
           <p>
