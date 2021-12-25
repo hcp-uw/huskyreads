@@ -1,3 +1,5 @@
 body {
   font-family: 'Manrope', 'Inter', sans-serif;
+  max-width: 2000px;
+  margin: 18px auto;
 }
