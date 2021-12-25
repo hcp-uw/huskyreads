@@ -32,14 +32,15 @@ export default function HomePage() {
   if (!openPage) {
     pageClass += "hidden";
   }
-  console.log(toggleOpen)
+
+  console.log(selectedISBN)
 
   return (
     <div className="browse-container">
       {browseData !== undefined && (
         <div>
-          <Featured data={browseData} toggleOpen={toggleOpen} selectedISBN={selectedISBN} setISBN={setISBN} />
-          <Browse data={browseData} toggleOpen={toggleOpen} selectedISBN={selectedISBN} setISBN={setISBN} />
+          <Featured data={browseData} toggleOpen={toggleOpen} setISBN={setISBN} />
+          <Browse data={browseData} toggleOpen={toggleOpen} setISBN={setISBN} />
         </div>
       )}
       <div className={pageClass}>
@@ -49,7 +50,7 @@ export default function HomePage() {
   );
 }
 
-const Featured = ({ data, toggleOpen, selectedISBN, setISBN }) => {
+const Featured = ({ data, toggleOpen, setISBN }) => {
   let featured = data;
   if (featured) {
     const shuffled = data.slice().sort(() => 0.2 - Math.random());
@@ -73,7 +74,6 @@ const Featured = ({ data, toggleOpen, selectedISBN, setISBN }) => {
                 key={book.isbn}
                 toggleOpen={toggleOpen}
                 setISBN={setISBN}
-                selectedISBN={selectedISBN}
               />
             );
           })}
@@ -83,7 +83,7 @@ const Featured = ({ data, toggleOpen, selectedISBN, setISBN }) => {
   }
 };
 
-const Browse = ({ data, toggleOpen, selectedISBN, setISBN }) => {
+const Browse = ({ data, toggleOpen, setISBN }) => {
   if (data) {
     return (
       <section className="homepage-browse">
@@ -103,7 +103,6 @@ const Browse = ({ data, toggleOpen, selectedISBN, setISBN }) => {
                 key={book.isbn}
                 toggleOpen={toggleOpen}
                 setISBN={setISBN}
-                selectedISBN={selectedISBN}
               />
             );
           })}

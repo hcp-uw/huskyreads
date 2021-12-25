@@ -1,7 +1,7 @@
 import "./index.css";
 import { useRef } from "react";
 
-export default function BookCard({ img, title, authors, isbn, toggleOpen, selectedISBN, setISBN }, ...props) {
+export default function BookCard({ img, title, authors, isbn, toggleOpen, setISBN }) {
   let authorText = "";
   let ref = useRef(null);
 
@@ -16,10 +16,8 @@ export default function BookCard({ img, title, authors, isbn, toggleOpen, select
     authorText = authorText.slice(0, authorText.length - 2);
   }
 
-  console.log(toggleOpen)
-
   return (
-    <div id={isbn} className="book-list_card" href="/" onClick={() => {toggleOpen()}}>
+    <div id={isbn} className="book-list_card" href="/" onClick={() => {toggleOpen(); setISBN(isbn);}}>
       <img
         ref={ref}
         className="book-card_img"

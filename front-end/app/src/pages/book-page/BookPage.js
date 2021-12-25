@@ -1,14 +1,15 @@
 import "./style.css";
 import axios from 'axios';
 import React, {useState, useEffect} from 'react';
-import Form from '../login/Form';
 
-export default function BookPage(isbn) {
+export default function BookPage({ isbn }) {
 
-  const URL = "localhost:";
+  const URL = "http://localhost:";
   const PORT = 8000;
   // expecting this base URL to change btw!!
-  let errorPage = false;
+  const [errorPage, setErrorPage] = useState(false);
+
+  console.log("ISBN: " + isbn)
 
   // I instantiated the object initially to withstand any potential errors
   // that could be thrown.
@@ -16,30 +17,31 @@ export default function BookPage(isbn) {
     title: "",
     authors: [],
     genres: [],
-    datePublished: "",
+    date_published: "",
     description: "",
   });
 
   // calls the the book constructor
-  async function axiosCall() {
-    const GET_BOOK = "/books/detail/";
-    try {
-      if (isbn === undefined || isbn.isNaN()) {
-        errorPage = true;
-      } else {
-        let fetchURL = URL + PORT + GET_BOOK + isbn;
-        let bookData = await axios.get(fetchURL);
-        setBook(bookData.data);
-      }
-    } catch (err) {
-      console.log(err);
-      errorPage = true;
-    }
-  }
 
   useEffect(() => {
+    async function axiosCall() {
+      const GET_BOOK = "/books/detail/";
+      try {
+        if (isbn === undefined) {
+          setErrorPage(true);
+        } else {
+          let fetchURL = URL + PORT + GET_BOOK + isbn;
+          let bookData = await axios.get(fetchURL);
+          setBook(bookData.data);
+        }
+      } catch (err) {
+        console.log(err);
+        setErrorPage(true);
+      }
+    }
+
     axiosCall();
-  }, []);
+  }, [isbn]);
 
 
   async function statusCheck(res) {
@@ -48,6 +50,8 @@ export default function BookPage(isbn) {
     }
     return res;
   }
+
+  console.log(book);
 
   if (errorPage) {
     return (
@@ -98,8 +102,8 @@ export default function BookPage(isbn) {
               })
             }
           </p>
-          <p><strong>Date Published:</strong>
-            {book.datePublished !== undefined && book.datePublished}</p>
+          <p><strong>Date Published: </strong>
+            {book.date_published !== undefined && book.date_published.slice(0, 10)}</p>
           <p><strong>Description:</strong></p>
           <p>{book.description !== undefined && book.description}</p>
         </section>
