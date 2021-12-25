@@ -9,8 +9,6 @@ export default function BookPage({ isbn }) {
   // expecting this base URL to change btw!!
   const [errorPage, setErrorPage] = useState(false);
 
-  console.log("ISBN: " + isbn)
-
   // I instantiated the object initially to withstand any potential errors
   // that could be thrown.
   const [book, setBook] = useState({
@@ -51,15 +49,13 @@ export default function BookPage({ isbn }) {
     return res;
   }
 
-  console.log(book);
-
   if (errorPage) {
     return (
       <p>Error! Check console!</p>
     )
   } else {
     return(
-      <main id="bookpage-container">
+      <>
         <section id="left-column">
           <img id="imagebox"></img>
           <div id="bookstand-selectors">
@@ -107,7 +103,7 @@ export default function BookPage({ isbn }) {
           <p><strong>Description:</strong></p>
           <p>{book.description !== undefined && book.description}</p>
         </section>
-      </main>
+      </>
     );
   }
 }

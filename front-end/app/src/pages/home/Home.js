@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import BookCard from "../../components/book-card/BookCard";
 import BookPage from "../book-page/BookPage";
 import "./index.css";
@@ -8,11 +8,17 @@ export default function HomePage() {
   const [browseData, setData] = useState();
   const [selectedISBN, setISBN] = useState(1111111111);
   const [openPage, setOpen] = useState(false);
-  let pageClass = "bookpage-modal ";
-
-  const toggleOpen = () => {
+  const handleClick = useCallback((isbn) => {
     setOpen(!openPage);
+    setISBN(isbn);
+  }, [openPage])
+  const createFeatured = (data) => {
+    const shuffled = data.slice().sort(() => 0.2 - Math.random());
+    return shuffled.slice(0, 3);
   }
+
+  let pageClass = "browse-bookpage-modal ";
+  let bgClass = "browse-bookpage-bg ";
 
   useEffect(() => {
     async function getData() {
@@ -31,18 +37,20 @@ export default function HomePage() {
 
   if (!openPage) {
     pageClass += "hidden";
+    bgClass += "hidden";
   }
 
-  console.log(selectedISBN)
+  console.log("main")
 
   return (
     <div className="browse-container">
       {browseData !== undefined && (
         <div>
-          <Featured data={browseData} toggleOpen={toggleOpen} setISBN={setISBN} />
-          <Browse data={browseData} toggleOpen={toggleOpen} setISBN={setISBN} />
+          <Featured featured={createFeatured(browseData)} handleClick={handleClick} />
+          <Browse data={browseData} handleClick={handleClick} />
         </div>
       )}
+      <div className={bgClass} onClick={() => {setOpen(false)}}></div>
       <div className={pageClass}>
         <BookPage isbn={selectedISBN} />
       </div>
@@ -50,40 +58,36 @@ export default function HomePage() {
   );
 }
 
-const Featured = ({ data, toggleOpen, setISBN }) => {
-  let featured = data;
-  if (featured) {
-    const shuffled = data.slice().sort(() => 0.2 - Math.random());
-    featured = shuffled.slice(0, 3);
+const Featured = ({ featured, handleClick }) => {
+  console.log("hi")
 
-    return (
-      <section className="homepage-featured">
-        <h3 style={{ fontSize: "1.38em" }}>Featured Books</h3>
-        <div className="browse_book-list">
-          {featured.map((book) => {
-            return (
-              <BookCard
-                title={book.title}
-                img={
-                  "https://covers.openlibrary.org/b/isbn/" +
-                  book.isbn +
-                  "-M.jpg?default=false"
-                }
-                authors={book.authors}
-                isbn={book.isbn}
-                key={book.isbn}
-                toggleOpen={toggleOpen}
-                setISBN={setISBN}
-              />
-            );
-          })}
-        </div>
-      </section>
-    );
-  }
+  return (
+    <section className="homepage-featured">
+      <h3 style={{ fontSize: "1.38em" }}>Featured Books</h3>
+      <div className="browse_book-list">
+        {featured.map((book) => {
+          return (
+            <BookCard
+              title={book.title}
+              img={
+                "https://covers.openlibrary.org/b/isbn/" +
+                book.isbn +
+                "-M.jpg?default=false"
+              }
+              authors={book.authors}
+              isbn={book.isbn}
+              key={book.isbn}
+              handleClick={handleClick}
+            />
+          );
+        })}
+      </div>
+    </section>
+  );
 };
 
-const Browse = ({ data, toggleOpen, setISBN }) => {
+const Browse = ({ data, handleClick }) => {
+  console.log("browse")
   if (data) {
     return (
       <section className="homepage-browse">
@@ -101,8 +105,7 @@ const Browse = ({ data, toggleOpen, setISBN }) => {
                 authors={book.authors}
                 isbn={book.isbn}
                 key={book.isbn}
-                toggleOpen={toggleOpen}
-                setISBN={setISBN}
+                handleClick={handleClick}
               />
             );
           })}
