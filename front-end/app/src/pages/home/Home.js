@@ -10,7 +10,7 @@ export default function HomePage() {
   const [openPage, setOpen] = useState(false);
   let pageClass = "bookpage-modal ";
 
-  function toggleBookPage() {
+  const toggleOpen = () => {
     setOpen(!openPage);
   }
 
@@ -32,14 +32,14 @@ export default function HomePage() {
   if (!openPage) {
     pageClass += "hidden";
   }
-  console.log(pageClass)
+  console.log(toggleOpen)
 
   return (
     <div className="browse-container">
       {browseData !== undefined && (
         <div>
-          <Featured data={browseData} toggleOpen={toggleBookPage} selectedISBN={selectedISBN} setISBN={setISBN} />
-          <Browse data={browseData} toggleOpen={toggleBookPage} selectedISBN={selectedISBN} setISBN={setISBN} />
+          <Featured data={browseData} toggleOpen={toggleOpen} selectedISBN={selectedISBN} setISBN={setISBN} />
+          <Browse data={browseData} toggleOpen={toggleOpen} selectedISBN={selectedISBN} setISBN={setISBN} />
         </div>
       )}
       <div className={pageClass}>
@@ -49,7 +49,7 @@ export default function HomePage() {
   );
 }
 
-const Featured = ({ data }, ...props) => {
+const Featured = ({ data, toggleOpen, selectedISBN, setISBN }) => {
   let featured = data;
   if (featured) {
     const shuffled = data.slice().sort(() => 0.2 - Math.random());
@@ -71,9 +71,9 @@ const Featured = ({ data }, ...props) => {
                 authors={book.authors}
                 isbn={book.isbn}
                 key={book.isbn}
-                toggleOpen={props.toggleOpen}
-                setISBN={props.setISBN}
-                selectedISBN={props.selectedISBN}
+                toggleOpen={toggleOpen}
+                setISBN={setISBN}
+                selectedISBN={selectedISBN}
               />
             );
           })}
@@ -83,7 +83,7 @@ const Featured = ({ data }, ...props) => {
   }
 };
 
-const Browse = ({ data }, ...props) => {
+const Browse = ({ data, toggleOpen, selectedISBN, setISBN }) => {
   if (data) {
     return (
       <section className="homepage-browse">
@@ -101,9 +101,9 @@ const Browse = ({ data }, ...props) => {
                 authors={book.authors}
                 isbn={book.isbn}
                 key={book.isbn}
-                toggleOpen={props.toggleOpen}
-                setISBN={props.setISBN}
-                selectedISBN={props.selectedISBN}
+                toggleOpen={toggleOpen}
+                setISBN={setISBN}
+                selectedISBN={selectedISBN}
               />
             );
           })}
