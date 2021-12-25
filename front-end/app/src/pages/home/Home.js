@@ -71,7 +71,7 @@ const Featured = ({ data }, ...props) => {
                 authors={book.authors}
                 isbn={book.isbn}
                 key={book.isbn}
-
+                toggleOpen={props.toggleOpen}
                 setISBN={props.setISBN}
                 selectedISBN={props.selectedISBN}
               />
@@ -101,6 +101,9 @@ const Browse = ({ data }, ...props) => {
                 authors={book.authors}
                 isbn={book.isbn}
                 key={book.isbn}
+                toggleOpen={props.toggleOpen}
+                setISBN={props.setISBN}
+                selectedISBN={props.selectedISBN}
               />
             );
           })}
