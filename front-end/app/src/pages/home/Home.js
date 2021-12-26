@@ -109,5 +109,7 @@ const Browse = ({ data, handleClick }) => {
         </div>
       </section>
     );
+  } else {
+    return <div></div>
   }
 };
