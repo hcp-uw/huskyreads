@@ -1,12 +1,13 @@
 import "./style.css";
 import axios from "axios";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 export default function BookPage({ isbn, openPage, setBgClass, setPageClass }) {
   const URL = "http://localhost:";
   const PORT = 8000;
   // expecting this base URL to change btw!!
   const [errorPage, setErrorPage] = useState(false);
+  let ref = useRef(null);
 
   // I instantiated the object initially to withstand any potential errors
   // that could be thrown.
@@ -56,12 +57,12 @@ export default function BookPage({ isbn, openPage, setBgClass, setPageClass }) {
     }
   }, [openPage]);
 
-  async function statusCheck(res) {
-    if (!res.ok) {
-      throw new Error(await res.statusText);
-    }
-    return res;
-  }
+  // async function statusCheck(res) {
+  //   if (!res.ok) {
+  //     throw new Error(await res.statusText);
+  //   }
+  //   return res;
+  // }
 
   if (errorPage) {
     return <p>Error! Check console!</p>;
@@ -69,7 +70,19 @@ export default function BookPage({ isbn, openPage, setBgClass, setPageClass }) {
     return (
       <>
         <section id="left-column">
-          <img id="imagebox"></img>
+          <img
+            ref={ref}
+            id="imagebox"
+            src={
+              "https://covers.openlibrary.org/b/isbn/" +
+              isbn +
+              "-L.jpg?default=false"
+            }
+            alt="book cover"
+            onError={() => {
+              ref.current.src = "images/default-cover.png";
+            }}
+          ></img>
           <div id="bookstand-selectors">
             <select id="selector">
               <option className="opt">Choose Shelf</option>

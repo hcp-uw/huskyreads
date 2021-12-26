@@ -4,11 +4,15 @@
   padding: 0 1.5em;
 }
 
-.homepage-featured .browse_book-list {
+.browse_book-list {
   display: flex;
+  align-items: flex-start;
+  margin: 0 -30px;
+}
+
+.homepage-featured .browse_book-list {
   flex-wrap: nowrap;
   overflow-x: auto;
-  align-items: flex-start;
 }
 
 .homepage-featured .browse_book-list a:first-child {
@@ -16,10 +20,7 @@
 }
 
 .homepage-browse .browse_book-list {
-  display: flex;
   flex-wrap: wrap;
-  align-items: flex-start;
-  margin: 0 -30px;
 }
 
 .browse_book-list::-webkit-scrollbar {
@@ -32,9 +33,9 @@
   flex-direction: row;
   width: 72%;
   padding: 48px 52px;
-  top: 8%;
+  top: 50%;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translateX(-50%) translateY(-50%);
   background-color: #fff;
   border-radius: 20px;
   z-index: 999;

@@ -17,7 +17,7 @@ export default function BookCard({ img, title, authors, isbn, handleClick }) {
   }
 
   return (
-    <div className="book-list_card" href="/" onClick={(e) => {handleClick(isbn)}}>
+    <div className="book-list_card" href="/" onClick={() => {handleClick(isbn)}}>
       <img
         ref={ref}
         className="book-card_img"
@@ -25,7 +25,7 @@ export default function BookCard({ img, title, authors, isbn, handleClick }) {
         onError={() => {
           ref.current.src = "images/default-cover.png";
         }}
-        alt={title}
+        alt={title + " cover"}
       />
       <h4 className="book-card_title">{title}</h4>
       <p className="book-card_author">{authorText}</p>
