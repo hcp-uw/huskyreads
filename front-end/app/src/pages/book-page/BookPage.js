@@ -91,7 +91,7 @@ export default function BookPage({ isbn, openPage, setBgClass, setPageClass }) {
               // odd code, untested, praying it somewhat works
               book.authors.map((author) => {
                 if (author !== book.authors[book.authors.length - 1]) {
-                  return `${author},`;
+                  return `${author}, `;
                 }
                 return author;
               })
@@ -104,7 +104,7 @@ export default function BookPage({ isbn, openPage, setBgClass, setPageClass }) {
               // odd code, untested, praying it somewhat works
               book.genres.map((genre) => {
                 if (genre !== book.genres[book.genres.length - 1]) {
-                  return `${genre},`;
+                  return `${genre}, `;
                 }
                 return genre;
               })
