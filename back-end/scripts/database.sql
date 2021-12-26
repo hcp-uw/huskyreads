@@ -4,7 +4,9 @@
 **/
 
 /* Clears old tables */
-DROP TABLE IF EXISTS Users, Books, Reviews, Bookshelves, Bookshelf_Books, Authors, Genres, Book_Authors, Book_Genres;
+DROP TABLE IF EXISTS
+Users, Books, Reviews, Bookshelves, Bookshelf_Books, Authors, Genres, Book_Authors, Book_Genres
+;
 
 
 /* Creates our SQL Database */
@@ -39,7 +41,10 @@ CREATE TABLE Reviews (
     ON DELETE CASCADE
 );
 
-/* Default: Per user, insert read, reading, want_to_read as three separate bookshelves into this table */
+/* Default per user, insert:
+ * read, reading, want_to_read
+ * as three separate bookshelves into this table
+ */
 CREATE TABLE Bookshelves (
     id int PRIMARY KEY AUTO_INCREMENT,
     id_user int NOT NULL,
@@ -79,7 +84,7 @@ CREATE TABLE Genres (
 
 CREATE TABLE Book_Authors (
   ISBN_book bigint NOT NULL,
-  id_author int NOT NULL REFERENCES Authors,
+  id_author int NOT NULL REFERENCES Authors(id),
   /* Constraint: If a book is deleted, also delete book's author connections */
   CONSTRAINT REFBOOK
   FOREIGN KEY (ISBN_book)
@@ -88,8 +93,8 @@ CREATE TABLE Book_Authors (
 );
 
 CREATE TABLE Book_Genres (
-  ISBN_book bigint NOT NULL REFERENCES Genres,
-  id_genre int NOT NULL,
+  ISBN_book bigint NOT NULL,
+  id_genre int NOT NULL REFERENCES Genres(id),
   /* Constraint: If a book is deleted, also delete the book's genre connections */
   FOREIGN KEY (ISBN_BOOK)
   REFERENCES Books(ISBN)
@@ -190,7 +195,8 @@ INSERT INTO Book_Genres (ISBN_book, id_genre) VALUES
 ;
 
 /* RUN DELETE STATEMENTS SEPARATELY IF DOING TESTING */
-/* Testing Code For Deletion: Should delete the user in table User and its affiliated bookshelf and books */
+/* Testing Code For Deletion (Cascade test) */
+/* Should delete the user in table User and its affiliated bookshelf and books */
 -- DELETE FROM Users WHERE username = "frank";
 -- DELETE FROM Users WHERE username = "elliot";
 
