@@ -23,7 +23,8 @@
   margin-bottom: 12px;
   height: 200px;
   max-width: 145px;
-  object-fit: contain;
+  object-fit: cover;
+  border: solid 1px rgb(220, 220, 220);
 }
 
 .book-card_title, .book-card_author {

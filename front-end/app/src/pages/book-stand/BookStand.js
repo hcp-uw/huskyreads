@@ -9,7 +9,7 @@ export default function BookStandPage(props) {
   const [saved, setSaved] = useState("");
   const [unselected, setUnselected] = useState(["read", "want_to_read"]);
   const [booksDisplay, setDisplay] = useState([]);
-  const [selectedISBN, setISBN] = useState(1111111111);
+  const [selectedISBN, setISBN] = useState();
   const [openPage, setOpen] = useState(false);
   const [pageClass, setPageClass] = useState("browse-bookpage-modal ");
   const [bgClass, setBgClass] = useState("browse-bookpage-bg ");
