@@ -29,10 +29,8 @@
     max-height: 560px;
     margin-bottom: 30px;
     border: solid 2px rgb(220, 220, 220);
-    outline: none;
     border-radius: 18px;
     object-fit: cover;
-    /* background-color: rgb(221, 221, 221); */
 }
 
 #selector {
