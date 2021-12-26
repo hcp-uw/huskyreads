@@ -56,18 +56,6 @@ export default function BookPage({ isbn, openPage, setBgClass, setPageClass }) {
     }
   }, [openPage]);
 
-  // if (!openPage) {
-  //   setPageClass("browse-bookpage-modal hidden");
-  //   setBgClass("browse-bookpage-bg hidden");
-  // } else {
-  //   let timerID = setTimeout(() => {
-  //     setPageClass("browse-bookpage-modal");
-  //     setBgClass("browse-bookpage-bg");
-  //   }, 500);
-  //   clearTimeout(timerID);
-
-  // }
-
   async function statusCheck(res) {
     if (!res.ok) {
       throw new Error(await res.statusText);
