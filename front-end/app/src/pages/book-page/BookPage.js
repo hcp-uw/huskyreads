@@ -90,7 +90,7 @@ export default function BookPage({ isbn, openPage, setBgClass, setPageClass }) {
               <option className="opt">Currently Reading</option>
               <option className="opt">Finished</option>
             </select>
-            <button id="add-button">ADD TO BOOKSTAND</button>
+            <button id="add-button">ADD TO SHELF</button>
           </div>
         </section>
         <section id="right-column">
