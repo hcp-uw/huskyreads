@@ -121,10 +121,15 @@ export default function BookStandPage(props) {
               );
             })}
           </div>
-
           <div className={bgClass} onClick={() => {setOpen(false)}}></div>
           <div className={pageClass}>
-            <BookPage isbn={selectedISBN} openPage={openPage} setPageClass={setPageClass} setBgClass={setBgClass}/>
+            <BookPage
+              isbn={selectedISBN}
+              openPage={openPage}
+              setPageClass={setPageClass}
+              setBgClass={setBgClass}
+              username={props.username}
+            />
           </div>
         </section>
       </div>

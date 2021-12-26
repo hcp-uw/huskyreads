@@ -117,15 +117,9 @@ export default class Form extends React.Component {
               <Route path="/about">
                 <AboutPage/>
               </Route>
-
               <Route exact path="/">
-                <HomePage/>
+                <HomePage username={this.state.username}/>
               </Route>
-              {/* remove lines 32-34 later
-              <Route path="/book-page">
-                <BookPage/>
-              </Route>
-              */}
             </Switch>
           </Router>
         </>

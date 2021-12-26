@@ -2,9 +2,9 @@ import { useCallback, useEffect, useState } from "react";
 import BookCard from "../../components/book-card/BookCard";
 import BookPage from "../book-page/BookPage";
 import "./index.css";
-const axios = require("axios");
+import axios from "axios";
 
-export default function HomePage() {
+export default function HomePage(props) {
   const [browseData, setData] = useState();
   const [selectedISBN, setISBN] = useState(1111111111);
   const [openPage, setOpen] = useState(false);
@@ -48,7 +48,12 @@ export default function HomePage() {
       )}
       <div className={bgClass} onClick={() => {setOpen(false)}}></div>
       <div className={pageClass}>
-        <BookPage isbn={selectedISBN} openPage={openPage} setPageClass={setPageClass} setBgClass={setBgClass}/>
+        <BookPage
+          isbn={selectedISBN}
+          openPage={openPage}
+          setPageClass={setPageClass}
+          setBgClass={setBgClass}
+          username={props.username}/>
       </div>
     </div>
   );
