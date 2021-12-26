@@ -4,22 +4,26 @@
 
 /* Code marked in [] indicates use of parameters */
 
+
+-- TESTED
 /* Login Endpoint */
 /* Parameters: Username, Password */
 /* If empty, then login failed, otherwise login success + output color scheme*/
-SELECT Users.color_scheme AS color_scheme
+SELECT Users.id AS id, Users.color_scheme AS color_scheme
 FROM Users
 WHERE Users.username = [Username]
 AND Users.password = [Password]
 ;
 
 
+-- TESTED
 /* Create new user */
 /* Parameters: Username, Password */
 /* Try-Catch this since username needs to be unique! (User.username is a unique field) */
 INSERT INTO Users (username, password) VALUES ([Username], [Password]);
 
 
+-- TESTED
 /* Updates User Color Schema */
 /* Parameters: Username, ColorScheme */
 UPDATE Users
@@ -30,17 +34,13 @@ WHERE username = [Username]
 
 /* Accessing User Bookshelves */
 /* Valid Bookshelf Names: "reading", "read", "want_to_read" */
-/* Parameters: Username, BookshelfName */
-SELECT id   /* We want use this in the Shelves query */
-FROM Users
-WHERE Users.username = [Username]
-;
+/* Parameters: User_id, Username, BookshelfName */
 CREATE TEMPORARY TABLE Shelves
     SELECT Bookshelf.ISBN AS ISBN, Bookshelf.shelf_name AS name
     FROM Bookshelf
     INNER JOIN Users
         ON Users.id = Bookshelf.id_user
-    WHERE Bookshelf.shelf_name = [BookshelfName] AND Users.id = [id]
+    WHERE Bookshelf.shelf_name = [BookshelfName] AND Users.id = [User_id]
 ;
 CREATE TEMPORARY TABLE Book_Data
 	SELECT Shelves.name AS shelfname, Books.title AS title, Books.ISBN AS ISBN
@@ -65,22 +65,14 @@ GROUP BY Book_Data.shelfname, Book_Data.title, Book_Data.ISBN
 
 
 /* Add Book to Bookshelf */
-/* Parameters: Username, Bookshelf, ISBN */
-SELECT id
-FROM Users
-WHERE Users.username = [Username]
-;
-INSERT INTO Bookshelf VALUES ([id], [ISBN], [Bookshelf]);
+/* Parameters: User_id, Bookshelf, ISBN */
+INSERT INTO Bookshelf VALUES ([User_id], [ISBN], [Bookshelf]);
 
 
 /* Remove Book from Bookshelf */
-/* Parameters: Username, Bookshelf, ISBN */
-SELECT id
-FROM Users
-WHERE Users.username = [Username]
-;
+/* Parameters: User_id, Bookshelf, ISBN */
 DELETE FROM Bookshelf
-WHERE id_user = [id]
+WHERE id_user = [User_id]
 AND ISBN = [ISBN]
 AND shelf_name = [Bookshelf]
 ;
