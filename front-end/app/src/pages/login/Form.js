@@ -118,7 +118,7 @@ export default class Form extends React.Component {
                 <AboutPage/>
               </Route>
 
-              <Route path="/browse">
+              <Route exact path="/">
                 <HomePage/>
               </Route>
               {/* remove lines 32-34 later

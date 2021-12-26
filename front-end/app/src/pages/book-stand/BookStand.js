@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import BookCard from "../../components/book-card/BookCard";
+import BookPage from "../book-page/BookPage";
 import "./index.css";
 
 export default function BookStandPage(props) {
@@ -8,6 +9,14 @@ export default function BookStandPage(props) {
   const [saved, setSaved] = useState("");
   const [unselected, setUnselected] = useState(["read", "want_to_read"]);
   const [booksDisplay, setDisplay] = useState([]);
+  const [selectedISBN, setISBN] = useState();
+  const [openPage, setOpen] = useState(false);
+  const [pageClass, setPageClass] = useState("browse-bookpage-modal ");
+  const [bgClass, setBgClass] = useState("browse-bookpage-bg ");
+  const handleClick = useCallback((isbn) => {
+    setOpen(!openPage);
+    setISBN(isbn);
+  }, [openPage])
 
   let returnToLogin = false;
   let errorPage = false;
@@ -80,7 +89,8 @@ export default function BookStandPage(props) {
         <section className="bookstand-buttons">
           {Array.from(unselected).map((str) => {
             return (
-              <div key={str}
+              <div
+                key={str}
                 onClick={() => {
                   setSaved(selected);
                   setSelected(str);
@@ -92,13 +102,29 @@ export default function BookStandPage(props) {
           })}
         </section>
         <section className="bookstand-selected-cat">
-          <h3 style={{fontSize: "1.38em"}}>{labels[selected]}</h3>
+          <h3 style={{ fontSize: "1.38em" }}>{labels[selected]}</h3>
           <div className="bookstand-list">
-            {
-              booksDisplay.map(book => {
-                return <BookCard key={book.isbn} title={book.title} authors={book.authors} isbn={book.isbn} />
-              })
-            }
+            {booksDisplay.map((book) => {
+              return (
+                <BookCard
+                  key={book.isbn}
+                  img={
+                    "https://covers.openlibrary.org/b/isbn/" +
+                    book.isbn +
+                    "-M.jpg?default=false"
+                  }
+                  title={book.title}
+                  authors={book.authors}
+                  isbn={book.isbn}
+                  handleClick={handleClick}
+                />
+              );
+            })}
+          </div>
+
+          <div className={bgClass} onClick={() => {setOpen(false)}}></div>
+          <div className={pageClass}>
+            <BookPage isbn={selectedISBN} openPage={openPage} setPageClass={setPageClass} setBgClass={setBgClass}/>
           </div>
         </section>
       </div>
