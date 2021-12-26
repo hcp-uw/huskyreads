@@ -5,12 +5,9 @@ import React, { useState, useEffect, useRef } from "react";
 export default function BookPage({ isbn, openPage, setBgClass, setPageClass }) {
   const URL = "http://localhost:";
   const PORT = 8000;
-  // expecting this base URL to change btw!!
+  // expecting this base URL to change btw!
   const [errorPage, setErrorPage] = useState(false);
   let ref = useRef(null);
-
-  // I instantiated the object initially to withstand any potential errors
-  // that could be thrown.
   const [book, setBook] = useState({
     title: "",
     authors: [],
@@ -20,7 +17,6 @@ export default function BookPage({ isbn, openPage, setBgClass, setPageClass }) {
   });
 
   // calls the the book constructor
-
   useEffect(() => {
     async function axiosCall() {
       const GET_BOOK = "/books/detail/";
@@ -57,13 +53,6 @@ export default function BookPage({ isbn, openPage, setBgClass, setPageClass }) {
     }
   }, [openPage]);
 
-  // async function statusCheck(res) {
-  //   if (!res.ok) {
-  //     throw new Error(await res.statusText);
-  //   }
-  //   return res;
-  // }
-
   if (errorPage) {
     return <p>Error! Check console!</p>;
   } else {
@@ -95,13 +84,12 @@ export default function BookPage({ isbn, openPage, setBgClass, setPageClass }) {
         </section>
         <section id="right-column">
           <h1>{book.title !== undefined && book.title}</h1>
-          {/* TODO: Test the preliminary code below! */}
+          {/* TODO: Test the preliminary code below for multiple authors/genres! */}
           <hr />
           <p>
             <strong>Author(s): </strong>
             {
               // Builds the list of authors to display to user
-              // odd code, untested, praying it somewhat works
               book.authors.map((author) => {
                 if (author !== book.authors[book.authors.length - 1]) {
                   return `${author}, `;
@@ -114,7 +102,6 @@ export default function BookPage({ isbn, openPage, setBgClass, setPageClass }) {
             <strong>Genre(s): </strong>
             {
               // Builds the list of genres to display to user
-              // odd code, untested, praying it somewhat works
               book.genres.map((genre) => {
                 if (genre !== book.genres[book.genres.length - 1]) {
                   return `${genre}, `;
