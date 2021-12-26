@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import BookCard from "../../components/book-card/BookCard";
+import BookPage from "../book-page/BookPage";
 import "./index.css";
 
 export default function BookStandPage(props) {
@@ -8,6 +9,14 @@ export default function BookStandPage(props) {
   const [saved, setSaved] = useState("");
   const [unselected, setUnselected] = useState(["read", "want_to_read"]);
   const [booksDisplay, setDisplay] = useState([]);
+  const [selectedISBN, setISBN] = useState(1111111111);
+  const [openPage, setOpen] = useState(false);
+  const [pageClass, setPageClass] = useState("browse-bookpage-modal ");
+  const [bgClass, setBgClass] = useState("browse-bookpage-bg ");
+  const handleClick = useCallback((isbn) => {
+    setOpen(!openPage);
+    setISBN(isbn);
+  }, [openPage])
 
   let returnToLogin = false;
   let errorPage = false;
@@ -107,9 +116,15 @@ export default function BookStandPage(props) {
                   title={book.title}
                   authors={book.authors}
                   isbn={book.isbn}
+                  handleClick={handleClick}
                 />
               );
             })}
+          </div>
+
+          <div className={bgClass} onClick={() => {setOpen(false)}}></div>
+          <div className={pageClass}>
+            <BookPage isbn={selectedISBN} openPage={openPage} setPageClass={setPageClass} setBgClass={setBgClass}/>
           </div>
         </section>
       </div>
