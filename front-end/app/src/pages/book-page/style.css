@@ -9,11 +9,13 @@
 #right-column > * {
     margin: 30px;
     margin-left: 50px;
+    line-height: 1.6;
 }
 
 #right-column > h1 {
     margin-top: -7px;
     font-size: 48px;
+    line-height: 1;
 }
 
 #right-column > hr {

@@ -9,13 +9,12 @@ export default function HomePage() {
   const [selectedISBN, setISBN] = useState(1111111111);
   const [openPage, setOpen] = useState(false);
   const [featured, setFeatured] = useState();
+  const [pageClass, setPageClass] = useState("browse-bookpage-modal ");
+  const [bgClass, setBgClass] = useState("browse-bookpage-bg ");
   const handleClick = useCallback((isbn) => {
     setOpen(!openPage);
     setISBN(isbn);
   }, [openPage])
-
-  let pageClass = "browse-bookpage-modal ";
-  let bgClass = "browse-bookpage-bg ";
 
   useEffect(() => {
     async function getData() {
@@ -39,11 +38,6 @@ export default function HomePage() {
     }
   }, [browseData]);
 
-  if (!openPage) {
-    pageClass += "hidden";
-    bgClass += "hidden";
-  }
-
   return (
     <div className="browse-container">
       {browseData !== undefined && (
@@ -54,15 +48,13 @@ export default function HomePage() {
       )}
       <div className={bgClass} onClick={() => {setOpen(false)}}></div>
       <div className={pageClass}>
-        <BookPage isbn={selectedISBN} />
+        <BookPage isbn={selectedISBN} openPage={openPage} setPageClass={setPageClass} setBgClass={setBgClass}/>
       </div>
     </div>
   );
 }
 
 const Featured = ({ featured, handleClick }) => {
-  console.log("hi")
-
   if (featured !== undefined) {
     return (
       <section className="homepage-featured">
@@ -93,7 +85,6 @@ const Featured = ({ featured, handleClick }) => {
 };
 
 const Browse = ({ data, handleClick }) => {
-  console.log("browse")
   if (data) {
     return (
       <section className="homepage-browse">

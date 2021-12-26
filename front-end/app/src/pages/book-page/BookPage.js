@@ -1,9 +1,8 @@
 import "./style.css";
-import axios from 'axios';
-import React, {useState, useEffect} from 'react';
+import axios from "axios";
+import React, { useState, useEffect } from "react";
 
-export default function BookPage({ isbn }) {
-
+export default function BookPage({ isbn, openPage, setBgClass, setPageClass }) {
   const URL = "http://localhost:";
   const PORT = 8000;
   // expecting this base URL to change btw!!
@@ -41,6 +40,33 @@ export default function BookPage({ isbn }) {
     axiosCall();
   }, [isbn]);
 
+  useEffect(() => {
+    if (!openPage) {
+      setPageClass("browse-bookpage-modal hidden");
+      setBgClass("browse-bookpage-bg hidden");
+    } else {
+      const timer = setTimeout(() => {
+        setPageClass("browse-bookpage-modal");
+        setBgClass("browse-bookpage-bg");
+      }, 100);
+
+      return () => {
+        clearTimeout(timer);
+      };
+    }
+  }, [openPage]);
+
+  // if (!openPage) {
+  //   setPageClass("browse-bookpage-modal hidden");
+  //   setBgClass("browse-bookpage-bg hidden");
+  // } else {
+  //   let timerID = setTimeout(() => {
+  //     setPageClass("browse-bookpage-modal");
+  //     setBgClass("browse-bookpage-bg");
+  //   }, 500);
+  //   clearTimeout(timerID);
+
+  // }
 
   async function statusCheck(res) {
     if (!res.ok) {
@@ -50,11 +76,9 @@ export default function BookPage({ isbn }) {
   }
 
   if (errorPage) {
-    return (
-      <p>Error! Check console!</p>
-    )
+    return <p>Error! Check console!</p>;
   } else {
-    return(
+    return (
       <>
         <section id="left-column">
           <img id="imagebox"></img>
@@ -77,7 +101,7 @@ export default function BookPage({ isbn }) {
             {
               // Builds the list of authors to display to user
               // odd code, untested, praying it somewhat works
-              book.authors.map(author => {
+              book.authors.map((author) => {
                 if (author !== book.authors[book.authors.length - 1]) {
                   return `${author},`;
                 }
@@ -98,16 +122,21 @@ export default function BookPage({ isbn }) {
               })
             }
           </p>
-          <p><strong>Date Published: </strong>
-            {book.date_published !== undefined && book.date_published.slice(0, 10)}</p>
-          <p><strong>Description:</strong></p>
-          <p>{book.description !== undefined && book.description}</p>
+          <p>
+            <strong>Date Published: </strong>
+            {book.date_published !== undefined &&
+              book.date_published.slice(0, 10)}
+          </p>
+          <p>
+            <strong>Description:</strong>
+            <br />
+            {book.description !== undefined && book.description}
+          </p>
         </section>
       </>
     );
   }
 }
-
 
 /*   reminder from api doc that bookdata will come as
   {
