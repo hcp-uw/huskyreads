@@ -11,6 +11,7 @@ export default function HomePage(props) {
   const [featured, setFeatured] = useState();
   const [pageClass, setPageClass] = useState("bookpage-modal ");
   const [bgClass, setBgClass] = useState("bookpage-bg ");
+  const [shelfStatus, setShelfStatus] = useState("");
   const handleClick = useCallback((isbn) => {
     setOpen(!openPage);
     setISBN(isbn);
@@ -24,7 +25,7 @@ export default function HomePage(props) {
           setData(data.books);
         })
         .catch(function (error) {
-          console.log(error);
+          console.log(error.toString());
         });
     }
 
@@ -46,14 +47,17 @@ export default function HomePage(props) {
           <Browse data={browseData} handleClick={handleClick} />
         </div>
       )}
-      <div className={bgClass} onClick={() => {setOpen(false)}}></div>
+      <div className={bgClass} onClick={() => {setOpen(false); setShelfStatus("");}}></div>
       <div className={pageClass}>
         <BookPage
           isbn={selectedISBN}
           openPage={openPage}
           setPageClass={setPageClass}
           setBgClass={setBgClass}
-          username={props.username}/>
+          username={props.username}
+          shelfStatus={shelfStatus}
+          setShelfStatus={setShelfStatus}
+        />
       </div>
     </div>
   );

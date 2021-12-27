@@ -4,6 +4,10 @@ body {
   margin: 18px auto;
 }
 
+p:empty {
+  display: none;
+}
+
 .hidden {
   display: none !important;
 }

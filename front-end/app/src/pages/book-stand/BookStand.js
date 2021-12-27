@@ -13,6 +13,7 @@ export default function BookStandPage(props) {
   const [openPage, setOpen] = useState(false);
   const [pageClass, setPageClass] = useState("bookpage-modal ");
   const [bgClass, setBgClass] = useState("bookpage-bg ");
+  const [shelfStatus, setShelfStatus] = useState("");
   const handleClick = useCallback((isbn) => {
     setOpen(!openPage);
     setISBN(isbn);
@@ -61,7 +62,7 @@ export default function BookStandPage(props) {
         returnToLogin = true;
       }
     } catch (err) {
-      console.log(err);
+      console.log(err.toString());
     }
   }
 
@@ -119,7 +120,7 @@ export default function BookStandPage(props) {
               );
             })}
           </div>
-          <div className={bgClass} onClick={() => {setOpen(false)}}></div>
+          <div className={bgClass} onClick={() => {setOpen(false); setShelfStatus("");}}></div>
           <div className={pageClass}>
             <BookPage
               isbn={selectedISBN}
@@ -127,6 +128,8 @@ export default function BookStandPage(props) {
               setPageClass={setPageClass}
               setBgClass={setBgClass}
               username={props.username}
+              shelfStatus={shelfStatus}
+              setShelfStatus={setShelfStatus}
             />
           </div>
         </section>

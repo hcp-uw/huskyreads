@@ -2,12 +2,12 @@ import "./style.css";
 import axios from "axios";
 import React, { useState, useEffect, useRef } from "react";
 
-export default function BookPage({ isbn, openPage, setBgClass, setPageClass, username }) {
+export default function BookPage({ isbn, openPage, setBgClass, setPageClass, username, shelfStatus, setShelfStatus }) {
   const URL = "http://localhost:";
   const PORT = 8000;
   // expecting this base URL to change btw!
   const [selectedShelf, setSelectedShelf] = useState("Choose Shelf");
-  const [shelfStatus, setShelfStatus] = useState("");
+  const [errorPage, setErrorPage] = useState(true);
   const [book, setBook] = useState({
     title: "",
     authors: [],
@@ -16,8 +16,6 @@ export default function BookPage({ isbn, openPage, setBgClass, setPageClass, use
     description: "",
   });
   let ref = useRef(null);
-  let returnToLogin = false;
-  let errorPage = false;
 
   // calls the the book constructor
   useEffect(() => {
@@ -25,7 +23,7 @@ export default function BookPage({ isbn, openPage, setBgClass, setPageClass, use
       const GET_BOOK = "/books/detail/";
       try {
         if (isbn === undefined) {
-          errorPage = true;
+          setErrorPage(true);
           console.log("No book given!");
         } else {
           setErrorPage(false);
@@ -34,8 +32,8 @@ export default function BookPage({ isbn, openPage, setBgClass, setPageClass, use
           setBook(bookData.data);
         }
       } catch (err) {
-        console.log(err);
-        errorPage = true;
+        console.log(err.toString());
+        setErrorPage(true);
       }
     }
 
@@ -66,25 +64,26 @@ export default function BookPage({ isbn, openPage, setBgClass, setPageClass, use
    * Adds the current book to the shelf chosen by the user in the drop-down menu.
    */
   async function addToShelf() {
-    const ADD_TO_SHELF = "/bookshelves/add/";
+    const ADD_TO_SHELF = "/bookshelves/add";
     try {
       if (!username) {
         // user is not logged in, send to login page
         console.log("Username not passed in: " + username);
-        returnToLogin = true;
       } else {
         const data = {
           username: username,
           bookshelf: selectedShelf,
           isbn: isbn,
         };
+
         // valid shelf selected by a logged-in user with a valid book!
         let fetchURL = URL + PORT + ADD_TO_SHELF;
         let response = await axios.post(fetchURL, { data });
+        console.log(response);
         setShelfStatus(response);
       }
     } catch (err) {
-      setShelfStatus(err);
+      setShelfStatus(err.toString());
     }
   }
 
@@ -112,7 +111,6 @@ export default function BookPage({ isbn, openPage, setBgClass, setPageClass, use
               id="selector"
               onChange={(event) => {
                 setSelectedShelf(event.target.value);
-                console.log(event.target.value);
               }}
             >
               <option className="opt">Choose Shelf</option>
@@ -135,7 +133,7 @@ export default function BookPage({ isbn, openPage, setBgClass, setPageClass, use
               ADD TO SHELF
             </button>
           </div>
-          <p>{shelfStatus}</p>
+          <p>{shelfStatus !== "" && shelfStatus}</p>
         </section>
         <section id="right-column">
           <h1>{book.title !== undefined && book.title}</h1>
