@@ -73,12 +73,12 @@ export default function BookPage({ isbn, openPage, setBgClass, setPageClass, use
         const data = {
           username: username,
           bookshelf: selectedShelf,
-          isbn: isbn,
+          isbn: isbn
         };
 
         // valid shelf selected by a logged-in user with a valid book!
         let fetchURL = URL + PORT + ADD_TO_SHELF;
-        let response = await axios.post(fetchURL, { data });
+        let response = await axios.post(fetchURL, data);
         console.log(response);
         setShelfStatus(response);
       }
