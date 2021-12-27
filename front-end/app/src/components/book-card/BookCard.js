@@ -8,7 +8,7 @@ export default function BookCard({ img, title, authors, isbn, handleClick }) {
   if (authors === undefined || authors.length === 0) {
     authorText = "Author Unknown";
   } else if (typeof authors == "string") {
-    authorText = authors;
+    authorText = authors.replace(",", ", ");
   } else {
     for (let i = 0; i < authors.length; i++) {
       authorText += authors[i] + ", ";
