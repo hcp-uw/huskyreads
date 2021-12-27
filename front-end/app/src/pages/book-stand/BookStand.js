@@ -11,8 +11,8 @@ export default function BookStandPage(props) {
   const [booksDisplay, setDisplay] = useState([]);
   const [selectedISBN, setISBN] = useState();
   const [openPage, setOpen] = useState(false);
-  const [pageClass, setPageClass] = useState("browse-bookpage-modal ");
-  const [bgClass, setBgClass] = useState("browse-bookpage-bg ");
+  const [pageClass, setPageClass] = useState("bookpage-modal ");
+  const [bgClass, setBgClass] = useState("bookpage-bg ");
   const handleClick = useCallback((isbn) => {
     setOpen(!openPage);
     setISBN(isbn);
@@ -80,10 +80,8 @@ export default function BookStandPage(props) {
     window.location.reload();
     return null;
   } else if (errorPage) {
-    return <p>Error! Check console!</p>;
+    return <p>Error: Unable to retrieve book details</p>;
   } else {
-    console.log(booksDisplay);
-
     return (
       <div className="bookstand-container">
         <section className="bookstand-buttons">

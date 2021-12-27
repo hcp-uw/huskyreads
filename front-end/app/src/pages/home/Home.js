@@ -9,8 +9,8 @@ export default function HomePage(props) {
   const [selectedISBN, setISBN] = useState(1111111111);
   const [openPage, setOpen] = useState(false);
   const [featured, setFeatured] = useState();
-  const [pageClass, setPageClass] = useState("browse-bookpage-modal ");
-  const [bgClass, setBgClass] = useState("browse-bookpage-bg ");
+  const [pageClass, setPageClass] = useState("bookpage-modal ");
+  const [bgClass, setBgClass] = useState("bookpage-bg ");
   const handleClick = useCallback((isbn) => {
     setOpen(!openPage);
     setISBN(isbn);
