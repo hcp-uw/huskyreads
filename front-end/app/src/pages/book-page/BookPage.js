@@ -26,7 +26,7 @@ export default function BookPage({ isbn, openPage, setBgClass, setPageClass, use
       try {
         if (isbn === undefined) {
           errorPage = true;
-          console.log("No book given!")
+          console.log("No book given!");
         } else {
           let fetchURL = URL + PORT + GET_BOOK + isbn;
           let bookData = await axios.get(fetchURL);
@@ -67,16 +67,16 @@ export default function BookPage({ isbn, openPage, setBgClass, setPageClass, use
   async function addToShelf() {
     const ADD_TO_SHELF = "/bookshelves/add/";
     try {
-      if (!props.username) {
+      if (!username) {
         // user is not logged in, send to login page
-        console.log("Username not passed in: " + props.username);
+        console.log("Username not passed in: " + username);
         returnToLogin = true;
       } else {
         const data = {
-          "username": props.username,
-          "bookshelf": selectedShelf,
-          "isbn": isbn
-        }
+          username: username,
+          bookshelf: selectedShelf,
+          isbn: isbn,
+        };
         // valid shelf selected by a logged-in user with a valid book!
         let fetchURL = URL + PORT + ADD_TO_SHELF;
         let response = await axios.post(fetchURL, { data });
@@ -111,13 +111,32 @@ export default function BookPage({ isbn, openPage, setBgClass, setPageClass, use
             }}
           ></img>
           <div id="bookstand-selectors">
-            <select id="selector" onChange={(event) => setSelectedShelf(event.target.value)}>
+            <select
+              id="selector"
+              onChange={(event) => {
+                setSelectedShelf(event.target.value);
+                console.log(event.target.value);
+              }}
+            >
               <option className="opt">Choose Shelf</option>
-              <option className="opt">Plan to Read</option>
-              <option className="opt">Currently Reading</option>
-              <option className="opt">Finished</option>
+              <option value={"want_to_read"} className="opt">
+                Plan to Read
+              </option>
+              <option value={"reading"} className="opt">
+                Currently Reading
+              </option>
+              <option value={"read"} className="opt">
+                Finished
+              </option>
             </select>
-            <button id="add-button" onClick={addToShelf}>ADD TO SHELF</button>
+            <button
+              id="add-button"
+              onClick={() => {
+                addToShelf();
+              }}
+            >
+              ADD TO SHELF
+            </button>
           </div>
           <p>{shelfStatus}</p>
         </section>
