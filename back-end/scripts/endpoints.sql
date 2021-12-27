@@ -21,6 +21,12 @@ AND Users.password = [Password]
 /* Parameters: Username, Password */
 /* Try-Catch this since username needs to be unique! (User.username is a unique field) */
 INSERT INTO Users (username, password) VALUES ([Username], [Password]);
+SELECT LAST_INSERT_ID() AS userid;  /* Gets the user's ID after insert, for bookshelves */
+INSERT INTO Bookshelves (userid, shelf_name) VALUES
+    (id_user, "reading"),
+    (id_user, "read"),
+    (id_user, "want_to_read")
+;
 
 
 -- TESTED
@@ -64,17 +70,28 @@ GROUP BY Book_Data.shelfname, Book_Data.title, Book_Data.ISBN
 ;
 
 
+-- TESTED
 /* Add Book to Bookshelf */
 /* Parameters: User_id, Bookshelf, ISBN */
-INSERT INTO Bookshelf VALUES ([User_id], [ISBN], [Bookshelf]);
+SELECT Bookshelves.id AS bookshelf_id
+FROM Bookshelves
+WHERE Bookshelves.id_user = [User_id]
+AND Bookshelves.shelf_name = [Bookshelf]
+;
+INSERT INTO Bookshelf_Books VALUES (bookshelf_id, [ISBN]);
 
 
+-- TESTED
 /* Remove Book from Bookshelf */
 /* Parameters: User_id, Bookshelf, ISBN */
-DELETE FROM Bookshelf
-WHERE id_user = [User_id]
-AND ISBN = [ISBN]
-AND shelf_name = [Bookshelf]
+SELECT Bookshelves.id AS bookshelf_id
+FROM Bookshelves
+WHERE Bookshelves.id_user = [User_id]
+AND Bookshelves.shelf_name = [Bookshelf]
+;
+DELETE FROM Bookshelf_Books
+WHERE Bookshelf_Books.id_bookshelf = bookshelf_id
+AND Bookshelf_Books.ISBN = [ISBN]
 ;
 
 
