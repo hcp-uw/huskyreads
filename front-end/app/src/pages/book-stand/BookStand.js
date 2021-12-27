@@ -80,10 +80,8 @@ export default function BookStandPage(props) {
     window.location.reload();
     return null;
   } else if (errorPage) {
-    return <p>Error! Check console!</p>;
+    return <p>Error: Unable to retrieve book details</p>;
   } else {
-    console.log(booksDisplay);
-
     return (
       <div className="bookstand-container">
         <section className="bookstand-buttons">
