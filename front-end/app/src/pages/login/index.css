@@ -5,6 +5,7 @@ styling for login
 #top-left-header {
   font-size: 30px;
   font-weight: bold;
+  padding: 0.4em 1.5em;
 }
 
 #bottom-left-text {

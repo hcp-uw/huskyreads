@@ -128,8 +128,6 @@ export default function AboutPage() {
         )
     }
 
-}
-
     /*
     HUSKY READS AXIOS EXAMPLE WITH HOOKS (useEffect and useState)
     ----
@@ -178,4 +176,4 @@ export default function AboutPage() {
 
     Within render: <p>{(data.results !== undefined) ? data.results[0].name : "Not yet"}</p>
     */
-
+}
