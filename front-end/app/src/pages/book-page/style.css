@@ -10,22 +10,26 @@
 
 #right-column h1 {
     margin: 0;
-    margin-bottom: 24px;
+    margin-bottom: 22px;
     font-size: 48px;
     line-height: 1;
 }
 
-#right-column > hr {
-    margin-bottom: 38px;
+#right-column p {
+    font-size: 17px;
 }
 
+#right-column > hr {
+    margin-bottom: 34px;
+}
 
 #left-column {
-    align-items: center;
+    display: flex;
+    flex-direction: column;
 }
 
 #imagebox {
-    width: 320px;
+    width: 345px;
     max-height: 520px;
     margin-bottom: 30px;
     border: solid 2px rgb(220, 220, 220);
@@ -35,9 +39,9 @@
 #selector {
     min-height: 40px;
     border: none;
-    border-radius: 0.50em;
+    border-radius: 0.5em;
     padding: 0.5em;
-    font-size: 0.95em;
+    font-size: 17px;
     cursor: pointer;
     line-height: 1.1;
     background-color: rgb(220, 220, 220);
@@ -53,10 +57,75 @@
 #add-button {
     border-radius: 0.4em;
     padding: 0.5em 0.75em;
-    font-size: 0.95em;
+    font-size: 17px;
     font-weight: 500;
-    background-color: #57BB5B;
+    background-color: #1ca321;
     color: white;
     border: none;
     letter-spacing: 1px;
+}
+
+.bookpage-container {
+    display: flex;
+    flex-direction: row;
+}
+
+.bookpage-modal {
+    position: fixed;
+    max-width: 880px;
+    width: 82%;
+    padding: 48px 52px;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    background-color: #fff;
+    border-radius: 14px;
+    z-index: 999;
+    box-shadow: 0 0 20px rgb(0, 0, 0, 0.28);
+}
+
+.bookpage-bg {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: #000;
+    opacity: 0.3;
+    z-index: 998;
+}
+
+@media (max-width: 768px) {
+    .bookpage-modal {
+        padding: 1.6em 1em;
+        max-height: 88%;
+        overflow-y: scroll;
+    }
+
+    .bookpage-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    #right-column {
+        width: 88%;
+        margin-top: 36px;
+        margin-left: 0;
+    }
+
+    #right-column h1 {
+        font-size: 38px;
+    }
+
+    #imagebox {
+        max-width: 100%
+    }
+
+    #bookstand-selectors {
+        flex-direction: column;
+    }
+
+    #bookstand-selectors > * {
+        margin-bottom: 12px;
+    }
 }

@@ -24,6 +24,7 @@ export default function BookPage({ isbn, openPage, setBgClass, setPageClass }) {
         if (isbn === undefined) {
           setErrorPage(true);
         } else {
+          setErrorPage(false);
           let fetchURL = URL + PORT + GET_BOOK + isbn;
           let bookData = await axios.get(fetchURL);
           setBook(bookData.data);
@@ -39,12 +40,12 @@ export default function BookPage({ isbn, openPage, setBgClass, setPageClass }) {
 
   useEffect(() => {
     if (!openPage) {
-      setPageClass("browse-bookpage-modal hidden");
-      setBgClass("browse-bookpage-bg hidden");
+      setPageClass("bookpage-modal hidden");
+      setBgClass("bookpage-bg hidden");
     } else {
       const timer = setTimeout(() => {
-        setPageClass("browse-bookpage-modal");
-        setBgClass("browse-bookpage-bg");
+        setPageClass("bookpage-modal");
+        setBgClass("bookpage-bg");
       }, 100);
 
       return () => {
@@ -54,10 +55,10 @@ export default function BookPage({ isbn, openPage, setBgClass, setPageClass }) {
   }, [openPage]);
 
   if (errorPage) {
-    return <p>Error! Check console!</p>;
+    return <p>Error: Unable to retrieve book details</p>;
   } else {
     return (
-      <>
+      <div className="bookpage-container">
         <section id="left-column">
           <img
             ref={ref}
@@ -121,7 +122,7 @@ export default function BookPage({ isbn, openPage, setBgClass, setPageClass }) {
             {book.description !== undefined && book.description}
           </p>
         </section>
-      </>
+      </div>
     );
   }
 }
