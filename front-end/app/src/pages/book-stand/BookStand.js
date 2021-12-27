@@ -11,8 +11,8 @@ export default function BookStandPage(props) {
   const [booksDisplay, setDisplay] = useState([]);
   const [selectedISBN, setISBN] = useState();
   const [openPage, setOpen] = useState(false);
-  const [pageClass, setPageClass] = useState("browse-bookpage-modal ");
-  const [bgClass, setBgClass] = useState("browse-bookpage-bg ");
+  const [pageClass, setPageClass] = useState("bookpage-modal ");
+  const [bgClass, setBgClass] = useState("bookpage-bg ");
   const handleClick = useCallback((isbn) => {
     setOpen(!openPage);
     setISBN(isbn);
