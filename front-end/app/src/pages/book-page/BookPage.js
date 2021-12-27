@@ -6,7 +6,7 @@ export default function BookPage({ isbn, openPage, setBgClass, setPageClass, use
   const URL = "http://localhost:";
   const PORT = 8000;
   // expecting this base URL to change btw!
-  const [selectedShelf, setSelectedShelf] = useState("Choose Shelf");
+  const [selectedShelf, setSelectedShelf] = useState("default");
   const [errorPage, setErrorPage] = useState(true);
   const [book, setBook] = useState({
     title: "",
@@ -65,10 +65,13 @@ export default function BookPage({ isbn, openPage, setBgClass, setPageClass, use
    */
   async function addToShelf() {
     const ADD_TO_SHELF = "/bookshelves/add";
+    console.log(selectedShelf)
     try {
       if (!username) {
         // user is not logged in, send to login page
         console.log("Username not passed in: " + username);
+      } else if (selectedShelf === "default") {
+        setShelfStatus("Error: Please select a shelf category");
       } else {
         const data = {
           username: username,
@@ -113,7 +116,7 @@ export default function BookPage({ isbn, openPage, setBgClass, setPageClass, use
                 setSelectedShelf(event.target.value);
               }}
             >
-              <option className="opt">Choose Shelf</option>
+              <option value={"default"} className="opt">Choose Shelf</option>
               <option value={"want_to_read"} className="opt">
                 Plan to Read
               </option>
