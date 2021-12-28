@@ -70,7 +70,6 @@ def retrieveBookData(filePath: str):
     return bookdata
 
 
-# TODO: Write author data retrieval code
 def retrieveAuthorData(filePath: str):
     """ Retrieves necessary author data from a json file for insertion into SQL database
 
@@ -108,7 +107,7 @@ def insertBookData(books: list, cnx: object):
     cursor = cnx.cursor()
     for book in books:
         # Inserting books into Book table
-        query = "INSERT INTO Books (ISBN, title, date_published) VALUES (%s, %s, %s);"
+        query = "INSERT INTO Books (ISBN, title, date_published) VALUES (%s, %s, %s)"
         # TODO: Modify API Documentation to reflect changes in database for Book Date
         values = (book[1], book[0], book[2])
         cursor.execute(query, values)
@@ -138,7 +137,6 @@ def insertBookData(books: list, cnx: object):
     cursor.close()
 
 
-# TODO: Test this! (We don't have processed author data yet)
 def insertAuthorData(authors: list, cnx: object):
     """ Parses Author Data from JSON File into Author table
 
@@ -161,11 +159,10 @@ def insertAuthorData(authors: list, cnx: object):
 
 
 def main():
-    # Relative Path
-    file_path_books = "back-end/data/processed/processed_output.json"
-    file_path_authors = ""
+    file_path_books = "back-end/data/processed/sample_output.json"
+    file_path_authors = "back-end/data/processed/sample_author_output.json"
     books = retrieveBookData(file_path_books)
-    authors = retrieveAuthorData(file_path_books)
+    authors = retrieveAuthorData(file_path_authors)
     cnx = connectToDatabase()
     print("Connection Successful!")
     insertBookData(books, cnx)
