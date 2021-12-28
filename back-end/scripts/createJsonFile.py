@@ -9,7 +9,9 @@ import os
 import json
 
 #TODO(nboren@uw.edu): Change this global variable not to be dependent on my machine.
-PROCESSED_DATA_PATH = "/Users/nboren/personal/huskyreads/back-end/data/processed/"
+CURRENT_DIR = os.getcwd()
+BACKEND_ROOT = os.path.abspath(CURRENT_DIR + '/..')
+PROCESSED_DATA_PATH = os.path.join(BACKEND_ROOT, 'data', 'processed')
 
 def text_cleaner(current_line: str) -> str:
     """ Removes the current line into cleaned JSON text
@@ -48,17 +50,20 @@ def append_multiple_lines(lines_to_append: str, output_path=os.path.join(PROCESS
             Defaults to a text file in data/processed called processed_output.
     """
 
-    books = list()
+    book_data = list(dict())
     for line in lines_to_append:
         cleaned_line = text_cleaner(line)
-        books.append(cleaned_line)
+        book_data.append(cleaned_line)
 
     with open(output_path, 'a+', encoding='utf-8') as f_out:
-        json_result = json.dumps({'books': books}, indent=4, sort_keys = False)
-        f_out.write(json_result)
+        json_result = json.dumps({'books': book_data}, indent=4, sort_keys = False)
+        json_result = re.sub('("{)', '{', json_result)
+        json_result = re.sub('(}")', '}', json_result)
+        print(f'{json_result = }')
+        #f_out.write(json_result)
 
 def main():
-    file_path = "/Users/nboren/personal/huskyreads/back-end/data/raw/sample_data.txt"
+    file_path = os.path.join(BACKEND_ROOT, 'data', 'raw', 'sample_data.txt')
     file_lines = parse_text_file(file_path)
     append_multiple_lines(file_lines)
 
