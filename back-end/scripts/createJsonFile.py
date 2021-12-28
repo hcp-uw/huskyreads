@@ -7,8 +7,8 @@ original dirty book data
 import re
 import os
 import json
+import yaml
 
-#TODO(nboren@uw.edu): Change this global variable not to be dependent on my machine.
 CURRENT_DIR = os.getcwd()
 BACKEND_ROOT = os.path.abspath(CURRENT_DIR + '/..')
 PROCESSED_DATA_PATH = os.path.join(BACKEND_ROOT, 'data', 'processed')
@@ -32,9 +32,8 @@ def parse_text_file(file_path: str) -> str:
 
     return file_lines
 
-#TODO(nboren@uw.edu): Change the output file not to be the same every single run.
 def append_multiple_lines(lines_to_append: str, output_path=os.path.join(PROCESSED_DATA_PATH,
-                          "processed_output.json")):
+                          "sample_work_output.json")):
     """
     Creates and Appends the clean book data into a JSON file
 
@@ -55,15 +54,16 @@ def append_multiple_lines(lines_to_append: str, output_path=os.path.join(PROCESS
         cleaned_line = text_cleaner(line)
         book_data.append(cleaned_line)
 
+    final_result = {'books': list(dict())}
     with open(output_path, 'a+', encoding='utf-8') as f_out:
-        json_result = json.dumps({'books': book_data}, indent=4, sort_keys = False)
-        json_result = re.sub('("{)', '{', json_result)
-        json_result = re.sub('(}")', '}', json_result)
-        print(f'{json_result = }')
-        #f_out.write(json_result)
+        for i in range(len(book_data)):
+            final_result['books'].append(json.loads(book_data[i]))
+
+        f_out.write(json.dumps(final_result, indent = 4, sort_keys = False))
+
 
 def main():
-    file_path = os.path.join(BACKEND_ROOT, 'data', 'raw', 'sample_data.txt')
+    file_path = os.path.join(BACKEND_ROOT, 'data', 'raw', 'sample_work_data.txt')
     file_lines = parse_text_file(file_path)
     append_multiple_lines(file_lines)
 
