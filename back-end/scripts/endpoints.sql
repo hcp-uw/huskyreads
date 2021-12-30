@@ -101,7 +101,7 @@ AND Bookshelf_Books.ISBN = [ISBN]
 -- TESTED
 /* Retrieving Book Data */
 /* Parameters: Title, Author, Genre ARR, Offset, ResultLength */
-SELECT Books.title AS title,
+SELECT Books.title AS title, Books.ISBN as ISBN,
     GROUP_CONCAT(DISTINCT Authors.name SEPARATOR ',') AS author_names
 FROM Books
 INNER JOIN Book_Authors
@@ -113,8 +113,8 @@ INNER JOIN Book_Genres
 INNER JOIN Genres
     ON Book_Genres.id_genre = Genres.id
 WHERE Books.title = [Title]
-AND Genres.name = [Genre] -- If multiple genres, use OR statements
-GROUP BY Books.title
+AND Genres.name = [Genre] -- If multiple genres, use IN for array
+GROUP BY Books.title, Books.ISBN
 HAVING FIND_IN_SET([Author], author_names)
 LIMIT [ResultLength]
 OFFSET [Offset]
@@ -125,6 +125,7 @@ OFFSET [Offset]
 /* Get Detailed Information for Single Book */
 /* Parameter: ISBN */
 SELECT Books.title AS title, Books.date_published AS date_published,
+    Books.description AS description
     GROUP_CONCAT(DISTINCT Authors.name SEPARATOR ',') AS authors,
     GROUP_CONCAT(DISTINCT Genres.name SEPARATOR ',') AS genres
 FROM Books

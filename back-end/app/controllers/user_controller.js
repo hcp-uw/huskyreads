@@ -2,11 +2,20 @@ const { db } = require('../utils/db');
 
 /**
  * Creates new User with a unique username, and a password
+ * Also creates the new user 3 default bookshelves
  * @param {String[]} userInfo - The new clients username and password
  */
 exports.createUser = async (userInfo) => {
-    let query = "INSERT INTO User (username, password) VALUES (?, ?);";
+    let query = "INSERT INTO Users (username, password) VALUES (?, ?);";
 	await db.query(query, userInfo);
+    let val = await db.query("SELECT LAST_INSERT_ID() as id_user");
+    val = val[0][0].id_user;
+    query = `INSERT INTO Bookshelves (id_user, shelf_name) VALUES
+            (?, "reading"),
+            (?, "read"),
+            (?, "want_to_read")
+            ;`;
+    await db.query(query, [val, val, val]);
 }
 
 /**
@@ -14,7 +23,7 @@ exports.createUser = async (userInfo) => {
  * @param {String[]} userInfo - The clients username and color_scheme
  */
 exports.updateColorScheme = async (userInfo) => {
-    let query = "UPDATE User SET color_scheme = ? WHERE username = ?";
+    let query = "UPDATE Users SET color_scheme = ? WHERE username = ?";
     await db.query(query, userInfo);
 }
 
@@ -24,7 +33,7 @@ exports.updateColorScheme = async (userInfo) => {
  * @returns {int} - The user's ID or 0 if the username does not exist
  */
 exports.getUserID = async (username) => {
-    let query = "SELECT id FROM User WHERE User.username = ?;"
+    let query = "SELECT id FROM Users WHERE Users.username = ?;"
     let [rows] = await db.query(query, [username]);
     if (!rows[0]) {
         return 0;
@@ -39,7 +48,7 @@ exports.getUserID = async (username) => {
  * @returns - The row(s) in the database for the given user
  */
 exports.getPassword = async (username) => {
-	let query = "SELECT * FROM User WHERE username=?;";
+	let query = "SELECT * FROM Users WHERE username = ?;";
 	let [rows] = await db.query(query, [username]);
 	return rows;
 }
