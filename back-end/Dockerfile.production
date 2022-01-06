@@ -1,13 +1,14 @@
 FROM node:17-alpine3.14
 
-RUN addgroup app && adduser -S -G app app
-USER app
+# RUN addgroup app && adduser -S -G app app
+# USER app
 
 WORKDIR /app
-COPY app/package.json ./
+COPY app/package.json .
+RUN npm install
 RUN npm ci --only=production
-COPY . .
+COPY /app .
 
 EXPOSE 8000
 
-CMD ["npm", "start"]
+CMD ["node", "server.js"]
