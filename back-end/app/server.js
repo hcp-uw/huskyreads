@@ -22,6 +22,10 @@ app.use('/', userRoutes);
 app.use('/books', bookRoutes);
 app.use('/bookshelves', bookshelfRoutes);
 
+app.get('/test', function (req, res) {
+    res.type("text").send("SUCCESS");
+})
+
  /* -------------------  Public Port  ------------------- */
 app.use(express.static("public"));
 const PORT = process.env.PORT || 8000;
