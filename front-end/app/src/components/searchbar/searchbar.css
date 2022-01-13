@@ -1,0 +1,16 @@
+/*
+The style will definitely need to be modified, so if the bootstrap
+styles interfere, feel free to remove them from the class names
+*/
+
+#categories, #bar {
+  border: none;
+  border-bottom: 1.5px solid rgb(227, 222, 205);
+  border-radius: 0px;
+}
+
+#input-group {
+  background-color: white;
+}
+
+
