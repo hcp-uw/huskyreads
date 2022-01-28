@@ -3,8 +3,8 @@ import axios from "axios";
 import React, { useState, useEffect, useRef } from "react";
 
 export default function BookPage({ isbn, openPage, setBgClass, setPageClass, username, shelfStatus, setShelfStatus }) {
-  const URL = "http://localhost:";
-  const PORT = 8000;
+  const URL = "https://husky-reads.herokuapp.com";
+  // const PORT = 8000;
   // expecting this base URL to change btw!
   const [selectedShelf, setSelectedShelf] = useState("default");
   const [errorPage, setErrorPage] = useState(true);
@@ -80,7 +80,7 @@ export default function BookPage({ isbn, openPage, setBgClass, setPageClass, use
         };
 
         // valid shelf selected by a logged-in user with a valid book!
-        let fetchURL = URL + PORT + ADD_TO_SHELF;
+        let fetchURL = URL + ADD_TO_SHELF;
         let response = await axios.post(fetchURL, data);
         console.log(response);
         setShelfStatus(response);

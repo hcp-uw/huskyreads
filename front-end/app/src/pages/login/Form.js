@@ -71,7 +71,7 @@ export default class Form extends React.Component {
 
     // update the states missing credentials and invalid credentials
     // according to the API response
-    const BASE_URL = "http://localhost:8000";
+    const BASE_URL = "https://husky-reads.herokuapp.com";
     const endpoint = this.state.onLogin ? "/login" : "/signup";
 
     const params = {

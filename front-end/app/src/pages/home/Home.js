@@ -17,10 +17,12 @@ export default function HomePage(props) {
     setISBN(isbn);
   }, [openPage])
 
+  const URL = "https://husky-reads.herokuapp.com";
+
   useEffect(() => {
     async function getData() {
       await axios
-        .get("http://localhost:8000/books/search")
+        .get(URL + "/books/search")
         .then(({ data }) => {
           setData(data.books);
         })
