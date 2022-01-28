@@ -85,6 +85,12 @@ CREATE TABLE Book_Genre (
 );
 
 
+-- SELECT @@auto_increment_increment;
+SET auto_increment_increment = 1;
+-- SELECT @@auto_increment_offset;
+SET auto_increment_offset = 1;
+
+
 /* SAMPLE DATA */
 INSERT INTO User (username, password, color_scheme) VALUES ("elliot", "$2b$10$U41SKHcvR0YnllxQ7bT89eNm0I8iU/uA.PTOPGlb1v.6R2FAfdwRG", "dark");
 INSERT INTO User (username, password) VALUES ("frank", "$2b$10$LAwdabZi8jOU7rmzUYqCf.IUW6iZQyorzo8yW8CDf6dZRmtt2stcy");
