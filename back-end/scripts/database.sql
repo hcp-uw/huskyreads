@@ -4,19 +4,17 @@
 **/
 
 /* Clears old tables */
-DROP TABLE IF EXISTS User, Bookshelf, Bookshelf_Names, Books, Book_Authors, Book_Genre, Authors, Genre, Reviews;
+DROP TABLE IF EXISTS
+Users, Books, Reviews, Bookshelves, Bookshelf_Books, Authors, Genres, Book_Authors, Book_Genres
+;
 
 
 /* Creates our SQL Database */
-CREATE TABLE User (
+CREATE TABLE Users (
     id int PRIMARY KEY AUTO_INCREMENT,
     username varchar(255) UNIQUE NOT NULL,
     password varchar(255) NOT NULL,
     color_scheme varchar(255) DEFAULT "light"
-);
-
-CREATE TABLE Bookshelf_Names (
-    shelf_name varchar(255) UNIQUE NOT NULL
 );
 
 CREATE TABLE Books (
@@ -26,24 +24,45 @@ CREATE TABLE Books (
   date_published date
 );
 
-CREATE TABLE Authors (
-  id int PRIMARY KEY AUTO_INCREMENT,
-  name varchar(255) NOT NULL
+CREATE TABLE Reviews (
+  id_review int PRIMARY KEY AUTO_INCREMENT,
+  ISBN_book bigint NOT NULL REFERENCES Books,
+  id_user int NOT NULL,
+  content varchar(255),
+  published date NOT NULL,
+  CONSTRAINT USERDELETED
+  FOREIGN KEY (id_user)
+  REFERENCES Users(id)
+    ON DELETE CASCADE,
+  /* Constraint: If a book is deleted, also delete the book's related reviews */
+  CONSTRAINT BOOKDELETED
+  FOREIGN KEY (ISBN_book)
+  REFERENCES Books(ISBN)
+    ON DELETE CASCADE
 );
 
-CREATE TABLE Genre (
-  id int PRIMARY KEY AUTO_INCREMENT,
-  name varchar(255) NOT NULL
-);
-
-CREATE TABLE Bookshelf (
+/* Default per user, insert:
+ * read, reading, want_to_read
+ * as three separate bookshelves into this table
+ */
+CREATE TABLE Bookshelves (
+    id int PRIMARY KEY AUTO_INCREMENT,
     id_user int NOT NULL,
-    ISBN bigint NOT NULL,
     shelf_name varchar(255) NOT NULL,
     /* Constraint: If a user is deleted, delete the user's corresponding bookshelves */
     CONSTRAINT USERDELETE
     FOREIGN KEY (id_user)
-    REFERENCES User(id)
+    REFERENCES Users(id)
+        ON DELETE CASCADE
+);
+
+CREATE TABLE Bookshelf_Books (
+    id_bookshelf int,
+    ISBN bigint NOT NULL,
+    /* Constraint: If a bookshelf is deleted, delete the bookshelf's book connections */
+    CONSTRAINT SHELFDELETE
+    FOREIGN KEY (id_bookshelf)
+    REFERENCES Bookshelves(id)
         ON DELETE CASCADE,
     /* Constraint: If a book is deleted, delete corresponding book data in bookshelves */
     /* Not expecting this to happen often, but functionality is here */
@@ -53,33 +72,31 @@ CREATE TABLE Bookshelf (
         ON DELETE CASCADE
 );
 
-CREATE TABLE Reviews (
-  id_review int PRIMARY KEY AUTO_INCREMENT,
-  ISBN bigint NOT NULL REFERENCES Books,
-  author varchar(255) NOT NULL,
-  content varchar(255),
-  published date NOT NULL,
-  /* Constraint: If a book is deleted, also delete the book's related reviews */
-  FOREIGN KEY (ISBN)
-  REFERENCES Books(ISBN)
-    ON DELETE CASCADE
+CREATE TABLE Authors (
+  id int PRIMARY KEY AUTO_INCREMENT,
+  name varchar(255) NOT NULL
+);
+
+CREATE TABLE Genres (
+  id int PRIMARY KEY AUTO_INCREMENT,
+  name varchar(255) NOT NULL
 );
 
 CREATE TABLE Book_Authors (
-  ISBN bigint NOT NULL,
-  id_author int NOT NULL REFERENCES Authors,
-  /* Constraint: If a book is deleted, also delete book's related authors */
+  ISBN_book bigint NOT NULL,
+  id_author int NOT NULL REFERENCES Authors(id),
+  /* Constraint: If a book is deleted, also delete book's author connections */
   CONSTRAINT REFBOOK
-  FOREIGN KEY (ISBN)
+  FOREIGN KEY (ISBN_book)
   REFERENCES Books(ISBN)
     ON DELETE CASCADE
 );
 
-CREATE TABLE Book_Genre (
-  ISBN bigint NOT NULL REFERENCES Genre,
-  id_genre int NOT NULL,
-  /* Constraint: If a book is deleted, also delete the book's related genres */
-  FOREIGN KEY (ISBN)
+CREATE TABLE Book_Genres (
+  ISBN_book bigint NOT NULL,
+  id_genre int NOT NULL REFERENCES Genres(id),
+  /* Constraint: If a book is deleted, also delete the book's genre connections */
+  FOREIGN KEY (ISBN_BOOK)
   REFERENCES Books(ISBN)
     ON DELETE CASCADE
 );
@@ -92,63 +109,102 @@ SET auto_increment_offset = 1;
 
 
 /* SAMPLE DATA */
-INSERT INTO User (username, password, color_scheme) VALUES ("elliot", "$2b$10$U41SKHcvR0YnllxQ7bT89eNm0I8iU/uA.PTOPGlb1v.6R2FAfdwRG", "dark");
-INSERT INTO User (username, password) VALUES ("frank", "$2b$10$LAwdabZi8jOU7rmzUYqCf.IUW6iZQyorzo8yW8CDf6dZRmtt2stcy");
-INSERT INTO User (username, password) VALUES ("nicholas", "$2b$10$pBksFtv4TFV5.B/zSNZIwe695STLrF22brxR6rSh3KlhrHfn1stve");
-INSERT INTO User (username, password) VALUES ("vikram", "$2b$10$JQoXT7nX8N6ob7.ubdWPQOhT2xC8N2Fi01YHDpQ.r3Uq2x8VUR.a2");
-INSERT INTO User (username, password) VALUES ("john", "$2b$10$oBqv7hZRNQPNh9kegqIz5ut4QwKEmEV14Y7ZQ.YcRIq2bIUk855AW");
-INSERT INTO User (username, password) VALUES ("jane", "$2b$10$LUlfZfjO7a/tKjgFRHYU6e.PlWu2l7/H3/1oAjkb/2iDCf4WxGoG6");
+INSERT INTO Users (username, password, color_scheme) VALUES
+    ("elliot", "$2b$10$U41SKHcvR0YnllxQ7bT89eNm0I8iU/uA.PTOPGlb1v.6R2FAfdwRG", "dark");
+INSERT INTO Users (username, password) VALUES
+    ("frank", "$2b$10$LAwdabZi8jOU7rmzUYqCf.IUW6iZQyorzo8yW8CDf6dZRmtt2stcy"),
+    ("nicholas", "$2b$10$pBksFtv4TFV5.B/zSNZIwe695STLrF22brxR6rSh3KlhrHfn1stve"),
+    ("vikram", "$2b$10$JQoXT7nX8N6ob7.ubdWPQOhT2xC8N2Fi01YHDpQ.r3Uq2x8VUR.a2"),
+    ("john", "$2b$10$oBqv7hZRNQPNh9kegqIz5ut4QwKEmEV14Y7ZQ.YcRIq2bIUk855AW"),
+    ("jane", "$2b$10$LUlfZfjO7a/tKjgFRHYU6e.PlWu2l7/H3/1oAjkb/2iDCf4WxGoG6")
+;
 
-INSERT INTO Bookshelf_Names (shelf_name) VALUES ("reading");
-INSERT INTO Bookshelf_Names (shelf_name) VALUES ("want_to_read");
-INSERT INTO Bookshelf_Names (shelf_name) VALUES ("read");
+INSERT INTO Books (ISBN, title, description, date_published) VALUES
+    (1111111111, "title1", "Long Description1", '2020--12-1'),
+    (2222222222, "title2", "Long Description2", '2020--12-2'),
+    (3333333333, "title3", "Long Description3", '2020--12-3'),
+    (4444444444, "title4", "Long Description4", '2020--12-4'),
+    (5555555555, "title5", "Long Description5", '2020--12-5'),
+    (6666666666, "title6", "Long Description6", '2020--12-6')
+;
 
-INSERT INTO Books (ISBN, title, description, date_published) VALUES (1111111111, "title1", "Long Description1", '2020--12-1');
-INSERT INTO Books (ISBN, title, description, date_published) VALUES (2222222222, "title2", "Long Description2", '2020--12-2');
-INSERT INTO Books (ISBN, title, description, date_published) VALUES (3333333333, "title3", "Long Description3", '2020--12-3');
-INSERT INTO Books (ISBN, title, description, date_published) VALUES (4444444444, "title4", "Long Description4", '2020--12-4');
-INSERT INTO Books (ISBN, title, description, date_published) VALUES (5555555555, "title5", "Long Description5", '2020--12-5');
-INSERT INTO Books (ISBN, title, description, date_published) VALUES (6666666666, "title6", "Long Description6", '2020--12-6');
+INSERT INTO Reviews (ISBN_book, id_user, content, published) VALUES
+    (1111111111, 1, "wow not that bad", CURDATE()),  /* CURDATE() puts in current date */
+    (2222222222, 2, "interesting book!", CURDATE())
+;
 
-INSERT INTO Authors (name) VALUES ("Terrence Tao");
-INSERT INTO Authors (name) VALUES ("Brett Wortmanz");
-INSERT INTO Authors (name) VALUES ("Foo Bar the Third");
-INSERT INTO Authors (name) VALUES ("Suzzy Collins");
-INSERT INTO Authors (name) VALUES ("Albert Einstein");
+INSERT INTO Bookshelves (id_user, shelf_name) VALUES
+    (1, "reading"),
+    (1, "read"),
+    (1, "want_to_read"),
+    (2, "reading"),
+    (2, "read"),
+    (2, "want_to_read"),
+    (3, "reading"),
+    (3, "read"),
+    (3, "want_to_read"),
+    (4, "reading"),
+    (4, "read"),
+    (4, "want_to_read"),
+    (5, "reading"),
+    (5, "read"),
+    (5, "want_to_read"),
+    (6, "reading"),
+    (6, "read"),
+    (6, "want_to_read")
+;
 
-INSERT INTO Genre (name) VALUES ("Horror");
-INSERT INTO Genre (name) VALUES ("Romance");
-INSERT INTO Genre (name) VALUES ("Action");
-INSERT INTO Genre (name) VALUES ("Young Adult");
-INSERT INTO Genre (name) VALUES ("Thriller");
+INSERT INTO Bookshelf_Books (id_bookshelf, ISBN) VALUES
+    (1, 1111111111),
+    (2, 1111111111),
+    (1, 2222222222),
+    (3, 3333333333),
+    (1, 4444444444),
+    (6, 5555555555),
+    (9, 1111111111)
+;
 
-INSERT INTO Bookshelf (id_user, ISBN, shelf_name) VALUES (1, 1111111111, "reading");
-INSERT INTO Bookshelf (id_user, ISBN, shelf_name) VALUES (1, 1111111111, "read");
-INSERT INTO Bookshelf (id_user, ISBN, shelf_name) VALUES (1, 2222222222, "reading");
-INSERT INTO Bookshelf (id_user, ISBN, shelf_name) VALUES (1, 3333333333, "want_to_read");
-INSERT INTO Bookshelf (id_user, ISBN, shelf_name) VALUES (1, 4444444444, "reading");
-INSERT INTO Bookshelf (id_user, ISBN, shelf_name) VALUES (2, 5555555555, "want_to_read");
-INSERT INTO Bookshelf (id_user, ISBN, shelf_name) VALUES (3, 1111111111, "want_to_read");
-INSERT INTO Bookshelf (id_user, ISBN, shelf_name) VALUES (2, 4444444444, "reading");
+INSERT INTO Authors (name) VALUES
+    ("Terrence Tao"),
+    ("Brett Wortmanz"),
+    ("Foo Bar the Third"),
+    ("Suzzy Collins"),
+    ("Albert Einstein"),
+    ("李涛"),                           /* Testing non-latin characters */
+    ("Александр Сергеевич Пушкин")      /* Testing non-latin characters */
+;
 
-INSERT INTO Book_Authors (ISBN, id_author) VALUES (1111111111, 1);
-INSERT INTO Book_Authors (ISBN, id_author) VALUES (2222222222, 2);
-INSERT INTO Book_Authors (ISBN, id_author) VALUES (3333333333, 3);
-INSERT INTO Book_Authors (ISBN, id_author) VALUES (4444444444, 3); /* Edge Case */
-INSERT INTO Book_Authors (ISBN, id_author) VALUES (5555555555, 4); /* Edge Case */
-INSERT INTO Book_Authors (ISBN, id_author) VALUES (5555555555, 3); /* Edge Case */
+INSERT INTO Genres (name) VALUES
+    ("Horror"),
+    ("Romance"),
+    ("Action"),
+    ("Young Adult"),
+    ("Thriller")
+;
 
-INSERT INTO Book_Genre (ISBN, id_genre) VALUES (1111111111, 1);
-INSERT INTO Book_Genre (ISBN, id_genre) VALUES (2222222222, 2);
-INSERT INTO Book_Genre (ISBN, id_genre) VALUES (3333333333, 3);
-INSERT INTO Book_Genre (ISBN, id_genre) VALUES (4444444444, 3);  /* Edge Case */
-INSERT INTO Book_Genre (ISBN, id_genre) VALUES (5555555555, 5); /* Edge Case */
-INSERT INTO Book_Genre (ISBN, id_genre) VALUES (5555555555, 4); /* Edge Case */
+INSERT INTO Book_Authors (ISBN_book, id_author) VALUES
+    (1111111111, 1),
+    (2222222222, 2),
+    (3333333333, 3),
+    (4444444444, 3), /* Edge Case */
+    (5555555555, 4), /* Edge Case */
+    (5555555555, 3)  /* Edge Case */
+;
+
+INSERT INTO Book_Genres (ISBN_book, id_genre) VALUES
+    (1111111111, 1),
+    (2222222222, 2),
+    (3333333333, 3),
+    (4444444444, 3), /* Edge Case */
+    (5555555555, 5), /* Edge Case */
+    (5555555555, 4)  /* Edge Case */
+;
 
 /* RUN DELETE STATEMENTS SEPARATELY IF DOING TESTING */
-/* Testing Code For Deletion: Should delete the user in table User and its affiliated bookshelf and books */
--- DELETE FROM User WHERE username = "frank";
--- DELETE FROM User WHERE username = "elliot";
+/* Testing Code For Deletion (Cascade test) */
+/* Should delete the user in table User and its affiliated bookshelf and books */
+-- DELETE FROM Users WHERE username = "frank";
+-- DELETE FROM Users WHERE username = "elliot";
 
 /* Remove book from specific user from shelf */
--- DELETE FROM Bookshelf WHERE id_user = 1 AND shelf_name = "reading" AND ISBN = 1111111111;
+-- DELETE FROM Bookshelf_Books WHERE id_bookshelf = 1 AND ISBN = 1111111111;
