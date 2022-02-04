@@ -9,7 +9,7 @@ export default function Navbar() {
   return (
     <div className="navigation-wrapper">
       <nav className="navigation-bar">
-        <NavLink to="/browse">
+        <NavLink to="/">
           <h1 className="nav-logo">HuskyReads</h1>
         </NavLink>
         <div className="nav_split-right">
@@ -18,7 +18,7 @@ export default function Navbar() {
           </button>
           <ul className="nav-links lg">
             <li>
-              <NavLink to="/browse">Browse</NavLink>
+              <NavLink to="/" exact>Browse</NavLink>
             </li>
             <li>
               <NavLink to="/bookstand" activeClassName="active">Book Stand</NavLink>
@@ -50,7 +50,6 @@ export function ModalNav(props) {
 
   if (!props.modalOpen) {
     modalClass = modalClass + "hidden";
-    console.log(modalClass);
   }
 
   return (
@@ -59,7 +58,7 @@ export function ModalNav(props) {
       <div className="nav_modal-window">
         <ul className="nav-links sm">
           <li>
-            <NavLink to="/browse" onClick={()=>{props.toggle(false)}}>Browse</NavLink>
+            <NavLink to="/" onClick={()=>{props.toggle(false)}}>Browse</NavLink>
           </li>
           <li>
             <NavLink to="/bookstand" activeClassName="active" onClick={()=>{props.toggle(false)}}>Book Stand</NavLink>
@@ -70,7 +69,7 @@ export function ModalNav(props) {
           <li>
             <NavLink to="/about" activeClassName="active" onClick={()=>{props.toggle(false)}}>About Us</NavLink>
           </li>
-          {/* remove this line below later 
+          {/* remove this line below later
           <li>
             <NavLink to="/book-page" activeClassName="active">Book Page Test</NavLink>
           </li>

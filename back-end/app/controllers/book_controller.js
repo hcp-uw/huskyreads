@@ -6,8 +6,8 @@ const { db } = require('../utils/db');
  * @returns {boolean} - True if a book has the corresponding isbn
  */
 exports.checkIfIsbnExists = async (isbn) => {
-    let query = "SELECT COUNT(*) AS count FROM Books WHERE Books.isbn = ?";
-    let [count] = await db.query(query, isbn);
+    let query = "SELECT COUNT(*) AS count FROM Books WHERE Books.ISBN = ?";
+    let [count] = await db.query(query, [isbn]);
     return count[0].count > 0;
 }
 
@@ -23,38 +23,35 @@ exports.getMatchingBooks= async (info) => {
 	let genre = info.genre;
 
 	let params = [];
-	let query = `   DROP TEMPORARY TABLE IF EXISTS Results; CREATE TEMPORARY TABLE Results
-					SELECT Books.title AS title, Authors.name AS author_name, Books.ISBN AS isbn
-					FROM Books
-					INNER JOIN Book_Authors
-						ON Books.ISBN = Book_Authors.ISBN
-					INNER JOIN Authors
-						ON Book_Authors.id_author = Authors.id
-					INNER JOIN Book_Genre
-						ON Books.ISBN = Book_Genre.ISBN
-					INNER JOIN Genre
-						ON Book_Genre.id_genre = Genre.id
-					WHERE 1=1
+	let query = `   SELECT Books.title AS title, Books.ISBN AS ISBN,
+                        GROUP_CONCAT(DISTINCT Authors.name SEPARATOR ',') AS author_names
+                    FROM Books
+                    INNER JOIN Book_Authors
+                        ON Books.ISBN = Book_Authors.ISBN_book
+                    INNER JOIN Authors
+                        ON Book_Authors.id_author = Authors.id
+                    INNER JOIN Book_Genres
+                        ON Books.ISBN = Book_Genres.ISBN_book
+                    INNER JOIN Genres
+                        ON Book_Genres.id_genre = Genres.id
+                    WHERE 1 = 1
 				`;
 	if (title) {
-		query += " AND Books.title = ?";
+		query += " AND Books.title = ? ";
 		params.push(title);
 	}
 	if (genre) {
-		query += " AND Genre.name IN ?";
+		query += " AND Genres.name IN ? ";
 		params.push([genre]);
 	}
-	query += `;
-		SELECT Results.title, GROUP_CONCAT(DISTINCT Results.author_name SEPARATOR ',') AS authors, Results.isbn
-		FROM Results
-		GROUP BY Results.title, Results.isbn
-	`;
+	query += "GROUP BY Books.title, Books.ISBN ";
 	if (author) {
-		query += "HAVING FIND_IN_SET(?, authors)";
+		query += "HAVING FIND_IN_SET(?, author_names)";
 		params.push(author);
 	}
 	query += `;`;
-	return [await db.query(query, params)][0][0][2];
+    result = await db.query(query, params);
+	return result[0];
 }
 
 /**
@@ -64,27 +61,25 @@ exports.getMatchingBooks= async (info) => {
  */
 exports.getBookDetails = async (isbn) => {
     let query = `
-    DROP TEMPORARY TABLE IF EXISTS Results;
-    CREATE TEMPORARY TABLE Results
-    SELECT Books.title AS title, Books.date_published AS date_published, Books.description AS description, Authors.name AS author_name, Genre.name AS genre_name
+    SELECT Books.title AS title, Books.date_published AS date_published,
+        Books.description AS description,
+        GROUP_CONCAT(DISTINCT Authors.name SEPARATOR ',') AS authors,
+        GROUP_CONCAT(DISTINCT Genres.name SEPARATOR ',') AS genres
     FROM Books
     INNER JOIN Book_Authors
-        ON Books.ISBN = Book_Authors.ISBN
+        ON Books.ISBN = Book_Authors.ISBN_book
     INNER JOIN Authors
         ON Book_Authors.id_author = Authors.id
-    INNER JOIN Book_Genre
-        ON Books.ISBN = Book_Genre.ISBN
-    INNER JOIN Genre
-        ON Book_Genre.id_genre = Genre.id
+    INNER JOIN Book_Genres
+        ON Books.ISBN = Book_Genres.ISBN_book
+    INNER JOIN Genres
+        ON Book_Genres.id_genre = Genres.id
     WHERE Books.ISBN = ?
-    ;
-    SELECT Results.title, Results.date_published, Results.description, GROUP_CONCAT(DISTINCT Results.author_name SEPARATOR ',') AS authors, GROUP_CONCAT(DISTINCT Results.genre_name SEPARATOR ',') AS genres
-    FROM Results
-    GROUP BY Results.title, Results.date_published, Results.description
+    GROUP BY Books.title, Books.date_published
     ;
     `
     let [results] = await db.query(query, isbn);
-    let data = results[2][0];
+    let data = results[0];
     data.authors = data.authors.split(",");
     data.genres = data.genres.split(",");
     return data;

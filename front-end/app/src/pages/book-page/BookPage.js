@@ -1,94 +1,131 @@
 import "./style.css";
-import axios from 'axios'
-import React, {useState, useEffect} from 'react';
+import axios from "axios";
+import React, { useState, useEffect, useRef } from "react";
 
-export default function BookPage(ISBN) {
-
-  // I instantiated the object initially to withstand any potential errors
-  // that could be thrown.
+export default function BookPage({ isbn, openPage, setBgClass, setPageClass }) {
+  const URL = "http://localhost:";
+  const PORT = 8000;
+  // expecting this base URL to change btw!
+  const [errorPage, setErrorPage] = useState(false);
+  let ref = useRef(null);
   const [book, setBook] = useState({
-    title: undefined,
-    authors: undefined,
-    genres: undefined,
-    datePublished: undefined,
-    description: undefined
+    title: "",
+    authors: [],
+    genres: [],
+    date_published: "",
+    description: "",
   });
 
   // calls the the book constructor
   useEffect(() => {
-    getBookData(ISBN);
-  }, []);
-
-  // book fetch and constructor
-  async function getBookData(isbnParam) {
-    // expecting this base URL to change btw!!
-    let fetchURL = "http://localhost:8000/books/detail/";
-
-    if (isbnParam !== undefined) {
-      fetchURL += `${isbnParam}`;
+    async function axiosCall() {
+      const GET_BOOK = "/books/detail/";
+      try {
+        if (isbn === undefined) {
+          setErrorPage(true);
+        } else {
+          setErrorPage(false);
+          let fetchURL = URL + PORT + GET_BOOK + isbn;
+          let bookData = await axios.get(fetchURL);
+          setBook(bookData.data);
+        }
+      } catch (err) {
+        console.log(err);
+        setErrorPage(true);
+      }
     }
 
-    const response = await axios.get(fetchURL).catch((error) => console.log(error));
-    if (response !== undefined) {
-      setBook(response.data);
+    axiosCall();
+  }, [isbn]);
+
+  useEffect(() => {
+    if (!openPage) {
+      setPageClass("bookpage-modal hidden");
+      setBgClass("bookpage-bg hidden");
+    } else {
+      const timer = setTimeout(() => {
+        setPageClass("bookpage-modal");
+        setBgClass("bookpage-bg");
+      }, 100);
+
+      return () => {
+        clearTimeout(timer);
+      };
     }
+  }, [openPage]);
+
+  if (errorPage) {
+    return <p>Error: Unable to retrieve book details</p>;
+  } else {
+    return (
+      <div className="bookpage-container">
+        <section id="left-column">
+          <img
+            ref={ref}
+            id="imagebox"
+            src={
+              "https://covers.openlibrary.org/b/isbn/" +
+              isbn +
+              "-L.jpg?default=false"
+            }
+            alt="book cover"
+            onError={() => {
+              ref.current.src = "images/default-cover.png";
+            }}
+          ></img>
+          <div id="bookstand-selectors">
+            <select id="selector">
+              <option className="opt">Choose Shelf</option>
+              <option className="opt">Plan to Read</option>
+              <option className="opt">Currently Reading</option>
+              <option className="opt">Finished</option>
+            </select>
+            <button id="add-button">ADD TO SHELF</button>
+          </div>
+        </section>
+        <section id="right-column">
+          <h1>{book.title !== undefined && book.title}</h1>
+          {/* TODO: Test the preliminary code below for multiple authors/genres! */}
+          <hr />
+          <p>
+            <strong>Author(s): </strong>
+            {
+              // Builds the list of authors to display to user
+              book.authors.map((author) => {
+                if (author !== book.authors[book.authors.length - 1]) {
+                  return `${author}, `;
+                }
+                return author;
+              })
+            }
+          </p>
+          <p>
+            <strong>Genre(s): </strong>
+            {
+              // Builds the list of genres to display to user
+              book.genres.map((genre) => {
+                if (genre !== book.genres[book.genres.length - 1]) {
+                  return `${genre}, `;
+                }
+                return genre;
+              })
+            }
+          </p>
+          <p>
+            <strong>Date Published: </strong>
+            {book.date_published !== undefined &&
+              book.date_published.slice(0, 10)}
+          </p>
+          <p>
+            <strong>Description:</strong>
+            <br />
+            {book.description !== undefined && book.description}
+          </p>
+        </section>
+      </div>
+    );
   }
-
-  // returns book page
-  return(
-    <div id="bookpage-container">
-      <div id="left-column">
-        <div id="imagebox"></div>
-        <div id="bookstand-selectors">
-          <select id="selector">
-            <option className="opt">Choose Shelf</option>
-            <option className="opt">Plan to Read</option>
-            <option className="opt">Currently Reading</option>
-            <option className="opt">Finished</option>
-          </select>
-          <button id="add-button">ADD TO BOOKSTAND</button>
-        </div>
-      </div>
-
-      <div id="right-column">
-        <h1>Title: {book.title !== undefined && book.title}</h1>
-        {/* TODO: Test the preliminary code below! */}
-        <hr />
-        <p>
-          <strong>Author(s): </strong>
-          {
-            // Builds the list of authors to display to user
-            // odd code, untested, praying it somewhat works
-            book.authors.map(author => {
-              if (author !== book.authors[book.authors.length - 1]) {
-                return `${author},`;
-              }
-              return author;
-            })
-          }
-        </p>
-        <p>
-          <strong>Genre(s): </strong>
-          {
-            // Builds the list of genres to display to user
-            // odd code, untested, praying it somewhat works
-            book.genres.map((genre) => {
-              if (genre !== book.genres[book.genres.length - 1]) {
-                return `${genre},`;
-              }
-              return genre;
-            })
-          }
-        </p>
-        <p><strong>Date Published:</strong>
-          {book.datePublished !== undefined && book.datePublished}</p>
-        <p><strong>Description:</strong></p>
-        <p>{book.description !== undefined && book.description}</p>
-      </div>
-    </div>
-  );
 }
-
 
 /*   reminder from api doc that bookdata will come as
   {
