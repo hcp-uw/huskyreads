@@ -147,9 +147,7 @@ export default class Form extends React.Component {
             </div>
             <div>
               <input
-                // type="password" -> uncomment this if you actually want
-                // passwords to show up as black dots when typed in(like
-                // what you usually see on websites when you type in a password)
+                type="password"
                 id="password-box"
                 className="input-box"
                 name="password"
@@ -169,7 +167,7 @@ export default class Form extends React.Component {
             <button
               id="change-page-type-button"
               onClick={this.state.onLogin ? this.showSignUpPage : this.showLoginPage}>
-              {this.state.onLogin ? <div>Sign the hell up</div> : <div>Log the hell in</div>}
+              {this.state.onLogin ? <div>Sign up</div> : <div>Log in</div>}
             </button>
         </div>
       </>

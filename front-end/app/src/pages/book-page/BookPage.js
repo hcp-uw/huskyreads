@@ -27,7 +27,7 @@ export default function BookPage({ isbn, openPage, setBgClass, setPageClass, use
           console.log("No book given!");
         } else {
           setErrorPage(false);
-          let fetchURL = URL + PORT + GET_BOOK + isbn;
+          let fetchURL = URL + GET_BOOK + isbn;
           let bookData = await axios.get(fetchURL);
           setBook(bookData.data);
         }
@@ -44,6 +44,7 @@ export default function BookPage({ isbn, openPage, setBgClass, setPageClass, use
     if (!openPage) {
       setPageClass("bookpage-modal hidden");
       setBgClass("bookpage-bg hidden");
+      setSelectedShelf("default");
     } else {
       const timer = setTimeout(() => {
         setPageClass("bookpage-modal");
@@ -65,7 +66,6 @@ export default function BookPage({ isbn, openPage, setBgClass, setPageClass, use
    */
   async function addToShelf() {
     const ADD_TO_SHELF = "/bookshelves/add";
-    console.log(selectedShelf)
     try {
       if (!username) {
         // user is not logged in, send to login page
@@ -78,12 +78,10 @@ export default function BookPage({ isbn, openPage, setBgClass, setPageClass, use
           bookshelf: selectedShelf,
           isbn: isbn
         };
-
         // valid shelf selected by a logged-in user with a valid book!
         let fetchURL = URL + ADD_TO_SHELF;
         let response = await axios.post(fetchURL, data);
-        console.log(response);
-        setShelfStatus(response);
+        setShelfStatus(response.data);
       }
     } catch (err) {
       setShelfStatus(err.toString());
@@ -115,8 +113,9 @@ export default function BookPage({ isbn, openPage, setBgClass, setPageClass, use
               onChange={(event) => {
                 setSelectedShelf(event.target.value);
               }}
+              value={selectedShelf}
             >
-              <option value={"default"} className="opt">Choose Shelf</option>
+              <option value={"default"} className="opt" selected>Choose Shelf</option>
               <option value={"want_to_read"} className="opt">
                 Plan to Read
               </option>
