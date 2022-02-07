@@ -1,3 +1,5 @@
+## <span style="color:deepskyblue">User Authentication and Color Schema</span>
+---
 ### Authenticating User's Login Credentials
 
 Verifies that a user exists and that the provided password matches the stored one.
@@ -187,6 +189,3 @@ Grabs the username of the user that was previously logged in. Note that username
     ```
 
     </br>
-
-## <span style="color:deepskyblue">Accessing User Bookshelves</span>
----

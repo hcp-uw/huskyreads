@@ -1,3 +1,5 @@
+## <span style="color:deepskyblue">Accessing User Bookshelves</span>
+---
 ### Valid Bookshelf Names:
 
 * `"reading"`
@@ -176,5 +178,3 @@ Removes a book from a specified bookshelf for a user.
 
     </br>
 
-## <span style="color:deepskyblue">Retrieving Book Data</span>
----

@@ -15,6 +15,3 @@ The Husky Reads API provides information on cataloged books. It also maintains r
 * Example: Login = `https://husky-reads.herokuapp.com/login`
 
 * Example: Get books from bookshelf = `https://husky-reads.herokuapp.com/bookshelves/get/elliot/reading`
-
-## <span style="color:deepskyblue">User Data Interaction</span>
----
