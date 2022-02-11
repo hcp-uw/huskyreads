@@ -9,8 +9,7 @@
   // start the actual program when DOM and stylesheet(s) load
   window.addEventListener('load', init);
 
-  const PORT = 8000;
-  const URL = "http://localhost:" + PORT;
+  const URL = "https://husky-reads.herokuapp.com"
 
   /**
    * function which kickstarts the whole program once the

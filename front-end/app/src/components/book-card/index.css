@@ -36,10 +36,11 @@
 
 .book-card_title {
   color: black;
+  font-size: 1.2em;
 }
 
 .book-card_author {
   color: rgb(56, 56, 56);
-  font-size: .85em;
+  font-size: .98em;
   font-weight: 500;
 }
