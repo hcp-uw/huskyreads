@@ -25,7 +25,7 @@ export default function SettingsPage(username) {
   }, []);
 
   return(
-    <div id="container">
+    <div className="settings-container">
       <h2>Settings</h2>
       <div className="mode-switch">
         <p>Dark mode</p>

@@ -2,14 +2,9 @@ import "./index.css";
 
 export default function AboutPage() {
 
-    const testing = false;
-    if (!testing) {
-        return(aboutPagePureHTML());
-    }
-
-    function aboutPagePureHTML() {
-        return (
-          <div id="container">
+    return(
+        <section className="about-page-container">
+            <div id="container">
             <div id="about-block">
                 <img src="/images/huskypic.jpeg" alt="husky pic" />
                 <div id="purpose-box">
@@ -125,8 +120,8 @@ export default function AboutPage() {
                     </div>
                 </div>
             </div>
-        )
-    }
+        </section>
+    );
 
     /*
     HUSKY READS AXIOS EXAMPLE WITH HOOKS (useEffect and useState)
