@@ -1,5 +1,5 @@
 .bookstand-container {
-  max-width: 1280px;
+  max-width: 1432px;
   margin: 0 auto;
   padding: 0 1.5em;
 }
@@ -16,9 +16,8 @@
   text-align: center;
   font-size: 2.2em;
   font-weight: 600;
-  padding: 3em 0;
+  padding: 3.2em .8em;
   width: 98%;
-  max-width: 17.5em;
   cursor: pointer;
   transition: all 0.3s;
 }
@@ -51,7 +50,9 @@
 
 @media (max-width: 756px) {
   .bookstand-buttons {
+    margin: 2.2em auto;
     flex-direction: column;
+    max-width: 550px;
   }
 
   .bookstand-buttons div:first-child {
