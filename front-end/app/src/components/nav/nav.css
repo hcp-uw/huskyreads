@@ -1,12 +1,13 @@
 .navigation-wrapper {
   margin: 0 auto;
-  max-width: 1340px;
+  max-width: 1490px;
 }
 
 .navigation-bar {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  font-size: 1.1em;
   letter-spacing: 1px;
   padding: 0.6em 1.5em;
   background-color: #fff;
@@ -135,14 +136,14 @@
   border-radius: 50px;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 781px) {
   .nav_menu-btn,
   .nav-modal {
     display: none;
   }
 }
 
-@media (max-width: 767px) {
+@media (max-width: 780px) {
   .nav-links.lg {
     display: none;
   }
