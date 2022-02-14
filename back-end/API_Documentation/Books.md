@@ -99,22 +99,3 @@ Returns a detailed description for a single book. The information returned consi
     * 7/26/21: This is the endpoint that will return ratings and reviews in the future
 
     </br>
-
-## <span style="color:deepskyblue">Server Errors</span>
----
-All server errors will return the following content:
-
-If text response:
-
-  * **Code:** 500 </br>
-    **Content:** `"An error has occured on the server"`
-
-If JSON response:
-  * **Code:** 500 </br>
-    **Content:**
-
-    ```JSON
-    {
-        "error": "An error has occured on the server"
-    }
-    ```
