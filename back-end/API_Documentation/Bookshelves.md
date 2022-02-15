@@ -1,6 +1,6 @@
 ## <span style="color:deepskyblue">Accessing User Bookshelves</span>
 ---
-### Valid Bookshelf Names:
+### Default Bookshelf Names:
 
 * `"reading"`
 * `"read"`
@@ -10,7 +10,7 @@
 
 ### Get Books in Bookshelves
 
-Returns a list of books that belong in a given user's bookshelf. If no bookshelf is specified, then books from all of the user's bookshelves are returned.
+Returns a list of books that belong in a given user's bookshelf. If no bookshelf is specified, then books from all of the user's bookshelves are returned. Use `all` for the `bookshelf` parameter to request for all bookshelves.
 * **Endpoint:** /bookshelves/get/:username/:bookshelf
 
 * **Request Method:** GET
@@ -22,29 +22,60 @@ Returns a list of books that belong in a given user's bookshelf. If no bookshelf
     | Name       | Type   | Description                                      |
     | ---------- | ------ | ------------------------------------------------ |
     | `username` | String | The username of the user who owns the bookshelf. |
-
-    **Optional:**
-
-    | Name        | Type   | Description                                      | Default Value |
-    | ----------- | ------ | ------------------------------------------------ | ------------- |
-    | `bookshelf` | String | The name of the bookshelf to get the books from. | "all"         |
+    | `bookshelf` | String | The name of the bookshelf to get the books from. |
 
 * **Returned Data Format:** JSON
 
-* **Success Response:**
+* **Sample Success Response:**
+
+    * **Sample Request:** `/bookshelves/get/elliot/want_to_read` </br>
 
     * **Code:** 200 </br>
-    **Content:** 
+    **Content:**
 
     ```JSON
     [
         {
-            "name": "Want to read",
+            "name": "want_to_read",
             "books": [
-                {   
+                {
+                    "isbn": 2222222222,
                     "title": "Hunger Games",
                     "authors": ["Suzanne Collins"],
                     "genres": ["Young Adult", "Dystopian"]
+                }
+            ]
+        }
+    ]
+    ```
+
+    * **Sample Request:** `/bookshelves/get/nicholas/all` </br>
+
+    * **Code:** 200 </br>
+    **Content:**
+
+    ```JSON
+    [
+        {
+            "name": "read",
+            "books": []
+        },
+        {
+            "name": "reading",
+            "books": []
+        },
+        {
+            "name": "want_to_read",
+            "books": [
+                {
+                    "isbn": 1111111111,
+                    "title": "title1",
+                    "authors": [
+                        "Terrence Tao"
+                    ],
+                    "genres": [
+                        "Horror"
+                    ]
                 }
             ]
         }
@@ -56,35 +87,33 @@ Returns a list of books that belong in a given user's bookshelf. If no bookshelf
     Missing username URL parameter
 
     * **Code:** 400 </br>
-    **Content:** 
+    **Content:**
 
-    ```JSON 
+    ```JSON
     {"error": "Missing username parameter"}
-    ```
-
-    Username doesn't match any existing user
-
-    * **Code:** 401 </br>
-    **Content:** 
-
-    ```JSON 
-    {"error": "Invalid username parameter"}
     ```
 
     Given bookshelf name doesn't exist for the given user
 
     * **Code:** 400 </br>
-    **Content:** 
+    **Content:**
 
-    ```JSON 
+    ```JSON
     {"error": "Invalid bookshelf name"}
     ```
 
+    Username doesn't match any existing user
+    * **Code:** 401 </br>
+    **Content:**
+
+    ```JSON
+    {"error": "Invalid username parameter"}
+    ```
     </br>
 
 ### Add a Book To a Bookshelf
 
-Adds a book to the specified bookshelf for a user. 
+Adds a book to the specified bookshelf for a user.
 * **Endpoint:** /bookshelves/add
 
 * **Request Method:** POST
@@ -92,7 +121,7 @@ Adds a book to the specified bookshelf for a user.
 * **BODY Params:**
 
     **Required:**
-    
+
     | Name        | Type    | Description                                      |
     | ----------- | ------- | ------------------------------------------------ |
     | `username`  | String  | The username of the user who owns the bookshelf. |
@@ -113,11 +142,6 @@ Adds a book to the specified bookshelf for a user.
     * **Code:** 400 </br>
     **Content:** `"Missing one or more required body parameters"`
 
-    Username doesn't match any existing user
-
-    * **Code:** 401 </br>
-    **Content:** `"Invalid username"`
-
     An invalid bookshelf name is provided
 
     * **Code:** 400 </br>
@@ -127,6 +151,11 @@ Adds a book to the specified bookshelf for a user.
 
     * **Code:** 400 </br>
     **Content:** `"Book does not exist"`
+
+    Username doesn't match any existing user
+
+    * **Code:** 401 </br>
+    **Content:** `"Invalid username"`
 
     </br>
 
@@ -161,11 +190,6 @@ Removes a book from a specified bookshelf for a user.
     * **Code:** 400 </br>
     **Content:** `"Missing one or more required body parameters"`
 
-    Username doesn't match any existing user
-
-    * **Code:** 401 </br>
-    **Content:** `"Invalid username"`
-
     An invalid bookshelf name is provided
 
     * **Code:** 400 </br>
@@ -175,6 +199,11 @@ Removes a book from a specified bookshelf for a user.
 
     * **Code:** 400 </br>
     **Content:** `"Book does not exist in <bookshelf_name>"`
+
+    Username doesn't match any existing user
+
+    * **Code:** 401 </br>
+    **Content:** `"Invalid username"`
 
     </br>
 

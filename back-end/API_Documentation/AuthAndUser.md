@@ -135,7 +135,7 @@ Sets a user's preferred color scheme. Valid color schemes are either `"light"` o
 
 ### Grabbing color_scheme from cookie
 
-Grabs the color_scheme stored as a cookie. Valid color schemes are either `"light"` or `"dark"` mode. Will default to `"light"` if no cookie has been set.
+Grabs the color_scheme stored as a cookie. Valid color schemes are either `"light"` or `"dark"` mode. Will default to `"light"` if no cookie has been set. For clarification, the sample call is just `/grab/color_scheme`.
 * **Endpoint:** /grab/color_scheme
 
 * **Request Method:** GET
@@ -164,6 +164,8 @@ Grabs the username of the user that was previously logged in. Note that username
 
 * **Returned Data Format:** JSON
 
+* **Sample Request: `/grab/elliot`**
+
 * **Success Response:**
 
     * **Code:** 200 </br>
@@ -171,7 +173,7 @@ Grabs the username of the user that was previously logged in. Note that username
 
     ```JSON
     {
-        "username": "username123"
+        "username": "elliot"
     }
     ```
 

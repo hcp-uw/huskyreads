@@ -34,3 +34,6 @@ If JSON response:
         "error": "An error has occured on the server"
     }
     ```
+
+</br>
+Last Updated: 2/14/2022

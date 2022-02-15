@@ -21,6 +21,8 @@ Returns a list of books that match given search parameters and the number of boo
 
 * **Returned Data Format:** JSON
 
+* **Sample Request: `/books/search?title=Hunger+Games&author=&genre={}&offset=&resultLength=1`**
+
 * **Success Response:**
 
     * **Code:** 200 </br>
@@ -41,11 +43,7 @@ Returns a list of books that match given search parameters and the number of boo
 
 * **Error Response:**
 
-    N/A
-
-* **Notes:**
-
-    * 7/26/21: Cover data will be added to the returned data for each book before the end of the MVP
+    N/A (If an issue occurs due to user, endpoint will return nothing)
 
     </br>
 
@@ -65,6 +63,8 @@ Returns a detailed description for a single book. The information returned consi
     | `isbn` | Integer | The isbn number of the book to get details for. |
 
 * **Returned Data Format:** JSON
+
+* **Sample Request: `/books/detail/2222222222`**
 
 * **Success Response:**
 
@@ -95,7 +95,6 @@ Returns a detailed description for a single book. The information returned consi
 
 * **Notes:**
 
-    * 7/26/21: Cover data will be added to the returned data before the MVP is finished
-    * 7/26/21: This is the endpoint that will return ratings and reviews in the future
+    * 2/14/22: Ratings and Reviews still under implementation
 
     </br>
