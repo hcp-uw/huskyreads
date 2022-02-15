@@ -2,12 +2,12 @@ import "./style.css";
 import axios from "axios";
 import React, { useState, useEffect, useRef } from "react";
 
-export default function BookPage({ isbn, openPage, setBgClass, setPageClass }) {
-  const URL = "http://localhost:";
-  const PORT = 8000;
+export default function BookPage({ isbn, openPage, setBgClass, setPageClass, username, shelfStatus, setShelfStatus }) {
+  const URL = "https://husky-reads.herokuapp.com";
+  // const PORT = 8000;
   // expecting this base URL to change btw!
-  const [errorPage, setErrorPage] = useState(false);
-  let ref = useRef(null);
+  const [selectedShelf, setSelectedShelf] = useState("default");
+  const [errorPage, setErrorPage] = useState(true);
   const [book, setBook] = useState({
     title: "",
     authors: [],
@@ -15,6 +15,7 @@ export default function BookPage({ isbn, openPage, setBgClass, setPageClass }) {
     date_published: "",
     description: "",
   });
+  let ref = useRef(null);
 
   // calls the the book constructor
   useEffect(() => {
@@ -23,14 +24,15 @@ export default function BookPage({ isbn, openPage, setBgClass, setPageClass }) {
       try {
         if (isbn === undefined) {
           setErrorPage(true);
+          console.log("No book given!");
         } else {
           setErrorPage(false);
-          let fetchURL = URL + PORT + GET_BOOK + isbn;
+          let fetchURL = URL + GET_BOOK + isbn;
           let bookData = await axios.get(fetchURL);
           setBook(bookData.data);
         }
       } catch (err) {
-        console.log(err);
+        console.log(err.toString());
         setErrorPage(true);
       }
     }
@@ -42,6 +44,7 @@ export default function BookPage({ isbn, openPage, setBgClass, setPageClass }) {
     if (!openPage) {
       setPageClass("bookpage-modal hidden");
       setBgClass("bookpage-bg hidden");
+      setSelectedShelf("default");
     } else {
       const timer = setTimeout(() => {
         setPageClass("bookpage-modal");
@@ -53,6 +56,37 @@ export default function BookPage({ isbn, openPage, setBgClass, setPageClass }) {
       };
     }
   }, [openPage]);
+
+  // TODO: Figure out how to preset the select tag to show the option that the user had originally
+  // picked if the book is already in their bookstand. Might do search? Or request backend
+  // to make a contains method?
+
+  /**
+   * Adds the current book to the shelf chosen by the user in the drop-down menu.
+   */
+  async function addToShelf() {
+    const ADD_TO_SHELF = "/bookshelves/add";
+    try {
+      if (!username) {
+        // user is not logged in, send to login page
+        console.log("Username not passed in: " + username);
+      } else if (selectedShelf === "default") {
+        setShelfStatus("Error: Please select a shelf category");
+      } else {
+        const data = {
+          username: username,
+          bookshelf: selectedShelf,
+          isbn: isbn
+        };
+        // valid shelf selected by a logged-in user with a valid book!
+        let fetchURL = URL + ADD_TO_SHELF;
+        let response = await axios.post(fetchURL, data);
+        setShelfStatus(response.data);
+      }
+    } catch (err) {
+      setShelfStatus(err.toString());
+    }
+  }
 
   if (errorPage) {
     return <p>Error: Unable to retrieve book details</p>;
@@ -74,14 +108,34 @@ export default function BookPage({ isbn, openPage, setBgClass, setPageClass }) {
             }}
           ></img>
           <div id="bookstand-selectors">
-            <select id="selector">
-              <option className="opt">Choose Shelf</option>
-              <option className="opt">Plan to Read</option>
-              <option className="opt">Currently Reading</option>
-              <option className="opt">Finished</option>
+            <select
+              id="selector"
+              onChange={(event) => {
+                setSelectedShelf(event.target.value);
+              }}
+              value={selectedShelf}
+            >
+              <option value={"default"} className="opt" selected>Choose Shelf</option>
+              <option value={"want_to_read"} className="opt">
+                Plan to Read
+              </option>
+              <option value={"reading"} className="opt">
+                Currently Reading
+              </option>
+              <option value={"read"} className="opt">
+                Finished
+              </option>
             </select>
-            <button id="add-button">ADD TO SHELF</button>
+            <button
+              id="add-button"
+              onClick={() => {
+                addToShelf();
+              }}
+            >
+              ADD TO SHELF
+            </button>
           </div>
+          <p>{shelfStatus !== "" && shelfStatus}</p>
         </section>
         <section id="right-column">
           <h1>{book.title !== undefined && book.title}</h1>
