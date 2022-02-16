@@ -13,6 +13,7 @@ export default function BookStandPage(props) {
   const [openPage, setOpen] = useState(false);
   const [pageClass, setPageClass] = useState("bookpage-modal ");
   const [bgClass, setBgClass] = useState("bookpage-bg ");
+  const [shelfStatus, setShelfStatus] = useState("");
   const handleClick = useCallback((isbn) => {
     setOpen(!openPage);
     setISBN(isbn);
@@ -20,8 +21,8 @@ export default function BookStandPage(props) {
 
   let returnToLogin = false;
   let errorPage = false;
-  const PORT = 8000;
-  const URL = "http://localhost:" + PORT;
+  // const PORT = 8000;
+  const URL = "https://husky-reads.herokuapp.com";
   const labels = {
     reading: "Currently Reading",
     read: "Books I've Read",
@@ -61,7 +62,7 @@ export default function BookStandPage(props) {
         returnToLogin = true;
       }
     } catch (err) {
-      console.log(err);
+      console.log(err.toString());
     }
   }
 
@@ -119,10 +120,17 @@ export default function BookStandPage(props) {
               );
             })}
           </div>
-
-          <div className={bgClass} onClick={() => {setOpen(false)}}></div>
+          <div className={bgClass} onClick={() => {setOpen(false); setShelfStatus("");}}></div>
           <div className={pageClass}>
-            <BookPage isbn={selectedISBN} openPage={openPage} setPageClass={setPageClass} setBgClass={setBgClass}/>
+            <BookPage
+              isbn={selectedISBN}
+              openPage={openPage}
+              setPageClass={setPageClass}
+              setBgClass={setBgClass}
+              username={props.username}
+              shelfStatus={shelfStatus}
+              setShelfStatus={setShelfStatus}
+            />
           </div>
         </section>
       </div>
