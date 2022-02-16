@@ -23,7 +23,7 @@ All server errors will return the following content:
 If text response:
 
   * **Code:** 500 </br>
-    **Content:** `"An error has occured on the server"`
+    **Content:** `"An error has occurred on the server"`
 
 If JSON response:
   * **Code:** 500 </br>
@@ -31,9 +31,9 @@ If JSON response:
 
     ```JSON
     {
-        "error": "An error has occured on the server"
+        "error": "An error has occurred on the server"
     }
     ```
 
 </br>
-Last Updated: 2/14/2022
+Last Updated: 2/16/2022
