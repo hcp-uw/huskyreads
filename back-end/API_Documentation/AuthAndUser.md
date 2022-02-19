@@ -164,8 +164,6 @@ Grabs the username of the user that was previously logged in. Note that username
 
 * **Returned Data Format:** JSON
 
-* **Sample Request: `/grab/elliot`**
-
 * **Success Response:**
 
     * **Code:** 200 </br>
