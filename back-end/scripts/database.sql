@@ -73,17 +73,17 @@ CREATE TABLE Bookshelf_Books (
 );
 
 CREATE TABLE Authors (
-  id varchar(40)NOT NULL,
+  id varchar(40) NOT NULL,
   name varchar(255) NOT NULL
 );
 
-CREATE TABLE Genre (
+CREATE TABLE Genres (
   id int PRIMARY KEY AUTO_INCREMENT,
   name varchar(255) NOT NULL
  );
 
 CREATE TABLE Book_Authors (
-  ISBN bigint NOT NULL,
+  ISBN_book bigint NOT NULL,
   id_author varchar(40) REFERENCES Authors(id),
   /* Constraint: If a book is deleted, also delete book's related authors */
   CONSTRAINT REFBOOK
@@ -96,7 +96,7 @@ CREATE TABLE Book_Genres (
   ISBN_book bigint NOT NULL,
   id_genre int NOT NULL REFERENCES Genres(id),
   /* Constraint: If a book is deleted, also delete the book's genre connections */
-  FOREIGN KEY (ISBN_BOOK)
+  FOREIGN KEY (ISBN_book)
   REFERENCES Books(ISBN)
     ON DELETE CASCADE
 );
@@ -164,14 +164,14 @@ INSERT INTO Bookshelf_Books (id_bookshelf, ISBN) VALUES
     (9, 1111111111)
 ;
 
-INSERT INTO Authors (name) VALUES
-    ("Terrence Tao"),
-    ("Brett Wortmanz"),
-    ("Foo Bar the Third"),
-    ("Suzzy Collins"),
-    ("Albert Einstein"),
-    ("李涛"),                           /* Testing non-latin characters */
-    ("Александр Сергеевич Пушкин")      /* Testing non-latin characters */
+INSERT INTO Authors (id, name) VALUES
+    (1, "Terrence Tao"),
+    (2, "Brett Wortmanz"),
+    (3, "Foo Bar the Third"),
+    (4, "Suzzy Collins"),
+    (5, "Albert Einstein"),
+    (6, "李涛"),                           /* Testing non-latin characters */
+    (7, "Александр Сергеевич Пушкин")      /* Testing non-latin characters */
 ;
 
 INSERT INTO Genres (name) VALUES
