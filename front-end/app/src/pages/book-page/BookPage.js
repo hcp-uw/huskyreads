@@ -1,94 +1,185 @@
 import "./style.css";
-import axios from 'axios'
-import React, {useState, useEffect} from 'react';
+import axios from "axios";
+import React, { useState, useEffect, useRef } from "react";
 
-export default function BookPage(ISBN) {
-
-  // I instantiated the object initially to withstand any potential errors
-  // that could be thrown.
+export default function BookPage({ isbn, openPage, setBgClass, setPageClass, username, shelfStatus, setShelfStatus }) {
+  const URL = "https://husky-reads.herokuapp.com";
+  // const PORT = 8000;
+  // expecting this base URL to change btw!
+  const [selectedShelf, setSelectedShelf] = useState("default");
+  const [errorPage, setErrorPage] = useState(true);
   const [book, setBook] = useState({
-    title: undefined,
-    authors: undefined,
-    genres: undefined,
-    datePublished: undefined,
-    description: undefined
+    title: "",
+    authors: [],
+    genres: [],
+    date_published: "",
+    description: "",
   });
+  let ref = useRef(null);
 
   // calls the the book constructor
   useEffect(() => {
-    getBookData(ISBN);
-  }, []);
-
-  // book fetch and constructor
-  async function getBookData(isbnParam) {
-    // expecting this base URL to change btw!!
-    let fetchURL = "http://localhost:8000/books/detail/";
-
-    if (isbnParam !== undefined) {
-      fetchURL += `${isbnParam}`;
+    async function axiosCall() {
+      const GET_BOOK = "/books/detail/";
+      try {
+        if (isbn === undefined) {
+          setErrorPage(true);
+          console.log("No book given!");
+        } else {
+          setErrorPage(false);
+          let fetchURL = URL + GET_BOOK + isbn;
+          let bookData = await axios.get(fetchURL);
+          setBook(bookData.data);
+        }
+      } catch (err) {
+        console.log(err.toString());
+        setErrorPage(true);
+      }
     }
 
-    const response = await axios.get(fetchURL).catch((error) => console.log(error));
-    if (response !== undefined) {
-      setBook(response.data);
+    axiosCall();
+  }, [isbn]);
+
+  useEffect(() => {
+    if (!openPage) {
+      setPageClass("bookpage-modal hidden");
+      setBgClass("bookpage-bg hidden");
+      setSelectedShelf("default");
+    } else {
+      const timer = setTimeout(() => {
+        setPageClass("bookpage-modal");
+        setBgClass("bookpage-bg");
+      }, 100);
+
+      return () => {
+        clearTimeout(timer);
+      };
+    }
+  }, [openPage]);
+
+  // TODO: Figure out how to preset the select tag to show the option that the user had originally
+  // picked if the book is already in their bookstand. Might do search? Or request backend
+  // to make a contains method?
+
+  /**
+   * Adds the current book to the shelf chosen by the user in the drop-down menu.
+   */
+  async function addToShelf() {
+    const ADD_TO_SHELF = "/bookshelves/add";
+    try {
+      if (!username) {
+        // user is not logged in, send to login page
+        console.log("Username not passed in: " + username);
+      } else if (selectedShelf === "default") {
+        setShelfStatus("Error: Please select a shelf category");
+      } else {
+        const data = {
+          username: username,
+          bookshelf: selectedShelf,
+          isbn: isbn
+        };
+        // valid shelf selected by a logged-in user with a valid book!
+        let fetchURL = URL + ADD_TO_SHELF;
+        let response = await axios.post(fetchURL, data);
+        setShelfStatus(response.data);
+      }
+    } catch (err) {
+      setShelfStatus(err.toString());
     }
   }
 
-  // returns book page
-  return(
-    <div id="bookpage-container">
-      <div id="left-column">
-        <div id="imagebox"></div>
-        <div id="bookstand-selectors">
-          <select id="selector">
-            <option className="opt">Choose Shelf</option>
-            <option className="opt">Plan to Read</option>
-            <option className="opt">Currently Reading</option>
-            <option className="opt">Finished</option>
-          </select>
-          <button id="add-button">ADD TO BOOKSTAND</button>
-        </div>
+  if (errorPage) {
+    return <p>Error: Unable to retrieve book details</p>;
+  } else {
+    return (
+      <div className="bookpage-container">
+        <section id="left-column">
+          <img
+            ref={ref}
+            id="imagebox"
+            src={
+              "https://covers.openlibrary.org/b/isbn/" +
+              isbn +
+              "-L.jpg?default=false"
+            }
+            alt="book cover"
+            onError={() => {
+              ref.current.src = "images/default-cover.png";
+            }}
+          ></img>
+          <div id="bookstand-selectors">
+            <select
+              id="selector"
+              onChange={(event) => {
+                setSelectedShelf(event.target.value);
+              }}
+              value={selectedShelf}
+            >
+              <option value={"default"} className="opt" selected>Choose Shelf</option>
+              <option value={"want_to_read"} className="opt">
+                Plan to Read
+              </option>
+              <option value={"reading"} className="opt">
+                Currently Reading
+              </option>
+              <option value={"read"} className="opt">
+                Finished
+              </option>
+            </select>
+            <button
+              id="add-button"
+              onClick={() => {
+                addToShelf();
+              }}
+            >
+              ADD TO SHELF
+            </button>
+          </div>
+          <p>{shelfStatus !== "" && shelfStatus}</p>
+        </section>
+        <section id="right-column">
+          <h1>{book.title !== undefined && book.title}</h1>
+          {/* TODO: Test the preliminary code below for multiple authors/genres! */}
+          <hr />
+          <p>
+            <strong>Author(s): </strong>
+            {
+              // Builds the list of authors to display to user
+              book.authors.map((author) => {
+                if (author !== book.authors[book.authors.length - 1]) {
+                  return `${author}, `;
+                }
+                return author;
+              })
+            }
+          </p>
+          <p>
+            <strong>Genre(s): </strong>
+            {
+              // Builds the list of genres to display to user
+              book.genres.map((genre) => {
+                if (genre !== book.genres[book.genres.length - 1]) {
+                  return `${genre}, `;
+                }
+                return genre;
+              })
+            }
+          </p>
+          <p>
+            <strong>Date Published: </strong>
+            {book.date_published !== undefined &&
+              book.date_published.slice(0, 10)}
+          </p>
+          <p>
+            <strong>Description:</strong>
+            <br />
+            {book.description !== undefined && book.description}
+          </p>
+        </section>
       </div>
-
-      <div id="right-column">
-        <h1>Title: {book.title !== undefined && book.title}</h1>
-        {/* TODO: Test the preliminary code below! */}
-        <hr />
-        <p>
-          <strong>Author(s): </strong>
-          {
-            // Builds the list of authors to display to user
-            // odd code, untested, praying it somewhat works
-            book.authors.map(author => {
-              if (author !== book.authors[book.authors.length - 1]) {
-                return `${author},`;
-              }
-              return author;
-            })
-          }
-        </p>
-        <p>
-          <strong>Genre(s): </strong>
-          {
-            // Builds the list of genres to display to user
-            // odd code, untested, praying it somewhat works
-            book.genres.map((genre) => {
-              if (genre !== book.genres[book.genres.length - 1]) {
-                return `${genre},`;
-              }
-              return genre;
-            })
-          }
-        </p>
-        <p><strong>Date Published:</strong>
-          {book.datePublished !== undefined && book.datePublished}</p>
-        <p><strong>Description:</strong></p>
-        <p>{book.description !== undefined && book.description}</p>
-      </div>
-    </div>
-  );
+    );
+  }
 }
-
 
 /*   reminder from api doc that bookdata will come as
   {

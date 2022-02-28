@@ -15,6 +15,6 @@ exports.codes = {
     SUCCESS_CODE: 200,			// Success
     CLIENT_ERROR_CODE_400: 400,  // Bad Request
     CLIENT_ERROR_CODE_401: 401,  // Unauthorized Access
-    SERVER_ERROR_CODE: 500,      // Server Error format: "An error has occured on the server!"
-    SERVER_ERROR_MESSAGE: "An error has occured on the server"
+    SERVER_ERROR_CODE: 500,      // Server Error
+    SERVER_ERROR_MESSAGE: "An error has occurred on the server"
 }

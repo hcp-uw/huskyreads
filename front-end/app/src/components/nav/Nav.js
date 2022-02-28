@@ -9,7 +9,7 @@ export default function Navbar() {
   return (
     <div className="navigation-wrapper">
       <nav className="navigation-bar">
-        <NavLink to="/browse">
+        <NavLink to="/">
           <h1 className="nav-logo">HuskyReads</h1>
         </NavLink>
         <div className="nav_split-right">
@@ -18,7 +18,7 @@ export default function Navbar() {
           </button>
           <ul className="nav-links lg">
             <li>
-              <NavLink to="/browse">Browse</NavLink>
+              <NavLink to="/" exact>Browse</NavLink>
             </li>
             <li>
               <NavLink to="/bookstand" activeClassName="active">Book Stand</NavLink>
@@ -29,11 +29,6 @@ export default function Navbar() {
             <li>
               <NavLink to="/about" activeClassName="active">About Us</NavLink>
             </li>
-            {/* remove this line below later
-            <li>
-              <NavLink to="/book-page" activeClassName="active">Book Page Test</NavLink>
-            </li>
-            */}
           </ul>
           <button className="nav_search-btn">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
@@ -50,7 +45,6 @@ export function ModalNav(props) {
 
   if (!props.modalOpen) {
     modalClass = modalClass + "hidden";
-    console.log(modalClass);
   }
 
   return (
@@ -59,7 +53,7 @@ export function ModalNav(props) {
       <div className="nav_modal-window">
         <ul className="nav-links sm">
           <li>
-            <NavLink to="/browse" onClick={()=>{props.toggle(false)}}>Browse</NavLink>
+            <NavLink to="/" onClick={()=>{props.toggle(false)}}>Browse</NavLink>
           </li>
           <li>
             <NavLink to="/bookstand" activeClassName="active" onClick={()=>{props.toggle(false)}}>Book Stand</NavLink>
@@ -70,11 +64,6 @@ export function ModalNav(props) {
           <li>
             <NavLink to="/about" activeClassName="active" onClick={()=>{props.toggle(false)}}>About Us</NavLink>
           </li>
-          {/* remove this line below later 
-          <li>
-            <NavLink to="/book-page" activeClassName="active">Book Page Test</NavLink>
-          </li>
-          */}
         </ul>
       </div>
     </div>

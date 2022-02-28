@@ -1,3 +1,13 @@
 body {
   font-family: 'Manrope', 'Inter', sans-serif;
+  max-width: 1480px;
+  margin: 18px auto;
+}
+
+p:empty {
+  display: none;
+}
+
+.hidden {
+  display: none !important;
 }

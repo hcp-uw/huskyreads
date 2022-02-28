@@ -1,0 +1,66 @@
+.bookstand-container {
+  max-width: 1432px;
+  margin: 0 auto;
+  padding: 0 1.5em;
+}
+
+.bookstand-buttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 48px 0;
+}
+
+.bookstand-buttons div {
+  border-radius: 16px;
+  text-align: center;
+  font-size: 2.2em;
+  font-weight: 600;
+  padding: 3.2em .8em;
+  width: 98%;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.bookstand-buttons div:hover {
+  opacity: 0.9;
+}
+
+.bookstand-buttons div:first-child {
+  background-color: #421E59;
+  color: #fff;
+  margin-right: 32px;
+}
+
+.bookstand-buttons div:nth-child(2n) {
+  background-color: #E1C69E;
+  color: #000;
+  font-weight: 700;
+}
+
+.bookstand-selected-cat {
+  margin: 0 auto;
+}
+
+.bookstand-list {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 -30px;
+}
+
+@media (max-width: 756px) {
+  .bookstand-buttons {
+    margin: 2.2em auto;
+    flex-direction: column;
+    max-width: 560px;
+  }
+
+  .bookstand-buttons div:first-child {
+    margin-right: 0;
+    margin-bottom: .6em;
+  }
+
+  .bookstand-list {
+    justify-content: flex-start;
+  }
+}

@@ -11,31 +11,36 @@
 
 .book-list_card:hover img {
   transform: scale(1.01);
+  cursor: pointer;
 }
 
 .book-list_card:hover h4, .book-list_card:hover p {
-  opacity: 0.8;
+  opacity: 0.75;
+  cursor: pointer;
 }
 
 .book-card_img {
-  max-height: 200px;
-  width: 140px;
-  object-fit: contain;
+  margin-bottom: 12px;
+  height: 200px;
+  max-width: 145px;
+  object-fit: cover;
+  border: solid 1px rgb(220, 220, 220);
 }
 
 .book-card_title, .book-card_author {
   margin: 0;
-  padding-bottom: 8px;
+  padding-bottom: 5px;
   letter-spacing: .3px;
   width: 100%;
 }
 
 .book-card_title {
   color: black;
+  font-size: 1.2em;
 }
 
 .book-card_author {
   color: rgb(56, 56, 56);
-  font-size: .85em;
+  font-size: .98em;
   font-weight: 500;
 }

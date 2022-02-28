@@ -1,13 +1,18 @@
 .browse-container {
-  max-width: 1230px;
+  max-width: 1432px;
   margin: 1.2em auto;
+  padding: 0 1.5em;
+}
+
+.browse_book-list {
+  display: flex;
+  align-items: flex-start;
+  margin: 0 -30px;
 }
 
 .homepage-featured .browse_book-list {
-  display: flex;
   flex-wrap: nowrap;
   overflow-x: auto;
-  align-items: flex-start;
 }
 
 .homepage-featured .browse_book-list a:first-child {
@@ -15,10 +20,7 @@
 }
 
 .homepage-browse .browse_book-list {
-  display: flex;
   flex-wrap: wrap;
-  align-items: flex-start;
-  margin-left: -30px;
 }
 
 .browse_book-list::-webkit-scrollbar {
