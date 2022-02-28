@@ -1,13 +1,17 @@
+.about-page-container {
+    margin: 0 25px;
+    max-width: 1432px;
+}
+
 #container {
-    margin: 40px;
+    margin: 20px auto;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    max-width: 1240px;
 }
 
 #about-block {
-    margin: 0 auto;
+    margin: 0 auto 60px;
     padding: 10px;
     display: flex;
     flex-flow: row wrap;
@@ -23,27 +27,32 @@
 #about-block > img {
     width: 45%;
     min-width: 400px;
-    max-width: 600px;
+    max-width: 750px;
     height: fit-content;
 }
 
 #purpose-box {
-    width: 40%;
+    width: 45%;
     min-width: 400px;
-    max-width: 500px;
+    max-width: 600px;
     font-size: 18px;
-    margin: 25px 0px 30px 50px;
-}
-
-#team-title {
-    font-size: 36px;
-    margin: 30px 0px -5px 30px;
+    margin: 25px 0px 30px 40px;
+    letter-spacing: 1px;
+    line-height: 1.6em;
 }
 
 #page-title {
-    font-size: 36px;
-    margin-top: -5px;
-    margin-bottom: -5px;
+    font-size: 32px;
+    font-weight: 600;
+    margin-top: 12px;
+    margin-bottom: 32px;
+}
+
+#team-title {
+    font-size: 32px;
+    font-weight: 600;
+    margin-top: 12px;
+    margin-bottom: 32px;
 }
 
 #member-list {
@@ -51,15 +60,15 @@
     flex-flow: row wrap;
     justify-content: flex-start;
     align-items: center;
-    max-width: 1240px;
+    margin-right: -60px;
 }
 
 .member-box {
     box-shadow: 0 2px 10px rgb(218, 217, 217);
-    max-width: 250px;
+    max-width: 280px;
     padding: 20px;
-    margin: 40px;
-    margin-right:60px;
+    margin-right:50px;
+    margin-bottom: 50px;
     flex-flow: column;
     text-align: center;
     border-radius: 10px;

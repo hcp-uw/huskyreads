@@ -1,7 +1,11 @@
 body {
   font-family: 'Manrope', 'Inter', sans-serif;
-  max-width: 2000px;
+  max-width: 1480px;
   margin: 18px auto;
+}
+
+p:empty {
+  display: none;
 }
 
 .hidden {

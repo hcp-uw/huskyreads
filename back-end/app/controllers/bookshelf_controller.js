@@ -3,13 +3,23 @@ const { db } = require('../utils/db');
 /**
  * Removes a book from a specified bookshelf for a given user
  * @param {int} userID - The id for the given user
- * @param {String} bookshelf - The name of the bookshelf to alter
+ * @param {String} bookshelfName - The name of the bookshelf to alter
  * @param {int} isbn - The isbn of the book to remove
  * @return {boolean} - True if the table was altered, false otherwise
  */
-exports.deleteBookshelfRecord = async (userID, bookshelf, isbn) => {
-    let query = "DELETE FROM Bookshelf WHERE id_user = ? AND isbn = ? AND shelf_name = ?;";
-    let [rows] = await db.query(query, [userID, isbn, bookshelf])
+exports.deleteBookshelfRecord = async (userID, bookshelfName, isbn) => {
+    let query = `SELECT Bookshelves.id AS bookshelf_id
+                FROM Bookshelves
+                WHERE Bookshelves.id_user = ?
+                AND Bookshelves.shelf_name = ?
+                ;`;
+    let bookshelfid = await db.query(query, [userID, bookshelfName])
+    bookshelfid = bookshelfid[0][0].bookshelf_id;
+    query = `DELETE FROM Bookshelf_Books
+            WHERE Bookshelf_Books.id_bookshelf = ?
+            AND Bookshelf_Books.ISBN = ?
+            ;`
+    let [rows] = await db.query(query, [bookshelfid, isbn])
     return rows.affectedRows > 0;
 }
 
@@ -25,8 +35,8 @@ exports.getBookshelf = async (info) => {
     if (info[1] === "all") {
         // Purpose of this is to add all distinct bookshelf names into an array, so we can iterate
         // over each bookshelf and get its corresponding books
-        query = "SELECT shelf_name FROM Bookshelf_Names";
-        let [res] = await db.query(query, info[0]);  // could I just do let bookshelves bookshelves = await db.query(query, userID)?
+        query = "SELECT shelf_name FROM Bookshelves WHERE id_user = ?";
+        let [res] = await db.query(query, info[0]);
         for (let index = 0; index < res.length; index++) {
             bookshelves.push(res[index].shelf_name);
         }
@@ -34,33 +44,35 @@ exports.getBookshelf = async (info) => {
         bookshelves.push(info[1]);
     }
 
-    // WILL DEFINITELY NEED TO MAKE THIS QUERY FASTER (SCALABILITY SINCE WE MIGHT NEED TO CALL THIS MULTIPLE TIMES)
 	query =
     `
-    DROP TEMPORARY TABLE IF EXISTS Shelves, Book_Data;
+    DROP TABLE IF EXISTS Shelves, Book_Data;
     CREATE TEMPORARY TABLE Shelves
-        SELECT Bookshelf.ISBN AS ISBN, Bookshelf.shelf_name AS name
-        FROM Bookshelf
-        INNER JOIN User
-            ON User.id = Bookshelf.id_user
-        WHERE Bookshelf.shelf_name = ? AND User.id = ?
+        SELECT Bookshelves.shelf_name AS shelfname, Bookshelf_Books.ISBN AS ISBN
+        FROM Bookshelves
+        INNER JOIN Bookshelf_Books
+            ON Bookshelves.id = Bookshelf_Books.id_bookshelf
+        WHERE Bookshelves.shelf_name = ?
+        AND Bookshelves.id_user = ?
     ;
     CREATE TEMPORARY TABLE Book_Data
-        SELECT Shelves.name AS shelfname, Books.title AS title, Books.ISBN AS ISBN
+        SELECT Shelves.shelfname AS shelfname, Books.title AS title, Books.ISBN AS ISBN
         FROM Books
-        RIGHT JOIN Shelves
+        INNER JOIN Shelves
             ON Shelves.ISBN = Books.ISBN
     ;
-    SELECT Book_Data.title, Book_Data.ISBN, GROUP_CONCAT(DISTINCT Authors.name SEPARATOR ',') AS authors, GROUP_CONCAT(DISTINCT Genre.name SEPARATOR ',') AS genres
+    SELECT Book_Data.shelfname, Book_Data.title, Book_Data.ISBN,
+        GROUP_CONCAT(DISTINCT Authors.name SEPARATOR ',') AS authors,
+        GROUP_CONCAT(DISTINCT Genres.name SEPARATOR ',') AS genres
     FROM Book_Data
     INNER JOIN Book_Authors
-        ON Book_Data.ISBN = Book_Authors.ISBN
-    INNER JOIN Book_Genre
-        ON Book_Data.ISBN = Book_Genre.ISBN
+        ON Book_Data.ISBN = Book_Authors.ISBN_book
+    INNER JOIN Book_Genres
+        ON Book_Data.ISBN = Book_Genres.ISBN_book
     INNER JOIN Authors
         ON Book_Authors.id_author = Authors.id
-    INNER JOIN Genre
-        ON Book_Genre.id_genre = Genre.id
+    INNER JOIN Genres
+        ON Book_Genres.id_genre = Genres.id
     GROUP BY Book_Data.shelfname, Book_Data.title, Book_Data.ISBN
     ;
     `
@@ -74,12 +86,11 @@ exports.getBookshelf = async (info) => {
             let book = {
                 "isbn": row.ISBN,
                 "title": row.title,
-                "authors": row.authors.split(","),  // should fix issue?
-                "genres": row.genres.split(",")     // same here. Need testing
+                "authors": row.authors.split(","),
+                "genres": row.genres.split(",")
             };
             bookshelf.push(book);
         }
-
         result.push({"name": bookshelfName, "books": bookshelf});
     }
 
@@ -88,13 +99,20 @@ exports.getBookshelf = async (info) => {
 
 /**
  * Adds a book to the specified bookshelf for a given user
- * @param {String} bookshelf - The name of the bookshelf to alter
+ * @param {String} bookshelfName - The name of the bookshelf to alter
  * @param {int} userID - The id for the given user
  * @param {int} isbn - The isbn of the book to add
  */
-exports.insertBook = async (bookshelf, userID, isbn) => {
-	let query = "INSERT INTO Bookshelf VALUES (?, ?, ?)";
-	await db.query(query, [userID, isbn, bookshelf])
+exports.insertBook = async (bookshelfName, userID, isbn) => {
+    let query = `SELECT Bookshelves.id AS id_bookshelf
+                FROM Bookshelves
+                WHERE Bookshelves.id_user = ?
+                AND Bookshelves.shelf_name = ?
+                ;`
+    let bookshelfid = await db.query(query, [userID, bookshelfName]);
+    bookshelfid = bookshelfid[0][0].id_bookshelf;
+	query = "INSERT INTO Bookshelf_Books VALUES (?, ?)";
+	await db.query(query, [bookshelfid, isbn])
 }
 
 /**
@@ -107,20 +125,23 @@ exports.checkIfValidBookshelf = async (shelfInfo) => {
 		return true;
 	}
 
-    let query = "SELECT shelf_name FROM Bookshelf_Names WHERE shelf_name = ?";
+    let query = "SELECT shelf_name FROM Bookshelves WHERE shelf_name = ?";
 	let [res] = await db.query(query, shelfInfo[1]);
 	return res.length > 0;
 }
 
 /**
  * Checks if the given book exists in the users given bookshelf.
- * @param {String} bookshelf - The given bookshelf
+ * @param {String} bookshelfName - The given bookshelf
  * @param {int} userID - The user's associated ID
  * @param {int} isbn - The given isbn
  * @return {boolean} - True if the book is already in the bookshelf
  */
-exports.checkIfBookExistsInBookshelf = async (bookshelf, userID, isbn) => {
-    let query = "SELECT * FROM Bookshelf WHERE id_user = ? AND shelf_name = ? AND isbn = ?";
-    let [rows] = await db.query(query, [userID, bookshelf, isbn]);
+exports.checkIfBookExistsInBookshelf = async (bookshelfName, userID, isbn) => {
+    let query = "SELECT Bookshelves.id AS id_bookshelf FROM Bookshelves WHERE id_user = ? AND shelf_name = ?";
+    let bookshelfid = await db.query(query, [userID, bookshelfName]);
+    bookshelfid = bookshelfid[0][0].id_bookshelf;
+    query = "SELECT * from Bookshelf_Books WHERE id_bookshelf = ? AND ISBN = ?";
+    let [rows] = await db.query(query, [bookshelfid, isbn]);
     return rows.length > 0;
 }

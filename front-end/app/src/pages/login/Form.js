@@ -71,7 +71,7 @@ export default class Form extends React.Component {
 
     // update the states missing credentials and invalid credentials
     // according to the API response
-    const BASE_URL = "http://localhost:8000";
+    const BASE_URL = "https://husky-reads.herokuapp.com";
     const endpoint = this.state.onLogin ? "/login" : "/signup";
 
     const params = {
@@ -117,15 +117,9 @@ export default class Form extends React.Component {
               <Route path="/about">
                 <AboutPage/>
               </Route>
-
               <Route exact path="/">
-                <HomePage/>
+                <HomePage username={this.state.username}/>
               </Route>
-              {/* remove lines 32-34 later
-              <Route path="/book-page">
-                <BookPage/>
-              </Route>
-              */}
             </Switch>
           </Router>
         </>
@@ -153,9 +147,7 @@ export default class Form extends React.Component {
             </div>
             <div>
               <input
-                // type="password" -> uncomment this if you actually want
-                // passwords to show up as black dots when typed in(like
-                // what you usually see on websites when you type in a password)
+                type="password"
                 id="password-box"
                 className="input-box"
                 name="password"
@@ -175,7 +167,7 @@ export default class Form extends React.Component {
             <button
               id="change-page-type-button"
               onClick={this.state.onLogin ? this.showSignUpPage : this.showLoginPage}>
-              {this.state.onLogin ? <div>Sign the hell up</div> : <div>Log the hell in</div>}
+              {this.state.onLogin ? <div>Sign up</div> : <div>Log in</div>}
             </button>
         </div>
       </>
