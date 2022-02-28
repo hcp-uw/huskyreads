@@ -207,7 +207,7 @@ describe('POST /bookshelves/add', function() {
   /*************************************
    * Missing one or more required body parameters
    ***********************************/
-  it('400: Missing the ISBN body parameter', function(done) {
+  it('400: missing the ISBN body parameter', function(done) {
     let task = {
       username: "elliot",
       bookshelf: "want_to_read"
@@ -223,7 +223,7 @@ describe('POST /bookshelves/add', function() {
     });
   });
 
-  it('400: Missing the bookshelf body parameter', function(done) {
+  it('400: missing the bookshelf body parameter', function(done) {
     let task = {
       username: "frank",
       isbn: 3333333333
@@ -239,7 +239,7 @@ describe('POST /bookshelves/add', function() {
     });
   });
 
-  it('400: Missing the username body parameter', function(done) {
+  it('400: missing the username body parameter', function(done) {
     let task = {
       bookshelf: "want_to_read",
       isbn: 3333333333
@@ -255,7 +255,7 @@ describe('POST /bookshelves/add', function() {
     });
   });
 
-  it('400: No parameters given!', function(done) {
+  it('400: no parameters given!', function(done) {
     let task = {};
     chai.request(server)
     .post('/bookshelves/add')
@@ -270,7 +270,7 @@ describe('POST /bookshelves/add', function() {
   /*************************************
    * Invalid username testing
    ***********************************/
-   it('401: Invalid username', function(done) {
+   it('401: invalid username', function(done) {
     let task = {
       username: "vikram1",
       bookshelf: "read",
@@ -291,7 +291,7 @@ describe('POST /bookshelves/add', function() {
    * Invalid bookshelf name testing
    ***********************************/
 
-  it('400: Invalid bookshelf', function(done) {
+  it('400: invalid bookshelf', function(done) {
     let task = {
       username: "vikram",
       bookshelf: "read--",
@@ -308,7 +308,7 @@ describe('POST /bookshelves/add', function() {
     });
   });
 
-  it('400: Invalid bookshelf', function(done) {
+  it('400: invalid bookshelf', function(done) {
     let task = {
       username: "frank",
       bookshelf: "read-!-",
@@ -328,7 +328,7 @@ describe('POST /bookshelves/add', function() {
   /*************************************
    * Missing book testing
    ***********************************/
-  it('400: Missing book', function(done) {
+  it('400: missing book', function(done) {
     let task = {
       username: "frank",
       bookshelf: "read",
