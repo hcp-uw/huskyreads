@@ -31,7 +31,6 @@ def connectToDatabase():
             print(err)
 
 
-# TODO: Identify what data we'd like to retrieve / how to obtain description data
 def retrieveBookData(filePath: str):
     """ Retrieves necessary book data from a json file for insertion into SQL database
 
@@ -108,29 +107,28 @@ def insertBookData(books: list, cnx: object):
     for book in books:
         # Inserting books into Book table
         query = "INSERT INTO Books (ISBN, title, date_published) VALUES (%s, %s, %s)"
-        # TODO: Modify API Documentation to reflect changes in database for Book Date
         values = (book[1], book[0], book[2])
         cursor.execute(query, values)
         # Inserts subjects into Genre table, Inserts connections in Book_Genre
         if book[4] is not None:
             for subject in book[4]:
-                query = "SELECT * FROM Genre WHERE name = %s" # Checks for duplicates
+                query = "SELECT * FROM Genres WHERE name = %s" # Checks for duplicates
                 values = (subject,)
                 cursor.execute(query, values)
                 res = cursor.fetchall()
                 # Add if there isn't a duplicate
                 if res == []:
-                    query = "INSERT INTO Genre (name) VALUES (%s)"
+                    query = "INSERT INTO Genres (name) VALUES (%s)"
                     values = (subject,)
                     cursor.execute(query, values)
                 rowid = cursor.lastrowid if len(res) == 0 else res[0][0]
-                query = "INSERT INTO Book_Genre (ISBN, id_genre) VALUES (%s, %s)"
+                query = "INSERT INTO Book_Genres (ISBN_book, id_genre) VALUES (%s, %s)"
                 values = (book[1], rowid)
                 cursor.execute(query, values)
         # Insert author references into Book_Authors table
         if book[3] is not None:
             authorID = book[3][9:]
-            query = "INSERT INTO Book_Authors (ISBN, id_author) VALUES (%s, %s)"
+            query = "INSERT INTO Book_Authors (ISBN_book, id_author) VALUES (%s, %s)"
             values = (book[1], authorID)
             cursor.execute(query, values)
     cnx.commit()
@@ -159,8 +157,8 @@ def insertAuthorData(authors: list, cnx: object):
 
 
 def main():
-    file_path_books = "back-end/data/processed/sample_output.json"
-    file_path_authors = "back-end/data/processed/sample_author_output.json"
+    file_path_books = "../data/processed/sample_output.json"
+    file_path_authors = "../data/processed/sample_author_output.json"
     books = retrieveBookData(file_path_books)
     authors = retrieveAuthorData(file_path_authors)
     cnx = connectToDatabase()
