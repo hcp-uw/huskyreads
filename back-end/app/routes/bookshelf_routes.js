@@ -113,4 +113,25 @@ router.post("/remove", async (req, res) => {
     }
 });
 
+router.get("/book/:username/:isbn", async (req, res) => {
+    try {
+        res.type("JSON");
+        let username = req.params.username;
+		let isbn = req.params.isbn;
+        let userID = await getUserID(username);
+        let isValidIsbn = await checkIfIsbnExists(isbn);
+        if (userID == 0) {
+            res.status(codes.CLIENT_ERROR_CODE_401).send({"error": "Invalid username parameter"});
+        } else if (!isValidIsbn) {
+            res.status(codes.CLIENT_ERROR_CODE_400).send({"error": "Book does not exist"});
+        } else {
+            // Call controller method to find list of bookshelf names for a user containing target book
+            // send results back to user (code 200)
+        }
+    } catch (err) {
+        loggingModule(err, "bookshelfBookSearch");
+        res.status(codes.SERVER_ERROR_CODE).send(codes.SERVER_ERROR_MESSAGE);
+    }
+});
+
 module.exports = router;
