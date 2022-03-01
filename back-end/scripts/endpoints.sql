@@ -97,6 +97,16 @@ WHERE Bookshelf_Books.id_bookshelf = bookshelf_id
 AND Bookshelf_Books.ISBN = [ISBN]
 ;
 
+-- TESTED
+/* Get Bookshelf Names for a User that Contain a Specific Book */
+/* Parameters: User_id, ISBN */
+SELECT Bookshelves.shelf_name AS shelf_name
+FROM Bookshelves
+INNER JOIN Bookshelf_Books
+    ON Bookshelves.id = Bookshelf_Books.id_bookshelf
+WHERE Bookshelves.id_user = [User_id]
+AND Bookshelf_Books.ISBN = [ISBN]
+;
 
 -- TESTED
 /* Retrieving Book Data */
