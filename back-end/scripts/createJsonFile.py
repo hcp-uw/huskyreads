@@ -33,7 +33,7 @@ def parse_text_file(file_path: str) -> str:
     return file_lines
 
 def append_multiple_lines(lines_to_append: str, output_path=os.path.join(PROCESSED_DATA_PATH,
-                          "sample_work_output.json")):
+                          "sample_output.json")):
     """
     Creates and Appends the clean book data into a JSON file
 
@@ -54,18 +54,19 @@ def append_multiple_lines(lines_to_append: str, output_path=os.path.join(PROCESS
         cleaned_line = text_cleaner(line)
         book_data.append(cleaned_line)
 
-    final_result = {'books': list(dict())}
+    final_result = {'data': list(dict())}
     with open(output_path, 'a+', encoding='utf-8') as f_out:
         for i in range(len(book_data)):
-            final_result['books'].append(json.loads(book_data[i]))
+            final_result['data'].append(json.loads(book_data[i]))
 
         f_out.write(json.dumps(final_result, indent = 4, sort_keys = False))
 
 
 def main():
-    file_path = os.path.join(BACKEND_ROOT, 'data', 'raw', 'sample_work_data.txt')
-    file_lines = parse_text_file(file_path)
-    append_multiple_lines(file_lines)
+    for filename in os.listdir("../data/raw"):
+        file_lines = parse_text_file("../data/raw/" + filename)
+        output_file = filename.split(".")[0] + ".json"
+        append_multiple_lines(file_lines, "../data/processed/" + output_file)
 
 if __name__ == '__main__':
     main()

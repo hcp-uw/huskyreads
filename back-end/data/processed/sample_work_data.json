@@ -1,5 +1,5 @@
 {
-    "books": [
+    "data": [
         {
             "created": {
                 "type": "/type/datetime",

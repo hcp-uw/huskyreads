@@ -39,7 +39,7 @@ def retrieveBookData(filePath: str):
                 The file-path to the JSON file containing the data
 
         Expected:
-            JSON file to contain field "Books", with value [arr] where each indice contains book data
+            JSON file to contain field "data", with value [arr] where each indice contains book data
 
         Returns:
             Array of books to be inserted into database:
@@ -47,10 +47,10 @@ def retrieveBookData(filePath: str):
     """
     f = open(filePath)
     data = json.load(f)
-    # Assumes data field is called "books" - this is controlled by the data modifying code
+    # Assumes data field is called "data" - this is controlled by the data modifying code
     # Assumes "isbn_10" refers to an integer (decimal); NOTE: isbn_10 can have leading zeros.
     bookdata = []
-    for book in data["books"]:
+    for book in data["data"]:
         getISBN10 = book.get("isbn_10")
         if len(getISBN10) > 0:
             # Should be guaranteed at least one of the values is a valid decimal number
@@ -84,7 +84,7 @@ def retrieveAuthorData(filePath: str):
     data = json.load(f)
     authorData = []
     # Assumes json object table name is author
-    for author in data["author"]:
+    for author in data["data"]:
         authorData.append([author.get("key")[9:], author.get("name")])
     return authorData
 
@@ -157,8 +157,8 @@ def insertAuthorData(authors: list, cnx: object):
 
 
 def main():
-    file_path_books = "../data/processed/sample_output.json"
-    file_path_authors = "../data/processed/sample_author_output.json"
+    file_path_books = "../data/processed/sample_data.json"
+    file_path_authors = "../data/processed/sample_author_data.json"
     books = retrieveBookData(file_path_books)
     authors = retrieveAuthorData(file_path_authors)
     cnx = connectToDatabase()
