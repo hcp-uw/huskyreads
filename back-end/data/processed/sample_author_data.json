@@ -1,0 +1,140 @@
+{
+    "data": [
+        {
+            "name": "\u02bbUthma\u0304n Sulayma\u0304n Mura\u0304d",
+            "personal_name": "\u02bbUthma\u0304n Sulayma\u0304n Mura\u0304d",
+            "last_modified": {
+                "type": "/type/datetime",
+                "value": "2008-08-20T17:57:14.7888"
+            },
+            "key": "/authors/OL1000085A",
+            "type": {
+                "key": "/type/author"
+            },
+            "revision": 2
+        },
+        {
+            "name": "Jami\u0304l Jubu\u0304ri\u0304",
+            "personal_name": "Jami\u0304l Jubu\u0304ri\u0304",
+            "last_modified": {
+                "type": "/type/datetime",
+                "value": "2008-08-20T17:57:22.425482"
+            },
+            "key": "/authors/OL1000143A",
+            "type": {
+                "key": "/type/author"
+            },
+            "revision": 2
+        },
+        {
+            "name": "\u02bbAbd al-Rah\u0323ma\u0304n Bashi\u0304r S\u0323aghi\u0304r",
+            "personal_name": "\u02bbAbd al-Rah\u0323ma\u0304n Bashi\u0304r S\u0323aghi\u0304r",
+            "last_modified": {
+                "type": "/type/datetime",
+                "value": "2008-08-20T17:57:51.609392"
+            },
+            "key": "/authors/OL1000337A",
+            "type": {
+                "key": "/type/author"
+            },
+            "revision": 2
+        },
+        {
+            "name": "Kha\u0304lid Muh\u0323ammad Maqa\u0304mis",
+            "personal_name": "Kha\u0304lid Muh\u0323ammad Maqa\u0304mis",
+            "last_modified": {
+                "type": "/type/datetime",
+                "value": "2008-08-20T17:58:07.417848"
+            },
+            "key": "/authors/OL1000438A",
+            "type": {
+                "key": "/type/author"
+            },
+            "revision": 2
+        },
+        {
+            "website": "rnarfani.staff.ugm.ac.id",
+            "name": "Riza Noer Arfani",
+            "personal_name": "Riza Noer Arfani",
+            "photos": [
+                3366228
+            ],
+            "last_modified": {
+                "type": "/type/datetime",
+                "value": "2010-04-12T12:19:43.239002"
+            },
+            "latest_revision": 4,
+            "location": "Yogyakarta, Indonesia",
+            "key": "/authors/OL100047A",
+            "birth_date": "August 3rd 1967",
+            "type": {
+                "key": "/type/author"
+            },
+            "revision": 4
+        },
+        {
+            "name": "Gazeteciler Cemiyeti (Turkey)",
+            "last_modified": {
+                "type": "/type/datetime",
+                "value": "2008-04-01T03:28:50.625462"
+            },
+            "key": "/authors/OL1000885A",
+            "type": {
+                "key": "/type/author"
+            },
+            "revision": 1
+        },
+        {
+            "name": "Catholic Church. Kenya Episcopal Conference.",
+            "last_modified": {
+                "type": "/type/datetime",
+                "value": "2008-04-01T03:28:50.625462"
+            },
+            "key": "/authors/OL1001263A",
+            "type": {
+                "key": "/type/author"
+            },
+            "revision": 1
+        },
+        {
+            "name": "Richard Nuccio",
+            "personal_name": "Richard Nuccio",
+            "last_modified": {
+                "type": "/type/datetime",
+                "value": "2008-08-20T18:04:40.637835"
+            },
+            "key": "/authors/OL1001963A",
+            "type": {
+                "key": "/type/author"
+            },
+            "revision": 2
+        },
+        {
+            "name": "James Darwin Stephens",
+            "personal_name": "James Darwin Stephens",
+            "last_modified": {
+                "type": "/type/datetime",
+                "value": "2008-08-20T18:05:02.911133"
+            },
+            "key": "/authors/OL1001981A",
+            "birth_date": "1916",
+            "type": {
+                "key": "/type/author"
+            },
+            "revision": 2
+        },
+        {
+            "name": "David T. Plummer",
+            "personal_name": "David T. Plummer",
+            "last_modified": {
+                "type": "/type/datetime",
+                "value": "2008-08-20T18:06:38.054905"
+            },
+            "key": "/authors/OL1002187A",
+            "type": {
+                "key": "/type/author"
+            },
+            "revision": 2
+        }
+    ]
+}
