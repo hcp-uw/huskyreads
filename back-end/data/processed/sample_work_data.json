@@ -1,0 +1,318 @@
+{
+    "data": [
+        {
+            "created": {
+                "type": "/type/datetime",
+                "value": "2009-12-11T01:57:19.964652"
+            },
+            "subjects": [
+                "History, Ancient",
+                "Historiography",
+                "Comparative method",
+                "Ancient History"
+            ],
+            "latest_revision": 5,
+            "key": "/works/OL10000120W",
+            "title": "Promettre et \u00e9crire",
+            "authors": [
+                {
+                    "type": {
+                        "key": "/type/author_role"
+                    },
+                    "author": {
+                        "key": "/authors/OL3965106A"
+                    }
+                }
+            ],
+            "type": {
+                "key": "/type/work"
+            },
+            "last_modified": {
+                "type": "/type/datetime",
+                "value": "2010-07-20T14:36:28.095870"
+            },
+            "covers": [
+                5420446
+            ],
+            "revision": 5
+        },
+        {
+            "title": "Paroles, Jacques Pr\u00e9vert",
+            "created": {
+                "type": "/type/datetime",
+                "value": "2009-12-11T01:57:19.964652"
+            },
+            "covers": [
+                3140406
+            ],
+            "last_modified": {
+                "type": "/type/datetime",
+                "value": "2010-04-28T06:54:19.472104"
+            },
+            "latest_revision": 3,
+            "key": "/works/OL10000199W",
+            "authors": [
+                {
+                    "type": "/type/author_role",
+                    "author": {
+                        "key": "/authors/OL3965200A"
+                    }
+                }
+            ],
+            "type": {
+                "key": "/type/work"
+            },
+            "revision": 3
+        },
+        {
+            "last_modified": {
+                "type": "/type/datetime",
+                "value": "2010-07-20T14:36:28.095870"
+            },
+            "title": "Fortuny",
+            "created": {
+                "type": "/type/datetime",
+                "value": "2009-12-11T01:57:19.964652"
+            },
+            "covers": [
+                3140637
+            ],
+            "subject_places": [
+                "Italy"
+            ],
+            "subjects": [
+                "Costume design",
+                "Italy",
+                "Biography",
+                "Fashion designers"
+            ],
+            "subject_people": [
+                "Mariano Fortuny (1871-1949)"
+            ],
+            "key": "/works/OL10000374W",
+            "authors": [
+                {
+                    "type": {
+                        "key": "/type/author_role"
+                    },
+                    "author": {
+                        "key": "/authors/OL3965405A"
+                    }
+                }
+            ],
+            "latest_revision": 5,
+            "type": {
+                "key": "/type/work"
+            },
+            "revision": 5
+        },
+        {
+            "title": "Le transfo",
+            "created": {
+                "type": "/type/datetime",
+                "value": "2009-12-11T01:57:19.964652"
+            },
+            "covers": [
+                3141577
+            ],
+            "last_modified": {
+                "type": "/type/datetime",
+                "value": "2010-04-28T06:54:19.472104"
+            },
+            "latest_revision": 3,
+            "key": "/works/OL10000805W",
+            "authors": [
+                {
+                    "type": "/type/author_role",
+                    "author": {
+                        "key": "/authors/OL3965898A"
+                    }
+                }
+            ],
+            "type": {
+                "key": "/type/work"
+            },
+            "revision": 3
+        },
+        {
+            "title": "Un Panda dans l'escalier",
+            "created": {
+                "type": "/type/datetime",
+                "value": "2009-12-11T01:57:29.804644"
+            },
+            "covers": [
+                3142757
+            ],
+            "last_modified": {
+                "type": "/type/datetime",
+                "value": "2010-04-28T06:54:19.472104"
+            },
+            "latest_revision": 3,
+            "key": "/works/OL10001306W",
+            "authors": [
+                {
+                    "type": "/type/author_role",
+                    "author": {
+                        "key": "/authors/OL3966431A"
+                    }
+                }
+            ],
+            "type": {
+                "key": "/type/work"
+            },
+            "revision": 3
+        },
+        {
+            "title": "Wanted tome IV",
+            "created": {
+                "type": "/type/datetime",
+                "value": "2009-12-11T01:57:29.804644"
+            },
+            "covers": [
+                3155771
+            ],
+            "last_modified": {
+                "type": "/type/datetime",
+                "value": "2010-04-28T06:54:19.472104"
+            },
+            "latest_revision": 3,
+            "key": "/works/OL10001365W",
+            "authors": [
+                {
+                    "type": "/type/author_role",
+                    "author": {
+                        "key": "/authors/OL3966511A"
+                    }
+                }
+            ],
+            "type": {
+                "key": "/type/work"
+            },
+            "revision": 3
+        },
+        {
+            "title": "Piercing",
+            "covers": [
+                3143297
+            ],
+            "key": "/works/OL10001531W",
+            "authors": [
+                {
+                    "type": {
+                        "key": "/type/author_role"
+                    },
+                    "author": {
+                        "key": "/authors/OL3966705A"
+                    }
+                }
+            ],
+            "type": {
+                "key": "/type/work"
+            },
+            "subjects": [
+                "Body piercing",
+                "History ."
+            ],
+            "latest_revision": 4,
+            "revision": 4,
+            "created": {
+                "type": "/type/datetime",
+                "value": "2009-12-11T01:57:29.804644"
+            },
+            "last_modified": {
+                "type": "/type/datetime",
+                "value": "2020-12-05T09:04:56.153578"
+            }
+        },
+        {
+            "last_modified": {
+                "type": "/type/datetime",
+                "value": "2010-07-22T06:00:07.555136"
+            },
+            "title": "H\u00e9matologie et soins infirmiers",
+            "created": {
+                "type": "/type/datetime",
+                "value": "2009-12-11T01:57:38.254267"
+            },
+            "subjects": [
+                "Soins infirmiers",
+                "Sang",
+                "Maladies"
+            ],
+            "latest_revision": 3,
+            "key": "/works/OL10002177W",
+            "authors": [
+                {
+                    "type": {
+                        "key": "/type/author_role"
+                    },
+                    "author": {
+                        "key": "/authors/OL3967468A"
+                    }
+                }
+            ],
+            "type": {
+                "key": "/type/work"
+            },
+            "revision": 3
+        },
+        {
+            "title": "St.-Gratien, Enghien-les-Bains",
+            "created": {
+                "type": "/type/datetime",
+                "value": "2009-12-11T01:57:52.839053"
+            },
+            "last_modified": {
+                "type": "/type/datetime",
+                "value": "2009-12-11T01:57:52.839053"
+            },
+            "latest_revision": 1,
+            "key": "/works/OL10003022W",
+            "authors": [
+                {
+                    "type": "/type/author_role",
+                    "author": {
+                        "key": "/authors/OL3968399A"
+                    }
+                }
+            ],
+            "type": {
+                "key": "/type/work"
+            },
+            "revision": 1
+        },
+        {
+            "created": {
+                "type": "/type/datetime",
+                "value": "2009-12-11T01:57:52.839053"
+            },
+            "subjects": [
+                "Criticism and interpretation"
+            ],
+            "subject_people": [
+                "Marie No\u00ebl (1883-1967)"
+            ],
+            "key": "/works/OL10003033W",
+            "title": "\"Mon Dieu, je ne vous aime pas\"",
+            "latest_revision": 3,
+            "authors": [
+                {
+                    "type": {
+                        "key": "/type/author_role"
+                    },
+                    "author": {
+                        "key": "/authors/OL3968412A"
+                    }
+                }
+            ],
+            "type": {
+                "key": "/type/work"
+            },
+            "last_modified": {
+                "type": "/type/datetime",
+                "value": "2010-07-22T10:57:27.012528"
+            },
+            "revision": 3
+        }
+    ]
+}
