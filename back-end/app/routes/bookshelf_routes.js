@@ -127,7 +127,7 @@ router.get("/book/:username/:isbn", async (req, res) => {
             res.status(codes.CLIENT_ERROR_CODE_400).send({"error": "Book does not exist"});
         } else {
             let bookshelfNames = await getUserBookshelvesWithBook(userID, isbn);
-            res.status(SUCCESS_CODE).send(bookshelfNames);
+            res.status(codes.SUCCESS_CODE).send(bookshelfNames);
         }
     } catch (err) {
         loggingModule(err, "bookshelfBookSearch");
