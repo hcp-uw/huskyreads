@@ -145,3 +145,25 @@ exports.checkIfBookExistsInBookshelf = async (bookshelfName, userID, isbn) => {
     let [rows] = await db.query(query, [bookshelfid, isbn]);
     return rows.length > 0;
 }
+
+/**
+ * Returns a list of bookshelf names that the given user owns which contain the
+ * specified book.
+ * @param {int} userID - The user's associated ID
+ * @param {int} isbn - The target book's isbn number
+ * @returns {String[]} - List of names of bookshelves that contain the target book
+ */
+exports.getUserBookshelvesWithBook = async (userID, isbn) => {
+    let query = `SELECT Bookshelves.shelf_name AS shelf_name
+                FROM Bookshelves
+                INNER JOIN Bookshelf_Books
+                    ON Bookshelves.id = Bookshelf_Books.id_bookshelf
+                WHERE Bookshelves.id_user = ?
+                AND Bookshelf_Books.ISBN = ?;`
+    let [rows] = await db.query(query, [userID, isbn]);
+    let bookshelfNames = [];
+    for (let row of rows) {
+        bookshelfNames.push(row.shelf_name);
+    }
+    return bookshelfNames;
+}

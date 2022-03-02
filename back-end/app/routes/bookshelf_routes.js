@@ -4,7 +4,8 @@ const { deleteBookshelfRecord,
         getBookshelf,
         checkIfBookExistsInBookshelf,
         insertBook,
-        checkIfValidBookshelf } = require('../controllers/bookshelf_controller');
+        checkIfValidBookshelf,
+        getUserBookshelvesWithBook } = require('../controllers/bookshelf_controller');
 const { checkIfIsbnExists,
          } = require('../controllers/book_controller');
 const { getUserID } = require('../controllers/user_controller');
@@ -125,8 +126,8 @@ router.get("/book/:username/:isbn", async (req, res) => {
         } else if (!isValidIsbn) {
             res.status(codes.CLIENT_ERROR_CODE_400).send({"error": "Book does not exist"});
         } else {
-            // Call controller method to find list of bookshelf names for a user containing target book
-            // send results back to user (code 200)
+            let bookshelfNames = await getUserBookshelvesWithBook(userID, isbn);
+            res.status(SUCCESS_CODE).send(bookshelfNames);
         }
     } catch (err) {
         loggingModule(err, "bookshelfBookSearch");
