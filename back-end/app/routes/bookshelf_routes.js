@@ -30,7 +30,7 @@ router.get("/get/:username/:bookshelf", async function(req, res) {
         } else {
             let userID = await getUserID(username);
             if (!userID) {
-                res.status(codes.CLIENT_ERROR_CODE_401).send({"error": "Invalid Username Parameter"});
+                res.status(codes.CLIENT_ERROR_CODE_401).send({"error": "Invalid username parameter"});
             } else {
                 let info = [userID, bookshelf];
                 let result = await getBookshelf(info);
@@ -85,7 +85,7 @@ router.post("/add", async (req, res) => {
  */
 router.post("/remove", async (req, res) => {
     try {
-        res.type("JSON");
+        res.type("text");
         let username = req.body.username;
         let bookshelf = req.body.bookshelf;
         let isbn = req.body.isbn;

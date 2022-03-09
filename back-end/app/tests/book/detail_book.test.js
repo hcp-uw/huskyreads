@@ -16,22 +16,15 @@ describe('GET /books/detail/:isbn', function() {
     initialize(done);
   });
 
-  it('400: missing isbn param', function(done) {
-    chai.request(server)
-    .get('/books/detail/')
-    .end(function(err, res) {
-        res.should.have.status(400);
-        res.text.should.equal("Missing isbn parameter");
-      done();
-    });
-  });
-
   it('400: invalid isbn format', function(done) {
     chai.request(server)
     .get('/books/detail/12312')
     .end(function(err, res) {
         res.should.have.status(400);
-        res.text.should.equal("Invalid isbn");
+        res.should.be.json;
+        res.body.should.be.an('object');
+        res.body.should.have.property("error");
+        res.body.error.should.be.eql("Invalid isbn")
       done();
     });
   });
@@ -41,7 +34,10 @@ describe('GET /books/detail/:isbn', function() {
     .get('/books/detail/9999999999')
     .end(function(err, res) {
         res.should.have.status(400);
-        res.text.should.equal("Invalid isbn");
+        res.should.be.json;
+        res.body.should.be.an('object');
+        res.body.should.have.property("error");
+        res.body.error.should.be.eql("Invalid isbn")
       done();
     });
   });
