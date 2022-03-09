@@ -4,7 +4,8 @@ const { deleteBookshelfRecord,
         getBookshelf,
         checkIfBookExistsInBookshelf,
         insertBook,
-        checkIfValidBookshelf } = require('../controllers/bookshelf_controller');
+        checkIfValidBookshelf,
+        getUserBookshelvesWithBook } = require('../controllers/bookshelf_controller');
 const { checkIfIsbnExists,
          } = require('../controllers/book_controller');
 const { getUserID } = require('../controllers/user_controller');
@@ -109,6 +110,27 @@ router.post("/remove", async (req, res) => {
         }
     } catch (err) {
         loggingModule(err, "bookshelfRemove");
+        res.status(codes.SERVER_ERROR_CODE).send(codes.SERVER_ERROR_MESSAGE);
+    }
+});
+
+router.get("/book/:username/:isbn", async (req, res) => {
+    try {
+        res.type("JSON");
+        let username = req.params.username;
+		let isbn = req.params.isbn;
+        let userID = await getUserID(username);
+        let isValidIsbn = await checkIfIsbnExists(isbn);
+        if (userID == 0) {
+            res.status(codes.CLIENT_ERROR_CODE_401).send({"error": "Invalid username parameter"});
+        } else if (!isValidIsbn) {
+            res.status(codes.CLIENT_ERROR_CODE_400).send({"error": "Book does not exist"});
+        } else {
+            let bookshelfNames = await getUserBookshelvesWithBook(userID, isbn);
+            res.status(codes.SUCCESS_CODE).send(bookshelfNames);
+        }
+    } catch (err) {
+        loggingModule(err, "bookshelfBookSearch");
         res.status(codes.SERVER_ERROR_CODE).send(codes.SERVER_ERROR_MESSAGE);
     }
 });
