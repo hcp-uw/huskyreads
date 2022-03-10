@@ -83,15 +83,10 @@ Returns a detailed description for a single book. The information returned consi
 
 * **Error Response:**
 
-    Missing isbn URL parameter
-
-    * **Code:** 400 </br>
-    **Content:** `"Missing isbn parameter"`
-
     ISBN doesn't match any existing book
 
     * **Code:** 400 </br>
-    **Content:** `"Invalid isbn"`
+    **Content:** `{"error": "Invalid isbn"}`
 
 * **Notes:**
 

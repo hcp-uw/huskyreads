@@ -42,7 +42,7 @@ router.get("/detail/:isbn", async function(req, res) {
         } else {
 			let exists = await checkIfIsbnExists(isbn);
 			if (!exists) {
-				res.status(codes.CLIENT_ERROR_CODE_400).json({"error": "Invalid ISBN"});
+				res.status(codes.CLIENT_ERROR_CODE_400).json({"error": "Invalid isbn"});
 			} else {
 				let results = await getBookDetails(isbn);
 				res.json(results);
