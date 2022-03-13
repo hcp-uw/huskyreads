@@ -66,6 +66,7 @@ export default function HomePage(props) {
 }
 
 const Featured = ({ featured, handleClick }) => {
+  console.log(featured);
   if (featured !== undefined) {
     return (
       <section className="homepage-featured">
@@ -77,12 +78,12 @@ const Featured = ({ featured, handleClick }) => {
                 title={book.title}
                 img={
                   "https://covers.openlibrary.org/b/isbn/" +
-                  book.isbn +
+                  book.ISBN +
                   "-M.jpg?default=false"
                 }
-                authors={book.authors}
-                isbn={book.isbn}
-                key={book.isbn}
+                authors={book.author_names}
+                isbn={book.ISBN}
+                key={book.ISBN}
                 handleClick={handleClick}
               />
             );
@@ -96,23 +97,24 @@ const Featured = ({ featured, handleClick }) => {
 };
 
 const Browse = ({ data, handleClick }) => {
+  console.log(data);
   if (data) {
     return (
       <section className="homepage-browse">
         <h3 style={{ fontSize: "1.38em" }}>Browse</h3>
         <div className="browse_book-list">
-          {data.map(book => {
+          {data.map((book) => {
             return (
               <BookCard
                 title={book.title}
                 img={
                   "https://covers.openlibrary.org/b/isbn/" +
-                  book.isbn +
+                  book.ISBN +
                   "-M.jpg?default=false"
                 }
-                authors={book.authors}
-                isbn={book.isbn}
-                key={book.isbn}
+                authors={book.author_names}
+                isbn={book.ISBN}
+                key={book.ISBN}
                 handleClick={handleClick}
               />
             );
