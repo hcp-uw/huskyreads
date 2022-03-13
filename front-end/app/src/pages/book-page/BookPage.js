@@ -7,6 +7,8 @@ export default function BookPage({ isbn, openPage, setBgClass, setPageClass, use
   // const PORT = 8000;
   // expecting this base URL to change btw!
   const [selectedShelf, setSelectedShelf] = useState("default");
+  // const [addableShelves, setAddableShelves] = useState([]);
+  // const [removableShelves, setRemovableShelves] = useState([]);
   const [errorPage, setErrorPage] = useState(true);
   const [book, setBook] = useState({
     title: "",
@@ -15,11 +17,17 @@ export default function BookPage({ isbn, openPage, setBgClass, setPageClass, use
     date_published: "",
     description: "",
   });
+  const labels = {
+    reading: "Currently Reading",
+    read: "Books I've Read",
+    want_to_read: "My Wish List",
+  };
   let ref = useRef(null);
 
   // calls the the book constructor
   useEffect(() => {
-    async function axiosCall() {
+    async function getDetails() {
+      console.log("Getting book details for " + isbn);
       const GET_BOOK = "/books/detail/";
       try {
         if (isbn === undefined) {
@@ -36,9 +44,11 @@ export default function BookPage({ isbn, openPage, setBgClass, setPageClass, use
         setErrorPage(true);
       }
     }
-
-    axiosCall();
+    console.log("Setting up bookpage with ISBN: " + isbn);
+    getDetails();
+    // updateBookshelfSelectors();
   }, [isbn]);
+
 
   useEffect(() => {
     if (!openPage) {
@@ -57,9 +67,6 @@ export default function BookPage({ isbn, openPage, setBgClass, setPageClass, use
     }
   }, [openPage]);
 
-  // TODO: Figure out how to preset the select tag to show the option that the user had originally
-  // picked if the book is already in their bookstand. Might do search? Or request backend
-  // to make a contains method?
 
   /**
    * Adds the current book to the shelf chosen by the user in the drop-down menu.
@@ -115,15 +122,15 @@ export default function BookPage({ isbn, openPage, setBgClass, setPageClass, use
               }}
               value={selectedShelf}
             >
-              <option value={"default"} className="opt" selected>Choose Shelf</option>
+              <option value={"default"} className="opt">Choose Shelf</option>
               <option value={"want_to_read"} className="opt">
-                Plan to Read
+                {labels["want_to_read"]}
               </option>
               <option value={"reading"} className="opt">
-                Currently Reading
+                {labels["reading"]}
               </option>
               <option value={"read"} className="opt">
-                Finished
+                {labels["read"]}
               </option>
             </select>
             <button
@@ -190,3 +197,33 @@ export default function BookPage({ isbn, openPage, setBgClass, setPageClass, use
     "description": "Katniss Everdeen fights the distopian government"
   }
 */
+
+
+
+  /**
+   * Update the addableShelves and removableShelves hooks so that the user can
+   * see what shelves they can add their books to or what shelves they can
+   * remove their books from.
+
+  async function updateBookshelfSelectors() {
+    const GET_BOOK = "/bookshelves/book/";
+    // let add = [];
+    // let remove = [];
+    console.log("Getting shelf details for " + isbn);
+    try {
+      if (isbn === undefined) {
+        setErrorPage(true);
+        console.log("No book given!");
+      } else {
+        setErrorPage(false);
+        let fetchURL = URL + GET_BOOK + username + "/" + isbn;
+        let remove = (await axios.get(fetchURL)).data;
+        setRemovableShelves(remove);
+        console.log(removableShelves);
+      }
+    } catch (err) {
+      console.log(err.toString());
+      setErrorPage(true);
+    }
+  }
+  */
