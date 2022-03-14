@@ -7,8 +7,8 @@ export default function BookPage({ isbn, openPage, setBgClass, setPageClass, use
   // const PORT = 8000;
   // expecting this base URL to change btw!
   const [selectedShelf, setSelectedShelf] = useState("default");
-  // const [addableShelves, setAddableShelves] = useState([]);
-  // const [removableShelves, setRemovableShelves] = useState([]);
+  const [addableShelves, setAddableShelves] = useState([]);
+  const [removableShelves, setRemovableShelves] = useState([]);
   const [errorPage, setErrorPage] = useState(true);
   const [book, setBook] = useState({
     title: "",
@@ -95,6 +95,39 @@ export default function BookPage({ isbn, openPage, setBgClass, setPageClass, use
     }
   }
 
+  /**
+   * Update the addableShelves and removableShelves hooks so that the user can
+   * see what shelves they can add their books to or what shelves they can
+   * remove their books from.
+   */
+  async function updateBookshelfSelectors() {
+    const GET_BOOK = "/bookshelves/book/";
+    // let add = [];
+    // let remove = [];
+    console.log("Getting shelf details for " + isbn);
+    try {
+      if (isbn === undefined) {
+        setErrorPage(true);
+        console.log("No book given!");
+      } else {
+        setErrorPage(false);
+        let fetchURL = URL + GET_BOOK + username + "/" + isbn;
+        let remove = (await axios.get(fetchURL)).data;
+        setRemovableShelves(remove);
+        let add = [];
+        for (const [key, value] of Object.entries(labels)) {
+          if (remove.indexOf(key) == -1) {
+            add.push(key);
+          }
+        }
+        setAddableShelves(add);
+      }
+    } catch (err) {
+      console.log(err.toString());
+      setErrorPage(true);
+    }
+  }
+
   if (errorPage) {
     return <p>Error: Unable to retrieve book details</p>;
   } else {
@@ -123,6 +156,13 @@ export default function BookPage({ isbn, openPage, setBgClass, setPageClass, use
               value={selectedShelf}
             >
               <option value={"default"} className="opt">Choose Shelf</option>
+              {/*
+                addableShelves.map((shelf) => {
+                  return <option value={shelf} className="opt">
+                    {labels[shelf]}
+                  </option>
+                })
+              */}
               <option value={"want_to_read"} className="opt">
                 {labels["want_to_read"]}
               </option>
@@ -146,7 +186,6 @@ export default function BookPage({ isbn, openPage, setBgClass, setPageClass, use
         </section>
         <section id="right-column">
           <h1>{book.title !== undefined && book.title}</h1>
-          {/* TODO: Test the preliminary code below for multiple authors/genres! */}
           <hr />
           <p>
             <strong>Author(s): </strong>
@@ -197,33 +236,3 @@ export default function BookPage({ isbn, openPage, setBgClass, setPageClass, use
     "description": "Katniss Everdeen fights the distopian government"
   }
 */
-
-
-
-  /**
-   * Update the addableShelves and removableShelves hooks so that the user can
-   * see what shelves they can add their books to or what shelves they can
-   * remove their books from.
-
-  async function updateBookshelfSelectors() {
-    const GET_BOOK = "/bookshelves/book/";
-    // let add = [];
-    // let remove = [];
-    console.log("Getting shelf details for " + isbn);
-    try {
-      if (isbn === undefined) {
-        setErrorPage(true);
-        console.log("No book given!");
-      } else {
-        setErrorPage(false);
-        let fetchURL = URL + GET_BOOK + username + "/" + isbn;
-        let remove = (await axios.get(fetchURL)).data;
-        setRemovableShelves(remove);
-        console.log(removableShelves);
-      }
-    } catch (err) {
-      console.log(err.toString());
-      setErrorPage(true);
-    }
-  }
-  */
