@@ -36,7 +36,7 @@
     object-fit: cover;
 }
 
-#selector {
+.selector {
     min-height: 40px;
     border: none;
     border-radius: 0.5em;
@@ -48,13 +48,14 @@
     color: #000;
 }
 
-#bookstand-selectors {
+.bookstand-selectors {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    margin: 10px;
 }
 
-#add-button {
+.shelf-button {
     border-radius: 0.4em;
     padding: 0.5em 0.75em;
     font-size: 17px;

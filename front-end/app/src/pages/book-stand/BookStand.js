@@ -21,7 +21,6 @@ export default function BookStandPage(props) {
 
   let returnToLogin = false;
   let errorPage = false;
-  // const PORT = 8000;
   const URL = "https://husky-reads.herokuapp.com";
   const labels = {
     reading: "Currently Reading",

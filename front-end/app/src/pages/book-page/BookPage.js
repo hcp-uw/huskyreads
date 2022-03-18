@@ -4,9 +4,8 @@ import React, { useState, useEffect, useRef } from "react";
 
 export default function BookPage({ isbn, openPage, setBgClass, setPageClass, username, shelfStatus, setShelfStatus }) {
   const URL = "https://husky-reads.herokuapp.com";
-  // const PORT = 8000;
-  // expecting this base URL to change btw!
-  const [selectedShelf, setSelectedShelf] = useState("default");
+  const [selectedAddShelf, setSelectedAddShelf] = useState("default");
+  const [selectedRemoveShelf, setSelectedRemoveShelf] = useState("default");
   const [addableShelves, setAddableShelves] = useState([]);
   const [removableShelves, setRemovableShelves] = useState([]);
   const [errorPage, setErrorPage] = useState(true);
@@ -46,15 +45,17 @@ export default function BookPage({ isbn, openPage, setBgClass, setPageClass, use
     }
     console.log("Setting up bookpage with ISBN: " + isbn);
     getDetails();
-    // updateBookshelfSelectors();
+    // call the function below to set up the initial add/remove dropdowns
+    updateBookshelfSelectors();
   }, [isbn]);
 
-
+  // controls the reveal-hide effect of the Bookpage modal
   useEffect(() => {
     if (!openPage) {
       setPageClass("bookpage-modal hidden");
       setBgClass("bookpage-bg hidden");
-      setSelectedShelf("default");
+      setSelectedAddShelf("default");
+      setSelectedRemoveShelf("default");
     } else {
       const timer = setTimeout(() => {
         setPageClass("bookpage-modal");
@@ -77,18 +78,50 @@ export default function BookPage({ isbn, openPage, setBgClass, setPageClass, use
       if (!username) {
         // user is not logged in, send to login page
         console.log("Username not passed in: " + username);
-      } else if (selectedShelf === "default") {
+      } else if (selectedAddShelf === "default") {
         setShelfStatus("Error: Please select a shelf category");
       } else {
         const data = {
           username: username,
-          bookshelf: selectedShelf,
+          bookshelf: selectedAddShelf,
           isbn: isbn
         };
         // valid shelf selected by a logged-in user with a valid book!
         let fetchURL = URL + ADD_TO_SHELF;
         let response = await axios.post(fetchURL, data);
         setShelfStatus(response.data);
+        // now update the options that the user has
+        await updateBookshelfSelectors();
+      }
+    } catch (err) {
+      setShelfStatus(err.toString());
+    }
+  }
+
+  /**
+  * Removes the current book from the shelf chosen by the user in the drop-down menu.
+  */
+  async function removeFromShelf() {
+    const REMOVE_FROM_SHELF = "/bookshelves/remove";
+    try {
+      if (!username) {
+        // user is not logged in, send to login page
+        console.log("Username not passed in: " + username);
+      } else if (selectedRemoveShelf === "default") {
+        setShelfStatus("Error: Please select a shelf category");
+      } else {
+        const data = {
+          username: username,
+          bookshelf: selectedRemoveShelf,
+          isbn: isbn
+        };
+        // valid shelf selected by a logged-in user with a valid book!
+        let fetchURL = URL + REMOVE_FROM_SHELF;
+        let response = await axios.post(fetchURL, data);
+        setShelfStatus(response.data);
+
+        // now update the options that the user has
+        await updateBookshelfSelectors();
       }
     } catch (err) {
       setShelfStatus(err.toString());
@@ -102,8 +135,6 @@ export default function BookPage({ isbn, openPage, setBgClass, setPageClass, use
    */
   async function updateBookshelfSelectors() {
     const GET_BOOK = "/bookshelves/book/";
-    // let add = [];
-    // let remove = [];
     console.log("Getting shelf details for " + isbn);
     try {
       if (isbn === undefined) {
@@ -114,13 +145,17 @@ export default function BookPage({ isbn, openPage, setBgClass, setPageClass, use
         let fetchURL = URL + GET_BOOK + username + "/" + isbn;
         let remove = (await axios.get(fetchURL)).data;
         setRemovableShelves(remove);
+        console.log("Remove: :" + remove);
         let add = [];
         for (const [key, value] of Object.entries(labels)) {
-          if (remove.indexOf(key) == -1) {
+          if (remove.indexOf(key) === -1) {
             add.push(key);
           }
         }
+        console.log("Add (untested): " + add);
         setAddableShelves(add);
+        setSelectedAddShelf("default");
+        setSelectedRemoveShelf("default");
       }
     } catch (err) {
       console.log(err.toString());
@@ -147,39 +182,52 @@ export default function BookPage({ isbn, openPage, setBgClass, setPageClass, use
               ref.current.src = "images/default-cover.png";
             }}
           ></img>
-          <div id="bookstand-selectors">
+          <div class="bookstand-selectors">
             <select
-              id="selector"
+              class="selector"
               onChange={(event) => {
-                setSelectedShelf(event.target.value);
+                setSelectedAddShelf(event.target.value);
               }}
-              value={selectedShelf}
+              value={selectedAddShelf}
             >
               <option value={"default"} className="opt">Choose Shelf</option>
-              {/*
+              {
                 addableShelves.map((shelf) => {
-                  return <option value={shelf} className="opt">
-                    {labels[shelf]}
-                  </option>
+                  return <option value={shelf} className="opt">{labels[shelf]}</option>
                 })
-              */}
-              <option value={"want_to_read"} className="opt">
-                {labels["want_to_read"]}
-              </option>
-              <option value={"reading"} className="opt">
-                {labels["reading"]}
-              </option>
-              <option value={"read"} className="opt">
-                {labels["read"]}
-              </option>
+              }
             </select>
             <button
-              id="add-button"
+              class="shelf-button"
               onClick={() => {
                 addToShelf();
               }}
             >
               ADD TO SHELF
+            </button>
+          </div>
+          <div class="bookstand-selectors">
+            <select
+              class="selector"
+              onChange={(event) => {
+                setSelectedRemoveShelf(event.target.value);
+              }}
+              value={selectedRemoveShelf}
+            >
+              <option value={"default"} className="opt">Choose Shelf</option>
+              {
+                removableShelves.map((shelf) => {
+                  return <option value={shelf} className="opt">{labels[shelf]}</option>
+                })
+              }
+            </select>
+            <button
+              class="shelf-button"
+              onClick={() => {
+                removeFromShelf();
+              }}
+            >
+              REMOVE FROM SHELF
             </button>
           </div>
           <p>{shelfStatus !== "" && shelfStatus}</p>
