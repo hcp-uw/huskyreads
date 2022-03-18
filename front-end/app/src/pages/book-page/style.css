@@ -1,7 +1,7 @@
 #right-column {
     display: block;
     margin-left: 50px;
-    width: 100%;
+    width: 50%;
 }
 
 #right-column > * {
@@ -29,9 +29,9 @@
 }
 
 #imagebox {
-    width: 345px;
+    width: 330px;
     max-height: 520px;
-    margin-bottom: 30px;
+    margin-bottom: 10px;
     border: solid 2px rgb(220, 220, 220);
     object-fit: cover;
 }
@@ -51,7 +51,10 @@
 .bookstand-selectors {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: left;
+}
+
+.bookstand-selectors > * {
     margin: 10px;
 }
 
