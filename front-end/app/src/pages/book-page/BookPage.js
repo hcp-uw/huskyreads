@@ -182,53 +182,55 @@ export default function BookPage({ isbn, openPage, setBgClass, setPageClass, use
               ref.current.src = "images/default-cover.png";
             }}
           ></img>
-          <div class="bookstand-selectors">
-            <select
-              class="selector"
-              onChange={(event) => {
-                setSelectedAddShelf(event.target.value);
-              }}
-              value={selectedAddShelf}
-            >
-              <option value={"default"} className="opt">Choose Shelf</option>
-              {
-                addableShelves.map((shelf) => {
-                  return <option value={shelf} className="opt">{labels[shelf]}</option>
-                })
-              }
-            </select>
-            <button
-              class="shelf-button"
-              onClick={() => {
-                addToShelf();
-              }}
-            >
-              ADD TO SHELF
-            </button>
-          </div>
-          <div class="bookstand-selectors">
-            <select
-              class="selector"
-              onChange={(event) => {
-                setSelectedRemoveShelf(event.target.value);
-              }}
-              value={selectedRemoveShelf}
-            >
-              <option value={"default"} className="opt">Choose Shelf</option>
-              {
-                removableShelves.map((shelf) => {
-                  return <option value={shelf} className="opt">{labels[shelf]}</option>
-                })
-              }
-            </select>
-            <button
-              class="shelf-button"
-              onClick={() => {
-                removeFromShelf();
-              }}
-            >
-              REMOVE FROM SHELF
-            </button>
+          <div className="shelf-actions">
+            <div className="bookstand-selectors">
+              <select
+                className="selector"
+                onChange={(event) => {
+                  setSelectedAddShelf(event.target.value);
+                }}
+                value={selectedAddShelf}
+              >
+                <option value={"default"} className="opt">Choose Shelf</option>
+                {
+                  addableShelves.map((shelf) => {
+                    return <option value={shelf} className="opt">{labels[shelf]}</option>
+                  })
+                }
+              </select>
+              <button
+                className="add-button"
+                onClick={() => {
+                  addToShelf();
+                }}
+              >
+                ADD BOOK
+              </button>
+            </div>
+            <div className="bookstand-selectors">
+              <select
+                className="selector"
+                onChange={(event) => {
+                  setSelectedRemoveShelf(event.target.value);
+                }}
+                value={selectedRemoveShelf}
+              >
+                <option value={"default"} className="opt">Choose Shelf</option>
+                {
+                  removableShelves.map((shelf) => {
+                    return <option value={shelf} className="opt">{labels[shelf]}</option>
+                  })
+                }
+              </select>
+              <button
+                className="remove-button"
+                onClick={() => {
+                  removeFromShelf();
+                }}
+              >
+                REMOVE BOOK
+              </button>
+            </div>
           </div>
           <p>{shelfStatus !== "" && shelfStatus}</p>
         </section>

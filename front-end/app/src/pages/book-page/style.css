@@ -38,6 +38,7 @@
 
 .selector {
     min-height: 40px;
+    width: 192px;
     border: none;
     border-radius: 0.5em;
     padding: 0.5em;
@@ -46,6 +47,17 @@
     line-height: 1.1;
     background-color: rgb(220, 220, 220);
     color: #000;
+}
+
+.shelf-actions {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 100%;
+    position: absolute;
+    bottom: -16%;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 .bookstand-selectors {
@@ -58,27 +70,41 @@
     margin: 10px;
 }
 
-.shelf-button {
+.add-button {
     border-radius: 0.4em;
     padding: 0.5em 0.75em;
-    font-size: 17px;
+    font-size: 16px;
     font-weight: 500;
     background-color: #21ac28;
     color: white;
     border: none;
     letter-spacing: 1px;
+    width: 150px;
+}
+
+.remove-button {
+    border-radius: 0.4em;
+    padding: 0.5em 0.75em;
+    font-size: 16px;
+    font-weight: 500;
+    background-color: #be2525;
+    color: white;
+    border: none;
+    letter-spacing: 1px;
+    width: 150px;
 }
 
 .bookpage-container {
     display: flex;
     flex-direction: row;
+    position: relative;
 }
 
 .bookpage-modal {
     position: fixed;
     max-width: 880px;
     width: 82%;
-    padding: 48px 52px;
+    padding: 48px 52px 102px;
     top: 50%;
     left: 50%;
     transform: translateX(-50%) translateY(-50%);
@@ -101,14 +127,27 @@
 
 @media (max-width: 768px) {
     .bookpage-modal {
-        padding: 1.6em 1em;
-        max-height: 88%;
+        padding: 1.6em 1em 7em;
+        height: 78%;
         overflow-y: scroll;
     }
 
     .bookpage-container {
         flex-direction: column;
         align-items: center;
+    }
+
+    .shelf-actions {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        position: absolute;
+        bottom: -17%;
+        left: 50%;
+        transform: translateX(-50%);
+        padding: 10px 0;
     }
 
     #right-column {
