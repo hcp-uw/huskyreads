@@ -27,6 +27,9 @@ describe('GET /books/search', function() {
       res.body.remainingBooksInSearch.should.be.eql(0);
       res.body.should.have.property("books");
       res.body.books.length.should.be.eql(5);
+      res.body.books[0].should.have.property("title");
+      res.body.books[0].should.have.property("authors");
+      res.body.books[0].should.have.property("isbn");
       done();
     });
   });
@@ -42,6 +45,9 @@ describe('GET /books/search', function() {
       res.body.remainingBooksInSearch.should.be.eql(0);
       res.body.should.have.property("books");
       res.body.books.length.should.be.eql(1);
+      res.body.books[0].should.have.property("title");
+      res.body.books[0].should.have.property("authors");
+      res.body.books[0].should.have.property("isbn");
       done();
     });
   });
@@ -57,6 +63,9 @@ describe('GET /books/search', function() {
       res.body.remainingBooksInSearch.should.be.eql(0);
       res.body.should.have.property("books");
       res.body.books.length.should.be.eql(3);
+      res.body.books[0].should.have.property("title");
+      res.body.books[0].should.have.property("authors");
+      res.body.books[0].should.have.property("isbn");
       done();
     });
   });
@@ -72,6 +81,9 @@ describe('GET /books/search', function() {
       res.body.remainingBooksInSearch.should.be.eql(0);
       res.body.should.have.property("books");
       res.body.books.length.should.be.eql(1);
+      res.body.books[0].should.have.property("title");
+      res.body.books[0].should.have.property("authors");
+      res.body.books[0].should.have.property("isbn");
       done();
     });
   });
@@ -87,6 +99,9 @@ describe('GET /books/search', function() {
       res.body.remainingBooksInSearch.should.be.eql(0);
       res.body.should.have.property("books");
       res.body.books.length.should.be.eql(1);
+      res.body.books[0].should.have.property("title");
+      res.body.books[0].should.have.property("authors");
+      res.body.books[0].should.have.property("isbn");
       done();
     });
   });
@@ -102,6 +117,9 @@ describe('GET /books/search', function() {
       res.body.remainingBooksInSearch.should.be.eql(0);
       res.body.should.have.property("books");
       res.body.books.length.should.be.eql(4);
+      res.body.books[0].should.have.property("title");
+      res.body.books[0].should.have.property("authors");
+      res.body.books[0].should.have.property("isbn");
       done();
     });
   });
@@ -117,6 +135,9 @@ describe('GET /books/search', function() {
       res.body.remainingBooksInSearch.should.be.eql(3);
       res.body.should.have.property("books");
       res.body.books.length.should.be.eql(2);
+      res.body.books[0].should.have.property("title");
+      res.body.books[0].should.have.property("authors");
+      res.body.books[0].should.have.property("isbn");
       done();
     });
   });
@@ -132,6 +153,9 @@ describe('GET /books/search', function() {
       res.body.remainingBooksInSearch.should.be.eql(2);
       res.body.should.have.property("books");
       res.body.books.length.should.be.eql(2);
+      res.body.books[0].should.have.property("title");
+      res.body.books[0].should.have.property("authors");
+      res.body.books[0].should.have.property("isbn");
       done();
     });
   });
@@ -147,6 +171,9 @@ describe('GET /books/search', function() {
       res.body.remainingBooksInSearch.should.be.eql(0);
       res.body.should.have.property("books");
       res.body.books.length.should.be.eql(1);
+      res.body.books[0].should.have.property("title");
+      res.body.books[0].should.have.property("authors");
+      res.body.books[0].should.have.property("isbn");
       done();
     });
   });
@@ -162,6 +189,9 @@ describe('GET /books/search', function() {
       res.body.remainingBooksInSearch.should.be.eql(0);
       res.body.should.have.property("books");
       res.body.books.length.should.be.eql(1);
+      res.body.books[0].should.have.property("title");
+      res.body.books[0].should.have.property("authors");
+      res.body.books[0].should.have.property("isbn");
       done();
     });
   });
