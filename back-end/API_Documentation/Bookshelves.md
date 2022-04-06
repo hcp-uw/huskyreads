@@ -207,3 +207,52 @@ Removes a book from a specified bookshelf for a user.
 
     </br>
 
+### Get Which Bookshelves Contain a Target Book for a User
+
+Returns a list of names of bookshelves for a user that contain a specific book. If none of the bookshelves for a user contain the target book, an empty array is returned.
+* **Endpoint:** /bookshelves/book/:username/:isbn
+
+* **Request Method:** GET
+
+* **URL Params:**
+
+    **Required:**
+    
+    | Name        | Type    | Description                                         |
+    | ----------- | ------- | --------------------------------------------------- |
+    | `username`  | String  | The username of the user who owns the bookshelves.  |
+    | `isbn`      | Integer | The isbn of the book to search for in bookshelves.  |
+
+* **Returned Data Format:** JSON
+
+* **Sample Success Response:**
+
+    * **Sample Request:** `/bookshelves/book/elliot/1111111111`
+
+    * **Code:** 200 </br>
+    **Content:** 
+
+    ```JSON
+    ["reading", "read"]
+    ```
+
+* **Error Response:**
+
+    No book exists with the provided isbn
+
+    * **Code:** 400 </br>
+    **Content:**
+
+    ```JSON
+    {"error": "Book does not exist"}
+    ```
+
+    Username doesn't match any existing user
+
+    * **Code:** 401 </br>
+     **Content:**
+
+    ```JSON
+    {"error": "Invalid username parameter"}
+    ```
+    </br>

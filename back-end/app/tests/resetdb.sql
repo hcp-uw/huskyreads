@@ -21,24 +21,7 @@ CREATE TABLE Books (
   ISBN bigint UNIQUE PRIMARY KEY,
   title varchar(255) NOT NULL,
   description TEXT,
-  date_published varchar(100)
-);
-
-CREATE TABLE Reviews (
-  id_review int PRIMARY KEY AUTO_INCREMENT,
-  ISBN_book bigint NOT NULL REFERENCES Books(ISBN),
-  id_user int NOT NULL,
-  content varchar(255),
-  published date NOT NULL,
-  CONSTRAINT USERDELETED
-  FOREIGN KEY (id_user)
-  REFERENCES Users(id)
-    ON DELETE CASCADE,
-  /* Constraint: If a book is deleted, also delete the book's related reviews */
-  CONSTRAINT BOOKDELETED
-  FOREIGN KEY (ISBN_book)
-  REFERENCES Books(ISBN)
-    ON DELETE CASCADE
+  date_published date
 );
 
 /* Default per user, insert:
@@ -73,19 +56,19 @@ CREATE TABLE Bookshelf_Books (
 );
 
 CREATE TABLE Authors (
-  id varchar(40) NOT NULL,
+  id int PRIMARY KEY AUTO_INCREMENT,
   name varchar(255) NOT NULL
 );
 
 CREATE TABLE Genres (
   id int PRIMARY KEY AUTO_INCREMENT,
   name varchar(255) NOT NULL
- );
+);
 
 CREATE TABLE Book_Authors (
   ISBN_book bigint NOT NULL,
-  id_author varchar(40) REFERENCES Authors(id),
-  /* Constraint: If a book is deleted, also delete book's related authors */
+  id_author int NOT NULL REFERENCES Authors(id),
+  /* Constraint: If a book is deleted, also delete book's author connections */
   CONSTRAINT REFBOOK
   FOREIGN KEY (ISBN_book)
   REFERENCES Books(ISBN)
@@ -96,7 +79,7 @@ CREATE TABLE Book_Genres (
   ISBN_book bigint NOT NULL,
   id_genre int NOT NULL REFERENCES Genres(id),
   /* Constraint: If a book is deleted, also delete the book's genre connections */
-  FOREIGN KEY (ISBN_book)
+  FOREIGN KEY (ISBN_BOOK)
   REFERENCES Books(ISBN)
     ON DELETE CASCADE
 );
@@ -109,15 +92,6 @@ SET auto_increment_offset = 1;
 
 
 /* SAMPLE DATA */
-INSERT INTO Users (username, password, color_scheme) VALUES
-    ("elliot", "$2b$10$U41SKHcvR0YnllxQ7bT89eNm0I8iU/uA.PTOPGlb1v.6R2FAfdwRG", "dark");
-INSERT INTO Users (username, password) VALUES
-    ("frank", "$2b$10$LAwdabZi8jOU7rmzUYqCf.IUW6iZQyorzo8yW8CDf6dZRmtt2stcy"),
-    ("nicholas", "$2b$10$pBksFtv4TFV5.B/zSNZIwe695STLrF22brxR6rSh3KlhrHfn1stve"),
-    ("vikram", "$2b$10$JQoXT7nX8N6ob7.ubdWPQOhT2xC8N2Fi01YHDpQ.r3Uq2x8VUR.a2"),
-    ("john", "$2b$10$oBqv7hZRNQPNh9kegqIz5ut4QwKEmEV14Y7ZQ.YcRIq2bIUk855AW"),
-    ("jane", "$2b$10$LUlfZfjO7a/tKjgFRHYU6e.PlWu2l7/H3/1oAjkb/2iDCf4WxGoG6")
-;
 
 INSERT INTO Books (ISBN, title, description, date_published) VALUES
     (1111111111, "title1", "Long Description1", '2020--12-1'),
@@ -128,50 +102,15 @@ INSERT INTO Books (ISBN, title, description, date_published) VALUES
     (6666666666, "title6", "Long Description6", '2020--12-6')
 ;
 
-INSERT INTO Reviews (ISBN_book, id_user, content, published) VALUES
-    (1111111111, 1, "wow not that bad", CURDATE()),  /* CURDATE() puts in current date */
-    (2222222222, 2, "interesting book!", CURDATE())
-;
 
-INSERT INTO Bookshelves (id_user, shelf_name) VALUES
-    (1, "reading"),
-    (1, "read"),
-    (1, "want_to_read"),
-    (2, "reading"),
-    (2, "read"),
-    (2, "want_to_read"),
-    (3, "reading"),
-    (3, "read"),
-    (3, "want_to_read"),
-    (4, "reading"),
-    (4, "read"),
-    (4, "want_to_read"),
-    (5, "reading"),
-    (5, "read"),
-    (5, "want_to_read"),
-    (6, "reading"),
-    (6, "read"),
-    (6, "want_to_read")
-;
-
-INSERT INTO Bookshelf_Books (id_bookshelf, ISBN) VALUES
-    (1, 1111111111),
-    (2, 1111111111),
-    (1, 2222222222),
-    (3, 3333333333),
-    (1, 4444444444),
-    (6, 5555555555),
-    (9, 1111111111)
-;
-
-INSERT INTO Authors (id, name) VALUES
-    (1, "Terrence Tao"),
-    (2, "Brett Wortmanz"),
-    (3, "Foo Bar the Third"),
-    (4, "Suzzy Collins"),
-    (5, "Albert Einstein"),
-    (6, "李涛"),                           /* Testing non-latin characters */
-    (7, "Александр Сергеевич Пушкин")      /* Testing non-latin characters */
+INSERT INTO Authors (name) VALUES
+    ("Terrence Tao"),
+    ("Brett Wortmanz"),
+    ("Foo Bar the Third"),
+    ("Suzzy Collins"),
+    ("Albert Einstein"),
+    ("李涛"),                           /* Testing non-latin characters */
+    ("Александр Сергеевич Пушкин")      /* Testing non-latin characters */
 ;
 
 INSERT INTO Genres (name) VALUES
