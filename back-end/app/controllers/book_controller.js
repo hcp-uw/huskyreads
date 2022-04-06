@@ -23,8 +23,8 @@ exports.getMatchingBooks= async (info) => {
 	let genre = info.genre;
 
 	let params = [];
-	let query = `   SELECT Books.title AS title, Books.ISBN AS ISBN,
-                        GROUP_CONCAT(DISTINCT Authors.name SEPARATOR ',') AS author_names
+	let query = `   SELECT Books.title AS title, Books.ISBN AS isbn,
+                        GROUP_CONCAT(DISTINCT Authors.name SEPARATOR ',') AS authors
                     FROM Books
                     INNER JOIN Book_Authors
                         ON Books.ISBN = Book_Authors.ISBN_book
@@ -46,7 +46,7 @@ exports.getMatchingBooks= async (info) => {
 	}
 	query += "GROUP BY Books.title, Books.ISBN ";
 	if (author) {
-		query += "HAVING FIND_IN_SET(?, author_names)";
+		query += "HAVING FIND_IN_SET(?, authors)";
 		params.push(author);
 	}
 	query += `;`;
