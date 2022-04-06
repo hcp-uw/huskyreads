@@ -61,7 +61,7 @@ exports.getMatchingBooks= async (info) => {
  */
 exports.getBookDetails = async (isbn) => {
     let query = `
-    SELECT Books.title AS title, Books.date_published AS date_published,
+    SELECT Books.title AS title, Books.date_published AS datePublished,
         Books.description AS description,
         GROUP_CONCAT(DISTINCT Authors.name SEPARATOR ',') AS authors,
         GROUP_CONCAT(DISTINCT Genres.name SEPARATOR ',') AS genres

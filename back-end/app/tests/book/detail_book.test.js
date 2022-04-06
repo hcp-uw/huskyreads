@@ -51,8 +51,8 @@ describe('GET /books/detail/:isbn', function() {
         res.body.should.be.an('object');
         res.body.should.have.property("title");
         res.body.title.should.be.eql("title1");
-        res.body.should.have.property("date_published");
-        res.body.date_published.should.be.eql("2020-12-01T08:00:00.000Z");
+        res.body.should.have.property("datePublished");
+        res.body.datePublished.should.be.eql("2020-12-01T08:00:00.000Z");
         res.body.should.have.property("description");
         res.body.description.should.be.eql("Long Description1");
         res.body.should.have.property("authors");
@@ -72,8 +72,8 @@ describe('GET /books/detail/:isbn', function() {
         res.body.should.be.an('object');
         res.body.should.have.property("title");
         res.body.title.should.be.eql("title5");
-        res.body.should.have.property("date_published");
-        res.body.date_published.should.be.eql("2020-12-05T08:00:00.000Z");
+        res.body.should.have.property("datePublished");
+        res.body.datePublished.should.be.eql("2020-12-05T08:00:00.000Z");
         res.body.should.have.property("description");
         res.body.description.should.be.eql("Long Description5");
         res.body.should.have.property("authors");
