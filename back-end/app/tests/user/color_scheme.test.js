@@ -174,6 +174,21 @@ describe('POST /color_scheme', function() {
         })
     })
 
+    it('400: invalid color scheme', function(done) {
+        let user = {
+            username: "elliot",
+            color_scheme: "dark123"
+        }
+        chai.request(server)
+        .post('/color_scheme')
+        .send(user)
+        .end(function(err, res) {
+            res.should.have.status(400);
+            res.text.should.equal("Invalid color scheme")
+            done();
+        })
+    })
+
     it('401: invalid username and color_scheme', function(done) {
         let user = {
             username: "elliot123",

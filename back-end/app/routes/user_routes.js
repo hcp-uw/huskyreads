@@ -107,7 +107,7 @@ router.post("/color_scheme", async (req, res) => {
                 res.status(codes.CLIENT_ERROR_CODE_401).send("Invalid username");
             } else {
                 if (color_scheme != "light" && color_scheme != "dark") {
-                    res.status(codes.CLIENT_ERROR_CODE_400).send("Invalid Color Scheme");
+                    res.status(codes.CLIENT_ERROR_CODE_400).send("Invalid color scheme");
                 } else {
                     let info = [color_scheme, username];
                     await updateColorScheme(info);
