@@ -29,6 +29,7 @@ styles interfere, feel free to remove them from the class names
   margin-right: 1.15em;
   padding-left: 0;
   flex: 0.08 0 10px;
+  font-weight: 600;
 }
 
 .search-exit:hover {

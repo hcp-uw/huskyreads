@@ -82,7 +82,7 @@ export default function SearchBar({
               d="M6.615 11.238L2 6.62 6.615 2M2.641 6.619H12"
             ></path>
           </svg>
-          Exit
+          BACK
         </button>
         <select
           className="search-select"
