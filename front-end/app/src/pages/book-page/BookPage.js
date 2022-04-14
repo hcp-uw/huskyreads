@@ -13,7 +13,7 @@ export default function BookPage({ isbn, openPage, setBgClass, setPageClass, use
     title: "",
     authors: [],
     genres: [],
-    date_published: "",
+    datePublished: "",
     description: "",
   });
   const labels = {
@@ -26,12 +26,10 @@ export default function BookPage({ isbn, openPage, setBgClass, setPageClass, use
   // calls the the book constructor
   useEffect(() => {
     async function getDetails() {
-      console.log("Getting book details for " + isbn);
       const GET_BOOK = "/books/detail/";
       try {
         if (isbn === undefined) {
           setErrorPage(true);
-          console.log("No book given!");
         } else {
           setErrorPage(false);
           let fetchURL = URL + GET_BOOK + isbn;
@@ -43,7 +41,6 @@ export default function BookPage({ isbn, openPage, setBgClass, setPageClass, use
         setErrorPage(true);
       }
     }
-    console.log("Setting up bookpage with ISBN: " + isbn);
     getDetails();
     // call the function below to set up the initial add/remove dropdowns
     updateBookshelfSelectors();
@@ -135,24 +132,20 @@ export default function BookPage({ isbn, openPage, setBgClass, setPageClass, use
    */
   async function updateBookshelfSelectors() {
     const GET_BOOK = "/bookshelves/book/";
-    console.log("Getting shelf details for " + isbn);
     try {
       if (isbn === undefined) {
         setErrorPage(true);
-        console.log("No book given!");
       } else {
         setErrorPage(false);
         let fetchURL = URL + GET_BOOK + username + "/" + isbn;
         let remove = (await axios.get(fetchURL)).data;
         setRemovableShelves(remove);
-        console.log("Remove: :" + remove);
         let add = [];
         for (const [key, value] of Object.entries(labels)) {
           if (remove.indexOf(key) === -1) {
             add.push(key);
           }
         }
-        console.log("Add (untested): " + add);
         setAddableShelves(add);
         setSelectedAddShelf("default");
         setSelectedRemoveShelf("default");
@@ -263,8 +256,8 @@ export default function BookPage({ isbn, openPage, setBgClass, setPageClass, use
           </p>
           <p>
             <strong>Date Published: </strong>
-            {book.date_published !== undefined &&
-              book.date_published.slice(0, 10)}
+            {book.datePublished !== undefined &&
+              book.datePublished.slice(0, 10)}
           </p>
           <p>
             <strong>Description:</strong>
