@@ -77,12 +77,12 @@ const Featured = ({ featured, handleClick }) => {
                 title={book.title}
                 img={
                   "https://covers.openlibrary.org/b/isbn/" +
-                  book.ISBN +
+                  book.isbn +
                   "-M.jpg?default=false"
                 }
-                authors={book.author_names}
-                isbn={book.ISBN}
-                key={book.ISBN}
+                authors={book.authors}
+                isbn={book.isbn}
+                key={book.isbn}
                 handleClick={handleClick}
               />
             );
@@ -107,12 +107,12 @@ const Browse = ({ data, handleClick }) => {
                 title={book.title}
                 img={
                   "https://covers.openlibrary.org/b/isbn/" +
-                  book.ISBN +
+                  book.isbn +
                   "-M.jpg?default=false"
                 }
-                authors={book.author_names}
-                isbn={book.ISBN}
-                key={book.ISBN}
+                authors={book.authors}
+                isbn={book.isbn}
+                key={book.isbn}
                 handleClick={handleClick}
               />
             );
