@@ -36,7 +36,7 @@ export default function Navbar({username}) {
           </ul>
           <input
             ref={searchbox}
-            className='search-input'
+            className='nav-search-input'
             type={"text"}
             placeholder="Search All Books"
             onKeyDown={(e) => {

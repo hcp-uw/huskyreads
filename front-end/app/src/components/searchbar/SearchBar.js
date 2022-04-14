@@ -56,62 +56,81 @@ export default function SearchBar({
 
   return (
     <section className={showSearch}>
-      <button
-        onClick={() => {
-          setSearchPage("search-overlay hidden");
-          setQuery("");
-          setCategory("");
-          searchInput.current.value = "";
-          searchSelect.current.value = "";
-        }}
-      >
-        Exit Search
-      </button>
-      <select
-        onChange={(e) => setCategory(e.target.value)}
-        name="categories"
-        id="category-select"
-        ref={searchSelect}
-      >
-        <option value="">Select Category</option>
-        <option value="author">Author</option>
-        <option value="title">Book Title</option>
-        <option value="genre">Book Genre</option>
-      </select>
-      <input
-        ref={searchInput}
-        placeholder="Search All Books"
-        className="search-input"
-        type={"text"}
-        onKeyDown={(e) => {
-          if (e.key === "Enter") {
-            setQuery(e.target.value);
-          }
-        }}
-      ></input>
-      <button
-        className="nav_search-btn"
-        onClick={() => {
-          setQuery(searchInput.current.value);
-        }}
-        title="Search"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="white"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          className="feather feather-search"
+      <div className="search-top">
+        <button
+          className="search-exit"
+          onClick={() => {
+            setSearchPage("search-overlay hidden");
+            setQuery("");
+            setCategory("");
+            searchInput.current.value = "";
+            searchSelect.current.value = "";
+          }}
         >
-          <circle cx="11" cy="11" r="8"></circle>
-          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-        </svg>
-      </button>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="13"
+            height="13"
+            fill="none"
+            viewBox="0 0 13 13"
+          >
+            <path
+              stroke="#543989"
+              strokeLinecap="square"
+              strokeMiterlimit="10"
+              strokeWidth="2"
+              d="M6.615 11.238L2 6.62 6.615 2M2.641 6.619H12"
+            ></path>
+          </svg>
+          Exit
+        </button>
+        <select
+          className="search-select"
+          onChange={(e) => setCategory(e.target.value)}
+          name="categories"
+          id="category-select"
+          ref={searchSelect}
+        >
+          <option value="">Select Category</option>
+          <option value="author">Author</option>
+          <option value="title">Book Title</option>
+          <option value="genre">Book Genre</option>
+        </select>
+        <input
+          ref={searchInput}
+          placeholder="Search All Books"
+          className="search-input"
+          type={"text"}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              setQuery(e.target.value);
+            }
+          }}
+        ></input>
+        <button
+          className="search-btn"
+          onClick={() => {
+            setQuery(searchInput.current.value);
+          }}
+          title="Search"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="white"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className="feather feather-search"
+          >
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+        </button>
+      </div>
 
       <div className="bookstand-list">
         {display.map((book) => {
