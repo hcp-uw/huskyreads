@@ -125,6 +125,11 @@
     z-index: 998;
 }
 
+#status-text {
+    min-height: 17px;
+    display: inline-block;
+}
+
 @media (max-width: 768px) {
     .bookpage-modal {
         padding: 1.6em 1em 7em;

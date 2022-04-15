@@ -225,7 +225,7 @@ export default function BookPage({ isbn, openPage, setBgClass, setPageClass, use
               </button>
             </div>
           </div>
-          <p>{shelfStatus !== "" && shelfStatus}</p>
+          <p id="status-text">{shelfStatus !== "" && shelfStatus}</p>
         </section>
         <section id="right-column">
           <h1>{book.title !== undefined && book.title}</h1>
