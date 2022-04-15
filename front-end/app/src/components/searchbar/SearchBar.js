@@ -89,12 +89,13 @@ export default function SearchBar({
           onChange={(e) => setCategory(e.target.value)}
           name="categories"
           id="category-select"
+          defaultValue={"title"}
           ref={searchSelect}
         >
           <option value="">Select Category</option>
-          <option value="author">Author</option>
-          <option value="title">Book Title</option>
-          <option value="genre">Book Genre</option>
+          <option value={"author"}>Author</option>
+          <option value={"title"}>Book Title</option>
+          <option value={"genre[0]"}>Book Genre</option>
         </select>
         <input
           ref={searchInput}
