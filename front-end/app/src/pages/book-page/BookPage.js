@@ -182,12 +182,13 @@ export default function BookPage({ isbn, openPage, setBgClass, setPageClass, use
                 onChange={(event) => {
                   setSelectedAddShelf(event.target.value);
                 }}
-                value={selectedAddShelf}
+                // value={selectedAddShelf}
+                defaultValue={selectedAddShelf}
               >
                 <option value={"default"} className="opt">Choose Shelf</option>
                 {
                   addableShelves.map((shelf) => {
-                    return <option value={shelf} className="opt">{labels[shelf]}</option>
+                    return <option key={shelf} value={shelf} className="opt">{labels[shelf]}</option>
                   })
                 }
               </select>
@@ -206,12 +207,13 @@ export default function BookPage({ isbn, openPage, setBgClass, setPageClass, use
                 onChange={(event) => {
                   setSelectedRemoveShelf(event.target.value);
                 }}
-                value={selectedRemoveShelf}
+                // value={selectedRemoveShelf}
+                defaultValue={selectedRemoveShelf}
               >
                 <option value={"default"} className="opt">Choose Shelf</option>
                 {
                   removableShelves.map((shelf) => {
-                    return <option value={shelf} className="opt">{labels[shelf]}</option>
+                    return <option key={shelf} value={shelf} className="opt">{labels[shelf]}</option>
                   })
                 }
               </select>
