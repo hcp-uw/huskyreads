@@ -20,6 +20,7 @@ export default function SearchBar({
   const [pageClass, setPageClass] = useState("bookpage-modal ");
   const [bgClass, setBgClass] = useState("bookpage-bg ");
   const [shelfStatus, setShelfStatus] = useState("");
+  const [searchClick, clickTrigger] = useState(false);
   const handleClick = useCallback(
     (isbn) => {
       setOpen(!openPage);
@@ -52,7 +53,7 @@ export default function SearchBar({
     }
 
     searchInput.current.value = searchQuery
-  }, [searchQuery]);
+  }, [searchQuery, searchClick]);
 
   return (
     <section className={showSearch}>
@@ -86,7 +87,7 @@ export default function SearchBar({
         </button>
         <select
           className="search-select"
-          onChange={(e) => setCategory(e.target.value)}
+          onChange={(e) => {setCategory(e.target.value)}}
           name="categories"
           id="category-select"
           defaultValue={"title"}
@@ -112,6 +113,7 @@ export default function SearchBar({
           className="search-btn"
           onClick={() => {
             setQuery(searchInput.current.value);
+            clickTrigger(!searchClick);
           }}
           title="Search"
         >
