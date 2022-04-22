@@ -8,6 +8,7 @@ export default function Navbar({username}) {
   const toggleOpen = (open) => {setOpen(open)};
   const [searchQuery, setQuery] = useState("");
   const [showSearch, setSearchPage] = useState("search-overlay hidden");
+  const [searchClick, clickTrigger] = useState(false);
   const searchbox = useRef();
 
   return (
@@ -43,14 +44,14 @@ export default function Navbar({username}) {
               if(e.key === "Enter") {
                 setSearchPage("search-overlay");
                 setQuery(searchbox.current.value);
-                console.log(searchbox.current.value)
+                clickTrigger(!searchClick);
                 searchbox.current.value = "";
-
               }
             }}
           ></input>
           <button className="nav_search-btn" onClick={() => {
             setQuery(searchbox.current.value);
+            clickTrigger(!searchClick);
             setSearchPage("search-overlay");
             searchbox.current.value = "";
           }} title="Search">
@@ -64,7 +65,9 @@ export default function Navbar({username}) {
         searchQuery={searchQuery}
         setQuery={setQuery}
         showSearch={showSearch}
-        setSearchPage={setSearchPage}/>
+        setSearchPage={setSearchPage}
+        searchClick={searchClick}
+        clickTrigger={clickTrigger}/>
     </div>
   );
 }

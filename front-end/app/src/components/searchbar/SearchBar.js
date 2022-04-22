@@ -10,6 +10,8 @@ export default function SearchBar({
   setQuery,
   showSearch,
   setSearchPage,
+  searchClick,
+  clickTrigger
 }) {
   const URL = "https://husky-reads.herokuapp.com";
   const SEARCH_ENDPOINT = "/books/search/";
@@ -20,7 +22,6 @@ export default function SearchBar({
   const [pageClass, setPageClass] = useState("bookpage-modal ");
   const [bgClass, setBgClass] = useState("bookpage-bg ");
   const [shelfStatus, setShelfStatus] = useState("");
-  const [searchClick, clickTrigger] = useState(false);
   const handleClick = useCallback(
     (isbn) => {
       setOpen(!openPage);
@@ -53,7 +54,7 @@ export default function SearchBar({
     }
 
     searchInput.current.value = searchQuery
-  }, [searchQuery, searchClick]);
+  }, [searchClick]);
 
   return (
     <section className={showSearch}>
@@ -106,6 +107,7 @@ export default function SearchBar({
           onKeyDown={(e) => {
             if (e.key === "Enter") {
               setQuery(e.target.value);
+              clickTrigger(!searchClick);
             }
           }}
         ></input>
