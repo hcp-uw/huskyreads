@@ -262,7 +262,7 @@ export default function BookPage({ isbn, openPage, setBgClass, setPageClass, use
               book.datePublished.slice(0, 10)}
           </p>
           <p>
-            <strong>Description:</strong>
+            {book.description !== undefined && <strong>Description:</strong>}
             <br />
             {book.description !== undefined && book.description}
           </p>

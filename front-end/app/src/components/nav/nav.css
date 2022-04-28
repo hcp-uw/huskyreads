@@ -1,6 +1,7 @@
 .navigation-wrapper {
   margin: 0 auto;
   max-width: 1490px;
+  position: relative;
 }
 
 .navigation-bar {
@@ -70,6 +71,20 @@
   display: none !important;
 }
 
+.nav-search-input {
+  font-family: 'Manrope', sans-serif;
+  letter-spacing: 1px;
+  width: 168px;
+  height: 38px;
+  font-size: .9em;
+  margin-left: 24px;
+  margin-right: -62px;
+  padding: 3px 18px;
+  padding-right: 54px;
+  border-radius: 52px;
+  border: 1px solid rgb(0, 0, 0);
+}
+
 /* large screen navbar */
 
 .nav-links.lg {
@@ -136,14 +151,14 @@
   border-radius: 50px;
 }
 
-@media (min-width: 781px) {
+@media (min-width: 980px) {
   .nav_menu-btn,
   .nav-modal {
     display: none;
   }
 }
 
-@media (max-width: 780px) {
+@media (max-width: 980px) {
   .nav-links.lg {
     display: none;
   }

@@ -106,7 +106,7 @@ export default class Form extends React.Component {
       return(
         <>
           <Router>
-            <Navbar/>
+            <Navbar username={this.state.username}/>
             <Switch>
               <Route path="/bookstand">
                 <BookStandPage username={this.state.username}/>
