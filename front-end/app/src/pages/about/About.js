@@ -23,7 +23,7 @@ export default function AboutPage() {
             <p id="team-title"> Our Team </p>
                 <div id="member-list">
                     <div className="member-box">
-                        <img src="/images/cutepfp.png"
+                        <img src="/club-member-pics/vik-pic.png"
                              alt="pic"
                              className="member-pic" />
                         <h3>Vikram Nithyanandam</h3>
@@ -35,7 +35,7 @@ export default function AboutPage() {
                         </p>
                     </div>
                     <div className="member-box">
-                        <img src="/images/cutepfp.png"
+                        <img src="/club-member-pics/mypic.png"
                              alt="pic"
                              className="member-pic" />
                         <h3>Juda Fernandez</h3>
@@ -47,7 +47,7 @@ export default function AboutPage() {
                         </p>
                     </div>
                     <div className="member-box">
-                        <img src="/images/cutepfp.png"
+                        <img src="/club-member-pics/audrey.png"
                              alt="pic"
                              className="member-pic" />
                         <h3>Audrey Kho</h3>
@@ -71,7 +71,7 @@ export default function AboutPage() {
                         </p>
                     </div>
                     <div className="member-box">
-                        <img src="/images/cutepfp.png"
+                        <img src="/club-member-pics/elliot-pic.png"
                              alt="pic"
                              className="member-pic" />
                         <h3>Elliot Schumacher</h3>
@@ -83,7 +83,7 @@ export default function AboutPage() {
                         </p>
                     </div>
                     <div className="member-box">
-                        <img src="/images/cutepfp.png"
+                        <img src="/club-member-pics/frank-pic.png"
                              alt="pic"
                              className="member-pic" />
                         <h3>Frank Hou</h3>
@@ -95,7 +95,7 @@ export default function AboutPage() {
                         </p>
                     </div>
                     <div className="member-box">
-                        <img src="/images/cutepfp.png"
+                        <img src="/club-member-pics/nicholas-pic.png"
                              alt="pic"
                              className="member-pic" />
                         <h3>Nicholas Boren</h3>
@@ -107,7 +107,7 @@ export default function AboutPage() {
                         </p>
                     </div>
                     <div className="member-box">
-                        <img src="/images/cutepfp.png"
+                        <img src="/club-member-pics/sid-pic.png"
                              alt="pic"
                              className="member-pic" />
                         <h3>Sidharth Lakshmanan</h3>
