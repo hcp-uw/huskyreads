@@ -28,10 +28,7 @@ export default function AboutPage() {
                              className="member-pic" />
                         <h3>Vikram Nithyanandam</h3>
                         <p className="membertext">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-                            magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                            <strong>Role:</strong> Frontend Developer
                         </p>
                     </div>
                     <div className="member-box">
@@ -40,10 +37,7 @@ export default function AboutPage() {
                              className="member-pic" />
                         <h3>Juda Fernandez</h3>
                         <p className="membertext">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-                            magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                            <strong>Role:</strong> Frontend Developer
                         </p>
                     </div>
                     <div className="member-box">
@@ -52,10 +46,7 @@ export default function AboutPage() {
                              className="member-pic" />
                         <h3>Audrey Kho</h3>
                         <p className="membertext">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-                            magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                            <strong>Role:</strong> Frontend Developer
                         </p>
                     </div>
                     <div className="member-box">
@@ -64,10 +55,7 @@ export default function AboutPage() {
                              className="member-pic" />
                         <h3>Elliot Schumacher</h3>
                         <p className="membertext">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-                            magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                            <strong>Role:</strong> Backend Developer
                         </p>
                     </div>
                     <div className="member-box">
@@ -76,10 +64,7 @@ export default function AboutPage() {
                              className="member-pic" />
                         <h3>Frank Hou</h3>
                         <p className="membertext">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-                            magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                            <strong>Role:</strong> Backend Developer
                         </p>
                     </div>
                     <div className="member-box">
@@ -88,10 +73,7 @@ export default function AboutPage() {
                              className="member-pic" />
                         <h3>Nicholas Boren</h3>
                         <p className="membertext">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-                            magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                            <strong>Role:</strong> Backend Developer
                         </p>
                     </div>
                     <div className="member-box">
@@ -100,10 +82,7 @@ export default function AboutPage() {
                              className="member-pic" />
                         <h3>Sidharth Lakshmanan</h3>
                         <p className="membertext">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-                            magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                            <strong>Role:</strong> Backend Developer
                         </p>
                     </div>
                 </div>
