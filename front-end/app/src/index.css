@@ -1,7 +1,9 @@
 body {
   font-family: 'Manrope', 'Inter', sans-serif;
-  max-width: 1480px;
-  margin: 18px auto;
+  max-width: 1350px;
+  min-height: 85vh;
+  margin: 18px auto 95px;
+  position: relative;
 }
 
 p:empty {
@@ -10,4 +12,15 @@ p:empty {
 
 .hidden {
   display: none !important;
+}
+
+footer {
+  position: absolute;
+  left: 18px;
+  bottom: -65px;
+  padding: 2em 0 0;
+  color: #363636;
+  font-size: .8em;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }

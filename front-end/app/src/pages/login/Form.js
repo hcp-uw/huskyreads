@@ -130,7 +130,6 @@ export default class Form extends React.Component {
     return(
       <>
         <header id="top-left-header">HuskyReads</header>
-        <div id="bottom-left-text">Husky Coding Club 2021</div>
         <div className="center">
           <header id="title"><h1>HuskyReads</h1></header>
           <header id="page-type"><h1>{this.state.onLogin ? "Log in" : "Sign up"}:</h1></header>
