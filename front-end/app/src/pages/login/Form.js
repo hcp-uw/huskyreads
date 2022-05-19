@@ -4,8 +4,7 @@ import Navbar from "../../components/nav/Nav";
 import HomePage from "./../home/Home";
 import BookStandPage from "./../book-stand/BookStand";
 import AboutPage from "./../about/About";
-import SettingsPage from "./../settings/Settings";
-import {BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import {BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
 export default class Form extends React.Component {
 
   state = {
@@ -111,14 +110,14 @@ export default class Form extends React.Component {
               <Route path="/bookstand">
                 <BookStandPage username={this.state.username}/>
               </Route>
-              <Route path="/settings">
-                <SettingsPage/>
-              </Route>
               <Route path="/about">
                 <AboutPage/>
               </Route>
               <Route exact path="/">
                 <HomePage username={this.state.username}/>
+              </Route>
+              <Route path="/">
+                <Redirect to="/" />
               </Route>
             </Switch>
           </Router>

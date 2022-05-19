@@ -29,9 +29,6 @@ export default function Navbar({username}) {
               <NavLink to="/bookstand" activeClassName="active">Book Stand</NavLink>
             </li>
             <li>
-              <NavLink to="/settings" activeClassName="active">Settings</NavLink>
-            </li>
-            <li>
               <NavLink to="/about" activeClassName="active">About Us</NavLink>
             </li>
           </ul>
@@ -89,9 +86,6 @@ export function ModalNav(props) {
           </li>
           <li>
             <NavLink to="/bookstand" activeClassName="active" onClick={()=>{props.toggle(false)}}>Book Stand</NavLink>
-          </li>
-          <li>
-            <NavLink to="/settings" activeClassName="active" onClick={()=>{props.toggle(false)}}>Settings</NavLink>
           </li>
           <li>
             <NavLink to="/about" activeClassName="active" onClick={()=>{props.toggle(false)}}>About Us</NavLink>
