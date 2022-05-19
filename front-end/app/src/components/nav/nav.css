@@ -155,14 +155,14 @@
   border-radius: 50px;
 }
 
-@media (min-width: 980px) {
+@media (min-width: 900px) {
   .nav_menu-btn,
   .nav-modal {
     display: none;
   }
 }
 
-@media (max-width: 980px) {
+@media (max-width: 900px) {
   .nav-links.lg {
     display: none;
   }
