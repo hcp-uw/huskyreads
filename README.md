@@ -9,11 +9,18 @@ of our team to pursue future projects. This is the first project ever completed 
 Coding Club and we will use the experience we've gained from this project to provide the
 groundwork for future project teams to build and grow from.
 
+
 ## Developers
 
 - **Project Lead:** Elliot Schumacher
 - **Front-end Developers:** Vikram Nithyanandam, Audrey Kho, and Juda Fernandez
 - **Back-end Developers:** Elliot Schumacher, Frank Hou, and Sidharth Lakshmanan
+
+<br>
+
+---
+
+<br>
 
 ## Configuration Instructions
 1. Clone the repository and open it in your IDE, preferably VSCode.
@@ -28,8 +35,10 @@ cd backend/app
 npm install
 ```
 
-If you want launch the application, perform the following commands in your Terminal
-starting at the top project directory:
+Note, the front-end is currently hosted on Heroku at **insert link**.
+
+However, if you want launch the front-end on your person machine, perform the following commands in
+your Terminal starting at the top project directory:
 
 ```
 cd front/app
@@ -43,5 +52,55 @@ since that would require a *.db file and a MySQL setup.
 
 More information is available under `back-end/API_Documentation`.
 
+<br>
+
+---
+
+<br>
+
+## Project File Structure
+
+<br>
+
+### Front-End File Structure
+
+The `front-end` folder should contain all fo the dependencies for the front-end, including
+the necessary Docker files for dockerizing and hosting the front-end container. There
+is supposed to be a `node_modules` folder under `front-end`, do not delete it.
+
+The actual front-end is located under `front-end/app`. All package dependencies and
+app files are located under there.
+All pages for the HuskyReads application are stored under `front-end/app/src/pages`.
+All components that are used across pages are under `front-end/app/src/components`.
+Any pictures we use are stored under `front-end/app/public`.
+
+
+### Back-End File Structure
+
+The `back-end` folder contains the back-end code base that is currently hosted on Heroku.
+For more information on the API and its endpoints, please look under
+`back-end/API_Documentation`.
+
+If you look under `back-end/app`, there are 5 folders. Here are their purposes:
+- `controllers`: Contains all heavy functions that perform SQL queries and main back-end functions.
+These functions will be called by the endpoint connections written under `routes`
+- `routes`: Contains endpoint connections that the front-end will call, using functions from
+the `controllers` folder to perform the necessary operations when requested.
+- `utils`: Holds sensitive info about the database metadata and status codes
+- `testing`: Holds our back-end testing suite, which uses Mocha and Chai testing frameworks.
+- `logs`: Where error logs are written when they occur.
+
+<br>
+
+---
+
+<br>
+
+
+## Other Info
+
+Club Contant Info: huskycodingproject@gmail.com
+
+License: Creative Commons License
 
 
