@@ -23,6 +23,15 @@ export default function AboutPage() {
             <p id="team-title"> Our Team </p>
                 <div id="member-list">
                     <div className="member-box">
+                        <img src="/club-member-pics/elliot.png"
+                             alt="pic"
+                             className="member-pic" />
+                        <h3>Elliot Schumacher</h3>
+                        <p className="membertext">
+                            <strong>Role:</strong> Project Manager / Backend Developer
+                        </p>
+                    </div>
+                    <div className="member-box">
                         <img src="/club-member-pics/vikram.png"
                              alt="pic"
                              className="member-pic" />
@@ -47,15 +56,6 @@ export default function AboutPage() {
                         <h3>Audrey Kho</h3>
                         <p className="membertext">
                             <strong>Role:</strong> Frontend Developer
-                        </p>
-                    </div>
-                    <div className="member-box">
-                        <img src="/club-member-pics/elliot.png"
-                             alt="pic"
-                             className="member-pic" />
-                        <h3>Elliot Schumacher</h3>
-                        <p className="membertext">
-                            <strong>Role:</strong> Backend Developer
                         </p>
                     </div>
                     <div className="member-box">
