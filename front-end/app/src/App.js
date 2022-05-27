@@ -14,6 +14,7 @@ export default function App() {
   return (
     <>
       <Login/>
+      <footer>&copy; Husky Coding Club 2022</footer>
     </>
   );
 }
