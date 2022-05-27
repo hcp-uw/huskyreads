@@ -18,7 +18,7 @@ CREATE TABLE Users (
 );
 
 CREATE TABLE Books (
-  ISBN bigint UNIQUE PRIMARY KEY,
+  ISBN char(13) UNIQUE PRIMARY KEY,
   title varchar(255) NOT NULL,
   description TEXT,
   date_published varchar(100)
@@ -26,7 +26,7 @@ CREATE TABLE Books (
 
 CREATE TABLE Reviews (
   id_review int PRIMARY KEY AUTO_INCREMENT,
-  ISBN_book bigint NOT NULL REFERENCES Books(ISBN),
+  ISBN_book char(13) NOT NULL REFERENCES Books(ISBN),
   id_user int NOT NULL,
   content varchar(255),
   published date NOT NULL,
@@ -58,7 +58,7 @@ CREATE TABLE Bookshelves (
 
 CREATE TABLE Bookshelf_Books (
     id_bookshelf int,
-    ISBN bigint NOT NULL,
+    ISBN char(13) NOT NULL,
     /* Constraint: If a bookshelf is deleted, delete the bookshelf's book connections */
     CONSTRAINT SHELFDELETE
     FOREIGN KEY (id_bookshelf)
@@ -83,7 +83,7 @@ CREATE TABLE Genres (
  );
 
 CREATE TABLE Book_Authors (
-  ISBN_book bigint NOT NULL,
+  ISBN_book char(13) NOT NULL,
   id_author varchar(40) REFERENCES Authors(id),
   /* Constraint: If a book is deleted, also delete book's related authors */
   CONSTRAINT REFBOOK
@@ -93,7 +93,7 @@ CREATE TABLE Book_Authors (
 );
 
 CREATE TABLE Book_Genres (
-  ISBN_book bigint NOT NULL,
+  ISBN_book char(13) NOT NULL,
   id_genre int NOT NULL REFERENCES Genres(id),
   /* Constraint: If a book is deleted, also delete the book's genre connections */
   FOREIGN KEY (ISBN_book)
