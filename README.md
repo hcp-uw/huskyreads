@@ -14,7 +14,7 @@ groundwork for future project teams to build and grow from.
 
 - **Project Lead:** Elliot Schumacher
 - **Front-end Developers:** Vikram Nithyanandam, Audrey Kho, and Juda Fernandez
-- **Back-end Developers:** Elliot Schumacher, Frank Hou, and Sidharth Lakshmanan
+- **Back-end Developers:** Elliot Schumacher, Frank Hou, Sidharth Lakshmanan, and Nicholas Boren
 
 <br>
 
