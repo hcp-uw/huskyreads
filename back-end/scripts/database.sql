@@ -120,17 +120,21 @@ INSERT INTO Users (username, password) VALUES
 ;
 
 INSERT INTO Books (ISBN, title, description, date_published) VALUES
-    (1111111111, "title1", "Long Description1", '2020--12-1'),
-    (2222222222, "title2", "Long Description2", '2020--12-2'),
-    (3333333333, "title3", "Long Description3", '2020--12-3'),
-    (4444444444, "title4", "Long Description4", '2020--12-4'),
-    (5555555555, "title5", "Long Description5", '2020--12-5'),
-    (6666666666, "title6", "Long Description6", '2020--12-6')
+    ('0123456789', "title0", "Long Description0", '2020--11-1'),
+    ('1111111111', "title1", "Long Description1", '2020--12-1'),
+    ('2222222222', "title2", "Long Description2", '2020--12-2'),
+    ('3333333333', "title3", "Long Description3", '2020--12-3'),
+    ('4444444444', "title4", "Long Description4", '2020--12-4'),
+    ('5555555555', "title5", "Long Description5", '2020--12-5'),
+    ('6666666666', "title6", "Long Description6", '2020--12-6'),
+    ('1111111111111', "title11", "Long Description11", '2020--11-11'),
+    ('7777777777777', "title7", "Long Description7", '2020--12-7'),
+    ('0888888888888', "title8", "Long Description8", '2020--12-8')
 ;
 
 INSERT INTO Reviews (ISBN_book, id_user, content, published) VALUES
-    (1111111111, 1, "wow not that bad", CURDATE()),  /* CURDATE() puts in current date */
-    (2222222222, 2, "interesting book!", CURDATE())
+    ('1111111111', 1, "wow not that bad", CURDATE()),  /* CURDATE() puts in current date */
+    ('2222222222', 2, "interesting book!", CURDATE())
 ;
 
 INSERT INTO Bookshelves (id_user, shelf_name) VALUES
@@ -155,13 +159,13 @@ INSERT INTO Bookshelves (id_user, shelf_name) VALUES
 ;
 
 INSERT INTO Bookshelf_Books (id_bookshelf, ISBN) VALUES
-    (1, 1111111111),
-    (2, 1111111111),
-    (1, 2222222222),
-    (3, 3333333333),
-    (1, 4444444444),
-    (6, 5555555555),
-    (9, 1111111111)
+    (1, '1111111111'),
+    (2, '1111111111'),
+    (1, '2222222222'),
+    (3, '3333333333'),
+    (1, '4444444444'),
+    (6, '5555555555'),
+    (9, '1111111111')
 ;
 
 INSERT INTO Authors (id, name) VALUES
@@ -171,7 +175,8 @@ INSERT INTO Authors (id, name) VALUES
     (4, "Suzzy Collins"),
     (5, "Albert Einstein"),
     (6, "李涛"),                           /* Testing non-latin characters */
-    (7, "Александр Сергеевич Пушкин")      /* Testing non-latin characters */
+    (7, "Александр Сергеевич Пушкин"),    /* Testing non-latin characters */
+    (8, "John Snow")
 ;
 
 INSERT INTO Genres (name) VALUES
@@ -179,25 +184,35 @@ INSERT INTO Genres (name) VALUES
     ("Romance"),
     ("Action"),
     ("Young Adult"),
-    ("Thriller")
+    ("Thriller"),
+    ("Fake Genre")
 ;
 
 INSERT INTO Book_Authors (ISBN_book, id_author) VALUES
-    (1111111111, 1),
-    (2222222222, 2),
-    (3333333333, 3),
-    (4444444444, 3), /* Edge Case */
-    (5555555555, 4), /* Edge Case */
-    (5555555555, 3)  /* Edge Case */
+    ('1111111111', 1),
+    ('2222222222', 2),
+    ('3333333333', 3),
+    ('4444444444', 3), /* Edge Case */
+    ('5555555555', 4), /* Edge Case */
+    ('5555555555', 3),  /* Edge Case */
+    ('0123456789', 8),
+    ('1111111111111', 8),
+    ('7777777777777', 8),
+    ('0888888888888', 8)
 ;
 
 INSERT INTO Book_Genres (ISBN_book, id_genre) VALUES
-    (1111111111, 1),
-    (2222222222, 2),
-    (3333333333, 3),
-    (4444444444, 3), /* Edge Case */
-    (5555555555, 5), /* Edge Case */
-    (5555555555, 4)  /* Edge Case */
+    ('1111111111', 1),
+    ('2222222222', 2),
+    ('3333333333', 3),
+    ('4444444444', 3), /* Edge Case */
+    ('5555555555', 5), /* Edge Case */
+    ('5555555555', 4), /* Edge Case */
+    ('0123456789', 6),
+    ('1111111111111', 6),
+    ('7777777777777', 6),
+    ('0888888888888', 6)
+
 ;
 
 /* RUN DELETE STATEMENTS SEPARATELY IF DOING TESTING */
