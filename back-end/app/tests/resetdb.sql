@@ -18,7 +18,7 @@ CREATE TABLE Users (
 );
 
 CREATE TABLE Books (
-  ISBN bigint UNIQUE PRIMARY KEY,
+  ISBN char(13) UNIQUE PRIMARY KEY,
   title varchar(255) NOT NULL,
   description TEXT,
   date_published date
@@ -41,7 +41,7 @@ CREATE TABLE Bookshelves (
 
 CREATE TABLE Bookshelf_Books (
     id_bookshelf int,
-    ISBN bigint NOT NULL,
+    ISBN char(13) NOT NULL,
     /* Constraint: If a bookshelf is deleted, delete the bookshelf's book connections */
     CONSTRAINT SHELFDELETE
     FOREIGN KEY (id_bookshelf)
@@ -66,7 +66,7 @@ CREATE TABLE Genres (
 );
 
 CREATE TABLE Book_Authors (
-  ISBN_book bigint NOT NULL,
+  ISBN_book char(13) NOT NULL,
   id_author int NOT NULL REFERENCES Authors(id),
   /* Constraint: If a book is deleted, also delete book's author connections */
   CONSTRAINT REFBOOK
@@ -76,7 +76,7 @@ CREATE TABLE Book_Authors (
 );
 
 CREATE TABLE Book_Genres (
-  ISBN_book bigint NOT NULL,
+  ISBN_book char(13) NOT NULL,
   id_genre int NOT NULL REFERENCES Genres(id),
   /* Constraint: If a book is deleted, also delete the book's genre connections */
   FOREIGN KEY (ISBN_BOOK)
@@ -94,12 +94,12 @@ SET auto_increment_offset = 1;
 /* SAMPLE DATA */
 
 INSERT INTO Books (ISBN, title, description, date_published) VALUES
-    (1111111111, "title1", "Long Description1", '2020--12-1'),
-    (2222222222, "title2", "Long Description2", '2020--12-2'),
-    (3333333333, "title3", "Long Description3", '2020--12-3'),
-    (4444444444, "title4", "Long Description4", '2020--12-4'),
-    (5555555555, "title5", "Long Description5", '2020--12-5'),
-    (6666666666, "title6", "Long Description6", '2020--12-6')
+    ('1111111111', "title1", "Long Description1", '2020-12-1'),
+    ('2222222222', "title2", "Long Description2", '2020-12-2'),
+    ('3333333333', "title3", "Long Description3", '2020-12-3'),
+    ('4444444444', "title4", "Long Description4", '2020-12-4'),
+    ('5555555555', "title5", "Long Description5", '2020-12-5'),
+    ('6666666666', "title6", "Long Description6", '2020-12-6'),
 ;
 
 
@@ -122,21 +122,21 @@ INSERT INTO Genres (name) VALUES
 ;
 
 INSERT INTO Book_Authors (ISBN_book, id_author) VALUES
-    (1111111111, 1),
-    (2222222222, 2),
-    (3333333333, 3),
-    (4444444444, 3), /* Edge Case */
-    (5555555555, 4), /* Edge Case */
-    (5555555555, 3)  /* Edge Case */
+    ('1111111111', 1),
+    ('2222222222', 2),
+    ('3333333333', 3),
+    ('4444444444', 3), /* Edge Case */
+    ('5555555555', 4), /* Edge Case */
+    ('5555555555', 3),  /* Edge Case */
 ;
 
 INSERT INTO Book_Genres (ISBN_book, id_genre) VALUES
-    (1111111111, 1),
-    (2222222222, 2),
-    (3333333333, 3),
-    (4444444444, 3), /* Edge Case */
-    (5555555555, 5), /* Edge Case */
-    (5555555555, 4)  /* Edge Case */
+    ('1111111111', 1),
+    ('2222222222', 2),
+    ('3333333333', 3),
+    ('4444444444', 3), /* Edge Case */
+    ('5555555555', 5), /* Edge Case */
+    ('5555555555', 4), /* Edge Case */
 ;
 
 /* RUN DELETE STATEMENTS SEPARATELY IF DOING TESTING */
