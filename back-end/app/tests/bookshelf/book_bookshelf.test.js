@@ -121,8 +121,8 @@ describe('GET /bookshelves/book/:username/:isbn', function() {
         .end(function(err, res) {
             res.should.have.status(200);
             res.body.length.should.be.eql(2);
-            res.body[0].should.be.eql("reading");
-            res.body[1].should.be.eql("read");
+            res.body.should.include("read");
+            res.body.should.include("reading");
             done();
         });
     });
@@ -133,9 +133,9 @@ describe('GET /bookshelves/book/:username/:isbn', function() {
         .end(function(err, res) {
             res.should.have.status(200);
             res.body.length.should.be.eql(3);
-            res.body[0].should.be.eql("want_to_read");
-            res.body[1].should.be.eql("read");
-            res.body[2].should.be.eql("reading");
+            res.body.should.include("want_to_read");
+            res.body.should.include("read");
+            res.body.should.include("reading");
             done();
         });
     });
