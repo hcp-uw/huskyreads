@@ -120,16 +120,16 @@ INSERT INTO Users (username, password) VALUES
 ;
 
 INSERT INTO Books (ISBN, title, description, date_published) VALUES
-    ('0123456789', "title0", "Long Description0", '2020--11-1'),
+    ('0123456789', "title0", "Long Description0", '2020-11-1'),
     ('1111111111', "title1", "Long Description1", '2020-12-1'),
     ('2222222222', "title2", "Long Description2", '2020-12-2'),
     ('3333333333', "title3", "Long Description3", '2020-12-3'),
     ('4444444444', "title4", "Long Description4", '2020-12-4'),
     ('5555555555', "title5", "Long Description5", '2020-12-5'),
     ('6666666666', "title6", "Long Description6", '2020-12-6'),
-    ('1111111111111', "title11", "Long Description11", '2020--11-11'),
-    ('7777777777777', "title7", "Long Description7", '2020--12-7'),
-    ('0888888888888', "title8", "Long Description8", '2020--12-8')
+    ('1111111111111', "title11", "Long Description11", '2020-11-11'),
+    ('7777777777777', "title7", "Long Description7", '2020-12-7'),
+    ('0888888888888', "title8", "Long Description8", '2020-12-8')
 ;
 
 INSERT INTO Reviews (ISBN_book, id_user, content, published) VALUES

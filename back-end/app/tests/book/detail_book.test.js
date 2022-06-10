@@ -83,4 +83,88 @@ describe('GET /books/detail/:isbn', function() {
       done();
     });
   });
+
+  it('200: valid ISBN 10 starting with 0', function(done) {
+    chai.request(server)
+    .get('/books/detail/0123456789')
+    .end(function(err, res) {
+        res.should.have.status(200);
+        res.should.be.json;
+        res.body.should.be.an('object');
+        res.body.should.have.property("title");
+        res.body.title.should.be.eql("title0");
+        res.body.should.have.property("datePublished");
+        res.body.datePublished.should.be.eql("2020-11-1");
+        res.body.should.have.property("description");
+        res.body.description.should.be.eql("Long Description0");
+        res.body.should.have.property("authors");
+        res.body.authors.length.should.be.eql(1)
+        res.body.should.have.property("genres");
+        res.body.genres.length.should.be.eql(1)
+        done();
+    });
+  });
+
+  it('200: valid ISBN 13 not starting with 0', function(done) {
+    chai.request(server)
+    .get('/books/detail/7777777777777')
+    .end(function(err, res) {
+        res.should.have.status(200);
+        res.should.be.json;
+        res.body.should.be.an('object');
+        res.body.should.have.property("title");
+        res.body.title.should.be.eql("title7");
+        res.body.should.have.property("datePublished");
+        res.body.datePublished.should.be.eql("2020-12-7");
+        res.body.should.have.property("description");
+        res.body.description.should.be.eql("Long Description7");
+        res.body.should.have.property("authors");
+        res.body.authors.length.should.be.eql(1)
+        res.body.should.have.property("genres");
+        res.body.genres.length.should.be.eql(1)
+        done();
+    });
+  });
+
+  it('200: valid ISBN 13 starting with 0', function(done) {
+    chai.request(server)
+    .get('/books/detail/0888888888888')
+    .end(function(err, res) {
+        res.should.have.status(200);
+        res.should.be.json;
+        res.body.should.be.an('object');
+        res.body.should.have.property("title");
+        res.body.title.should.be.eql("title8");
+        res.body.should.have.property("datePublished");
+        res.body.datePublished.should.be.eql("2020-12-8");
+        res.body.should.have.property("description");
+        res.body.description.should.be.eql("Long Description8");
+        res.body.should.have.property("authors");
+        res.body.authors.length.should.be.eql(1)
+        res.body.should.have.property("genres");
+        res.body.genres.length.should.be.eql(1)
+        done();
+    });
+  });
+
+  it('200: valid ISBN 13 containing existing ISBN 10 substring', function(done) {
+    chai.request(server)
+    .get('/books/detail/1111111111111')
+    .end(function(err, res) {
+        res.should.have.status(200);
+        res.should.be.json;
+        res.body.should.be.an('object');
+        res.body.should.have.property("title");
+        res.body.title.should.be.eql("title11");
+        res.body.should.have.property("datePublished");
+        res.body.datePublished.should.be.eql("2020-11-11");
+        res.body.should.have.property("description");
+        res.body.description.should.be.eql("Long Description11");
+        res.body.should.have.property("authors");
+        res.body.authors.length.should.be.eql(1)
+        res.body.should.have.property("genres");
+        res.body.genres.length.should.be.eql(1)
+        done();
+    });
+  });
 });
