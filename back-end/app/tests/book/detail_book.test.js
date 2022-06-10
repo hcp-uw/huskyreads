@@ -42,7 +42,7 @@ describe('GET /books/detail/:isbn', function() {
     });
   });
 
-  it('200: valid isbn', function(done) {
+  it('200: valid isbn not starting with 0', function(done) {
     chai.request(server)
     .get('/books/detail/1111111111')
     .end(function(err, res) {
@@ -52,7 +52,7 @@ describe('GET /books/detail/:isbn', function() {
         res.body.should.have.property("title");
         res.body.title.should.be.eql("title1");
         res.body.should.have.property("datePublished");
-        res.body.datePublished.should.be.eql("2020-12-01T08:00:00.000Z");
+        res.body.datePublished.should.be.eql("2020-12-1");
         res.body.should.have.property("description");
         res.body.description.should.be.eql("Long Description1");
         res.body.should.have.property("authors");
@@ -63,7 +63,7 @@ describe('GET /books/detail/:isbn', function() {
     });
   });
 
-  it('200: valid isbn (again)', function(done) {
+  it('200: valid isbn not starting with 0(again)', function(done) {
     chai.request(server)
     .get('/books/detail/5555555555')
     .end(function(err, res) {
@@ -73,7 +73,7 @@ describe('GET /books/detail/:isbn', function() {
         res.body.should.have.property("title");
         res.body.title.should.be.eql("title5");
         res.body.should.have.property("datePublished");
-        res.body.datePublished.should.be.eql("2020-12-05T08:00:00.000Z");
+        res.body.datePublished.should.be.eql("2020-12-5");
         res.body.should.have.property("description");
         res.body.description.should.be.eql("Long Description5");
         res.body.should.have.property("authors");

@@ -21,7 +21,24 @@ CREATE TABLE Books (
   ISBN char(13) UNIQUE PRIMARY KEY,
   title varchar(255) NOT NULL,
   description TEXT,
-  date_published date
+  date_published varchar(100)
+);
+
+CREATE TABLE Reviews (
+  id_review int PRIMARY KEY AUTO_INCREMENT,
+  ISBN_book char(13) NOT NULL REFERENCES Books(ISBN),
+  id_user int NOT NULL,
+  content varchar(255),
+  published date NOT NULL,
+  CONSTRAINT USERDELETED
+  FOREIGN KEY (id_user)
+  REFERENCES Users(id)
+    ON DELETE CASCADE,
+  /* Constraint: If a book is deleted, also delete the book's related reviews */
+  CONSTRAINT BOOKDELETED
+  FOREIGN KEY (ISBN_book)
+  REFERENCES Books(ISBN)
+    ON DELETE CASCADE
 );
 
 /* Default per user, insert:
@@ -56,7 +73,7 @@ CREATE TABLE Bookshelf_Books (
 );
 
 CREATE TABLE Authors (
-  id int PRIMARY KEY AUTO_INCREMENT,
+  id varchar(40) NOT NULL,
   name varchar(255) NOT NULL
 );
 
@@ -67,8 +84,8 @@ CREATE TABLE Genres (
 
 CREATE TABLE Book_Authors (
   ISBN_book char(13) NOT NULL,
-  id_author int NOT NULL REFERENCES Authors(id),
-  /* Constraint: If a book is deleted, also delete book's author connections */
+  id_author varchar(40) REFERENCES Authors(id),
+  /* Constraint: If a book is deleted, also delete book's related authors */
   CONSTRAINT REFBOOK
   FOREIGN KEY (ISBN_book)
   REFERENCES Books(ISBN)
@@ -79,7 +96,7 @@ CREATE TABLE Book_Genres (
   ISBN_book char(13) NOT NULL,
   id_genre int NOT NULL REFERENCES Genres(id),
   /* Constraint: If a book is deleted, also delete the book's genre connections */
-  FOREIGN KEY (ISBN_BOOK)
+  FOREIGN KEY (ISBN_book)
   REFERENCES Books(ISBN)
     ON DELETE CASCADE
 );
@@ -92,25 +109,28 @@ SET auto_increment_offset = 1;
 
 
 /* SAMPLE DATA */
-
 INSERT INTO Books (ISBN, title, description, date_published) VALUES
+    ('0123456789', "title0", "Long Description0", '2020-11-1'),
     ('1111111111', "title1", "Long Description1", '2020-12-1'),
     ('2222222222', "title2", "Long Description2", '2020-12-2'),
     ('3333333333', "title3", "Long Description3", '2020-12-3'),
     ('4444444444', "title4", "Long Description4", '2020-12-4'),
     ('5555555555', "title5", "Long Description5", '2020-12-5'),
     ('6666666666', "title6", "Long Description6", '2020-12-6'),
+    ('1111111111111', "title11", "Long Description11", '2020-11-11'),
+    ('7777777777777', "title7", "Long Description7", '2020-12-7'),
+    ('0888888888888', "title8", "Long Description8", '2020-12-8')
 ;
 
-
-INSERT INTO Authors (name) VALUES
-    ("Terrence Tao"),
-    ("Brett Wortmanz"),
-    ("Foo Bar the Third"),
-    ("Suzzy Collins"),
-    ("Albert Einstein"),
-    ("李涛"),                           /* Testing non-latin characters */
-    ("Александр Сергеевич Пушкин")      /* Testing non-latin characters */
+INSERT INTO Authors (id, name) VALUES
+    (1, "Terrence Tao"),
+    (2, "Brett Wortmanz"),
+    (3, "Foo Bar the Third"),
+    (4, "Suzzy Collins"),
+    (5, "Albert Einstein"),
+    (6, "李涛"),                           /* Testing non-latin characters */
+    (7, "Александр Сергеевич Пушкин"),    /* Testing non-latin characters */
+    (8, "John Snow")
 ;
 
 INSERT INTO Genres (name) VALUES
@@ -118,7 +138,8 @@ INSERT INTO Genres (name) VALUES
     ("Romance"),
     ("Action"),
     ("Young Adult"),
-    ("Thriller")
+    ("Thriller"),
+    ("Fake Genre")
 ;
 
 INSERT INTO Book_Authors (ISBN_book, id_author) VALUES
@@ -128,6 +149,10 @@ INSERT INTO Book_Authors (ISBN_book, id_author) VALUES
     ('4444444444', 3), /* Edge Case */
     ('5555555555', 4), /* Edge Case */
     ('5555555555', 3),  /* Edge Case */
+    ('0123456789', 8),
+    ('1111111111111', 8),
+    ('7777777777777', 8),
+    ('0888888888888', 8)
 ;
 
 INSERT INTO Book_Genres (ISBN_book, id_genre) VALUES
@@ -137,6 +162,11 @@ INSERT INTO Book_Genres (ISBN_book, id_genre) VALUES
     ('4444444444', 3), /* Edge Case */
     ('5555555555', 5), /* Edge Case */
     ('5555555555', 4), /* Edge Case */
+    ('0123456789', 6),
+    ('1111111111111', 6),
+    ('7777777777777', 6),
+    ('0888888888888', 6)
+
 ;
 
 /* RUN DELETE STATEMENTS SEPARATELY IF DOING TESTING */
