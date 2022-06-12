@@ -57,11 +57,9 @@ def retrieveBookData(filePath: str):
         if len(getISBN) > 0:
             # Should be guaranteed at least one of the values is a valid decimal number
             for isbn in getISBN:
-                try:
-                    getISBN = int(isbn)
+                if isbn.isnumeric():
+                    getISBN = isbn
                     break
-                except:
-                    continue
         # Parses data out from authors field
         author = book.get("authors")
         if author:
