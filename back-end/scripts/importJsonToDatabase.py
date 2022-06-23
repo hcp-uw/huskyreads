@@ -48,22 +48,23 @@ def retrieveBookData(filePath: str):
     f = open(filePath)
     data = json.load(f)
     # Assumes data field is called "data" - this is controlled by the data modifying code
-    # Assumes "isbn_10" refers to an integer (decimal); NOTE: isbn_10 can have leading zeros.
+    # Uses "isbn_13" if exists, it doesn't for every book! isbn_10 guaranteed exists for each book
+    # Assumes "isbn_10" and "isbn_13" refers to an integer (decimal);
+    # NOTE: isbns can have leading zeros.
     bookdata = []
     for book in data["data"]:
-        getISBN10 = book.get("isbn_10")
-        if len(getISBN10) > 0:
+        getISBN = book.get("isbn_13") if "isbn_13" in book else book.get("isbn_10")
+        if len(getISBN) > 0:
             # Should be guaranteed at least one of the values is a valid decimal number
-            for isbn in getISBN10:
-                try:
-                    getISBN10 = int(isbn)
-                except:
-                    continue
+            for isbn in getISBN:
+                if isbn.isnumeric():
+                    getISBN = isbn
+                    break
         # Parses data out from authors field
         author = book.get("authors")
-        if author is not None:
+        if author:
             author = author[0].get("key")
-        bookdata.append([book.get("title"), getISBN10, book.get("publish_date"), author, book.get("subjects")])
+        bookdata.append([book.get("title"), getISBN, book.get("publish_date"), author, book.get("subjects")])
 
     f.close()
     return bookdata
