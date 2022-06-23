@@ -39,7 +39,7 @@ Returns a list of books that belong in a given user's bookshelf. If no bookshelf
             "name": "want_to_read",
             "books": [
                 {
-                    "isbn": 2222222222,
+                    "isbn": "2222222222",
                     "title": "Hunger Games",
                     "authors": ["Suzanne Collins"],
                     "genres": ["Young Adult", "Dystopian"]
@@ -68,7 +68,7 @@ Returns a list of books that belong in a given user's bookshelf. If no bookshelf
             "name": "want_to_read",
             "books": [
                 {
-                    "isbn": 1111111111,
+                    "isbn": "1111111111",
                     "title": "title1",
                     "authors": [
                         "Terrence Tao"
@@ -126,7 +126,7 @@ Adds a book to the specified bookshelf for a user.
     | ----------- | ------- | ------------------------------------------------ |
     | `username`  | String  | The username of the user who owns the bookshelf. |
     | `bookshelf` | String  | The name of the bookshelf to add a book to.      |
-    | `isbn`      | Integer | The isbn of the book to add to the bookshelf.    |
+    | `isbn`      | String  | The isbn of the book to add to the bookshelf.    |
 
 * **Returned Data Format:** Plain Text
 
@@ -174,7 +174,7 @@ Removes a book from a specified bookshelf for a user.
     | ----------- | ------- | --------------------------------------------------- |
     | `username`  | String  | The username of the user who owns the bookshelf.    |
     | `bookshelf` | String  | The name of the bookshelf to remove a book from.    |
-    | `isbn`      | Integer | The isbn of the book to remove from the bookshelf.  |
+    | `isbn`      | String  | The isbn of the book to remove from the bookshelf.  |
 
 * **Returned Data Format:** Plain Text
 
@@ -221,7 +221,7 @@ Returns a list of names of bookshelves for a user that contain a specific book. 
     | Name        | Type    | Description                                         |
     | ----------- | ------- | --------------------------------------------------- |
     | `username`  | String  | The username of the user who owns the bookshelves.  |
-    | `isbn`      | Integer | The isbn of the book to search for in bookshelves.  |
+    | `isbn`      | String  | The isbn of the book to search for in bookshelves.  |
 
 * **Returned Data Format:** JSON
 
@@ -255,4 +255,8 @@ Returns a list of names of bookshelves for a user that contain a specific book. 
     ```JSON
     {"error": "Invalid username parameter"}
     ```
+* **Notes:**
+
+    * 6/8/22: All ISBN's are now strings, not numbers. This change has been made to prevent the loss of the first digit if it is a 0.
+
     </br>
