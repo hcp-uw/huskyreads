@@ -4,8 +4,7 @@ import Navbar from "../../components/nav/Nav";
 import HomePage from "./../home/Home";
 import BookStandPage from "./../book-stand/BookStand";
 import AboutPage from "./../about/About";
-import SettingsPage from "./../settings/Settings";
-import {BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import {BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
 export default class Form extends React.Component {
 
   state = {
@@ -106,19 +105,19 @@ export default class Form extends React.Component {
       return(
         <>
           <Router>
-            <Navbar/>
+            <Navbar username={this.state.username}/>
             <Switch>
               <Route path="/bookstand">
                 <BookStandPage username={this.state.username}/>
-              </Route>
-              <Route path="/settings">
-                <SettingsPage/>
               </Route>
               <Route path="/about">
                 <AboutPage/>
               </Route>
               <Route exact path="/">
                 <HomePage username={this.state.username}/>
+              </Route>
+              <Route path="/">
+                <Redirect to="/" />
               </Route>
             </Switch>
           </Router>
@@ -130,7 +129,6 @@ export default class Form extends React.Component {
     return(
       <>
         <header id="top-left-header">HuskyReads</header>
-        <div id="bottom-left-text">Husky Coding Club 2021</div>
         <div className="center">
           <header id="title"><h1>HuskyReads</h1></header>
           <header id="page-type"><h1>{this.state.onLogin ? "Log in" : "Sign up"}:</h1></header>

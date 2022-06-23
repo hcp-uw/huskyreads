@@ -49,7 +49,7 @@ describe('GET /bookshelves/get/:username/:bookshelf', function() {
         res.body[0].books.length.should.be.eql(2);
         res.body[0].books[0].should.be.an('object');
         res.body[0].books[0].should.have.property("isbn");
-        res.body[0].books[0].isbn.should.be.eql(1111111111);
+        res.body[0].books[0].isbn.should.be.eql('1111111111');
         res.body[0].books[0].should.have.property("title");
         res.body[0].books[0].title.should.be.eql("title1");
         res.body[0].books[0].should.have.property("authors");
@@ -58,7 +58,7 @@ describe('GET /bookshelves/get/:username/:bookshelf', function() {
         res.body[0].books[0].genres.length.should.be.eql(1);
         res.body[0].books[1].should.be.an('object');
         res.body[0].books[1].should.have.property("isbn");
-        res.body[0].books[1].isbn.should.be.eql(2222222222);
+        res.body[0].books[1].isbn.should.be.eql('2222222222');
         res.body[0].books[1].should.have.property("title");
         res.body[0].books[1].title.should.be.eql("title2");
         res.body[0].books[1].should.have.property("authors");
@@ -83,7 +83,7 @@ describe('GET /bookshelves/get/:username/:bookshelf', function() {
         res.body[1].books.length.should.be.eql(1);
         res.body[1].books[0].should.be.an('object');
         res.body[1].books[0].should.have.property("isbn");
-        res.body[1].books[0].isbn.should.be.eql(1111111111);
+        res.body[1].books[0].isbn.should.be.eql('1111111111');
         res.body[1].books[0].should.have.property("title");
         res.body[1].books[0].title.should.be.eql("title1");
         res.body[1].books[0].should.have.property("authors");
@@ -97,7 +97,7 @@ describe('GET /bookshelves/get/:username/:bookshelf', function() {
         res.body[0].books.length.should.be.eql(2);
         res.body[0].books[0].should.be.an('object');
         res.body[0].books[0].should.have.property("isbn");
-        res.body[0].books[0].isbn.should.be.eql(1111111111);
+        res.body[0].books[0].isbn.should.be.eql('1111111111');
         res.body[0].books[0].should.have.property("title");
         res.body[0].books[0].title.should.be.eql("title1");
         res.body[0].books[0].should.have.property("authors");
@@ -106,7 +106,7 @@ describe('GET /bookshelves/get/:username/:bookshelf', function() {
         res.body[0].books[0].genres.length.should.be.eql(1);
         res.body[0].books[1].should.be.an('object');
         res.body[0].books[1].should.have.property("isbn");
-        res.body[0].books[1].isbn.should.be.eql(2222222222);
+        res.body[0].books[1].isbn.should.be.eql('2222222222');
         res.body[0].books[1].should.have.property("title");
         res.body[0].books[1].title.should.be.eql("title2");
         res.body[0].books[1].should.have.property("authors");

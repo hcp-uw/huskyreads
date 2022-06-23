@@ -1,0 +1,11 @@
+FROM node:16.14.0-alpine3.14
+
+WORKDIR /app
+COPY app/package.json .
+RUN npm install
+RUN npm ci --only=production
+COPY /app .
+
+EXPOSE 3000
+
+CMD ["npm", "start"]

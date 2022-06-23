@@ -1,10 +1,15 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { NavLink } from 'react-router-dom';
+import SearchBar from '../searchbar/SearchBar';
 import './nav.css';
 
-export default function Navbar() {
+export default function Navbar({username}) {
   const [open, setOpen] = useState(false);
   const toggleOpen = (open) => {setOpen(open)};
+  const [searchQuery, setQuery] = useState("");
+  const [showSearch, setSearchPage] = useState("search-overlay hidden");
+  const [searchClick, clickTrigger] = useState(false);
+  const searchbox = useRef();
 
   return (
     <div className="navigation-wrapper">
@@ -24,18 +29,42 @@ export default function Navbar() {
               <NavLink to="/bookstand" activeClassName="active">Book Stand</NavLink>
             </li>
             <li>
-              <NavLink to="/settings" activeClassName="active">Settings</NavLink>
-            </li>
-            <li>
               <NavLink to="/about" activeClassName="active">About Us</NavLink>
             </li>
           </ul>
-          <button className="nav_search-btn">
+          <input
+            ref={searchbox}
+            className='nav-search-input'
+            type={"text"}
+            placeholder="Search All Books"
+            onKeyDown={(e) => {
+              if(e.key === "Enter") {
+                setSearchPage("search-overlay");
+                setQuery(searchbox.current.value);
+                clickTrigger(!searchClick);
+                searchbox.current.value = "";
+              }
+            }}
+          ></input>
+          <button className="nav_search-btn" onClick={() => {
+            setQuery(searchbox.current.value);
+            clickTrigger(!searchClick);
+            setSearchPage("search-overlay");
+            searchbox.current.value = "";
+          }} title="Search">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
           </button>
         </div>
       </nav>
       <ModalNav modalOpen={open} toggle={toggleOpen}/>
+      <SearchBar
+        username={username}
+        searchQuery={searchQuery}
+        setQuery={setQuery}
+        showSearch={showSearch}
+        setSearchPage={setSearchPage}
+        searchClick={searchClick}
+        clickTrigger={clickTrigger}/>
     </div>
   );
 }
@@ -57,9 +86,6 @@ export function ModalNav(props) {
           </li>
           <li>
             <NavLink to="/bookstand" activeClassName="active" onClick={()=>{props.toggle(false)}}>Book Stand</NavLink>
-          </li>
-          <li>
-            <NavLink to="/settings" activeClassName="active" onClick={()=>{props.toggle(false)}}>Settings</NavLink>
           </li>
           <li>
             <NavLink to="/about" activeClassName="active" onClick={()=>{props.toggle(false)}}>About Us</NavLink>

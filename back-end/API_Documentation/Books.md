@@ -35,7 +35,7 @@ Returns a list of books that match given search parameters and the number of boo
             {
                 "title": "Hunger Games",
                 "authors": ["Suzanne Collins"],
-                "isbn": 2222222222
+                "isbn": "2222222222"
             }
         ]
     }
@@ -60,7 +60,7 @@ Returns a detailed description for a single book. The information returned consi
 
     | Name   | Type    | Description                                     |
     | -------| ------- | ----------------------------------------------- |
-    | `isbn` | Integer | The isbn number of the book to get details for. |
+    | `isbn` | String  | The isbn number of the book to get details for. |
 
 * **Returned Data Format:** JSON
 
@@ -91,5 +91,9 @@ Returns a detailed description for a single book. The information returned consi
 * **Notes:**
 
     * 2/14/22: Ratings and Reviews still under implementation
+
+    * 6/8/22: All ISBN's are now strings, not numbers. This change has been made to prevent the loss of the first digit if it is a 0.
+    
+    * 6/8/22: Date published dates vary in format
 
     </br>

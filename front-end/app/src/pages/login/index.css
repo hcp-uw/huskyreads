@@ -8,12 +8,6 @@ styling for login
   padding: 0.4em 1.5em;
 }
 
-#bottom-left-text {
-  position: absolute;
-  bottom: 0;
-  left: 1;
-}
-
 .center {
   margin: 0;
   position: absolute;
