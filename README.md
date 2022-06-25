@@ -1,11 +1,10 @@
 # Husky Reads
 
 ## About Husky Reads
-The purpose of Husky Reads to create a simpler, more straightforward web application similar
+The purpose of Husky Reads is to create a simpler, more straightforward web application similar
 to GoodReads that allows our users to look for books to read, keep track of books previously
 read, currently reading, and/or planning to read. Along with that, this project serves as a
-learning experience for the members of the HuskyReads team, and build confidence in the members
-of our team to pursue future projects. This is the first project ever completed by the Husky
+learning experience for the members of the HuskyReads team, and builds the confidence of the members in our team to pursue future projects. This is the first project ever completed by the Husky
 Coding Club and we will use the experience we've gained from this project to provide the
 groundwork for future project teams to build and grow from.
 
@@ -20,7 +19,6 @@ groundwork for future project teams to build and grow from.
 
 ---
 
-<br>
 
 ## Configuration Instructions
 1. Clone the repository and open it in your IDE, preferably VSCode.
@@ -31,17 +29,16 @@ groundwork for future project teams to build and grow from.
 cd front-end/app
 npm install
 cd ../..
-cd backend/app
+cd back-end/app
 npm install
 ```
 
-Note, the front-end is currently hosted on Heroku at **insert link**.
+Note, the front-end is currently hosted on Heroku at https://husky-reads-front-end.herokuapp.com.
 
-However, if you want launch the front-end on your person machine, perform the following commands in
-your Terminal starting at the top project directory:
+However, if you want launch the front-end on your personal machine, perform the following commands in your Terminal starting at the top project directory:
 
 ```
-cd front/app
+cd front-end/app
 npm start
 ```
 
@@ -56,15 +53,12 @@ More information is available under `back-end/API_Documentation`.
 
 ---
 
-<br>
-
 ## Project File Structure
 
-<br>
 
 ### Front-End File Structure
 
-The `front-end` folder should contain all fo the dependencies for the front-end, including
+The `front-end` folder should contain all of the dependencies for the front-end, including
 the necessary Docker files for dockerizing and hosting the front-end container. There
 is supposed to be a `node_modules` folder under `front-end`, do not delete it.
 
@@ -82,8 +76,7 @@ For more information on the API and its endpoints, please look under
 `back-end/API_Documentation`.
 
 If you look under `back-end/app`, there are 5 folders. Here are their purposes:
-- `controllers`: Contains all heavy functions that perform SQL queries and main back-end functions.
-These functions will be called by the endpoint connections written under `routes`
+- `controllers`: Contains all functions that interact with the MySQL database. These functions are called by the endpoints in the `routes` folder.
 - `routes`: Contains endpoint connections that the front-end will call, using functions from
 the `controllers` folder to perform the necessary operations when requested.
 - `utils`: Holds sensitive info about the database metadata and status codes
@@ -94,12 +87,9 @@ the `controllers` folder to perform the necessary operations when requested.
 
 ---
 
-<br>
-
-
 ## Other Info
 
-Club Contant Info: huskycodingproject@gmail.com
+Club Contact Info: huskycodingproject@gmail.com
 
 License: Creative Commons License
 
