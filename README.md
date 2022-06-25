@@ -19,7 +19,6 @@ groundwork for future project teams to build and grow from.
 
 ---
 
-<br>
 
 ## Configuration Instructions
 1. Clone the repository and open it in your IDE, preferably VSCode.
@@ -54,11 +53,8 @@ More information is available under `back-end/API_Documentation`.
 
 ---
 
-<br>
-
 ## Project File Structure
 
-<br>
 
 ### Front-End File Structure
 
@@ -91,12 +87,9 @@ the `controllers` folder to perform the necessary operations when requested.
 
 ---
 
-<br>
-
-
 ## Other Info
 
-Club Contant Info: huskycodingproject@gmail.com
+Club Contact Info: huskycodingproject@gmail.com
 
 License: Creative Commons License
 
