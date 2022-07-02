@@ -159,13 +159,13 @@ def insertAuthorData(authors: list, cnx: object):
 
 def main():
     file_path_books = "../data/processed/sample_data.json"
-    file_path_authors = "../data/processed/sample_author_data.json"
+    # file_path_authors = "../data/processed/sample_author_data.json"
     books = retrieveBookData(file_path_books)
-    authors = retrieveAuthorData(file_path_authors)
+    # authors = retrieveAuthorData(file_path_authors)
     cnx = connectToDatabase()
     print("Connection Successful!")
     insertBookData(books, cnx)
-    insertAuthorData(authors, cnx)
+    # insertAuthorData(authors, cnx)
     print("Data import successful! Please refresh database")
     cnx.close()
 
