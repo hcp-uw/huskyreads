@@ -47,11 +47,11 @@ def retrieveAuthorIds(filePath: str):
     # Assumes data field is called "data" - this is controlled by the data modifying code
     authorIds = set()
     for book in data["data"]:
-        author = book.get("authors")
-        if author:
-            author = author[0].get("key").split("/")[2]
-            authorIds.add(author)
-
+        authors = book.get("authors")
+        if authors:
+            for author in authors:
+                authorId = author.get("key").split("/")[2]
+                authorIds.add(authorId)
     f.close()
     return authorIds
 
@@ -102,11 +102,12 @@ def importAuthorData(authors: list, cnx: object):
 def main():
     file_path_books = "../data/processed/sample_data.json"
     authorIds = retrieveAuthorIds(file_path_books)
-    authors = getAuthorData(authorIds)
+    authorsData = getAuthorData(authorIds)
     cnx = connectToDatabase()
     print("Connection Successful!")
-    importAuthorData(authors, cnx)
+    importAuthorData(authorsData, cnx)
     print("Data import successful! Please refresh database")
+    print(authorIds)
     cnx.close()
 
 if __name__ == '__main__':
