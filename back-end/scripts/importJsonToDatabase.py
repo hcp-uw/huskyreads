@@ -128,7 +128,7 @@ def insertBookData(books: list, cnx: object):
                 cursor.execute(query, values)
         # Insert author references into Book_Authors table
         if book[3] is not None:
-            authorID = book[3][9:]
+            authorID = book[3].split("/")[2]
             query = "INSERT INTO Book_Authors (ISBN_book, id_author) VALUES (%s, %s)"
             values = (book[1], authorID)
             cursor.execute(query, values)
