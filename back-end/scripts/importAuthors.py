@@ -107,7 +107,6 @@ def main():
     print("Connection Successful!")
     importAuthorData(authorsData, cnx)
     print("Data import successful! Please refresh database")
-    print(authorIds)
     cnx.close()
 
 if __name__ == '__main__':
