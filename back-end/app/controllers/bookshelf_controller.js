@@ -65,13 +65,13 @@ exports.getBookshelf = async (info) => {
         GROUP_CONCAT(DISTINCT Authors.name SEPARATOR ',') AS authors,
         GROUP_CONCAT(DISTINCT Genres.name SEPARATOR ',') AS genres
     FROM Book_Data
-    INNER JOIN Book_Authors
+    LEFT OUTER JOIN Book_Authors
         ON Book_Data.ISBN = Book_Authors.ISBN_book
-    INNER JOIN Book_Genres
+    LEFT OUTER JOIN Book_Genres
         ON Book_Data.ISBN = Book_Genres.ISBN_book
-    INNER JOIN Authors
+    LEFT OUTER JOIN Authors
         ON Book_Authors.id_author = Authors.id
-    INNER JOIN Genres
+    LEFT OUTER JOIN Genres
         ON Book_Genres.id_genre = Genres.id
     GROUP BY Book_Data.shelfname, Book_Data.title, Book_Data.ISBN
     ;

@@ -26,13 +26,13 @@ exports.getMatchingBooks= async (info) => {
 	let query = `   SELECT Books.title AS title, Books.ISBN AS isbn,
                         GROUP_CONCAT(DISTINCT Authors.name SEPARATOR ',') AS authors
                     FROM Books
-                    INNER JOIN Book_Authors
+                    LEFT OUTER JOIN Book_Authors
                         ON Books.ISBN = Book_Authors.ISBN_book
-                    INNER JOIN Authors
+                    LEFT OUTER JOIN Authors
                         ON Book_Authors.id_author = Authors.id
-                    INNER JOIN Book_Genres
+                    LEFT OUTER JOIN Book_Genres
                         ON Books.ISBN = Book_Genres.ISBN_book
-                    INNER JOIN Genres
+                    LEFT OUTER JOIN Genres
                         ON Book_Genres.id_genre = Genres.id
                     WHERE 1 = 1
 				`;
@@ -66,13 +66,13 @@ exports.getBookDetails = async (isbn) => {
         GROUP_CONCAT(DISTINCT Authors.name SEPARATOR ',') AS authors,
         GROUP_CONCAT(DISTINCT Genres.name SEPARATOR ',') AS genres
     FROM Books
-    INNER JOIN Book_Authors
+    LEFT OUTER JOIN Book_Authors
         ON Books.ISBN = Book_Authors.ISBN_book
-    INNER JOIN Authors
+    LEFT OUTER JOIN Authors
         ON Book_Authors.id_author = Authors.id
-    INNER JOIN Book_Genres
+    LEFT OUTER JOIN Book_Genres
         ON Books.ISBN = Book_Genres.ISBN_book
-    INNER JOIN Genres
+    LEFT OUTER JOIN Genres
         ON Book_Genres.id_genre = Genres.id
     WHERE Books.ISBN = ?
     GROUP BY Books.title, Books.date_published
