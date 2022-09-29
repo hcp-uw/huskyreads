@@ -4,8 +4,7 @@
 The purpose of Husky Reads is to create a simpler, more straightforward web application similar
 to GoodReads that allows our users to look for books to read, keep track of books previously
 read, currently reading, and/or planning to read. Along with that, this project serves as a
-learning experience for the members of the HuskyReads team, and builds the confidence of the members in our team to pursue future projects. This is the first project ever completed by the Husky
-Coding Club and we will use the experience we've gained from this project to provide the
+learning experience for the members of the HuskyReads team, and builds the confidence of the members in our team to pursue future projects. This is the first project ever completed by the Husky Coding Project and we will use the experience we've gained from this project to provide the
 groundwork for future project teams to build and grow from.
 
 
