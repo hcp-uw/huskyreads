@@ -1,20 +1,12 @@
 import './index.css';
 import Login from "./pages/login/Login";
-// import {BrowserRouter as Router, Switch, Route } from "react-router-dom";
-// import Navbar from "./components/nav/Nav";
-// import AboutPage from "./pages/about/About";
-// import BookStandPage from "./pages/book-stand/BookStand";
-// import HomePage from "./pages/home/Home";
-// import SettingsPage from "./pages/settings/Settings";
-// import BookPage from "./pages/book-page/BookPage";
-// import LoginPage from "./pages/login/Login";
 
 export default function App() {
 
   return (
     <>
       <Login/>
-      <footer>&copy; Husky Coding Club 2022</footer>
+      <footer>&copy; Husky Coding Project 2022</footer>
     </>
   );
 }

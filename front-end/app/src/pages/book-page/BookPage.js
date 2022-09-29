@@ -34,6 +34,10 @@ export default function BookPage({ isbn, openPage, setBgClass, setPageClass, use
           setErrorPage(false);
           let fetchURL = URL + GET_BOOK + isbn;
           let bookData = await axios.get(fetchURL);
+          // empty authors list check
+          if (bookData.data?.authors?.length == 0) {
+            bookData.data.authors = ["Author Not Found"];
+          }
           setBook(bookData.data);
         }
       } catch (err) {
