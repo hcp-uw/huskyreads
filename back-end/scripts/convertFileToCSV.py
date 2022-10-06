@@ -2,8 +2,8 @@ import csv
 import sys
 
 
-input_file = 'INPUT_FILE_PATH'          # Example: '/Users/username/Desktop/ol_dump_editions_2021-08-11.txt'
-output_file = 'OUTPUT_FILE_PATH'        # Example: '/Users/username/Desktop/ol_dump_editions_2021-08-11-processed.csv'
+input_file = '/Users/elliot/Downloads/demo_books_40.txt'          # Example: '/Users/username/Desktop/ol_dump_editions_2021-08-11.txt'
+output_file = '/Users/elliot/Desktop/Coding/Projects/HuskyReads/back-end/data/raw/demo_books_40.csv'        # Example: '/Users/username/Desktop/ol_dump_editions_2021-08-11-processed.csv'
 csv.field_size_limit(sys.maxsize)
 with open(output_file, 'w', newline='') as csv_output_file:
     csv_writer = csv.writer(csv_output_file, delimiter='\t', quotechar='|', quoting=csv.QUOTE_MINIMAL)

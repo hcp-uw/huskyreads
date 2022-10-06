@@ -5,11 +5,11 @@ import mysql.connector
 from mysql.connector import errorcode
 # TODO: Generic-this! Or Gitignore in the future so we dont have some public access rando accessing our database
 CONFIG = {
-  'user': 'root',
-  'password': 'root',
-  'host': '127.0.0.1',
-  'database': 'huskyreads',
-  'port': 3307,     # MAKE SURE THIS PORT ALIGNS WITH YOUR PORT IN THE .env FILE
+  'user': 'b9845397f0efbd',
+  'password': 'b7ddb604',
+  'host': 'us-cdbr-east-05.cleardb.net',
+  'database': 'heroku_b0ffa4bc48eba93',
+  'port': 3306,     # MAKE SURE THIS PORT ALIGNS WITH YOUR PORT IN THE .env FILE
   'raise_on_warnings': True
 }
 
@@ -158,7 +158,7 @@ def insertAuthorData(authors: list, cnx: object):
 
 
 def main():
-    file_path_books = "../data/processed/sample_data.json"
+    file_path_books = "../data/processed/demo_books_40.json"
     # file_path_authors = "../data/processed/sample_author_data.json"
     books = retrieveBookData(file_path_books)
     # authors = retrieveAuthorData(file_path_authors)
