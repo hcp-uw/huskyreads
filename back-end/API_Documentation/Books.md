@@ -45,6 +45,9 @@ Returns a list of books that match given search parameters and the number of boo
 
     N/A (If an issue occurs due to user, endpoint will return nothing)
 
+* **Notes:**
+  * 10/6/2022: If a book does not have author information associated with it, the `authors` key will have a value of `[]`.
+
     </br>
 
 ### Get Detailed Information for a Single Book
@@ -95,5 +98,7 @@ Returns a detailed description for a single book. The information returned consi
     * 6/8/22: All ISBN's are now strings, not numbers. This change has been made to prevent the loss of the first digit if it is a 0.
     
     * 6/8/22: Date published dates vary in format
+
+    * 10/6/2022: If a book does not have author or genre information associated with it, the respective `authors` and/or `genres` key(s) will have a value of `[]`.
 
     </br>
