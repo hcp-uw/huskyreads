@@ -4,11 +4,11 @@ from mysql.connector import errorcode
 import requests
 
 CONFIG = {
-  'user': 'b9845397f0efbd',
-  'password': 'b7ddb604',
-  'host': 'us-cdbr-east-05.cleardb.net',
-  'database': 'heroku_b0ffa4bc48eba93',
-  'port': 3306,     # MAKE SURE THIS PORT ALIGNS WITH YOUR PORT IN THE .env FILE
+  'user': 'root',
+  'password': 'root',
+  'host': '127.0.0.1',
+  'database': 'huskyreads',
+  'port': 2000,     # MAKE SURE THIS PORT ALIGNS WITH YOUR PORT IN THE .env FILE
   'raise_on_warnings': True
 }
 
@@ -100,7 +100,7 @@ def importAuthorData(authors: list, cnx: object):
     cursor.close()
 
 def main():
-    file_path_books = "../data/processed/demo_books_40.json"
+    file_path_books = "../data/processed/sample_data.json"
     authorIds = retrieveAuthorIds(file_path_books)
     authorsData = getAuthorData(authorIds)
     cnx = connectToDatabase()

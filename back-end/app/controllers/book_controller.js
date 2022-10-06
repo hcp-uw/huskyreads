@@ -80,15 +80,7 @@ exports.getBookDetails = async (isbn) => {
     `
     let [results] = await db.query(query, isbn);
     let data = results[0];
-    if (data.authors) {
-        data.authors = data.authors?.split(",");
-    } else {
-        data.authors = [];
-    }
-    if (data.genres) {
-        data.genres = data.genres?.split(",");
-    } else {
-        data.genres = [];
-    }
+    data.authors = data.authors.split(",");
+    data.genres = data.genres.split(",");
     return data;
 }
