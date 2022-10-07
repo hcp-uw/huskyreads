@@ -34,9 +34,12 @@ export default function BookPage({ isbn, openPage, setBgClass, setPageClass, use
           setErrorPage(false);
           let fetchURL = URL + GET_BOOK + isbn;
           let bookData = await axios.get(fetchURL);
-          // empty authors list check
+          // empty authors/genres list check
           if (bookData.data?.authors?.length == 0) {
-            bookData.data.authors = ["Author Not Found"];
+            bookData.data.authors = ["Unknown"];
+          }
+          if (bookData.data?.genres?.length == 0) {
+            bookData.data.genres = ["Unknown"];
           }
           setBook(bookData.data);
         }
@@ -266,9 +269,9 @@ export default function BookPage({ isbn, openPage, setBgClass, setPageClass, use
               book.datePublished.slice(0, 10)}
           </p>
           <p>
-            {book.description !== undefined && <strong>Description:</strong>}
+            {book.description && <strong>Description:</strong>}
             <br />
-            {book.description !== undefined && book.description}
+            {book.description && book.description}
           </p>
         </section>
       </div>
