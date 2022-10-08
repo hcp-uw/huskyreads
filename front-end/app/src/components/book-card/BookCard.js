@@ -17,7 +17,7 @@ export default function BookCard({ img, title, authors, isbn, handleClick }) {
   }
 
   return (
-    <div className="book-list_card" href="/" onClick={() => {handleClick(isbn)}}>
+    <div className="book-list_card" href="/" onClick={() => {handleClick(isbn)}} title={title}>
       <img
         ref={ref}
         className="book-card_img"
@@ -27,7 +27,7 @@ export default function BookCard({ img, title, authors, isbn, handleClick }) {
         }}
         alt={title + " cover"}
       />
-      <h4 className="book-card_title">{title}</h4>
+      <h4 className="book-card_title">{title.length > 20 ? title.slice(0, 20) + "..." : title}</h4>
       <p className="book-card_author">{authorText}</p>
     </div>
   );
