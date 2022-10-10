@@ -1,0 +1,360 @@
+{
+    "data": [
+        {
+            "physical_format": "Paperback",
+            "last_modified": {
+                "type": "/type/datetime",
+                "value": "2008-04-30 09:38:13.731961"
+            },
+            "publishers": [
+                "Stationery Office Books"
+            ],
+            "number_of_pages": 4,
+            "id": 13389013,
+            "isbn_13": [
+                "9780110037110"
+            ],
+            "isbn_10": [
+                "0110037111"
+            ],
+            "publish_date": "December 31, 1990",
+            "key": "/b/OL10005460M",
+            "title": "The Community Charges (Administration and Enforcement) (Amendment) Regulations 1990 (Statutory Instruments: 1990: 711)",
+            "type": {
+                "key": "/type/edition"
+            },
+            "subjects": [
+                "English Law"
+            ],
+            "revision": 1
+        },
+        {
+            "publishers": [
+                "Stationery Office Books"
+            ],
+            "key": "/b/OL10001035M",
+            "created": {
+                "type": "/type/datetime",
+                "value": "2008-04-30T09:38:13.731961"
+            },
+            "number_of_pages": 12,
+            "isbn_13": [
+                "9780108369476"
+            ],
+            "physical_format": "Paperback",
+            "isbn_10": [
+                "0108369471"
+            ],
+            "publish_date": "November 21, 1998",
+            "last_modified": {
+                "type": "/type/datetime",
+                "value": "2010-03-11T23:52:40.542344"
+            },
+            "authors": [
+                {
+                    "key": "/a/OL46053A"
+                }
+            ],
+            "title": "Scotland Bill",
+            "latest_revision": 2,
+            "works": [
+                {
+                    "key": "/works/OL14903300W"
+                }
+            ],
+            "type": {
+                "key": "/type/edition"
+            },
+            "id": 13382285,
+            "revision": 2
+        },
+        {
+            "publishers": [
+                "Stationery Office Books"
+            ],
+            "last_modified": {
+                "type": "/type/datetime",
+                "value": "2011-04-27T20:36:40.081295"
+            },
+            "title": "Health Authorities Bill (Parliamentary Debates: [1994-95)",
+            "created": {
+                "type": "/type/datetime",
+                "value": "2008-04-30T09:38:13.731961"
+            },
+            "isbn_13": [
+                "9780109001955"
+            ],
+            "physical_format": "Paperback",
+            "isbn_10": [
+                "0109001958"
+            ],
+            "publish_date": "December 31, 1994",
+            "key": "/books/OL10003395M",
+            "authors": [
+                {
+                    "key": "/authors/OL3362229A"
+                },
+                {
+                    "key": "/authors/OL68747A"
+                },
+                {
+                    "key": "/authors/OL46053A"
+                }
+            ],
+            "latest_revision": 5,
+            "oclc_numbers": [
+                "316105095"
+            ],
+            "works": [
+                {
+                    "key": "/works/OL14902745W"
+                }
+            ],
+            "type": {
+                "key": "/type/edition"
+            },
+            "subjects": [
+                "English law: social"
+            ],
+            "revision": 5
+        },
+        {
+            "publishers": [
+                "Stationery Office Books"
+            ],
+            "last_modified": {
+                "type": "/type/datetime",
+                "value": "2011-04-29T06:23:14.782811"
+            },
+            "title": "Hong Kong Letters Patent, 1982 (Feb. 10, 1982)",
+            "created": {
+                "type": "/type/datetime",
+                "value": "2008-04-30T09:38:13.731961"
+            },
+            "isbn_13": [
+                "9780110285245"
+            ],
+            "physical_format": "Paperback",
+            "isbn_10": [
+                "0110285247"
+            ],
+            "publish_date": "December 31, 1982",
+            "key": "/books/OL10008275M",
+            "authors": [
+                {
+                    "key": "/authors/OL46053A"
+                }
+            ],
+            "latest_revision": 3,
+            "oclc_numbers": [
+                "60233315"
+            ],
+            "works": [
+                {
+                    "key": "/works/OL14887742W"
+                }
+            ],
+            "type": {
+                "key": "/type/edition"
+            },
+            "revision": 3
+        },
+        {
+            "publishers": [
+                "Stationery Office Books"
+            ],
+            "last_modified": {
+                "type": "/type/datetime",
+                "value": "2011-04-29T14:00:50.998713"
+            },
+            "title": "Health Bill [Lords] (Parliamentary Debates: [1998-99)",
+            "created": {
+                "type": "/type/datetime",
+                "value": "2008-04-30T09:38:13.731961"
+            },
+            "isbn_13": [
+                "9780109054999"
+            ],
+            "physical_format": "Paperback",
+            "isbn_10": [
+                "0109054997"
+            ],
+            "publish_date": "May 12, 1999",
+            "key": "/books/OL10003587M",
+            "authors": [
+                {
+                    "key": "/authors/OL3362204A"
+                },
+                {
+                    "key": "/authors/OL46053A"
+                }
+            ],
+            "latest_revision": 3,
+            "oclc_numbers": [
+                "315245688"
+            ],
+            "works": [
+                {
+                    "key": "/works/OL14903182W"
+                }
+            ],
+            "type": {
+                "key": "/type/edition"
+            },
+            "subjects": [
+                "English law: social"
+            ],
+            "revision": 3
+        },
+        {
+            "publishers": [
+                "Stationery Office"
+            ],
+            "number_of_pages": 32,
+            "weight": "6.4 ounces",
+            "physical_format": "Paperback",
+            "last_modified": {
+                "type": "/type/datetime",
+                "value": "2011-04-27T16:08:59.610723"
+            },
+            "latest_revision": 5,
+            "key": "/books/OL10003381M",
+            "authors": [
+                {
+                    "key": "/authors/OL3362813A"
+                }
+            ],
+            "subjects": [
+                "Economics, Finance, Business and Industry",
+                "Reference works",
+                "Reference - General",
+                "Business & Economics",
+                "Business/Economics"
+            ],
+            "isbn_13": [
+                "9780108881619"
+            ],
+            "title": "Parole Board for Scotland Report 2004",
+            "identifiers": {
+                "goodreads": [
+                    "5384930"
+                ]
+            },
+            "created": {
+                "type": "/type/datetime",
+                "value": "2008-04-30T09:38:13.731961"
+            },
+            "languages": [
+                {
+                    "key": "/languages/eng"
+                }
+            ],
+            "isbn_10": [
+                "010888161X"
+            ],
+            "publish_date": "June 2005",
+            "oclc_numbers": [
+                "61883464"
+            ],
+            "works": [
+                {
+                    "key": "/works/OL9314518W"
+                }
+            ],
+            "type": {
+                "key": "/type/edition"
+            },
+            "physical_dimensions": "11.5 x 7.9 x 0.2 inches",
+            "revision": 5
+        },
+        {
+            "publishers": [
+                "Stationery Office Books"
+            ],
+            "physical_format": "Paperback",
+            "last_modified": {
+                "type": "/type/datetime",
+                "value": "2011-04-25T19:37:29.742294"
+            },
+            "title": "Merchant Shipping and Maritime Security Bill [H.L.]",
+            "number_of_pages": 64,
+            "created": {
+                "type": "/type/datetime",
+                "value": "2008-04-30T09:38:13.731961"
+            },
+            "isbn_13": [
+                "9780108702976"
+            ],
+            "isbn_10": [
+                "0108702979"
+            ],
+            "publish_date": "December 11, 1996",
+            "key": "/books/OL10001947M",
+            "authors": [
+                {
+                    "key": "/authors/OL46053A"
+                }
+            ],
+            "latest_revision": 3,
+            "oclc_numbers": [
+                "315876372"
+            ],
+            "works": [
+                {
+                    "key": "/works/OL14903094W"
+                }
+            ],
+            "type": {
+                "key": "/type/edition"
+            },
+            "subjects": [
+                "English law: transport law"
+            ],
+            "revision": 3
+        },
+        {
+            "publishers": [
+                "Stationery Office Books"
+            ],
+            "title": "Children and Young Persons (Scotland) Act 1937",
+            "number_of_pages": 97,
+            "isbn_13": [
+                "9780108501951"
+            ],
+            "physical_format": "Paperback",
+            "isbn_10": [
+                "0108501957"
+            ],
+            "publish_date": "December 31, 1992",
+            "key": "/books/OL10001563M",
+            "oclc_numbers": [
+                "20462113"
+            ],
+            "type": {
+                "key": "/type/edition"
+            },
+            "works": [
+                {
+                    "key": "/works/OL24852231W"
+                }
+            ],
+            "covers": [
+                11717903
+            ],
+            "ocaid": "b32180895",
+            "source_records": [
+                "ia:b32180895"
+            ],
+            "latest_revision": 3,
+            "revision": 3,
+            "created": {
+                "type": "/type/datetime",
+                "value": "2008-04-30T09:38:13.731961"
+            },
+            "last_modified": {
+                "type": "/type/datetime",
+                "value": "2021-08-20T04:30:21.352986"
+            }
+        }
+    ]
+}
