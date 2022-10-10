@@ -51,7 +51,16 @@ exports.getMatchingBooks= async (info) => {
 	}
 	query += `;`;
     result = await db.query(query, params);
-	return result[0];
+    let data = result[0];
+    for (let index = 0; index < data.length; index++) {
+        let bookRecord = data[index];
+        if (bookRecord.authors) {
+            bookRecord.authors = bookRecord.authors.split(",");
+        } else {
+            bookRecord.authors = [];
+        }
+    }
+	return data;
 }
 
 /**
