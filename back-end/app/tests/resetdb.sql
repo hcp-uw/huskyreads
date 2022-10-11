@@ -73,7 +73,7 @@ CREATE TABLE Bookshelf_Books (
 );
 
 CREATE TABLE Authors (
-  id varchar(40) NOT NULL,
+  id varchar(40) PRIMARY KEY,
   name varchar(255) NOT NULL
 );
 

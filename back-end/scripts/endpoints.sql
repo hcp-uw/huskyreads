@@ -61,13 +61,13 @@ SELECT Book_Data.shelfname, Book_Data.title, Book_Data.ISBN,
     GROUP_CONCAT(DISTINCT Authors.name SEPARATOR ',') AS authors,
     GROUP_CONCAT(DISTINCT Genres.name SEPARATOR ',') AS genres
 FROM Book_Data
-INNER JOIN Book_Authors
+LEFT OUTER JOIN Book_Authors
     ON Book_Data.ISBN = Book_Authors.ISBN_book
-INNER JOIN Book_Genres
+LEFT OUTER JOIN Book_Genres
     ON Book_Data.ISBN = Book_Genres.ISBN_book
-INNER JOIN Authors
+LEFT OUTER JOIN Authors
     ON Book_Authors.id_author = Authors.id
-INNER JOIN Genres
+LEFT OUTER JOIN Genres
     ON Book_Genres.id_genre = Genres.id
 GROUP BY Book_Data.shelfname, Book_Data.title, Book_Data.ISBN
 ;
@@ -111,21 +111,21 @@ AND Bookshelf_Books.ISBN = [ISBN]
 -- TESTED
 /* Retrieving Book Data */
 /* Parameters: Title, Author, Genre ARR, Offset, ResultLength */
-SELECT Books.title AS title, Books.ISBN as ISBN,
-    GROUP_CONCAT(DISTINCT Authors.name SEPARATOR ',') AS author_names
+SELECT Books.title AS title, Books.ISBN as isbn,
+    GROUP_CONCAT(DISTINCT Authors.name SEPARATOR ',') AS authors
 FROM Books
-INNER JOIN Book_Authors
+LEFT OUTER JOIN Book_Authors
     ON Books.ISBN = Book_Authors.ISBN_book
-INNER JOIN Authors
+LEFT OUTER JOIN Authors
     ON Book_Authors.id_author = Authors.id
-INNER JOIN Book_Genres
+LEFT OUTER JOIN Book_Genres
     ON Books.ISBN = Book_Genres.ISBN_book
-INNER JOIN Genres
+LEFT OUTER JOIN Genres
     ON Book_Genres.id_genre = Genres.id
 WHERE Books.title = [Title]
 AND Genres.name = [Genre] -- If multiple genres, use IN for array
 GROUP BY Books.title, Books.ISBN
-HAVING FIND_IN_SET([Author], author_names)
+HAVING FIND_IN_SET([Author], authors)
 LIMIT [ResultLength]
 OFFSET [Offset]
 ;
@@ -134,18 +134,18 @@ OFFSET [Offset]
 -- TESTED
 /* Get Detailed Information for Single Book */
 /* Parameter: ISBN */
-SELECT Books.title AS title, Books.date_published AS date_published,
+SELECT Books.title AS title, Books.date_published AS datePublished,
     Books.description AS description
     GROUP_CONCAT(DISTINCT Authors.name SEPARATOR ',') AS authors,
     GROUP_CONCAT(DISTINCT Genres.name SEPARATOR ',') AS genres
 FROM Books
-INNER JOIN Book_Authors
+LEFT OUTER JOIN Book_Authors
     ON Books.ISBN = Book_Authors.ISBN_book
-INNER JOIN Authors
+LEFT OUTER JOIN Authors
     ON Book_Authors.id_author = Authors.id
-INNER JOIN Book_Genres
+LEFT OUTER JOIN Book_Genres
     ON Books.ISBN = Book_Genres.ISBN_book
-INNER JOIN Genres
+LEFT OUTER JOIN Genres
     ON Book_Genres.id_genre = Genres.id
 WHERE Books.ISBN = [ISBN]
 GROUP BY Books.title, Books.date_published

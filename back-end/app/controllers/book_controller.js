@@ -26,13 +26,13 @@ exports.getMatchingBooks= async (info) => {
 	let query = `   SELECT Books.title AS title, Books.ISBN AS isbn,
                         GROUP_CONCAT(DISTINCT Authors.name SEPARATOR ',') AS authors
                     FROM Books
-                    INNER JOIN Book_Authors
+                    LEFT OUTER JOIN Book_Authors
                         ON Books.ISBN = Book_Authors.ISBN_book
-                    INNER JOIN Authors
+                    LEFT OUTER JOIN Authors
                         ON Book_Authors.id_author = Authors.id
-                    INNER JOIN Book_Genres
+                    LEFT OUTER JOIN Book_Genres
                         ON Books.ISBN = Book_Genres.ISBN_book
-                    INNER JOIN Genres
+                    LEFT OUTER JOIN Genres
                         ON Book_Genres.id_genre = Genres.id
                     WHERE 1 = 1
 				`;
@@ -51,7 +51,16 @@ exports.getMatchingBooks= async (info) => {
 	}
 	query += `;`;
     result = await db.query(query, params);
-	return result[0];
+    let data = result[0];
+    for (let index = 0; index < data.length; index++) {
+        let bookRecord = data[index];
+        if (bookRecord.authors) {
+            bookRecord.authors = bookRecord.authors.split(",");
+        } else {
+            bookRecord.authors = [];
+        }
+    }
+	return data;
 }
 
 /**
@@ -66,13 +75,13 @@ exports.getBookDetails = async (isbn) => {
         GROUP_CONCAT(DISTINCT Authors.name SEPARATOR ',') AS authors,
         GROUP_CONCAT(DISTINCT Genres.name SEPARATOR ',') AS genres
     FROM Books
-    INNER JOIN Book_Authors
+    LEFT OUTER JOIN Book_Authors
         ON Books.ISBN = Book_Authors.ISBN_book
-    INNER JOIN Authors
+    LEFT OUTER JOIN Authors
         ON Book_Authors.id_author = Authors.id
-    INNER JOIN Book_Genres
+    LEFT OUTER JOIN Book_Genres
         ON Books.ISBN = Book_Genres.ISBN_book
-    INNER JOIN Genres
+    LEFT OUTER JOIN Genres
         ON Book_Genres.id_genre = Genres.id
     WHERE Books.ISBN = ?
     GROUP BY Books.title, Books.date_published
@@ -80,7 +89,15 @@ exports.getBookDetails = async (isbn) => {
     `
     let [results] = await db.query(query, isbn);
     let data = results[0];
-    data.authors = data.authors.split(",");
-    data.genres = data.genres.split(",");
+    if (data.authors) {
+        data.authors = data.authors.split(",");
+    } else {
+        data.authors = [];
+    }
+    if (data.genres) {
+        data.genres = data.genres.split(",");
+    } else {
+        data.genres = [];
+    }
     return data;
 }
