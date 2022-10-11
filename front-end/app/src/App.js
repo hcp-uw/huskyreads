@@ -1,7 +1,23 @@
 import './index.css';
 import Login from "./pages/login/Login";
+import axios from "axios";
+import { useEffect } from "react";
 
 export default function App() {
+
+  const URL = "https://husky-reads.herokuapp.com";
+
+  useEffect(() => {
+    async function bootUpHeroku() {
+      await axios
+        .get(URL + "/test")
+        .catch(function (error) {
+          console.log(error.toString());
+        });
+    }
+
+    bootUpHeroku();
+  }, []);
 
   return (
     <>
