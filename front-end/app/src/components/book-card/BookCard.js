@@ -27,7 +27,7 @@ export default function BookCard({ img, title, authors, isbn, handleClick }) {
         }}
         alt={title + " cover"}
       />
-      <h4 className="book-card_title">{title.length > 20 ? title.slice(0, 20) + "..." : title}</h4>
+      <h4 className="book-card_title">{title.length > 30 ? title.slice(0, 30) + "..." : title}</h4>
       <p className="book-card_author">{authorText}</p>
     </div>
   );

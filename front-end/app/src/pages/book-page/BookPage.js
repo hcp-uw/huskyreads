@@ -35,10 +35,10 @@ export default function BookPage({ isbn, openPage, setBgClass, setPageClass, use
           let fetchURL = URL + GET_BOOK + isbn;
           let bookData = await axios.get(fetchURL);
           // empty authors/genres list check
-          if (bookData.data?.authors?.length == 0) {
+          if (bookData.data?.authors?.length === 0) {
             bookData.data.authors = ["Unknown"];
           }
-          if (bookData.data?.genres?.length == 0) {
+          if (bookData.data?.genres?.length === 0) {
             bookData.data.genres = ["Unknown"];
           }
           setBook(bookData.data);
