@@ -12,6 +12,7 @@ styles interfere, feel free to remove them from the class names
   height: 100vh;
   z-index: 999;
   padding: 1.6em 2.4em;
+  overflow-y: scroll;
 }
 
 .search-top {

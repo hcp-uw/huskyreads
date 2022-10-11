@@ -11,8 +11,8 @@
 #right-column h1 {
     margin: 0;
     margin-bottom: 22px;
-    font-size: 48px;
-    line-height: 1;
+    font-size: 38px;
+    line-height: 1.25em;
 }
 
 #right-column p {

@@ -22,7 +22,7 @@ export default function HomePage(props) {
   useEffect(() => {
     async function getData() {
       await axios
-        .get(URL + "/books/search")
+        .get(URL + "/books/search?resultLength=100")
         .then(({ data }) => {
           setData(data.books);
         })
@@ -37,7 +37,7 @@ export default function HomePage(props) {
   useEffect(() => {
     if (browseData !== undefined) {
       const shuffled = browseData.slice().sort(() => 0.2 - Math.random());
-      setFeatured(shuffled.slice(0, 3));
+      setFeatured(shuffled.slice(0, 10));
     }
   }, [browseData]);
 
