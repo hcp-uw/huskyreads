@@ -1,20 +1,28 @@
 import './index.css';
 import Login from "./pages/login/Login";
-// import {BrowserRouter as Router, Switch, Route } from "react-router-dom";
-// import Navbar from "./components/nav/Nav";
-// import AboutPage from "./pages/about/About";
-// import BookStandPage from "./pages/book-stand/BookStand";
-// import HomePage from "./pages/home/Home";
-// import SettingsPage from "./pages/settings/Settings";
-// import BookPage from "./pages/book-page/BookPage";
-// import LoginPage from "./pages/login/Login";
+import axios from "axios";
+import { useEffect } from "react";
 
 export default function App() {
+
+  const URL = "https://husky-reads.herokuapp.com";
+
+  useEffect(() => {
+    async function bootUpHeroku() {
+      await axios
+        .get(URL + "/test")
+        .catch(function (error) {
+          console.log(error.toString());
+        });
+    }
+
+    bootUpHeroku();
+  }, []);
 
   return (
     <>
       <Login/>
-      <footer>&copy; Husky Coding Club 2022</footer>
+      <footer>&copy; Husky Coding Project 2022</footer>
     </>
   );
 }

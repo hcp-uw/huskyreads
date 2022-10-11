@@ -47,10 +47,13 @@ export default function SearchBar({
   }
 
   useEffect(() => {
+
     if (category) {
-      loadEndpoint(URL + SEARCH_ENDPOINT + "?" + category + "=" + searchQuery);
+      console.log(URL + SEARCH_ENDPOINT + "?" + category + "=" + searchQuery + "&resultLength=40");
+      loadEndpoint(URL + SEARCH_ENDPOINT + "?" + category + "=" + searchQuery + "&resultLength=40");
     } else {
-      loadEndpoint(URL + SEARCH_ENDPOINT + "?title=" + searchQuery);
+      console.log(URL + SEARCH_ENDPOINT + "?title=" + searchQuery + "&resultLength=40");
+      loadEndpoint(URL + SEARCH_ENDPOINT + "?title=" + searchQuery + "&resultLength=40");
     }
 
     searchInput.current.value = searchQuery
