@@ -1,0 +1,1699 @@
+{
+    "data": [
+        {
+            "publishers": [
+                "Stationery Office Books"
+            ],
+            "key": "/b/OL10001035M",
+            "created": {
+                "type": "/type/datetime",
+                "value": "2008-04-30T09:38:13.731961"
+            },
+            "number_of_pages": 12,
+            "isbn_13": [
+                "9780108369476"
+            ],
+            "physical_format": "Paperback",
+            "isbn_10": [
+                "0108369471"
+            ],
+            "publish_date": "November 21, 1998",
+            "last_modified": {
+                "type": "/type/datetime",
+                "value": "2010-03-11T23:52:40.542344"
+            },
+            "authors": [
+                {
+                    "key": "/a/OL46053A"
+                }
+            ],
+            "title": "Scotland Bill",
+            "latest_revision": 2,
+            "works": [
+                {
+                    "key": "/works/OL14903300W"
+                }
+            ],
+            "type": {
+                "key": "/type/edition"
+            },
+            "id": 13382285,
+            "revision": 2
+        },
+        {
+            "publishers": [
+                "Stationery Office Books"
+            ],
+            "physical_format": "Paperback",
+            "last_modified": {
+                "type": "/type/datetime",
+                "value": "2011-04-27T12:57:16.935172"
+            },
+            "title": "Regional Development Agencies Bill",
+            "number_of_pages": 2,
+            "created": {
+                "type": "/type/datetime",
+                "value": "2008-04-30T09:38:13.731961"
+            },
+            "isbn_13": [
+                "9780108369636"
+            ],
+            "isbn_10": [
+                "0108369633"
+            ],
+            "publish_date": "November 21, 1998",
+            "key": "/books/OL10001051M",
+            "authors": [
+                {
+                    "key": "/authors/OL46053A"
+                }
+            ],
+            "latest_revision": 3,
+            "oclc_numbers": [
+                "314680914"
+            ],
+            "works": [
+                {
+                    "key": "/works/OL14903245W"
+                }
+            ],
+            "type": {
+                "key": "/type/edition"
+            },
+            "revision": 3
+        },
+        {
+            "publishers": [
+                "Stationery Office Books"
+            ],
+            "physical_format": "Paperback",
+            "last_modified": {
+                "type": "/type/datetime",
+                "value": "2011-04-26T18:02:19.907101"
+            },
+            "title": "Commonwealth Development Corporation Bill [H.L.]",
+            "number_of_pages": 4,
+            "created": {
+                "type": "/type/datetime",
+                "value": "2008-04-30T09:38:13.731961"
+            },
+            "isbn_13": [
+                "9780108383267"
+            ],
+            "isbn_10": [
+                "0108383261"
+            ],
+            "publish_date": "December 31, 1998",
+            "key": "/books/OL10001141M",
+            "authors": [
+                {
+                    "key": "/authors/OL46053A"
+                }
+            ],
+            "latest_revision": 3,
+            "oclc_numbers": [
+                "315031875"
+            ],
+            "works": [
+                {
+                    "key": "/works/OL14903022W"
+                }
+            ],
+            "type": {
+                "key": "/type/edition"
+            },
+            "revision": 3
+        },
+        {
+            "publishers": [
+                "Stationery Office Books"
+            ],
+            "title": "Children and Young Persons (Scotland) Act 1937",
+            "number_of_pages": 97,
+            "isbn_13": [
+                "9780108501951"
+            ],
+            "physical_format": "Paperback",
+            "isbn_10": [
+                "0108501957"
+            ],
+            "publish_date": "December 31, 1992",
+            "key": "/books/OL10001563M",
+            "oclc_numbers": [
+                "20462113"
+            ],
+            "type": {
+                "key": "/type/edition"
+            },
+            "works": [
+                {
+                    "key": "/works/OL24852231W"
+                }
+            ],
+            "covers": [
+                11717903
+            ],
+            "ocaid": "b32180895",
+            "source_records": [
+                "ia:b32180895"
+            ],
+            "latest_revision": 3,
+            "revision": 3,
+            "created": {
+                "type": "/type/datetime",
+                "value": "2008-04-30T09:38:13.731961"
+            },
+            "last_modified": {
+                "type": "/type/datetime",
+                "value": "2021-08-20T04:30:21.352986"
+            }
+        },
+        {
+            "publishers": [
+                "Stationery Office Books"
+            ],
+            "physical_format": "Paperback",
+            "last_modified": {
+                "type": "/type/datetime",
+                "value": "2011-04-25T19:37:29.742294"
+            },
+            "title": "Merchant Shipping and Maritime Security Bill [H.L.]",
+            "number_of_pages": 64,
+            "created": {
+                "type": "/type/datetime",
+                "value": "2008-04-30T09:38:13.731961"
+            },
+            "isbn_13": [
+                "9780108702976"
+            ],
+            "isbn_10": [
+                "0108702979"
+            ],
+            "publish_date": "December 11, 1996",
+            "key": "/books/OL10001947M",
+            "authors": [
+                {
+                    "key": "/authors/OL46053A"
+                }
+            ],
+            "latest_revision": 3,
+            "oclc_numbers": [
+                "315876372"
+            ],
+            "works": [
+                {
+                    "key": "/works/OL14903094W"
+                }
+            ],
+            "type": {
+                "key": "/type/edition"
+            },
+            "subjects": [
+                "English law: transport law"
+            ],
+            "revision": 3
+        },
+        {
+            "publishers": [
+                "Stationery Office Books"
+            ],
+            "physical_format": "Paperback",
+            "last_modified": {
+                "type": "/type/datetime",
+                "value": "2011-04-26T09:01:11.569838"
+            },
+            "title": "Civil Procedure Bill [H.L.]",
+            "number_of_pages": 8,
+            "created": {
+                "type": "/type/datetime",
+                "value": "2008-04-30T09:38:13.731961"
+            },
+            "isbn_13": [
+                "9780108728976"
+            ],
+            "isbn_10": [
+                "0108728978"
+            ],
+            "publish_date": "December 11, 1996",
+            "key": "/books/OL10002292M",
+            "authors": [
+                {
+                    "key": "/authors/OL46053A"
+                }
+            ],
+            "latest_revision": 3,
+            "oclc_numbers": [
+                "315875757"
+            ],
+            "works": [
+                {
+                    "key": "/works/OL14903021W"
+                }
+            ],
+            "type": {
+                "key": "/type/edition"
+            },
+            "revision": 3
+        },
+        {
+            "publishers": [
+                "Stationery Office Books"
+            ],
+            "physical_format": "Paperback",
+            "last_modified": {
+                "type": "/type/datetime",
+                "value": "2011-04-30T06:54:53.773773"
+            },
+            "title": "Theft (Amendment) Bill [H.L.]",
+            "number_of_pages": 2,
+            "created": {
+                "type": "/type/datetime",
+                "value": "2008-04-30T09:38:13.731961"
+            },
+            "isbn_13": [
+                "9780108731174"
+            ],
+            "isbn_10": [
+                "0108731170"
+            ],
+            "publish_date": "December 11, 1996",
+            "key": "/books/OL10002359M",
+            "authors": [
+                {
+                    "key": "/authors/OL46053A"
+                }
+            ],
+            "latest_revision": 3,
+            "oclc_numbers": [
+                "315876546"
+            ],
+            "works": [
+                {
+                    "key": "/works/OL14902507W"
+                }
+            ],
+            "type": {
+                "key": "/type/edition"
+            },
+            "revision": 3
+        },
+        {
+            "publishers": [
+                "Stationery Office Books"
+            ],
+            "physical_format": "Paperback",
+            "last_modified": {
+                "type": "/type/datetime",
+                "value": "2011-04-30T06:54:53.773773"
+            },
+            "title": "Criminal Procedure and Investigations Bill [H.L.]",
+            "number_of_pages": 2,
+            "created": {
+                "type": "/type/datetime",
+                "value": "2008-04-30T09:38:13.731961"
+            },
+            "isbn_13": [
+                "9780108732966"
+            ],
+            "isbn_10": [
+                "0108732967"
+            ],
+            "publish_date": "February 20, 1996",
+            "key": "/books/OL10002412M",
+            "authors": [
+                {
+                    "key": "/authors/OL46053A"
+                }
+            ],
+            "latest_revision": 3,
+            "oclc_numbers": [
+                "315956656"
+            ],
+            "works": [
+                {
+                    "key": "/works/OL14903205W"
+                }
+            ],
+            "type": {
+                "key": "/type/edition"
+            },
+            "revision": 3
+        },
+        {
+            "publishers": [
+                "Stationery Office Books"
+            ],
+            "physical_format": "Paperback",
+            "last_modified": {
+                "type": "/type/datetime",
+                "value": "2011-04-30T12:28:03.128844"
+            },
+            "title": "Education Bill",
+            "number_of_pages": 16,
+            "created": {
+                "type": "/type/datetime",
+                "value": "2008-04-30T09:38:13.731961"
+            },
+            "isbn_13": [
+                "9780108743870"
+            ],
+            "isbn_10": [
+                "010874387X"
+            ],
+            "publish_date": "February 27, 1997",
+            "key": "/books/OL10002751M",
+            "authors": [
+                {
+                    "key": "/authors/OL46053A"
+                }
+            ],
+            "latest_revision": 3,
+            "oclc_numbers": [
+                "315972308"
+            ],
+            "works": [
+                {
+                    "key": "/works/OL14903216W"
+                }
+            ],
+            "type": {
+                "key": "/type/edition"
+            },
+            "revision": 3
+        },
+        {
+            "publishers": [
+                "Loyola University Press"
+            ],
+            "identifiers": {
+                "goodreads": [
+                    "1371598"
+                ],
+                "librarything": [
+                    "685475"
+                ]
+            },
+            "subtitle": "focusing as a way to grow",
+            "isbn_10": [
+                "0829409378"
+            ],
+            "covers": [
+                631820
+            ],
+            "lc_classifications": [
+                "BL624 .C34 1997"
+            ],
+            "key": "/books/OL1000298M",
+            "authors": [
+                {
+                    "key": "/authors/OL2887010A"
+                }
+            ],
+            "publish_places": [
+                "Chicago, Ill"
+            ],
+            "contributions": [
+                "McMahon, Edwin M., 1930-"
+            ],
+            "subjects": [
+                "Spiritual life."
+            ],
+            "languages": [
+                {
+                    "key": "/languages/eng"
+                }
+            ],
+            "pagination": "xxxvii, 213 p. ;",
+            "source_records": [
+                "marc:marc_claremont_school_theology/CSTMARC1_barcode.mrc:227421794:1540",
+                "marc:marc_loc_2016/BooksAll.2016.part25.utf8:104045644:758",
+                "marc:marc_claremont_school_theology/CSTMARC1_multibarcode.mrc:227699089:1540"
+            ],
+            "title": "Bio-spirituality",
+            "dewey_decimal_class": [
+                "291.4"
+            ],
+            "notes": {
+                "type": "/type/text",
+                "value": "Includes bibliographical references (p. 207-210"
+            },
+            "number_of_pages": 213,
+            "edition_name": "2nd ed.",
+            "lccn": [
+                "96039189"
+            ],
+            "local_id": [
+                "urn:cst:10017024358"
+            ],
+            "publish_date": "1997",
+            "publish_country": "ilu",
+            "by_statement": "Peter A. Campbell, Edwin M. McMahon ; foreword by Robert T. Sears.",
+            "oclc_numbers": [
+                "35770851"
+            ],
+            "works": [
+                {
+                    "key": "/works/OL3336901W"
+                }
+            ],
+            "type": {
+                "key": "/type/edition"
+            },
+            "latest_revision": 10,
+            "revision": 10,
+            "created": {
+                "type": "/type/datetime",
+                "value": "2008-04-01T03:28:50.625462"
+            },
+            "last_modified": {
+                "type": "/type/datetime",
+                "value": "2021-03-03T15:05:44.337723"
+            }
+        },
+        {
+            "publishers": [
+                "Stationery Office Books"
+            ],
+            "physical_format": "Paperback",
+            "last_modified": {
+                "type": "/type/datetime",
+                "value": "2011-04-28T10:00:27.365505"
+            },
+            "title": "Education (Scotland) Bill [H.L.]",
+            "number_of_pages": 8,
+            "created": {
+                "type": "/type/datetime",
+                "value": "2008-04-30T09:38:13.731961"
+            },
+            "isbn_13": [
+                "9780108751660"
+            ],
+            "isbn_10": [
+                "010875166X"
+            ],
+            "publish_date": "May 15, 1996",
+            "key": "/books/OL10002990M",
+            "authors": [
+                {
+                    "key": "/authors/OL46053A"
+                }
+            ],
+            "latest_revision": 3,
+            "oclc_numbers": [
+                "315963083"
+            ],
+            "works": [
+                {
+                    "key": "/works/OL14903188W"
+                }
+            ],
+            "type": {
+                "key": "/type/edition"
+            },
+            "subjects": [
+                "Scots Law"
+            ],
+            "revision": 3
+        },
+        {
+            "publishers": [
+                "Stationery Office"
+            ],
+            "number_of_pages": 32,
+            "weight": "6.4 ounces",
+            "physical_format": "Paperback",
+            "last_modified": {
+                "type": "/type/datetime",
+                "value": "2011-04-27T16:08:59.610723"
+            },
+            "latest_revision": 5,
+            "key": "/books/OL10003381M",
+            "authors": [
+                {
+                    "key": "/authors/OL3362813A"
+                }
+            ],
+            "subjects": [
+                "Economics, Finance, Business and Industry",
+                "Reference works",
+                "Reference - General",
+                "Business & Economics",
+                "Business/Economics"
+            ],
+            "isbn_13": [
+                "9780108881619"
+            ],
+            "title": "Parole Board for Scotland Report 2004",
+            "identifiers": {
+                "goodreads": [
+                    "5384930"
+                ]
+            },
+            "created": {
+                "type": "/type/datetime",
+                "value": "2008-04-30T09:38:13.731961"
+            },
+            "languages": [
+                {
+                    "key": "/languages/eng"
+                }
+            ],
+            "isbn_10": [
+                "010888161X"
+            ],
+            "publish_date": "June 2005",
+            "oclc_numbers": [
+                "61883464"
+            ],
+            "works": [
+                {
+                    "key": "/works/OL9314518W"
+                }
+            ],
+            "type": {
+                "key": "/type/edition"
+            },
+            "physical_dimensions": "11.5 x 7.9 x 0.2 inches",
+            "revision": 5
+        },
+        {
+            "publishers": [
+                "Stationery Office Books"
+            ],
+            "last_modified": {
+                "type": "/type/datetime",
+                "value": "2011-04-27T20:36:40.081295"
+            },
+            "title": "Health Authorities Bill (Parliamentary Debates: [1994-95)",
+            "created": {
+                "type": "/type/datetime",
+                "value": "2008-04-30T09:38:13.731961"
+            },
+            "isbn_13": [
+                "9780109001955"
+            ],
+            "physical_format": "Paperback",
+            "isbn_10": [
+                "0109001958"
+            ],
+            "publish_date": "December 31, 1994",
+            "key": "/books/OL10003395M",
+            "authors": [
+                {
+                    "key": "/authors/OL3362229A"
+                },
+                {
+                    "key": "/authors/OL68747A"
+                },
+                {
+                    "key": "/authors/OL46053A"
+                }
+            ],
+            "latest_revision": 5,
+            "oclc_numbers": [
+                "316105095"
+            ],
+            "works": [
+                {
+                    "key": "/works/OL14902745W"
+                }
+            ],
+            "type": {
+                "key": "/type/edition"
+            },
+            "subjects": [
+                "English law: social"
+            ],
+            "revision": 5
+        },
+        {
+            "publishers": [
+                "Wiley"
+            ],
+            "identifiers": {
+                "goodreads": [
+                    "4319067",
+                    "2013310"
+                ]
+            },
+            "isbn_10": [
+                "0471950793",
+                "0471957771"
+            ],
+            "series": [
+                "The Wiley series in offender rehabilitation"
+            ],
+            "covers": [
+                3857252,
+                1252031
+            ],
+            "lc_classifications": [
+                "HV9275 .A424 1997"
+            ],
+            "url": [
+                "http://www.loc.gov/catdir/toc/onix03/96039235.html"
+            ],
+            "key": "/books/OL1000339M",
+            "ocaid": "addictedtocrime0000unse",
+            "publish_places": [
+                "Chichester, West Sussex, England",
+                "New York,NY, USA"
+            ],
+            "contributions": [
+                "Hodge, John E. 1948-",
+                "McMurran, Mary.",
+                "Hollin, Clive R."
+            ],
+            "uri_descriptions": [
+                "Table of Contents"
+            ],
+            "pagination": "xv, 238 p. ;",
+            "source_records": [
+                "amazon:0471950793",
+                "amazon:0471957771",
+                "ia:addictedtocrime0000unse",
+                "marc:marc_loc_2016/BooksAll.2016.part25.utf8:104080801:1086",
+                "ia:salisuk050",
+                "ia:addictedtocrime0000unse_z8z5"
+            ],
+            "title": "Addicted to crime?",
+            "dewey_decimal_class": [
+                "364.3"
+            ],
+            "notes": {
+                "type": "/type/text",
+                "value": "Includes bibliographical references and index."
+            },
+            "number_of_pages": 238,
+            "languages": [
+                {
+                    "key": "/languages/eng"
+                }
+            ],
+            "lccn": [
+                "96039235"
+            ],
+            "subjects": [
+                "Criminals -- Rehabilitation.",
+                "Recidivism.",
+                "Criminal psychology."
+            ],
+            "publish_date": "1997",
+            "publish_country": "enk",
+            "by_statement": "edited by John E. Hodge, Mary McMurran, Clive R. Hollin.",
+            "works": [
+                {
+                    "key": "/works/OL19335204W"
+                }
+            ],
+            "type": {
+                "key": "/type/edition"
+            },
+            "uris": [
+                "http://www.loc.gov/catdir/toc/onix03/96039235.html"
+            ],
+            "latest_revision": 12,
+            "revision": 12,
+            "created": {
+                "type": "/type/datetime",
+                "value": "2008-04-01T03:28:50.625462"
+            },
+            "last_modified": {
+                "type": "/type/datetime",
+                "value": "2021-08-12T01:58:41.216033"
+            }
+        },
+        {
+            "publishers": [
+                "Stationery Office Books"
+            ],
+            "last_modified": {
+                "type": "/type/datetime",
+                "value": "2011-04-29T14:00:50.998713"
+            },
+            "title": "Health Bill [Lords] (Parliamentary Debates: [1998-99)",
+            "created": {
+                "type": "/type/datetime",
+                "value": "2008-04-30T09:38:13.731961"
+            },
+            "isbn_13": [
+                "9780109054999"
+            ],
+            "physical_format": "Paperback",
+            "isbn_10": [
+                "0109054997"
+            ],
+            "publish_date": "May 12, 1999",
+            "key": "/books/OL10003587M",
+            "authors": [
+                {
+                    "key": "/authors/OL3362204A"
+                },
+                {
+                    "key": "/authors/OL46053A"
+                }
+            ],
+            "latest_revision": 3,
+            "oclc_numbers": [
+                "315245688"
+            ],
+            "works": [
+                {
+                    "key": "/works/OL14903182W"
+                }
+            ],
+            "type": {
+                "key": "/type/edition"
+            },
+            "subjects": [
+                "English law: social"
+            ],
+            "revision": 3
+        },
+        {
+            "publishers": [
+                "Stationery Office Books"
+            ],
+            "last_modified": {
+                "type": "/type/datetime",
+                "value": "2011-04-27T17:41:13.188755"
+            },
+            "title": "Data Protection Bill [Lords] (Parliamentary Debates: [1997-98)",
+            "created": {
+                "type": "/type/datetime",
+                "value": "2008-04-30T09:38:13.731961"
+            },
+            "isbn_13": [
+                "9780109362988"
+            ],
+            "physical_format": "Paperback",
+            "isbn_10": [
+                "0109362985"
+            ],
+            "publish_date": "June 12, 1998",
+            "key": "/books/OL10004172M",
+            "authors": [
+                {
+                    "key": "/authors/OL1806780A"
+                },
+                {
+                    "key": "/authors/OL46053A"
+                }
+            ],
+            "latest_revision": 3,
+            "oclc_numbers": [
+                "314917579"
+            ],
+            "works": [
+                {
+                    "key": "/works/OL14902897W"
+                }
+            ],
+            "type": {
+                "key": "/type/edition"
+            },
+            "subjects": [
+                "English law: private, property, family"
+            ],
+            "revision": 3
+        },
+        {
+            "physical_format": "Mass Market Paperback",
+            "publishers": [
+                "Daniel Van Bogaert"
+            ],
+            "isbn_10": [
+                "0109614801"
+            ],
+            "contributions": [
+                "David Sams (Illustrator)",
+                "Lyndell Martin (Editor)"
+            ],
+            "number_of_pages": 137,
+            "edition_name": "second edition",
+            "isbn_13": [
+                "9780109614803"
+            ],
+            "last_modified": {
+                "type": "/type/datetime",
+                "value": "2009-12-15T00:42:26.297199"
+            },
+            "publish_date": "July 1, 1998",
+            "key": "/b/OL10004537M",
+            "authors": [
+                {
+                    "key": "/a/OL3362828A"
+                }
+            ],
+            "title": "How To Pay Yourself More When You Retire By Paying Less Taxes",
+            "latest_revision": 2,
+            "works": [
+                {
+                    "key": "/works/OL9314523W"
+                }
+            ],
+            "type": {
+                "key": "/type/edition"
+            },
+            "revision": 2
+        },
+        {
+            "publishers": [
+                "Stationery Office Books"
+            ],
+            "last_modified": {
+                "type": "/type/datetime",
+                "value": "2011-04-25T18:22:00.937363"
+            },
+            "title": "Education (Scotland) Bill [Lords] (Parliamentary Debates: [1995-96)",
+            "created": {
+                "type": "/type/datetime",
+                "value": "2008-04-30T09:38:13.731961"
+            },
+            "isbn_13": [
+                "9780109871961"
+            ],
+            "physical_format": "Paperback",
+            "isbn_10": [
+                "0109871960"
+            ],
+            "publish_date": "July 20, 1996",
+            "key": "/books/OL10004854M",
+            "authors": [
+                {
+                    "key": "/authors/OL3361967A"
+                },
+                {
+                    "key": "/authors/OL46053A"
+                }
+            ],
+            "latest_revision": 3,
+            "oclc_numbers": [
+                "316021136"
+            ],
+            "works": [
+                {
+                    "key": "/works/OL14902617W"
+                }
+            ],
+            "type": {
+                "key": "/type/edition"
+            },
+            "revision": 3
+        },
+        {
+            "publishers": [
+                "Stationery Office Books"
+            ],
+            "physical_format": "Paperback",
+            "last_modified": {
+                "type": "/type/datetime",
+                "value": "2019-11-11T06:07:00.057872"
+            },
+            "title": "Draft Child Support (Miscellaneous Amendments) (No. 2) Regulations 1996 [and] Draft Social Security (Child Maintenance Bonus) Regulations 1996 (Parliamentary Debates: [1996-97)",
+            "created": {
+                "type": "/type/datetime",
+                "value": "2008-04-30T09:38:13.731961"
+            },
+            "isbn_13": [
+                "9780109920973"
+            ],
+            "isbn_10": [
+                "010992097X"
+            ],
+            "publish_date": "December 31, 1996",
+            "key": "/books/OL10005011M",
+            "authors": [
+                {
+                    "key": "/authors/OL3362229A"
+                },
+                {
+                    "key": "/authors/OL2656742A"
+                },
+                {
+                    "key": "/authors/OL3362229A"
+                },
+                {
+                    "key": "/authors/OL2656742A"
+                },
+                {
+                    "key": "/authors/OL3362229A"
+                },
+                {
+                    "key": "/authors/OL2656742A"
+                },
+                {
+                    "key": "/authors/OL3362229A"
+                },
+                {
+                    "key": "/authors/OL2656742A"
+                },
+                {
+                    "key": "/authors/OL3362229A"
+                },
+                {
+                    "key": "/authors/OL2656742A"
+                },
+                {
+                    "key": "/authors/OL3362229A"
+                },
+                {
+                    "key": "/authors/OL2656742A"
+                },
+                {
+                    "key": "/authors/OL3362229A"
+                },
+                {
+                    "key": "/authors/OL2656742A"
+                },
+                {
+                    "key": "/authors/OL3362229A"
+                },
+                {
+                    "key": "/authors/OL2656742A"
+                }
+            ],
+            "latest_revision": 5,
+            "oclc_numbers": [
+                "316238323"
+            ],
+            "works": [
+                {
+                    "key": "/works/OL14884011W"
+                }
+            ],
+            "type": {
+                "key": "/type/edition"
+            },
+            "revision": 5
+        },
+        {
+            "physical_format": "Paperback",
+            "last_modified": {
+                "type": "/type/datetime",
+                "value": "2008-04-30 09:38:13.731961"
+            },
+            "publishers": [
+                "Stationery Office Books"
+            ],
+            "number_of_pages": 4,
+            "id": 13389013,
+            "isbn_13": [
+                "9780110037110"
+            ],
+            "isbn_10": [
+                "0110037111"
+            ],
+            "publish_date": "December 31, 1990",
+            "key": "/b/OL10005460M",
+            "title": "The Community Charges (Administration and Enforcement) (Amendment) Regulations 1990 (Statutory Instruments: 1990: 711)",
+            "type": {
+                "key": "/type/edition"
+            },
+            "subjects": [
+                "English Law"
+            ],
+            "revision": 1
+        },
+        {
+            "physical_format": "Paperback",
+            "last_modified": {
+                "type": "/type/datetime",
+                "value": "2008-04-30 09:38:13.731961"
+            },
+            "publishers": [
+                "Stationery Office Books"
+            ],
+            "number_of_pages": 10,
+            "id": 13388687,
+            "isbn_13": [
+                "9780110057491"
+            ],
+            "isbn_10": [
+                "011005749X"
+            ],
+            "publish_date": "December 31, 1991",
+            "key": "/b/OL10005707M",
+            "title": "The Companies (Revision of Defective Accounts and Report) Regulations 1990 (Statutory Instruments: 1990: 2570)",
+            "type": {
+                "key": "/type/edition"
+            },
+            "subjects": [
+                "English Law"
+            ],
+            "revision": 1
+        },
+        {
+            "publishers": [
+                "Stationery Office Books"
+            ],
+            "physical_format": "Paperback",
+            "subjects": [
+                "English Law"
+            ],
+            "created": {
+                "type": "/type/datetime",
+                "value": "2008-04-30T09:38:13.731961"
+            },
+            "isbn_10": [
+                "0110148320"
+            ],
+            "number_of_pages": 4,
+            "isbn_13": [
+                "9780110148328"
+            ],
+            "last_modified": {
+                "type": "/type/datetime",
+                "value": "2010-03-11T20:16:50.243445"
+            },
+            "publish_date": "December 31, 1991",
+            "key": "/b/OL10006129M",
+            "authors": [
+                {
+                    "key": "/a/OL46053A"
+                }
+            ],
+            "title": "The Family Proceedings (Costs) Rules 1991 (Statutory Instruments: 1991: 1832 (L.25))",
+            "latest_revision": 2,
+            "works": [
+                {
+                    "key": "/works/OL14886015W"
+                }
+            ],
+            "type": {
+                "key": "/type/edition"
+            },
+            "id": 13387677,
+            "revision": 2
+        },
+        {
+            "publishers": [
+                "Stationery Office Books"
+            ],
+            "last_modified": {
+                "type": "/type/datetime",
+                "value": "2011-04-27T10:01:17.813172"
+            },
+            "title": "The Library Charges (England and Wales) Regulations 1991 (Statutory Instruments: 1991: 2712)",
+            "number_of_pages": 4,
+            "isbn_13": [
+                "9780110159355"
+            ],
+            "created": {
+                "type": "/type/datetime",
+                "value": "2008-04-30T09:38:13.731961"
+            },
+            "physical_format": "Paperback",
+            "isbn_10": [
+                "0110159357"
+            ],
+            "publish_date": "December 31, 1991",
+            "key": "/books/OL10006427M",
+            "latest_revision": 2,
+            "oclc_numbers": [
+                "655305846"
+            ],
+            "type": {
+                "key": "/type/edition"
+            },
+            "subjects": [
+                "English Law"
+            ],
+            "revision": 2
+        },
+        {
+            "physical_format": "Paperback",
+            "last_modified": {
+                "type": "/type/datetime",
+                "value": "2008-04-30 09:38:13.731961"
+            },
+            "publishers": [
+                "Stationery Office Books"
+            ],
+            "number_of_pages": 2,
+            "id": 13388076,
+            "isbn_13": [
+                "9780110230085"
+            ],
+            "isbn_10": [
+                "0110230086"
+            ],
+            "publish_date": "December 31, 1992",
+            "key": "/b/OL10006570M",
+            "title": "The British Technology Group Act 1991 (Modification and Saving) Order 1992 (Statutory Instruments: 1992: 8)",
+            "type": {
+                "key": "/type/edition"
+            },
+            "subjects": [
+                "English Law"
+            ],
+            "revision": 1
+        },
+        {
+            "physical_format": "Paperback",
+            "last_modified": {
+                "type": "/type/datetime",
+                "value": "2008-04-30 09:38:13.731961"
+            },
+            "publishers": [
+                "Stationery Office Books"
+            ],
+            "number_of_pages": 4,
+            "id": 13391258,
+            "isbn_13": [
+                "9780110246116"
+            ],
+            "isbn_10": [
+                "011024611X"
+            ],
+            "publish_date": "December 31, 1992",
+            "key": "/b/OL10007340M",
+            "title": "The Building Societies (Designated Capital Resources) Order 1992 (Statutory Instruments: 1992: 1611)",
+            "type": {
+                "key": "/type/edition"
+            },
+            "subjects": [
+                "English Law"
+            ],
+            "revision": 1
+        },
+        {
+            "publishers": [
+                "Stationery Office Books"
+            ],
+            "last_modified": {
+                "type": "/type/datetime",
+                "value": "2011-06-08T10:45:20.048404"
+            },
+            "title": "The Magistrates' Courts (Children and Young Persons) Rules 1992 (Statutory Instruments: 1992: 2071 (L. 17))",
+            "number_of_pages": 72,
+            "isbn_13": [
+                "9780110250717"
+            ],
+            "created": {
+                "type": "/type/datetime",
+                "value": "2008-04-30T09:38:13.731961"
+            },
+            "physical_format": "Paperback",
+            "isbn_10": [
+                "0110250710"
+            ],
+            "publish_date": "December 31, 1992",
+            "key": "/books/OL10007552M",
+            "latest_revision": 2,
+            "oclc_numbers": [
+                "650398605"
+            ],
+            "type": {
+                "key": "/type/edition"
+            },
+            "subjects": [
+                "English Law"
+            ],
+            "revision": 2
+        },
+        {
+            "physical_format": "Paperback",
+            "last_modified": {
+                "type": "/type/datetime",
+                "value": "2008-04-30 09:38:13.731961"
+            },
+            "publishers": [
+                "Stationery Office Books"
+            ],
+            "number_of_pages": 2,
+            "id": 13390173,
+            "isbn_13": [
+                "9780110252261"
+            ],
+            "isbn_10": [
+                "0110252268"
+            ],
+            "publish_date": "December 31, 1992",
+            "key": "/b/OL10007655M",
+            "title": "The St Gabriel's, Knolle Park, Woolton, Liverpool Instruments of Management (Variation) Order 1992 (Statutory Instruments: 1992: 2226)",
+            "type": {
+                "key": "/type/edition"
+            },
+            "subjects": [
+                "English Law"
+            ],
+            "revision": 1
+        },
+        {
+            "publishers": [
+                "Stationery Office Books"
+            ],
+            "last_modified": {
+                "type": "/type/datetime",
+                "value": "2019-05-29T06:11:03.239926"
+            },
+            "title": "The Medicines (Leaflets) Amendment Regulations 1992 (Statutory Instruments: 1992: 3274)",
+            "number_of_pages": 8,
+            "isbn_13": [
+                "9780110252629"
+            ],
+            "created": {
+                "type": "/type/datetime",
+                "value": "2008-04-30T09:38:13.731961"
+            },
+            "physical_format": "Paperback",
+            "isbn_10": [
+                "0110252624"
+            ],
+            "publish_date": "December 31, 1993",
+            "key": "/books/OL10007685M",
+            "latest_revision": 2,
+            "works": [
+                {
+                    "key": "/works/OL14903295W"
+                }
+            ],
+            "type": {
+                "key": "/type/edition"
+            },
+            "subjects": [
+                "English Law"
+            ],
+            "revision": 2
+        },
+        {
+            "publishers": [
+                "Stationery Office Books"
+            ],
+            "isbn_10": [
+                "0110255909"
+            ],
+            "number_of_pages": 2,
+            "isbn_13": [
+                "9780110255903"
+            ],
+            "physical_format": "Paperback",
+            "last_modified": {
+                "type": "/type/datetime",
+                "value": "2009-12-15T00:42:26.297199"
+            },
+            "publish_date": "December 31, 1992",
+            "latest_revision": 2,
+            "key": "/b/OL10007955M",
+            "authors": [
+                {
+                    "key": "/a/OL2645874A"
+                }
+            ],
+            "title": "The Olive Oil (Marketing Standards) (Amendment) Regulations 1992 (Statutory Instruments: 1992)",
+            "subjects": [
+                "English law: statutes & regulations",
+                "Food manufacturing & related industries",
+                "Sales & marketing"
+            ],
+            "works": [
+                {
+                    "key": "/works/OL7927693W"
+                }
+            ],
+            "type": {
+                "key": "/type/edition"
+            },
+            "revision": 2
+        },
+        {
+            "physical_format": "Paperback",
+            "last_modified": {
+                "type": "/type/datetime",
+                "value": "2008-04-30 09:38:13.731961"
+            },
+            "publishers": [
+                "Stationery Office Books"
+            ],
+            "number_of_pages": 4,
+            "id": 13390490,
+            "isbn_13": [
+                "9780110258881"
+            ],
+            "isbn_10": [
+                "0110258886"
+            ],
+            "publish_date": "December 31, 1992",
+            "key": "/b/OL10008122M",
+            "title": "The Medicines (Manufacturer's Undertakings for Imported Products) Amendment Regulations 1992 (Statutory Instruments: 1992: 2845)",
+            "type": {
+                "key": "/type/edition"
+            },
+            "subjects": [
+                "English Law"
+            ],
+            "revision": 1
+        },
+        {
+            "physical_format": "Paperback",
+            "subtitle": "Food",
+            "last_modified": {
+                "type": "/type/datetime",
+                "value": "2008-04-30 09:38:13.731961"
+            },
+            "publishers": [
+                "Stationery Office Books"
+            ],
+            "title": "SI 1982 No 255",
+            "id": 13389901,
+            "isbn_13": [
+                "9780110262550"
+            ],
+            "isbn_10": [
+                "0110262557"
+            ],
+            "key": "/b/OL10008235M",
+            "type": {
+                "key": "/type/edition"
+            },
+            "subjects": [
+                "English law: public health & safety law",
+                "Food manufacturing & related industries"
+            ],
+            "revision": 1
+        },
+        {
+            "publishers": [
+                "Stationery Office Books"
+            ],
+            "last_modified": {
+                "type": "/type/datetime",
+                "value": "2011-04-29T06:23:14.782811"
+            },
+            "title": "Hong Kong Letters Patent, 1982 (Feb. 10, 1982)",
+            "created": {
+                "type": "/type/datetime",
+                "value": "2008-04-30T09:38:13.731961"
+            },
+            "isbn_13": [
+                "9780110285245"
+            ],
+            "physical_format": "Paperback",
+            "isbn_10": [
+                "0110285247"
+            ],
+            "publish_date": "December 31, 1982",
+            "key": "/books/OL10008275M",
+            "authors": [
+                {
+                    "key": "/authors/OL46053A"
+                }
+            ],
+            "latest_revision": 3,
+            "oclc_numbers": [
+                "60233315"
+            ],
+            "works": [
+                {
+                    "key": "/works/OL14887742W"
+                }
+            ],
+            "type": {
+                "key": "/type/edition"
+            },
+            "revision": 3
+        },
+        {
+            "publishers": [
+                "Stationery Office Books"
+            ],
+            "last_modified": {
+                "type": "/type/datetime",
+                "value": "2011-04-27T00:38:29.777490"
+            },
+            "title": "The Plant Breeders' Rights (Quince Rootstocks) Scheme 1993 (Statutory Instruments: 1993: 2781)",
+            "number_of_pages": 2,
+            "isbn_13": [
+                "9780110331317"
+            ],
+            "created": {
+                "type": "/type/datetime",
+                "value": "2008-04-30T09:38:13.731961"
+            },
+            "physical_format": "Paperback",
+            "isbn_10": [
+                "0110331311"
+            ],
+            "publish_date": "December 31, 1993",
+            "key": "/books/OL10008417M",
+            "latest_revision": 2,
+            "oclc_numbers": [
+                "29508795"
+            ],
+            "type": {
+                "key": "/type/edition"
+            },
+            "subjects": [
+                "English Law"
+            ],
+            "revision": 2
+        },
+        {
+            "publishers": [
+                "Stationery Office Books"
+            ],
+            "physical_format": "Paperback",
+            "last_modified": {
+                "type": "/type/datetime",
+                "value": "2011-04-30T00:16:03.948199"
+            },
+            "title": "The Spring Traps Approval (Scotland) Variation Order 1993 (Statutory Instruments: 1993: 167 ()",
+            "number_of_pages": 2,
+            "created": {
+                "type": "/type/datetime",
+                "value": "2008-04-30T09:38:13.731961"
+            },
+            "isbn_13": [
+                "9780110331676"
+            ],
+            "isbn_10": [
+                "0110331672"
+            ],
+            "publish_date": "December 31, 1993",
+            "key": "/books/OL10008441M",
+            "authors": [
+                {
+                    "key": "/authors/OL46053A"
+                }
+            ],
+            "latest_revision": 3,
+            "oclc_numbers": [
+                "27670867"
+            ],
+            "works": [
+                {
+                    "key": "/works/OL14897108W"
+                }
+            ],
+            "type": {
+                "key": "/type/edition"
+            },
+            "subjects": [
+                "Scots Law"
+            ],
+            "revision": 3
+        },
+        {
+            "publishers": [
+                "Stationery Office Books"
+            ],
+            "last_modified": {
+                "type": "/type/datetime",
+                "value": "2019-07-30T13:31:15.280807"
+            },
+            "title": "The Regional and District Health Authorities (Membership and Procedure) Amendment Regulations 1993 (Statutory Instruments: 1993: 573)",
+            "number_of_pages": 2,
+            "isbn_13": [
+                "9780110335735"
+            ],
+            "created": {
+                "type": "/type/datetime",
+                "value": "2008-04-30T09:38:13.731961"
+            },
+            "physical_format": "Paperback",
+            "isbn_10": [
+                "0110335732"
+            ],
+            "publish_date": "December 31, 1993",
+            "key": "/books/OL10008723M",
+            "latest_revision": 3,
+            "oclc_numbers": [
+                "27909801"
+            ],
+            "works": [
+                {
+                    "key": "/works/OL14903348W"
+                }
+            ],
+            "type": {
+                "key": "/type/edition"
+            },
+            "subjects": [
+                "English Law"
+            ],
+            "revision": 3
+        },
+        {
+            "physical_format": "Paperback",
+            "last_modified": {
+                "type": "/type/datetime",
+                "value": "2008-04-30 09:38:13.731961"
+            },
+            "publishers": [
+                "Stationery Office Books"
+            ],
+            "number_of_pages": 16,
+            "id": 13393435,
+            "isbn_13": [
+                "9780110342528"
+            ],
+            "isbn_10": [
+                "0110342526"
+            ],
+            "publish_date": "December 31, 1993",
+            "key": "/b/OL10009236M",
+            "title": "The Financial Provisions (Northern Ireland) Order 1993 (Statutory Instruments: 1993: 1252 (N.I. 5))",
+            "type": {
+                "key": "/type/edition"
+            },
+            "subjects": [
+                "English Law"
+            ],
+            "revision": 1
+        },
+        {
+            "publishers": [
+                "Stationery Office Books"
+            ],
+            "last_modified": {
+                "type": "/type/datetime",
+                "value": "2011-04-26T19:31:57.523123"
+            },
+            "title": "The M11 Motorway (Stump Cross Junction Improvement) and Connecting Roads Scheme 1993 (Statutory Instruments: 1993: 1485)",
+            "number_of_pages": 2,
+            "isbn_13": [
+                "9780110344850"
+            ],
+            "created": {
+                "type": "/type/datetime",
+                "value": "2008-04-30T09:38:13.731961"
+            },
+            "physical_format": "Paperback",
+            "isbn_10": [
+                "0110344855"
+            ],
+            "publish_date": "December 31, 1993",
+            "key": "/books/OL10009351M",
+            "latest_revision": 2,
+            "oclc_numbers": [
+                "28366045"
+            ],
+            "type": {
+                "key": "/type/edition"
+            },
+            "subjects": [
+                "English Law"
+            ],
+            "revision": 2
+        },
+        {
+            "physical_format": "Paperback",
+            "last_modified": {
+                "type": "/type/datetime",
+                "value": "2008-04-30 09:38:13.731961"
+            },
+            "publishers": [
+                "Stationery Office Books"
+            ],
+            "number_of_pages": 2,
+            "id": 13391672,
+            "isbn_13": [
+                "9780110358055"
+            ],
+            "isbn_10": [
+                "0110358058"
+            ],
+            "publish_date": "December 31, 1993",
+            "key": "/b/OL10009958M",
+            "title": "Northern Ireland (Emergency and Prevention of Terrorism Provisions) (Continuance) Order 1993 (Statutory Instruments: 1993: Draft)",
+            "type": {
+                "key": "/type/edition"
+            },
+            "subjects": [
+                "English Law"
+            ],
+            "revision": 1
+        },
+        {
+            "publishers": [
+                "Stationery Office Books"
+            ],
+            "last_modified": {
+                "type": "/type/datetime",
+                "value": "2011-04-28T12:40:55.575349"
+            },
+            "title": "The A1 Trunk Road (Haringey) (Bus Lanes) Red Route Traffic Order 1993 Variation Order 1994 (Statutory Instruments: 1994: 3005)",
+            "number_of_pages": 2,
+            "isbn_13": [
+                "9780110432533"
+            ],
+            "created": {
+                "type": "/type/datetime",
+                "value": "2008-04-30T09:38:13.731961"
+            },
+            "physical_format": "Paperback",
+            "isbn_10": [
+                "0110432533"
+            ],
+            "publish_date": "December 31, 1994",
+            "key": "/books/OL10010436M",
+            "latest_revision": 2,
+            "oclc_numbers": [
+                "31763639"
+            ],
+            "type": {
+                "key": "/type/edition"
+            },
+            "subjects": [
+                "English Law"
+            ],
+            "revision": 2
+        },
+        {
+            "publishers": [
+                "Stationery Office Books"
+            ],
+            "last_modified": {
+                "type": "/type/datetime",
+                "value": "2011-04-27T17:10:31.157067"
+            },
+            "title": "The Housing Benefit (Permitted Totals) Order 1994 (Statutory Instruments: 1994: 579)",
+            "number_of_pages": 2,
+            "isbn_13": [
+                "9780110435794"
+            ],
+            "created": {
+                "type": "/type/datetime",
+                "value": "2008-04-30T09:38:13.731961"
+            },
+            "physical_format": "Paperback",
+            "isbn_10": [
+                "0110435796"
+            ],
+            "publish_date": "December 31, 1994",
+            "key": "/books/OL10010750M",
+            "latest_revision": 2,
+            "oclc_numbers": [
+                "30306826"
+            ],
+            "type": {
+                "key": "/type/edition"
+            },
+            "subjects": [
+                "English Law"
+            ],
+            "revision": 2
+        }
+    ]
+}
