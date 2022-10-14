@@ -37,8 +37,8 @@ exports.getMatchingBooks= async (info) => {
                     WHERE 1 = 1
 				`;
 	if (title) {
-		query += " AND Books.title = ? ";
-		params.push(title);
+		query += " AND Books.title LIKE ? ";
+		params.push(`%${title}%`);
 	}
 	if (genre) {
 		query += " AND Genres.name IN ? ";
