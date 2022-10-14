@@ -6,7 +6,6 @@ services:
       - api
     build: ./front-end
     container_name: huskyreads_front_end
-    restart: always
     ports:
       - 3000:3000
     volumes:
@@ -18,7 +17,6 @@ services:
     # - db
     build: ./back-end
     container_name: huskyreads_api
-    restart: always
     ports:
       - 8000:8000
     volumes:
@@ -28,7 +26,6 @@ services:
   db:
     image: mysql:8.0.26
     container_name: huskyreads_db
-    restart: always
     environment:
       MYSQL_HOST: "localhost"
       MYSQL_DATABASE: "huskyreads"
