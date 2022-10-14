@@ -44,10 +44,13 @@ describe('GET /books/search', function() {
       res.body.should.have.property("remainingBooksInSearch");
       res.body.remainingBooksInSearch.should.be.eql(0);
       res.body.should.have.property("books");
-      res.body.books.length.should.be.eql(1);
+      res.body.books.length.should.be.eql(2);
       res.body.books[0].should.have.property("title");
       res.body.books[0].should.have.property("authors");
       res.body.books[0].should.have.property("isbn");
+      res.body.books[1].should.have.property("title");
+      res.body.books[1].should.have.property("authors");
+      res.body.books[1].should.have.property("isbn");
       done();
     });
   });

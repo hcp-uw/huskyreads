@@ -122,7 +122,7 @@ LEFT OUTER JOIN Book_Genres
     ON Books.ISBN = Book_Genres.ISBN_book
 LEFT OUTER JOIN Genres
     ON Book_Genres.id_genre = Genres.id
-WHERE Books.title = [Title]
+WHERE Books.title LIKE %[Title]%
 AND Genres.name = [Genre] -- If multiple genres, use IN for array
 GROUP BY Books.title, Books.ISBN
 HAVING FIND_IN_SET([Author], authors)

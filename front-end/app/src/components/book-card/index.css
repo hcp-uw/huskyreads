@@ -1,6 +1,6 @@
 .book-list_card {
-  margin: 5px 30px 25px;
-  max-width: 150px;
+  margin: 5px 32px 25px;
+  max-width: 160px;
   text-decoration: none;
   display: block;
 }
@@ -22,7 +22,7 @@
 .book-card_img {
   margin-bottom: 12px;
   height: 200px;
-  max-width: 145px;
+  max-width: 160px;
   object-fit: cover;
   border: solid 1px rgb(220, 220, 220);
 }
