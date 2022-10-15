@@ -74,6 +74,17 @@ export default function BookStandPage(props) {
     getShelves();
   }, [selected]);
 
+
+  function switchShelves(newSelectedShelf) {
+    let prevShelf = selected;
+    let index = unselected.indexOf(newSelectedShelf);
+    let newUnselected = JSON.parse(JSON.stringify(unselected));
+    newUnselected[index] = prevShelf;
+    setUnselected(newUnselected);
+    setSelected(newSelectedShelf);
+    getShelves();
+  }
+
   // decides what to show on the screen
   if (returnToLogin) {
     // force reloads the page to bring user back to the login page
@@ -85,16 +96,13 @@ export default function BookStandPage(props) {
     return (
       <div className="bookstand-container">
         <section className="bookstand-buttons">
-          {Array.from(unselected).map((str) => {
+          {Array.from(unselected).map((shelfName) => {
             return (
               <div
-                key={str}
-                onClick={() => {
-                  setSaved(selected);
-                  setSelected(str);
-                }}
+                key={shelfName}
+                onClick={() => switchShelves(shelfName)}
               >
-                <p>{labels[str]}</p>
+                <p>{labels[shelfName]}</p>
               </div>
             );
           })}
