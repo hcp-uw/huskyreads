@@ -16,7 +16,7 @@ exports.createUser = async (username, password) => {
             ;`;
     await db.query(query, [userID, userID, userID]);
 }
-//git request-pull fix-user-creation origin fixToQueryWithUserID
+
 /**
  * Updates the User's current color scheme.
  * @param {String[]} userInfo - The clients username and color_scheme
