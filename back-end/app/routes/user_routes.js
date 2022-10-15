@@ -60,8 +60,7 @@ router.post("/signup", async (req, res) => {
 			const salt = await bcrypt.genSalt(process.env.SALT | 10);
 			const hashedPW = await bcrypt.hash(password, salt);
 			// Create user
-			let info = [username, hashedPW];
-			await createUser(info);
+			await createUser(username, hashedPW);
 			// Create cookies
 			const auth = jwt.sign({user: username}, process.env.JWT_KEY, {expiresIn: 60 * 60 * 24 * 2});
 			const color = jwt.sign({color: "light"}, process.env.JWT_KEY, {expiresIn: 2147483000});

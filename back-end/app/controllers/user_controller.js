@@ -5,10 +5,10 @@ const { db } = require('../utils/db');
  * Also creates the new user 3 default bookshelves
  * @param {String[]} userInfo - The new clients username and password
  */
-exports.createUser = async (userInfo) => {
+exports.createUser = async (username, password) => {
     let query = "INSERT INTO Users (username, password) VALUES (?, ?);";
-	await db.query(query, userInfo);
-    let userID = this.getUserID(userInfo);
+    await db.query(query, [username, password]);
+    let userID = await this.getUserID(username);
     query = `INSERT INTO Bookshelves (id_user, shelf_name) VALUES
             (?, "reading"),
             (?, "read"),
