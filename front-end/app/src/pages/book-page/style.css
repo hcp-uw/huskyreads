@@ -11,7 +11,7 @@
 #right-column h1 {
     margin: 0;
     margin-bottom: 22px;
-    font-size: 38px;
+    font-size: max(32px, 2.5vw);
     line-height: 1.25em;
 }
 
@@ -130,7 +130,7 @@
     display: inline-block;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 780px) {
     .bookpage-modal {
         padding: 1.6em 1em 7em;
         height: 78%;
@@ -162,7 +162,7 @@
     }
 
     #right-column h1 {
-        font-size: 38px;
+        font-size: 28px;
     }
 
     #imagebox {
