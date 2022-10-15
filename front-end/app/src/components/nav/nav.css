@@ -167,3 +167,14 @@
     display: none;
   }
 }
+
+.nav_logout-btn {
+  background-color: white;
+  padding-top: 7px;
+  padding-left: 11px;
+}
+
+.nav_logout-btn:hover {
+  background-color: gray;
+  cursor: pointer;
+}
