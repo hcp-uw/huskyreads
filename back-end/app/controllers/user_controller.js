@@ -8,16 +8,15 @@ const { db } = require('../utils/db');
 exports.createUser = async (userInfo) => {
     let query = "INSERT INTO Users (username, password) VALUES (?, ?);";
 	await db.query(query, userInfo);
-    let val = await db.query("SELECT LAST_INSERT_ID() as id_user");
-    val = val[0][0].id_user;
+    let userID = this.getUserID(userInfo);
     query = `INSERT INTO Bookshelves (id_user, shelf_name) VALUES
             (?, "reading"),
             (?, "read"),
             (?, "want_to_read")
             ;`;
-    await db.query(query, [val, val, val]);
+    await db.query(query, [userID, userID, userID]);
 }
-
+//git request-pull fix-user-creation origin fixToQueryWithUserID
 /**
  * Updates the User's current color scheme.
  * @param {String[]} userInfo - The clients username and color_scheme
