@@ -5,6 +5,7 @@ import HomePage from "./../home/Home";
 import BookStandPage from "./../book-stand/BookStand";
 import AboutPage from "./../about/About";
 import {BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
+
 export default class Form extends React.Component {
 
   state = {
@@ -29,6 +30,16 @@ export default class Form extends React.Component {
       onLogin: true,
       onSignup: false,
       errorMessage: ""
+    });
+  }
+
+  logoutFn = () => {
+    this.setState({
+      loggedIn: false,
+      username: "",
+      password: "",
+      onLogin: true,
+      onSignup: false
     });
   }
 
@@ -105,7 +116,7 @@ export default class Form extends React.Component {
       return(
         <>
           <Router>
-            <Navbar username={this.state.username}/>
+            <Navbar username={this.state.username} logoutFunction={this.logoutFn} />
             <Switch>
               <Route path="/bookstand">
                 <BookStandPage username={this.state.username}/>
