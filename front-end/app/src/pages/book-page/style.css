@@ -11,7 +11,7 @@
 #right-column h1 {
     margin: 0;
     margin-bottom: 22px;
-    font-size: max(32px, 2.5vw);
+    font-size: max(min(38px, 2vw), 28px);
     line-height: 1.25em;
 }
 
@@ -162,7 +162,7 @@
     }
 
     #right-column h1 {
-        font-size: 28px;
+        font-size: 32px;
     }
 
     #imagebox {

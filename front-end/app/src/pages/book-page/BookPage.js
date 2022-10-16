@@ -2,7 +2,7 @@ import "./style.css";
 import axios from "axios";
 import React, { useState, useEffect, useRef } from "react";
 
-export default function BookPage({ isbn, openPage, setBgClass, setPageClass, username, shelfStatus, setShelfStatus }) {
+export default function BookPage({ isbn, openPage, setBgClass, setPageClass, username, shelfStatus, setShelfStatus, refreshBookstand }) {
   const URL = "https://husky-reads.herokuapp.com";
   const [selectedAddShelf, setSelectedAddShelf] = useState("default");
   const [selectedRemoveShelf, setSelectedRemoveShelf] = useState("default");
@@ -96,6 +96,9 @@ export default function BookPage({ isbn, openPage, setBgClass, setPageClass, use
         setShelfStatus(response.data);
         // now update the options that the user has
         await updateBookshelfSelectors();
+        if (typeof refreshBookstand === 'function') {
+          await refreshBookstand();
+        }
       }
     } catch (err) {
       setShelfStatus(err.toString());
@@ -126,6 +129,9 @@ export default function BookPage({ isbn, openPage, setBgClass, setPageClass, use
 
         // now update the options that the user has
         await updateBookshelfSelectors();
+        if (typeof refreshBookstand === 'function') {
+          await refreshBookstand();
+        }
       }
     } catch (err) {
       setShelfStatus(err.toString());

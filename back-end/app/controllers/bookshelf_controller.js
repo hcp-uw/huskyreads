@@ -86,8 +86,8 @@ exports.getBookshelf = async (info) => {
             let book = {
                 "isbn": row.ISBN,
                 "title": row.title,
-                "authors": row.authors.split(","),
-                "genres": row.genres.split(",")
+                "authors": row.authors ? row.authors.split(",") : [],
+                "genres": row.genres ? row.genres.split(",") : []
             };
             bookshelf.push(book);
         }
