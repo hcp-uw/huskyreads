@@ -50,6 +50,7 @@ export default function BookStandPage(props) {
         if (BOOKSTAND.error === undefined) {
           // bookstand fetch worked
           setDisplay(BOOKSTAND.data[0].books);
+          console.log("Bookstand refreshed: " + selected)
         } else {
           // bookstand fetch didn't work
           console.log(BOOKSTAND.error);
