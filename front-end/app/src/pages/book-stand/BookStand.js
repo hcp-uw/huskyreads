@@ -62,6 +62,7 @@ export default function BookStandPage(props) {
       }
     } catch (err) {
       console.log(err.toString());
+      returnToLogin = true;
     }
   }
 
@@ -91,7 +92,7 @@ export default function BookStandPage(props) {
     window.location.reload();
     return null;
   } else if (errorPage) {
-    return <p>Error: Unable to retrieve book details</p>;
+    return <p>Error: Unable to retrieve shelf & book details</p>;
   } else {
     return (
       <div className="bookstand-container">
@@ -137,6 +138,7 @@ export default function BookStandPage(props) {
               username={props.username}
               shelfStatus={shelfStatus}
               setShelfStatus={setShelfStatus}
+              refreshBookstand={getShelves}
             />
           </div>
         </section>
