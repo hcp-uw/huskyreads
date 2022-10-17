@@ -6,7 +6,6 @@ import "./index.css";
 
 export default function BookStandPage(props) {
   const [selected, setSelected] = useState("reading");
-  const [saved, setSaved] = useState("");
   const [unselected, setUnselected] = useState(["read", "want_to_read"]);
   const [booksDisplay, setDisplay] = useState([]);
   const [selectedISBN, setISBN] = useState();
@@ -23,9 +22,9 @@ export default function BookStandPage(props) {
   let errorPage = false;
   const URL = "https://husky-reads.herokuapp.com";
   const labels = {
-    reading: "Currently Reading",
-    read: "Books I've Read",
-    want_to_read: "My Wish List",
+    "reading": "Currently Reading",
+    "read": "Books I've Read",
+    "want_to_read": "My Wish List",
   };
 
   // plan: Using the username passed in through props, we get
@@ -50,7 +49,7 @@ export default function BookStandPage(props) {
         if (BOOKSTAND.error === undefined) {
           // bookstand fetch worked
           setDisplay(BOOKSTAND.data[0].books);
-          console.log("Bookstand refreshed: " + selected)
+          console.log("Selected bookshelf: " + selected);
         } else {
           // bookstand fetch didn't work
           console.log(BOOKSTAND.error);
@@ -68,24 +67,15 @@ export default function BookStandPage(props) {
   }
 
   useEffect(() => {
-    // find unselected categories & add them to a Set
-    let index = unselected.indexOf(selected);
-    let newUnselected = unselected;
-    newUnselected[index] = saved;
+    let newUnselected = [];
+    for (let shelf_key in labels) {
+      if (shelf_key !== selected) {
+        newUnselected.push(shelf_key);
+      }
+    }
     setUnselected(newUnselected);
     getShelves();
   }, [selected]);
-
-
-  function switchShelves(newSelectedShelf) {
-    let prevShelf = selected;
-    let index = unselected.indexOf(newSelectedShelf);
-    let newUnselected = JSON.parse(JSON.stringify(unselected));
-    newUnselected[index] = prevShelf;
-    setUnselected(newUnselected);
-    setSelected(newSelectedShelf);
-    getShelves();
-  }
 
   // decides what to show on the screen
   if (returnToLogin) {
@@ -102,7 +92,7 @@ export default function BookStandPage(props) {
             return (
               <div
                 key={shelfName}
-                onClick={() => switchShelves(shelfName)}
+                onClick={() => setSelected(shelfName)}
               >
                 <p>{labels[shelfName]}</p>
               </div>
