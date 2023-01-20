@@ -32,7 +32,7 @@ cd back-end/app
 npm install
 ```
 
-Note, the front-end is currently hosted on Heroku at https://husky-reads-front-end.herokuapp.com.
+Note, the front-end was hosted on Heroku at https://husky-reads-front-end.herokuapp.com until Heroku stopped their free tier. It is not yet hosted anywhere else.
 
 However, if you want to launch the front-end on your personal machine, perform the following commands in your Terminal starting at the top project directory:
 
